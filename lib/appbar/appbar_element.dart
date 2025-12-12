@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project/tema/theme.dart';
+import 'package:project/theme/theme.dart';
 
 class AppbarElement extends StatelessWidget {
   final String title;

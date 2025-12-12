@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project/tema/theme.dart';
+import 'package:project/theme/theme.dart';
+import 'package:sizer/sizer.dart';
 
 class ListHome extends StatelessWidget {
   final String nomer;
@@ -19,7 +20,7 @@ class ListHome extends StatelessWidget {
           children: [
             Text(
               title,
-              style: blackTextStyle.copyWith(fontWeight: bold, fontSize: 16),
+              style: blackTextStyle.copyWith(fontWeight: bold, fontSize: 16.sp),
             ),
           ],
         ),
