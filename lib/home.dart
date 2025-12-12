@@ -6,6 +6,7 @@ import 'package:project/appbar/list_home.dart';
 import 'package:project/controller/homeController.dart';
 import 'package:project/global%20widget/featureCard.dart';
 import 'package:project/model/featureCardModel.dart';
+import 'package:project/theme/app_images.dart';
 import 'package:project/theme/string.dart';
 import 'package:project/theme/theme.dart';
 // import-import lain
@@ -151,6 +152,49 @@ class Home extends StatelessWidget {
       );
     }
 
+    Widget heroSectionContent() {
+      return Column(
+        crossAxisAlignment: isDesktop(screenWidth)
+            ? CrossAxisAlignment.start
+            : CrossAxisAlignment.center,
+        children: [
+          SizedBox(height: isDesktop(screenWidth) ? 10.h : 5.h),
+          Container(
+            // Hapus margin tetap, ganti dengan Padding atau alignment
+            padding: EdgeInsets.symmetric(
+              horizontal: isDesktop(screenWidth) ? 0 : 5.w,
+            ),
+            child: Text(
+              AppString().titleLandingPage1,
+              style: blackTextStyle.copyWith(
+                fontSize: isDesktop(screenWidth)
+                    ? 20.sp
+                    : 24.sp, // Ukuran font responsif
+                fontWeight: bold,
+              ),
+              textAlign: isDesktop(screenWidth)
+                  ? TextAlign.left
+                  : TextAlign.center,
+            ),
+          ),
+          SizedBox(height: 2.h),
+          Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: isDesktop(screenWidth) ? 0 : 5.w,
+            ),
+            child: Text(
+              AppString().heroSectionContentTitle,
+              style: greyTextStyle.copyWith(fontWeight: light, fontSize: 14.sp),
+              textAlign: isDesktop(screenWidth)
+                  ? TextAlign.left
+                  : TextAlign.center,
+            ),
+          ),
+          SizedBox(height: isDesktop(screenWidth) ? 10.h : 5.h),
+        ],
+      );
+    }
+
     Widget featureListSection() {
       return Padding(
         padding: EdgeInsets.symmetric(
@@ -160,17 +204,20 @@ class Home extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Fitur Fitur Terbaik dalam Satu Platform',
+              AppString().featureListSectionTitle,
               style: blackTextStyle.copyWith(
                 fontSize: isDesktop(screenWidth) ? 20.sp : 16.sp,
                 fontWeight: bold,
               ),
             ),
             SizedBox(height: 3.h),
-            ListHome(nomer: '01', title: 'Customer Record'),
+            ListHome(
+              nomer: AppString().listHomeNumber1,
+              title: AppString().listHomeTitle1,
+            ),
             SizedBox(height: 1.5.h),
             Text(
-              'kelola data pelanggan dan riwayat servis kendaraan secara lengkap\ndan mudah, mulai dari informasi kontak hingga riwayat perbaikan dan\npenggantian suku cadang ',
+              AppString().listHomeSubtitle,
               style: greyTextStyle.copyWith(
                 fontSize: (isMobile(screenWidth)) ? 14.sp : 10.sp,
                 fontWeight: light,
@@ -184,28 +231,40 @@ class Home extends StatelessWidget {
             ),
 
             // Item 02 s/d 05
-            ListHome(nomer: '02', title: 'Transaction Management'),
+            ListHome(
+              nomer: AppString().listHomeNumber2,
+              title: AppString().listHomeTitle2,
+            ),
             Container(
               height: 2,
               width: double.infinity,
               color: Colors.grey.shade300,
               margin: EdgeInsets.symmetric(vertical: 2.h),
             ),
-            ListHome(nomer: '03', title: 'Comprehensive Report'),
+            ListHome(
+              nomer: AppString().listHomeNumber3,
+              title: AppString().listHomeTitle3,
+            ),
             Container(
               height: 2,
               width: double.infinity,
               color: Colors.grey.shade300,
               margin: EdgeInsets.symmetric(vertical: 2.h),
             ),
-            ListHome(nomer: '04', title: 'Custom Method'),
+            ListHome(
+              nomer: AppString().listHomeNumber4,
+              title: AppString().listHomeTitle4,
+            ),
             Container(
               height: 2,
               width: double.infinity,
               color: Colors.grey.shade300,
               margin: EdgeInsets.symmetric(vertical: 2.h),
             ),
-            ListHome(nomer: '05', title: 'Custom Management'),
+            ListHome(
+              nomer: AppString().listHomeNumber5,
+              title: AppString().listHomeTitle5,
+            ),
             Container(
               height: 2,
               width: double.infinity,
@@ -214,6 +273,29 @@ class Home extends StatelessWidget {
             ),
           ],
         ),
+      );
+    }
+
+    Widget mobileWidget() {
+      return Column(
+        children: [
+          heroSectionContent(),
+          Container(
+            width: 90.w,
+            height: 50.h,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(AppImages().imageHomePage1),
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+          SizedBox(height: 5.h),
+          // Section Fitur Terbaik
+          featureListSection(),
+          SizedBox(height: 5.h),
+          plusPoint(),
+        ],
       );
     }
 
@@ -227,7 +309,7 @@ class Home extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(child: heroSectionContent), // Kolom kiri
+                Expanded(child: heroSectionContent()), // Kolom kiri
                 Expanded(
                   child: Container(
                     // Hapus margin tetap dan batasi lebar/tinggi dengan Expanded
@@ -235,9 +317,7 @@ class Home extends StatelessWidget {
                     height: 50.h, // Tinggi responsif
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage(
-                          'assets/images/Screenshot 2025-12-11 181957.png',
-                        ),
+                        image: AssetImage(AppImages().imageHomePage1),
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -259,9 +339,7 @@ class Home extends StatelessWidget {
                   margin: EdgeInsets.only(left: 5.w), // Sedikit margin ke kiri
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage(
-                        'assets/images/Screenshot 2025-12-11 181957.png',
-                      ),
+                      image: AssetImage(AppImages().imageHomePage1),
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -292,15 +370,13 @@ class Home extends StatelessWidget {
                         height: 40,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage(
-                              'assets/images/Screenshot 2025-12-11 151416.png',
-                            ),
+                            image: AssetImage(AppImages().imageHomePage2),
                           ),
                         ),
                       ),
                       SizedBox(width: 10),
                       Text(
-                        'Buku Bengkel',
+                        AppString().judul,
                         style: blueTextStyle.copyWith(
                           fontWeight: bold,
                           fontSize: 14.sp,
@@ -320,14 +396,12 @@ class Home extends StatelessWidget {
                             height: 50,
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                image: AssetImage(
-                                  'assets/images/Screenshot 2025-12-11 151416.png',
-                                ),
+                                image: AssetImage(AppImages().imageHomePage2),
                               ),
                             ),
                           ),
                           Text(
-                            'Buku Bengkel',
+                            AppString().judul,
                             style: blueTextStyle.copyWith(
                               fontWeight: bold,
                               fontSize: 14.sp,
@@ -339,9 +413,9 @@ class Home extends StatelessWidget {
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          AppbarElement(title: 'Home'),
-                          AppbarElement(title: 'About us'),
-                          AppbarElement(title: 'Contact'),
+                          AppbarElement(title: AppString().appBar1),
+                          AppbarElement(title: AppString().appBar2),
+                          AppbarElement(title: AppString().appBar3),
                         ],
                       ),
                     ],
@@ -360,10 +434,10 @@ class Home extends StatelessWidget {
                   child: ListView(
                     padding: EdgeInsets.zero,
                     children: [
-                      DrawerHeader(child: Text('Buku Bengkel Menu')),
-                      ListTile(title: Text('Home'), onTap: () {}),
-                      ListTile(title: Text('About us'), onTap: () {}),
-                      ListTile(title: Text('Contact'), onTap: () {}),
+                      DrawerHeader(child: Text(AppString().drawerTitle)),
+                      ListTile(title: Text(AppString().appBar1), onTap: () {}),
+                      ListTile(title: Text(AppString().appBar2), onTap: () {}),
+                      ListTile(title: Text(AppString().appBar3), onTap: () {}),
                     ],
                   ),
                 )
@@ -375,76 +449,10 @@ class Home extends StatelessWidget {
                 // Tentukan layout berdasarkan lebar layar
                 final width = constraints.maxWidth;
 
-                // --- Hero Section ---
-                Widget heroSectionContent = Column(
-                  crossAxisAlignment: isDesktop(width)
-                      ? CrossAxisAlignment.start
-                      : CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(height: isDesktop(width) ? 10.h : 5.h),
-                    Container(
-                      // Hapus margin tetap, ganti dengan Padding atau alignment
-                      padding: EdgeInsets.symmetric(
-                        horizontal: isDesktop(width) ? 0 : 5.w,
-                      ),
-                      child: Text(
-                        AppString().titleLandingPage1,
-                        style: blackTextStyle.copyWith(
-                          fontSize: isDesktop(width)
-                              ? 20.sp
-                              : 24.sp, // Ukuran font responsif
-                          fontWeight: bold,
-                        ),
-                        textAlign: isDesktop(width)
-                            ? TextAlign.left
-                            : TextAlign.center,
-                      ),
-                    ),
-                    SizedBox(height: 2.h),
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: isDesktop(width) ? 0 : 5.w,
-                      ),
-                      child: Text(
-                        'Ubah bengkel Anda menjadi bengkel profesional dengan\nsolusi pengelolaan dari Buku Bengkel.',
-                        style: greyTextStyle.copyWith(
-                          fontWeight: light,
-                          fontSize: 14.sp,
-                        ),
-                        textAlign: isDesktop(width)
-                            ? TextAlign.left
-                            : TextAlign.center,
-                      ),
-                    ),
-                    SizedBox(height: isDesktop(width) ? 10.h : 5.h),
-                  ],
-                );
-
                 if (isDesktop(width)) {
-                  desktopWidget();
+                  return desktopWidget();
                 } else {
-                  return Column(
-                    children: [
-                      heroSectionContent,
-                      Container(
-                        width: 90.w,
-                        height: 50.h,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(
-                              'assets/images/Screenshot 2025-12-11 181957.png',
-                            ),
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 5.h),
-                      // Section Fitur Terbaik
-                      featureListSection(),
-                      SizedBox(height: 5.h),
-                      plusPoint(),
-                    ],
-                  );
+                  return mobileWidget();
                 }
               },
             ),
