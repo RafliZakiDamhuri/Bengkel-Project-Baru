@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_x/get.dart';
 import 'package:project/controller/homeController.dart';
 import 'package:project/home.dart';
+
 import 'package:sizer/sizer.dart';
 
 void main() {
