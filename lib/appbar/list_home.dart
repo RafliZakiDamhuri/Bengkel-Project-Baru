@@ -3,24 +3,31 @@ import 'package:project/theme/theme.dart';
 import 'package:sizer/sizer.dart';
 
 class ListHome extends StatelessWidget {
-  final String nomer;
+  final String? nomer;
   final String title;
-  const ListHome({super.key, required this.nomer, required this.title});
+  final double? size;
+  const ListHome({super.key, this.nomer, required this.title, this.size});
 
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Container(
-          margin: EdgeInsets.only(right: 40),
-          child: Text(nomer, style: blackTextStyle),
-        ),
+        nomer == null
+            ? Container()
+            : Container(
+                margin: EdgeInsets.only(right: 40),
+                child: Text(nomer!, style: blackTextStyle),
+              ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               title,
-              style: blackTextStyle.copyWith(fontWeight: bold, fontSize: 16.sp),
+              style: blackTextStyle.copyWith(
+                fontWeight: bold,
+                fontSize: size ?? 16.sp,
+              ),
             ),
           ],
         ),

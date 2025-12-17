@@ -195,6 +195,133 @@ class Home extends StatelessWidget {
       );
     }
 
+    Widget questionHeroSectionContent() {
+      return Container(
+        padding: EdgeInsets.only(left: isDesktop(screenWidth) ? 20.w : 5.w),
+        child: Column(
+          crossAxisAlignment: isDesktop(screenWidth)
+              ? CrossAxisAlignment.start
+              : CrossAxisAlignment.center,
+          children: [
+            SizedBox(height: isDesktop(screenWidth) ? 10.h : 5.h),
+            Container(
+              // Hapus margin tetap, ganti dengan Padding atau alignment
+              child: Text(
+                'Pertanyaan yang\nSering Ditanyakan',
+                style: blackTextStyle.copyWith(
+                  fontSize: isDesktop(screenWidth)
+                      ? 20.sp
+                      : 24.sp, // Ukuran font responsif
+                  fontWeight: bold,
+                ),
+                textAlign: isDesktop(screenWidth)
+                    ? TextAlign.left
+                    : TextAlign.center,
+              ),
+            ),
+            SizedBox(height: 2.h),
+            Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: isDesktop(screenWidth) ? 0 : 5.w,
+              ),
+              child: Text(
+                AppString().heroSectionContentTitle,
+                style: greyTextStyle.copyWith(
+                  fontWeight: light,
+                  fontSize: isMobile(screenWidth) ? 13.sp : 10.sp,
+                ),
+                textAlign: isDesktop(screenWidth)
+                    ? TextAlign.left
+                    : TextAlign.center,
+              ),
+            ),
+            SizedBox(height: isDesktop(screenWidth) ? 10.h : 5.h),
+          ],
+        ),
+      );
+    }
+
+    Widget questionListSection() {
+      return Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: isDesktop(screenWidth) ? 10.w : 5.w,
+        ),
+        child: Container(
+          margin: EdgeInsets.only(bottom: 12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+
+            children: [
+              SizedBox(height: 6.h),
+              ListHome(
+                title: 'Apakah Buku Bengkel Itu?',
+                size: isMobile(screenWidth) ? 15.sp : 12.sp,
+              ),
+              SizedBox(height: 1.5.h),
+              Text(
+                'Buku Bengkel adalah pengeloala bengkel modern yang lengkap dan mudah\ndigunakan,dirancang khusus untuk membantu Anda mengelola bengkel secara\nprofisonal dan efisien',
+                style: greyTextStyle.copyWith(
+                  fontSize: (isMobile(screenWidth)) ? 13.sp : 10.sp,
+                  fontWeight: light,
+                ),
+              ),
+              Container(
+                height: 2,
+                width: double.infinity,
+                color: Colors.grey.shade300,
+                margin: EdgeInsets.symmetric(vertical: 2.h),
+              ),
+
+              // Item 02 s/d 05
+              ListHome(
+                title: 'Bagaimana cara sistem kerja Buku Bengkel?',
+                size: isMobile(screenWidth) ? 15.sp : 12.sp,
+              ),
+
+              Container(
+                height: 2,
+                width: double.infinity,
+                color: Colors.grey.shade300,
+                margin: EdgeInsets.symmetric(vertical: 2.h),
+              ),
+              ListHome(
+                title: 'Apakah ini Gratis?',
+                size: isMobile(screenWidth) ? 15.sp : 12.sp,
+              ),
+              Container(
+                height: 2,
+                width: double.infinity,
+                color: Colors.grey.shade300,
+                margin: EdgeInsets.symmetric(vertical: 2.h),
+              ),
+
+              ListHome(
+                title: 'Bagaimana cara sistem kerja Buku Bengkel?',
+                size: isMobile(screenWidth) ? 15.sp : 12.sp,
+              ),
+              Container(
+                height: 2,
+                width: double.infinity,
+                color: Colors.grey.shade300,
+                margin: EdgeInsets.symmetric(vertical: 2.h),
+              ),
+
+              ListHome(
+                title: 'Apakah data pada aplikasi ini aman',
+                size: isMobile(screenWidth) ? 15.sp : 12.sp,
+              ),
+              Container(
+                height: 2,
+                width: double.infinity,
+                color: Colors.grey.shade300,
+                margin: EdgeInsets.symmetric(vertical: 2.h),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
     Widget featureListSection() {
       return Padding(
         padding: EdgeInsets.symmetric(
@@ -295,6 +422,10 @@ class Home extends StatelessWidget {
           featureListSection(),
           SizedBox(height: 5.h),
           plusPoint(),
+
+          Column(
+            children: [questionHeroSectionContent(), questionListSection()],
+          ),
         ],
       );
     }
@@ -350,6 +481,14 @@ class Home extends StatelessWidget {
           ),
           SizedBox(height: 10.h),
           plusPoint(),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Expanded(child: questionHeroSectionContent()),
+              Expanded(child: questionListSection()), // Daftar Fitur di kanan
+            ],
+          ),
         ],
       );
     }
