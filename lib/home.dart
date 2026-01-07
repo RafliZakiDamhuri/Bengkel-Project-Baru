@@ -12,12 +12,21 @@ import 'package:project/theme/theme.dart';
 // import-import lain
 import 'package:sizer/sizer.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  List<bool> expandedIcons = [false, false, false, false, false];
+  // bool isExpanded = false;
   // Tentukan breakpoint (Anda dapat menyesuaikannya)
   bool isDesktop(double width) => width >= 900;
+
   bool isTablet(double width) => width >= 600 && width < 900;
+
   bool isMobile(double width) => width < 600;
 
   @override
@@ -253,16 +262,36 @@ class Home extends StatelessWidget {
 
             children: [
               SizedBox(height: 6.h),
-              ListHome(
-                title: 'Apakah Buku Bengkel Itu?',
-                size: isMobile(screenWidth) ? 15.sp : 12.sp,
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    expandedIcons[0] = !expandedIcons[0];
+                  });
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ListHome(
+                      title: 'Apakah Buku Bengkel Itu?',
+                      size: isMobile(screenWidth) ? 15.sp : 12.sp,
+                    ),
+                    Icon(
+                      expandedIcons[0]
+                          ? Icons.keyboard_arrow_up
+                          : Icons.keyboard_arrow_down_outlined,
+                    ),
+                  ],
+                ),
               ),
               SizedBox(height: 1.5.h),
-              Text(
-                'Buku Bengkel adalah pengeloala bengkel modern yang lengkap dan mudah\ndigunakan,dirancang khusus untuk membantu Anda mengelola bengkel secara\nprofisonal dan efisien',
-                style: greyTextStyle.copyWith(
-                  fontSize: (isMobile(screenWidth)) ? 13.sp : 10.sp,
-                  fontWeight: light,
+              Visibility(
+                visible: expandedIcons[0] ? true : false,
+                child: Text(
+                  'Buku Bengkel adalah pengeloala bengkel modern yang lengkap dan mudah\ndigunakan,dirancang khusus untuk membantu Anda mengelola bengkel secara\nprofisonal dan efisien',
+                  style: greyTextStyle.copyWith(
+                    fontSize: (isMobile(screenWidth)) ? 13.sp : 10.sp,
+                    fontWeight: light,
+                  ),
                 ),
               ),
               Container(
@@ -273,31 +302,26 @@ class Home extends StatelessWidget {
               ),
 
               // Item 02 s/d 05
-              ListHome(
-                title: 'Bagaimana cara sistem kerja Buku Bengkel?',
-                size: isMobile(screenWidth) ? 15.sp : 12.sp,
-              ),
-
-              Container(
-                height: 2,
-                width: double.infinity,
-                color: Colors.grey.shade300,
-                margin: EdgeInsets.symmetric(vertical: 2.h),
-              ),
-              ListHome(
-                title: 'Apakah ini Gratis?',
-                size: isMobile(screenWidth) ? 15.sp : 12.sp,
-              ),
-              Container(
-                height: 2,
-                width: double.infinity,
-                color: Colors.grey.shade300,
-                margin: EdgeInsets.symmetric(vertical: 2.h),
-              ),
-
-              ListHome(
-                title: 'Bagaimana cara sistem kerja Buku Bengkel?',
-                size: isMobile(screenWidth) ? 15.sp : 12.sp,
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    expandedIcons[1] = !expandedIcons[1];
+                  });
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ListHome(
+                      title: 'Bagaimana cara sistem kerja Buku Bengkel?',
+                      size: isMobile(screenWidth) ? 15.sp : 12.sp,
+                    ),
+                    Icon(
+                      expandedIcons[1]
+                          ? Icons.keyboard_arrow_up
+                          : Icons.keyboard_arrow_down_outlined,
+                    ),
+                  ],
+                ),
               ),
               Container(
                 height: 2,
@@ -306,9 +330,82 @@ class Home extends StatelessWidget {
                 margin: EdgeInsets.symmetric(vertical: 2.h),
               ),
 
-              ListHome(
-                title: 'Apakah data pada aplikasi ini aman',
-                size: isMobile(screenWidth) ? 15.sp : 12.sp,
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    expandedIcons[2] = !expandedIcons[2];
+                  });
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ListHome(
+                      title: 'Apakah ini Gratis',
+                      size: isMobile(screenWidth) ? 15.sp : 12.sp,
+                    ),
+                    Icon(
+                      expandedIcons[2]
+                          ? Icons.keyboard_arrow_up
+                          : Icons.keyboard_arrow_down_outlined,
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                height: 2,
+                width: double.infinity,
+                color: Colors.grey.shade300,
+                margin: EdgeInsets.symmetric(vertical: 2.h),
+              ),
+
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    expandedIcons[3] = !expandedIcons[3];
+                  });
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ListHome(
+                      title: 'Bagaimana cara sistem kerja Buku Bengkel',
+                      size: isMobile(screenWidth) ? 15.sp : 12.sp,
+                    ),
+                    Icon(
+                      expandedIcons[3]
+                          ? Icons.keyboard_arrow_up
+                          : Icons.keyboard_arrow_down_outlined,
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                height: 2,
+                width: double.infinity,
+                color: Colors.grey.shade300,
+                margin: EdgeInsets.symmetric(vertical: 2.h),
+              ),
+
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    expandedIcons[4] = !expandedIcons[4];
+                  });
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ListHome(
+                      title: 'Apakah data pada aplikasi ini aman',
+                      size: isMobile(screenWidth) ? 15.sp : 12.sp,
+                    ),
+                    Icon(
+                      expandedIcons[4]
+                          ? Icons.keyboard_arrow_up
+                          : Icons.keyboard_arrow_down_outlined,
+                    ),
+                  ],
+                ),
               ),
               Container(
                 height: 2,
@@ -403,6 +500,214 @@ class Home extends StatelessWidget {
       );
     }
 
+    Widget footer() {
+      return Container(
+        height: 180,
+        width: double.infinity,
+        color: Colors.black,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(left: 50, top: 30),
+                  child: Row(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(right: 10),
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(AppImages().imageFooter),
+                          ),
+                        ),
+                      ),
+                      Text(
+                        AppString().judul,
+                        style: whiteTextStyle.copyWith(fontSize: 25),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 10),
+                Container(
+                  margin: EdgeInsets.only(left: 50),
+                  child: Text(
+                    'Platform untuk bengkel dan customer bengkel\nyang memberikan kemudahan bekaitan dengan\nperawatan kendaraan',
+                    style: whiteTextStyle.copyWith(
+                      fontSize: isMobile(screenWidth) ? 10 : 14,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Learn More',
+                  style: whiteTextStyle.copyWith(
+                    fontSize: 16,
+                    fontWeight: bold,
+                  ),
+                ),
+                SizedBox(height: 20),
+                Text(
+                  'Tentang Kami',
+                  style: greyTextStyle.copyWith(
+                    fontWeight: medium,
+                    fontSize: 12,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'Layanan',
+                  style: greyTextStyle.copyWith(
+                    fontWeight: medium,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Contact Us',
+                  style: whiteTextStyle.copyWith(fontSize: 16),
+                ),
+                SizedBox(height: 15),
+                Text(
+                  'Term of Services',
+                  style: greyTextStyle.copyWith(
+                    fontWeight: medium,
+                    fontSize: 12,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'Privacy Policy',
+                  style: greyTextStyle.copyWith(
+                    fontWeight: medium,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Sosial Media', style: whiteTextStyle),
+                SizedBox(height: 20),
+                Row(
+                  children: [
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(AppImages().instagram),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(AppImages().facebook),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget footerMobile() {
+      return Container(
+        width: double.infinity,
+        color: Colors.black,
+        padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Container(
+                  margin: EdgeInsets.only(right: 10),
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(AppImages().imageFooter),
+                    ),
+                  ),
+                ),
+                Text(
+                  AppString().judul,
+                  style: whiteTextStyle.copyWith(fontSize: 22),
+                ),
+              ],
+            ),
+
+            SizedBox(height: 12),
+
+            Text(
+              'Platform untuk bengkel dan customer bengkel\n'
+              'yang memberikan kemudahan berkaitan dengan\n'
+              'perawatan kendaraan',
+              style: whiteTextStyle.copyWith(fontSize: 12),
+            ),
+
+            SizedBox(height: 30),
+
+            Text(
+              'Learn More',
+              style: whiteTextStyle.copyWith(fontSize: 16, fontWeight: bold),
+            ),
+            SizedBox(height: 10),
+            Text('Tentang Kami', style: greyTextStyle.copyWith(fontSize: 12)),
+            SizedBox(height: 6),
+            Text('Layanan', style: greyTextStyle.copyWith(fontSize: 12)),
+
+            SizedBox(height: 25),
+
+            Text('Contact Us', style: whiteTextStyle.copyWith(fontSize: 16)),
+            SizedBox(height: 10),
+            Text(
+              'Term of Services',
+              style: greyTextStyle.copyWith(fontSize: 12),
+            ),
+            SizedBox(height: 6),
+            Text('Privacy Policy', style: greyTextStyle.copyWith(fontSize: 12)),
+
+            SizedBox(height: 25),
+
+            Text('Social Media', style: whiteTextStyle),
+            SizedBox(height: 10),
+            Row(
+              children: [
+                Image.asset(AppImages().instagram, width: 32),
+                SizedBox(width: 10),
+                Image.asset(AppImages().facebook, width: 32),
+              ],
+            ),
+          ],
+        ),
+      );
+    }
+
     Widget mobileWidget() {
       return Column(
         children: [
@@ -424,7 +729,11 @@ class Home extends StatelessWidget {
           plusPoint(),
 
           Column(
-            children: [questionHeroSectionContent(), questionListSection()],
+            children: [
+              questionHeroSectionContent(),
+              questionListSection(),
+              footerMobile(),
+            ],
           ),
         ],
       );
@@ -489,6 +798,7 @@ class Home extends StatelessWidget {
               Expanded(child: questionListSection()), // Daftar Fitur di kanan
             ],
           ),
+          footer(),
         ],
       );
     }
