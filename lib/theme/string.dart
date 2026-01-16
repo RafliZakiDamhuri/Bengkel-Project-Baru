@@ -24,8 +24,22 @@ class AppString {
   String listHomeSubtitle =
       'kelola data pelanggan dan riwayat servis kendaraan secara lengkap\ndan mudah, mulai dari informasi kontak hingga riwayat perbaikan dan\npenggantian suku cadang ';
   String judul = 'Buku Bengkel';
-  String appBar1 = 'Home';
+  String appBar1 = 'Search';
   String appBar2 = 'About us';
   String appBar3 = 'Contact';
   String drawerTitle = 'Buku Bengkel Menu';
+  String detailProduct = 'Detail Produk';
+  String ISCPN = 'ISC P/N';
+  String OEMPN = 'OEM P/N';
+  String Make = 'Make';
+  String Model = 'Model';
+  String Application = 'Application';
+  String Alternative = 'Alternative';
+  String Height = 'Height';
+  String Width = 'Width';
+  String Thickness = 'Thickness';
+  String Material = 'Material';
+  String CoreType = 'Core Type';
+  String EquipmentType = 'Equipment Type';
+  String Compatible = 'Compatible';
 }

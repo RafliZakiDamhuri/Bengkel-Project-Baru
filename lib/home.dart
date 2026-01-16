@@ -1,11 +1,16 @@
 // ... imports Anda yang sudah ada ...
 import 'package:flutter/material.dart';
-import 'package:get_x/get_state_manager/get_state_manager.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:project/appbar/appbar_element.dart';
 import 'package:project/appbar/list_home.dart';
 import 'package:project/controller/homeController.dart';
+import 'package:project/detail_product.dart';
 import 'package:project/global%20widget/featureCard.dart';
+import 'package:project/model/allDataModel.dart';
 import 'package:project/model/featureCardModel.dart';
+import 'package:project/search_product_page.dart';
 import 'package:project/theme/app_images.dart';
 import 'package:project/theme/string.dart';
 import 'package:project/theme/theme.dart';
@@ -66,6 +71,7 @@ class _HomeState extends State<Home> {
         "Lacak semua pemasukan dan pengeluaran bisnismu secara detail dan otomatis.",
       ),
     ];
+
     Widget plusPoint() {
       // Ambil lebar layar sekali untuk penggunaan isMobile di luar LayoutBuilder
       final screenWidth = MediaQuery.of(context).size.width;
@@ -803,6 +809,65 @@ class _HomeState extends State<Home> {
       );
     }
 
+    Widget search() {
+      return GetBuilder<Homecontroller>(
+        builder: (controller) {
+          return TypeAheadField<AllDataModel>(
+            builder: (context, controller, focusNode) => Container(
+              height: 60,
+
+              child: Center(
+                child: TextFormField(
+                  controller: controller,
+                  focusNode: focusNode,
+
+                  decoration: InputDecoration(
+                    suffixIcon: Icon(Icons.search),
+                    border: InputBorder.none,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey),
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue),
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                    ),
+                    hint: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            'Cari berdasarkan plat number',
+                            style: blackTextStyle.copyWith(fontSize: 10.sp),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            debounceDuration: const Duration(milliseconds: 500),
+            itemBuilder: (context, value) {
+              return ListTile(
+                leading: const Icon(Icons.directions_car),
+                title: Text(value.platNumber?.platNumber ?? ''),
+                subtitle: Text(value.coreTypeModel?.coreType ?? ''),
+              );
+            },
+            onSelected: (value) {
+              Get.to(DetailProduct(allDataModel: value));
+            },
+            suggestionsCallback: (search) async {
+              if (search.isEmpty) return [];
+              await controller.getDatabyPlatNumber(search);
+
+              return controller.allDataModel;
+            },
+          );
+        },
+      );
+    }
+
     return GetBuilder<Homecontroller>(
       builder: (controller) {
         return Scaffold(
@@ -837,32 +902,54 @@ class _HomeState extends State<Home> {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Logo dan Judul
+                      // Gunakan Expanded di sini agar bagian kiri mengambil sisa ruang yang ada
+                      // sehingga spaceBetween di Row utama bisa mendorong menu kanan ke pojok.
                       Row(
+                        // Sekarang spaceAround akan bekerja karena sudah ada ruang dari Expanded
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Container(
-                            width: 50,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(AppImages().imageHomePage2),
+                          // Logo dan Judul
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Container(
+                                width: 50,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                      AppImages().imageHomePage2,
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
+                              const SizedBox(width: 8),
+                              Text(
+                                AppString().judul,
+                                style: blueTextStyle.copyWith(
+                                  fontWeight: bold,
+                                  fontSize: 14.sp,
+                                ),
+                              ),
+                            ],
                           ),
-                          Text(
-                            AppString().judul,
-                            style: blueTextStyle.copyWith(
-                              fontWeight: bold,
-                              fontSize: 14.sp,
-                            ),
-                          ),
+
+                          const SizedBox(
+                            width: 20,
+                          ), // Jarak antara judul dan search bar
+                          // Bagian Search
+                          SizedBox(width: screenWidth * 0.3, child: search()),
                         ],
                       ),
-                      // Menu Navigasi
+
+                      // Row Menu Kanan (Tetap di pojok kanan)
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          AppbarElement(title: AppString().appBar1),
+                          GestureDetector(
+                            onTap: () => Get.to(() => SearchProductPage()),
+                            child: AppbarElement(title: AppString().appBar1),
+                          ),
                           AppbarElement(title: AppString().appBar2),
                           AppbarElement(title: AppString().appBar3),
                         ],
