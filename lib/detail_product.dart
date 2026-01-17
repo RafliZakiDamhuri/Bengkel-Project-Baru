@@ -10,6 +10,12 @@ class DetailProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    bool isDesktop(double width) => width >= 900;
+
+    bool isTablet(double width) => width >= 600 && width < 900;
+
+    bool isMobile(double width) => width < 600;
     final productDetails = [
       {'label': AppString().ISCPN, "value": allDataModel.productCode ?? ''},
       {
@@ -47,6 +53,7 @@ class DetailProduct extends StatelessWidget {
 
     Widget detailProductWidget() {
       return Container(
+        width: screenWidth * 0.5,
         color: Colors.amber,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -54,7 +61,7 @@ class DetailProduct extends StatelessWidget {
             return Container(
               margin: EdgeInsets.only(bottom: 20),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
                     '${e['label']} : ',
@@ -82,12 +89,18 @@ class DetailProduct extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              AppString().detailProduct,
-              style: blackTextStyle.copyWith(
-                fontSize: 16.sp,
-                // Ukuran font responsif
-                fontWeight: bold,
+            Container(
+              margin: EdgeInsets.only(
+                left: screenWidth * 0.03,
+                top: screenWidth * 0.01,
+              ),
+              child: Text(
+                AppString().detailProduct,
+                style: blackTextStyle.copyWith(
+                  fontSize: 16.sp,
+                  // Ukuran font responsif
+                  fontWeight: bold,
+                ),
               ),
             ),
             SizedBox(height: 10.h),
@@ -109,7 +122,33 @@ class DetailProduct extends StatelessWidget {
             ),
 
             Center(child: detailProductWidget()),
-            Text('COBAA'),
+            Container(
+              margin: EdgeInsets.only(
+                left: screenWidth * 0.03,
+                top: screenWidth * 0.01,
+              ),
+              child: Text(
+                'Kami tahu kendaraan Anda berharga. Itulah mengapa kami tidak pernah berkompromi dengan kualitas barang. Di Buku Bengkel, semua barang pasti original dan siap tempur.',
+                textAlign: TextAlign.center,
+                style: blackTextStyle.copyWith(
+                  fontSize: isMobile(screenWidth) ? 12.sp : 12.sp,
+                  fontWeight: bold,
+                ),
+              ),
+            ),
+            Center(
+              child: Container(
+                margin: EdgeInsets.only(top: screenWidth * 0.05),
+                width: screenWidth * 0.2,
+                decoration: BoxDecoration(
+                  color: kGreyColor,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Center(
+                  child: TextButton(onPressed: () {}, child: Text('pencet')),
+                ),
+              ),
+            ),
           ],
         ),
       ),
