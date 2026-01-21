@@ -7,9 +7,10 @@ class AppString {
   String plusPointTitle = 'Lebih dari sekedar fitur utama';
   String pluspointSubTitle =
       'Jelajahi berbagai fitur lengkap buku bengkel yang akan membantu \nAnda mengelola bengkel secara professional.';
-  String titleLandingPage1 = 'Solusi Terbaik\nuntuk Mengelola\nBengkelmu!';
+  String titleLandingPage1 =
+      'Briliant Solutions\nfor Industrial Radiators\nand Heavy Equiqment';
   String heroSectionContentTitle =
-      'Ubah bengkel Anda menjadi bengkel profesional dengan\nsolusi pengelolaan dari Buku Bengkel.';
+      'We are experienced in supplying and handling various types of radiators and\ncooling systems for the mining, oil and gas, marie or shipping,power generation,\nand manufacturing industries ';
   String featureListSectionTitle = 'Fitur Fitur Terbaik dalam Satu Platform';
   String listHomeNumber1 = '01';
   String listHomeNumber2 = '02';
@@ -24,9 +25,10 @@ class AppString {
   String listHomeSubtitle =
       'kelola data pelanggan dan riwayat servis kendaraan secara lengkap\ndan mudah, mulai dari informasi kontak hingga riwayat perbaikan dan\npenggantian suku cadang ';
   String judul = 'Buku Bengkel';
-  String appBar1 = 'Search';
-  String appBar2 = 'About us';
-  String appBar3 = 'Contact';
+  String appBar1 = 'Product';
+  String appBar2 = 'Services';
+  String appBar3 = 'Search Part';
+  String appBar4 = 'Insight';
   String drawerTitle = 'Buku Bengkel Menu';
   String detailProduct = 'Detail Produk';
   String ISCPN = 'ISC P/N';

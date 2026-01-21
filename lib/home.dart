@@ -205,6 +205,63 @@ class _HomeState extends State<Home> {
                   : TextAlign.center,
             ),
           ),
+
+          Container(
+            margin: EdgeInsets.only(top: isDesktop(screenWidth) ? 3.h : 3.h),
+            child: Row(
+              mainAxisAlignment: isDesktop(screenWidth)
+                  ? MainAxisAlignment.start
+                  : MainAxisAlignment.center,
+              children: [
+                // TOMBOL BIRU
+                ElevatedButton.icon(
+                  onPressed: () {},
+                  icon: Text(
+                    "Contact Us",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  label: Icon(
+                    Icons.phone_callback,
+                    color: Colors.white,
+                    size: isDesktop(screenWidth) ? 12.sp : 17.sp,
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent,
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                        12,
+                      ), // Membuat sudut melengkung
+                    ),
+                  ),
+                ),
+
+                SizedBox(width: 15), // Jarak antar tombol
+                // TOMBOL PUTIH
+                OutlinedButton.icon(
+                  onPressed: () {},
+                  icon: Text(
+                    "Learn More",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  label: Icon(
+                    Icons.arrow_forward,
+                    color: Colors.black,
+                    size: isDesktop(screenWidth) ? 12.sp : 17.sp,
+                  ),
+                  style: OutlinedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                    side: BorderSide(
+                      color: Colors.grey.shade300,
+                    ), // Garis pinggir tipis
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
           SizedBox(height: isDesktop(screenWidth) ? 10.h : 5.h),
         ],
       );
@@ -751,6 +808,7 @@ class _HomeState extends State<Home> {
           Padding(
             padding: EdgeInsets.symmetric(
               horizontal: 10.w,
+              vertical: 10.h,
             ), // Padding global di Desktop
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -781,11 +839,11 @@ class _HomeState extends State<Home> {
                 child: Container(
                   // Gambar di kiri
                   width: double.infinity,
-                  height: 50.h,
+                  height: 100.h,
                   margin: EdgeInsets.only(left: 5.w), // Sedikit margin ke kiri
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage(AppImages().imageHomePage1),
+                      image: AssetImage(AppImages().imageHomePage3),
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -822,14 +880,16 @@ class _HomeState extends State<Home> {
                   focusNode: focusNode,
 
                   decoration: InputDecoration(
+                    filled: true,
+                    fillColor: kGreyColor,
                     suffixIcon: Icon(Icons.search),
                     border: InputBorder.none,
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blueGrey),
+                      borderSide: BorderSide(color: kGreyColor),
                       borderRadius: BorderRadius.all(Radius.circular(8)),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue),
+                      borderSide: BorderSide(color: kGreyColor),
                       borderRadius: BorderRadius.all(Radius.circular(8)),
                     ),
                     hint: Row(
@@ -837,7 +897,10 @@ class _HomeState extends State<Home> {
                         Expanded(
                           child: Text(
                             'Cari berdasarkan plat number',
-                            style: blackTextStyle.copyWith(fontSize: 10.sp),
+                            style: blackTextStyle.copyWith(
+                              fontSize: 10.sp,
+                              fontWeight: light,
+                            ),
                           ),
                         ),
                       ],
@@ -872,7 +935,7 @@ class _HomeState extends State<Home> {
       builder: (controller) {
         return Scaffold(
           appBar: AppBar(
-            backgroundColor: kBackgroundColor,
+            backgroundColor: kAppbarBackgroundColor,
 
             title: LayoutBuilder(
               builder: (context, constraints) {
@@ -913,8 +976,8 @@ class _HomeState extends State<Home> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Container(
-                                width: 50,
-                                height: 50,
+                                width: 50.w,
+                                height: 100,
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
                                     image: AssetImage(
@@ -924,13 +987,6 @@ class _HomeState extends State<Home> {
                                 ),
                               ),
                               const SizedBox(width: 8),
-                              Text(
-                                AppString().judul,
-                                style: blueTextStyle.copyWith(
-                                  fontWeight: bold,
-                                  fontSize: 14.sp,
-                                ),
-                              ),
                             ],
                           ),
 
@@ -938,7 +994,6 @@ class _HomeState extends State<Home> {
                             width: 20,
                           ), // Jarak antara judul dan search bar
                           // Bagian Search
-                          SizedBox(width: screenWidth * 0.3, child: search()),
                         ],
                       ),
 
@@ -952,6 +1007,8 @@ class _HomeState extends State<Home> {
                           ),
                           AppbarElement(title: AppString().appBar2),
                           AppbarElement(title: AppString().appBar3),
+                          AppbarElement(title: AppString().appBar4),
+                          SizedBox(width: screenWidth * 0.1, child: search()),
                         ],
                       ),
                     ],

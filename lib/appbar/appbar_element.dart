@@ -11,7 +11,7 @@ class AppbarElement extends StatelessWidget {
       margin: EdgeInsets.only(right: 20),
       child: Text(
         title,
-        style: blackTextStyle.copyWith(fontSize: 16, fontWeight: bold),
+        style: whiteTextStyle.copyWith(fontSize: 16, fontWeight: bold),
       ),
     );
   }
