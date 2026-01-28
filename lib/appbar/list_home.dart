@@ -26,7 +26,7 @@ class ListHome extends StatelessWidget {
               title,
               style: blackTextStyle.copyWith(
                 fontWeight: bold,
-                fontSize: size ?? 16.sp,
+                fontSize: size ?? 12.sp,
               ),
             ),
           ],
