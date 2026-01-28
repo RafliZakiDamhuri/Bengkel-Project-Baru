@@ -485,7 +485,7 @@ class _HomeState extends State<Home> {
     Widget featureListSection() {
       return Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: isDesktop(screenWidth) ? 10.w : 5.w,
+          horizontal: isDesktop(screenWidth) ? 0.05.w : 5.w,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -551,6 +551,16 @@ class _HomeState extends State<Home> {
             ListHome(
               nomer: AppString().listHomeNumber5,
               title: AppString().listHomeTitle5,
+            ),
+            Container(
+              height: 2,
+              width: double.infinity,
+              color: Colors.grey.shade300,
+              margin: EdgeInsets.symmetric(vertical: 2.h),
+            ),
+            ListHome(
+              nomer: AppString().listHomeNumber6,
+              title: AppString().listHomeTitle6,
             ),
             Container(
               height: 2,
@@ -943,7 +953,7 @@ class _HomeState extends State<Home> {
                   return Row(
                     children: [
                       Container(
-                        width: 40,
+                        width: 200,
                         height: 40,
                         decoration: BoxDecoration(
                           image: DecorationImage(
@@ -952,13 +962,6 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       SizedBox(width: 10),
-                      Text(
-                        AppString().judul,
-                        style: blueTextStyle.copyWith(
-                          fontWeight: bold,
-                          fontSize: 14.sp,
-                        ),
-                      ),
                     ],
                   );
                 } else {
