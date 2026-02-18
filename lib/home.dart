@@ -40,35 +40,11 @@ class _HomeState extends State<Home> {
 
     // Data fitur tetap sama
     final List<Feature> featureData = [
+      Feature('assets/images/D85ESS-Transp 1.png', "Removable Tube Radiator"),
+      Feature('assets/images/D375-Transp 1.png', "Conventional Radiator Core"),
       Feature(
-        Icons.print,
-        "Dukungan Printer",
-        "Cetak struk, invoice, dan laporan dengan mudah menggunakan berbagai jenis printer dalam aplikasi ini",
-      ),
-      Feature(
-        Icons.attach_money,
-        "Pencatatan Keuangan",
-        "Lacak semua pemasukan dan pengeluaran bisnismu secara detail dan otomatis.",
-      ),
-      Feature(
-        Icons.print,
-        "Dukungan Printer",
-        "Cetak struk, invoice, dan laporan dengan mudah menggunakan berbagai jenis printer dalam aplikasi ini",
-      ),
-      Feature(
-        Icons.attach_money,
-        "Pencatatan Keuangan",
-        "Lacak semua pemasukan dan pengeluaran bisnismu secara detail dan otomatis.",
-      ),
-      Feature(
-        Icons.print,
-        "Dukungan Printer",
-        "Cetak struk, invoice, dan laporan dengan mudah menggunakan berbagai jenis printer dalam aplikasi ini",
-      ),
-      Feature(
-        Icons.attach_money,
-        "Pencatatan Keuangan",
-        "Lacak semua pemasukan dan pengeluaran bisnismu secara detail dan otomatis.",
+        'assets/images/777E-Transp 1.png',
+        "Aluminum Plate & Bar\nCooler & Heat Exchanger",
       ),
     ];
 
@@ -128,13 +104,13 @@ class _HomeState extends State<Home> {
                   if (crossAxisCount == 1) {
                     // Jika 1 kolom (Mobile), rasio aspek harus besar (lebar >> tinggi) untuk kartu vertikal yang ramping.
                     aspect_ratio =
-                        3; // Disesuaikan sedikit lebih besar dari 5 agar kartu lebih ramping
+                        0.90; // Disesuaikan sedikit lebih besar dari 5 agar kartu lebih ramping
                   } else if (crossAxisCount == 2) {
                     // Jika 2 kolom (Tablet), rasio aspek harus lebih kecil untuk memberikan ruang vertikal lebih banyak.
-                    aspect_ratio = 2.0;
+                    aspect_ratio = 0.9;
                   } else {
                     // Jika 3 kolom (Desktop), rasio aspek harus kecil.
-                    aspect_ratio = 2;
+                    aspect_ratio = 0.50;
                   }
                   //
 
@@ -152,8 +128,8 @@ class _HomeState extends State<Home> {
                     itemBuilder: (context, index) {
                       return featureCard(
                         title: featureData[index].title,
-                        subtitle: featureData[index].description,
-                        icon: featureData[index].icon,
+
+                        image: featureData[index].image,
                         isMobile: isMobile(screenWidth),
                       );
                     },
@@ -335,6 +311,7 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ListHome(
+                      warna: blackTextStyle,
                       title: 'Apakah Buku Bengkel Itu?',
                       size: isMobile(screenWidth) ? 15.sp : 12.sp,
                     ),
@@ -351,7 +328,7 @@ class _HomeState extends State<Home> {
                 visible: expandedIcons[0] ? true : false,
                 child: Text(
                   'Buku Bengkel adalah pengeloala bengkel modern yang lengkap dan mudah\ndigunakan,dirancang khusus untuk membantu Anda mengelola bengkel secara\nprofisonal dan efisien',
-                  style: greyTextStyle.copyWith(
+                  style: blackTextStyle.copyWith(
                     fontSize: (isMobile(screenWidth)) ? 13.sp : 10.sp,
                     fontWeight: light,
                   ),
@@ -375,6 +352,7 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ListHome(
+                      warna: blackTextStyle,
                       title: 'Bagaimana cara sistem kerja Buku Bengkel?',
                       size: isMobile(screenWidth) ? 15.sp : 12.sp,
                     ),
@@ -403,6 +381,7 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ListHome(
+                      warna: blackTextStyle,
                       title: 'Apakah ini Gratis',
                       size: isMobile(screenWidth) ? 15.sp : 12.sp,
                     ),
@@ -431,6 +410,7 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ListHome(
+                      warna: blackTextStyle,
                       title: 'Bagaimana cara sistem kerja Buku Bengkel',
                       size: isMobile(screenWidth) ? 15.sp : 12.sp,
                     ),
@@ -459,6 +439,7 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ListHome(
+                      warna: blackTextStyle,
                       title: 'Apakah data pada aplikasi ini aman',
                       size: isMobile(screenWidth) ? 15.sp : 12.sp,
                     ),
@@ -492,22 +473,28 @@ class _HomeState extends State<Home> {
           children: [
             Text(
               AppString().featureListSectionTitle,
-              style: blackTextStyle.copyWith(
-                fontSize: isDesktop(screenWidth) ? 20.sp : 16.sp,
-                fontWeight: bold,
-              ),
+              style: isDesktop(screenWidth)
+                  ? whiteTextStyle.copyWith(
+                      fontSize: isDesktop(screenWidth) ? 20.sp : 16.sp,
+                      fontWeight: bold,
+                    )
+                  : blackTextStyle.copyWith(
+                      fontSize: isDesktop(screenWidth) ? 20.sp : 16.sp,
+                      fontWeight: bold,
+                    ),
             ),
             SizedBox(height: 3.h),
             ListHome(
               nomer: AppString().listHomeNumber1,
               title: AppString().listHomeTitle1,
+              warna: isMobile(screenWidth) ? blackTextStyle : whiteTextStyle,
             ),
             SizedBox(height: 1.5.h),
             Text(
               AppString().listHomeSubtitle,
               style: greyTextStyle.copyWith(
                 fontSize: (isMobile(screenWidth)) ? 14.sp : 10.sp,
-                fontWeight: light,
+                fontWeight: semiBold,
               ),
             ),
             Container(
@@ -519,6 +506,7 @@ class _HomeState extends State<Home> {
 
             // Item 02 s/d 05
             ListHome(
+              warna: isMobile(screenWidth) ? blackTextStyle : whiteTextStyle,
               nomer: AppString().listHomeNumber2,
               title: AppString().listHomeTitle2,
             ),
@@ -529,6 +517,7 @@ class _HomeState extends State<Home> {
               margin: EdgeInsets.symmetric(vertical: 2.h),
             ),
             ListHome(
+              warna: isMobile(screenWidth) ? blackTextStyle : whiteTextStyle,
               nomer: AppString().listHomeNumber3,
               title: AppString().listHomeTitle3,
             ),
@@ -539,6 +528,7 @@ class _HomeState extends State<Home> {
               margin: EdgeInsets.symmetric(vertical: 2.h),
             ),
             ListHome(
+              warna: isMobile(screenWidth) ? blackTextStyle : whiteTextStyle,
               nomer: AppString().listHomeNumber4,
               title: AppString().listHomeTitle4,
             ),
@@ -549,6 +539,7 @@ class _HomeState extends State<Home> {
               margin: EdgeInsets.symmetric(vertical: 2.h),
             ),
             ListHome(
+              warna: isMobile(screenWidth) ? blackTextStyle : whiteTextStyle,
               nomer: AppString().listHomeNumber5,
               title: AppString().listHomeTitle5,
             ),
@@ -559,6 +550,7 @@ class _HomeState extends State<Home> {
               margin: EdgeInsets.symmetric(vertical: 2.h),
             ),
             ListHome(
+              warna: isMobile(screenWidth) ? blackTextStyle : whiteTextStyle,
               nomer: AppString().listHomeNumber6,
               title: AppString().listHomeTitle6,
             ),
@@ -842,25 +834,30 @@ class _HomeState extends State<Home> {
           ),
           SizedBox(height: 10.h),
           // Section Fitur Terbaik
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Container(
-                  // Gambar di kiri
-                  width: double.infinity,
-                  height: 100.h,
-                  margin: EdgeInsets.only(left: 5.w), // Sedikit margin ke kiri
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(AppImages().imageHomePage3),
-                      fit: BoxFit.contain,
+          Container(
+            color: kLigtblueColor,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Container(
+                    // Gambar di kiri
+                    width: double.infinity,
+                    height: 100.h,
+                    margin: EdgeInsets.only(
+                      left: 5.w,
+                    ), // Sedikit margin ke kiri
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(AppImages().imageHomePage3),
+                        fit: BoxFit.contain,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Expanded(child: featureListSection()), // Daftar Fitur di kanan
-            ],
+                Expanded(child: featureListSection()), // Daftar Fitur di kanan
+              ],
+            ),
           ),
           SizedBox(height: 10.h),
           plusPoint(),
