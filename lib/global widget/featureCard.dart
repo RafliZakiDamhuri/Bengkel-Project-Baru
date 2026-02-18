@@ -4,8 +4,8 @@ import 'package:sizer/sizer.dart'; // pastikan sudah import
 
 Widget featureCard({
   required String title,
-  required String subtitle,
-  required IconData icon,
+
+  required String image,
   required bool isMobile,
 }) {
   return Container(
@@ -19,26 +19,21 @@ Widget featureCard({
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SizedBox(height: 1.h),
-        Icon(
-          icon,
-          size: 20, // responsive icon
+        Image.asset(
+          image,
+          width: isMobile ? 70.sp : 50.sp,
+          height: isMobile ? 70.sp : 50.sp,
         ),
         SizedBox(height: 1.h),
         Text(
           title,
           textAlign: TextAlign.center,
           style: blackTextStyle.copyWith(
+            fontWeight: bold,
             fontSize: (isMobile) ? 16.sp : 12.sp, // responsive font
           ),
         ),
         SizedBox(height: 0.5.h),
-        Text(
-          subtitle,
-          textAlign: TextAlign.center,
-          style: greyTextStyle.copyWith(
-            fontSize: (isMobile) ? 14.sp : 10.sp, // responsive font
-          ),
-        ),
       ],
     ),
   );

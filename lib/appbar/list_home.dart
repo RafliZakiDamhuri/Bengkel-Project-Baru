@@ -6,7 +6,14 @@ class ListHome extends StatelessWidget {
   final String? nomer;
   final String title;
   final double? size;
-  const ListHome({super.key, this.nomer, required this.title, this.size});
+  final TextStyle? warna;
+  const ListHome({
+    super.key,
+    this.nomer,
+    required this.title,
+    this.size,
+    required this.warna,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,17 +24,16 @@ class ListHome extends StatelessWidget {
             ? Container()
             : Container(
                 margin: EdgeInsets.only(right: 40),
-                child: Text(nomer!, style: blackTextStyle),
+                child: Text(nomer!, style: whiteTextStyle.merge(warna)),
               ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               title,
-              style: blackTextStyle.copyWith(
-                fontWeight: bold,
-                fontSize: size ?? 12.sp,
-              ),
+              style: whiteTextStyle
+                  .copyWith(fontWeight: bold, fontSize: size ?? 12.sp)
+                  .merge(warna),
             ),
           ],
         ),
