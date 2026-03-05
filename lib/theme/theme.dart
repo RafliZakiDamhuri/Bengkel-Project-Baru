@@ -16,6 +16,7 @@ Color kTransparentColor = Colors.transparent;
 Color kBlueColor = Color(0xff007AFF);
 Color kLigtblueColor = Color(0xff155FAE);
 Color kAppbarBackgroundColor = Color(0xff0570FC);
+Color kFactoryTitleColor = Color(0xff005CBC);
 TextStyle blackTextStyle = GoogleFonts.poppins(color: kBlackColor);
 TextStyle whiteTextStyle = GoogleFonts.poppins(color: kWhiteColor);
 TextStyle greyTextStyle = GoogleFonts.poppins(color: kGreyColor);
@@ -23,7 +24,9 @@ TextStyle redTextStyle = GoogleFonts.poppins(color: kRedColor);
 TextStyle greenTextStyle = GoogleFonts.poppins(color: kGreenColor);
 TextStyle purpleTextStyle = GoogleFonts.poppins(color: kPrimaryColor);
 TextStyle blueTextStyle = GoogleFonts.poppins(color: kBlueColor);
-
+TextStyle factoryTitleTextStyle = GoogleFonts.poppins(
+  color: kFactoryTitleColor,
+);
 FontWeight light = FontWeight.w300;
 FontWeight regular = FontWeight.w400;
 FontWeight medium = FontWeight.w500;
