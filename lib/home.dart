@@ -8,6 +8,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:project/appbar/appbar_element.dart';
 import 'package:project/appbar/list_home.dart';
 import 'package:project/controller/homeController.dart';
+import 'package:project/custom_text_field.dart';
 import 'package:project/detail_location.dart';
 import 'package:project/detail_product.dart';
 import 'package:project/global%20widget/featureCard.dart';
@@ -1110,6 +1111,175 @@ class _HomeState extends State<Home> {
       );
     }
 
+    Widget personaldata() {
+      return Container(
+        width: double.infinity,
+        color: kBlueColor,
+        child: Column(
+          children: [
+            Center(
+              child: Text(
+                'Place Your Inquiry Here',
+                style: whiteTextStyle.copyWith(fontSize: 28, fontWeight: bold),
+              ),
+            ),
+            SizedBox(height: 3.h),
+            Container(
+              width: 65.w,
+
+              decoration: BoxDecoration(
+                color: kWhiteColor,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Container(
+                margin: EdgeInsets.only(top: 25),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        CustoumTextField(
+                          hintName: 'Enter name',
+                          obsecureText: false,
+                          width: 20.w,
+                        ),
+                        CustoumTextField(
+                          hintName: 'Enter Email',
+                          obsecureText: false,
+                          width: 20.w,
+                        ),
+                        CustoumTextField(
+                          hintName: 'Company name',
+                          obsecureText: false,
+                          width: 20.w,
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        CustoumTextField(
+                          hintName: 'Messege',
+                          obsecureText: false,
+                          width: 50.w,
+                          maxLines: 5,
+                        ),
+                        Container(
+                          width: 150,
+                          height: 50,
+                          margin: EdgeInsets.only(top: 5.h),
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: kBlueColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              elevation: 0,
+                            ),
+                            child: Text(
+                              "SUBMIT",
+                              style: whiteTextStyle.copyWith(fontWeight: bold),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget personalDataMobile() {
+      return Container(
+        width: double.infinity,
+        color: kBlueColor,
+        padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              'Place Your Inquiry Here',
+              textAlign: TextAlign.center,
+              style: whiteTextStyle.copyWith(fontSize: 22, fontWeight: bold),
+            ),
+            SizedBox(height: 20),
+
+            // CARD PUTIH
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: kWhiteColor,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Column(
+                children: [
+                  // NAME
+                  CustoumTextField(
+                    hintName: 'Enter name',
+                    obsecureText: false,
+                    width: double.infinity,
+                  ),
+
+                  // EMAIL
+                  CustoumTextField(
+                    hintName: 'Enter Email',
+                    obsecureText: false,
+                    width: double.infinity,
+                  ),
+
+                  // COMPANY
+                  CustoumTextField(
+                    hintName: 'Company name',
+                    obsecureText: false,
+                    width: double.infinity,
+                  ),
+
+                  // MESSAGE
+                  CustoumTextField(
+                    hintName: 'Message',
+                    obsecureText: false,
+                    width: double.infinity,
+                    maxLines: 4,
+                  ),
+
+                  SizedBox(height: 10),
+
+                  // BUTTON
+                  SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: kBlueColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        elevation: 0,
+                      ),
+                      child: Text(
+                        "SUBMIT",
+                        style: whiteTextStyle.copyWith(
+                          fontWeight: bold,
+                          letterSpacing: 1,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     Widget footer() {
       return Container(
         height: 180,
@@ -1344,6 +1514,7 @@ class _HomeState extends State<Home> {
               chooseUsMobile(),
               locationMobile(),
               SizedBox(height: 10.h),
+              personalDataMobile(),
               footerMobile(),
             ],
           ),
@@ -1424,6 +1595,8 @@ class _HomeState extends State<Home> {
           //   ],
           // ),
           SizedBox(height: 10.h),
+          personaldata(),
+
           footer(),
         ],
       );
