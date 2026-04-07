@@ -17,6 +17,7 @@ Color kBlueColor = Color(0xff007AFF);
 Color kLigtblueColor = Color(0xff155FAE);
 Color kAppbarBackgroundColor = Color(0xff0570FC);
 Color kFactoryTitleColor = Color(0xff005CBC);
+Color darkGrey = Color(0xff444444);
 TextStyle blackTextStyle = GoogleFonts.poppins(color: kBlackColor);
 TextStyle whiteTextStyle = GoogleFonts.poppins(color: kWhiteColor);
 TextStyle greyTextStyle = GoogleFonts.poppins(color: kGreyColor);

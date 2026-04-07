@@ -1734,7 +1734,13 @@ class _HomeState extends State<Home> {
                             child: AppbarElement(title: AppString().appBar1),
                           ),
                           AppbarElement(title: AppString().appBar2),
-                          AppbarElement(title: AppString().appBar3),
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(SearchProductPage());
+                            },
+                            child: AppbarElement(title: AppString().appBar3),
+                          ),
+
                           AppbarElement(title: AppString().appBar4),
                           SizedBox(width: screenWidth * 0.1, child: search()),
                         ],
