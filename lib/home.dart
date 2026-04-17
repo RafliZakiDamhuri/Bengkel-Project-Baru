@@ -12,6 +12,8 @@ import 'package:project/custom_text_field.dart';
 import 'package:project/detail_location.dart';
 import 'package:project/detail_product.dart';
 import 'package:project/global%20widget/featureCard.dart';
+import 'package:project/global%20widget/footer.dart';
+import 'package:project/global%20widget/personalData.dart';
 import 'package:project/logoChooseUS.dart';
 import 'package:project/model/allDataModel.dart';
 import 'package:project/model/featureCardModel.dart';
@@ -1111,88 +1113,88 @@ class _HomeState extends State<Home> {
       );
     }
 
-    Widget personaldata() {
-      return Container(
-        width: double.infinity,
-        color: kBlueColor,
-        child: Column(
-          children: [
-            Center(
-              child: Text(
-                'Place Your Inquiry Here',
-                style: whiteTextStyle.copyWith(fontSize: 28, fontWeight: bold),
-              ),
-            ),
-            SizedBox(height: 3.h),
-            Container(
-              width: 65.w,
+    // Widget personaldata() {
+    //   return Container(
+    //     width: double.infinity,
+    //     color: kBlueColor,
+    //     child: Column(
+    //       children: [
+    //         Center(
+    //           child: Text(
+    //             'Place Your Inquiry Here',
+    //             style: whiteTextStyle.copyWith(fontSize: 28, fontWeight: bold),
+    //           ),
+    //         ),
+    //         SizedBox(height: 3.h),
+    //         Container(
+    //           width: 65.w,
 
-              decoration: BoxDecoration(
-                color: kWhiteColor,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Container(
-                margin: EdgeInsets.only(top: 25),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        CustoumTextField(
-                          hintName: 'Enter name',
-                          obsecureText: false,
-                          width: 20.w,
-                        ),
-                        CustoumTextField(
-                          hintName: 'Enter Email',
-                          obsecureText: false,
-                          width: 20.w,
-                        ),
-                        CustoumTextField(
-                          hintName: 'Company name',
-                          obsecureText: false,
-                          width: 20.w,
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        CustoumTextField(
-                          hintName: 'Messege',
-                          obsecureText: false,
-                          width: 50.w,
-                          maxLines: 5,
-                        ),
-                        Container(
-                          width: 150,
-                          height: 50,
-                          margin: EdgeInsets.only(top: 5.h),
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: kBlueColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              elevation: 0,
-                            ),
-                            child: Text(
-                              "SUBMIT",
-                              style: whiteTextStyle.copyWith(fontWeight: bold),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
+    //           decoration: BoxDecoration(
+    //             color: kWhiteColor,
+    //             borderRadius: BorderRadius.circular(16),
+    //           ),
+    //           child: Container(
+    //             margin: EdgeInsets.only(top: 25),
+    //             child: Column(
+    //               children: [
+    //                 Row(
+    //                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+    //                   children: [
+    //                     CustoumTextField(
+    //                       hintName: 'Enter name',
+    //                       obsecureText: false,
+    //                       width: 20.w,
+    //                     ),
+    //                     CustoumTextField(
+    //                       hintName: 'Enter Email',
+    //                       obsecureText: false,
+    //                       width: 20.w,
+    //                     ),
+    //                     CustoumTextField(
+    //                       hintName: 'Company name',
+    //                       obsecureText: false,
+    //                       width: 20.w,
+    //                     ),
+    //                   ],
+    //                 ),
+    //                 Row(
+    //                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+    //                   children: [
+    //                     CustoumTextField(
+    //                       hintName: 'Messege',
+    //                       obsecureText: false,
+    //                       width: 50.w,
+    //                       maxLines: 5,
+    //                     ),
+    //                     Container(
+    //                       width: 150,
+    //                       height: 50,
+    //                       margin: EdgeInsets.only(top: 5.h),
+    //                       child: ElevatedButton(
+    //                         onPressed: () {},
+    //                         style: ElevatedButton.styleFrom(
+    //                           backgroundColor: kBlueColor,
+    //                           shape: RoundedRectangleBorder(
+    //                             borderRadius: BorderRadius.circular(30),
+    //                           ),
+    //                           elevation: 0,
+    //                         ),
+    //                         child: Text(
+    //                           "SUBMIT",
+    //                           style: whiteTextStyle.copyWith(fontWeight: bold),
+    //                         ),
+    //                       ),
+    //                     ),
+    //                   ],
+    //                 ),
+    //               ],
+    //             ),
+    //           ),
+    //         ),
+    //       ],
+    //     ),
+    //   );
+    // }
 
     Widget personalDataMobile() {
       return Container(
@@ -1280,139 +1282,139 @@ class _HomeState extends State<Home> {
       );
     }
 
-    Widget footer() {
-      return Container(
-        height: 180,
-        width: double.infinity,
-        color: Colors.black,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(left: 50, top: 30),
-                  child: Row(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(right: 10),
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(AppImages().imageFooter),
-                          ),
-                        ),
-                      ),
-                      Text(
-                        AppString().judul,
-                        style: whiteTextStyle.copyWith(fontSize: 25),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 10),
-                Container(
-                  margin: EdgeInsets.only(left: 50),
-                  child: Text(
-                    'Platform untuk bengkel dan customer bengkel\nyang memberikan kemudahan bekaitan dengan\nperawatan kendaraan',
-                    style: whiteTextStyle.copyWith(
-                      fontSize: isMobile(screenWidth) ? 10 : 14,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Learn More',
-                  style: whiteTextStyle.copyWith(
-                    fontSize: 16,
-                    fontWeight: bold,
-                  ),
-                ),
-                SizedBox(height: 20),
-                Text(
-                  'Tentang Kami',
-                  style: greyTextStyle.copyWith(
-                    fontWeight: medium,
-                    fontSize: 12,
-                  ),
-                ),
-                SizedBox(height: 10),
-                Text(
-                  'Layanan',
-                  style: greyTextStyle.copyWith(
-                    fontWeight: medium,
-                    fontSize: 12,
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Contact Us',
-                  style: whiteTextStyle.copyWith(fontSize: 16),
-                ),
-                SizedBox(height: 15),
-                Text(
-                  'Term of Services',
-                  style: greyTextStyle.copyWith(
-                    fontWeight: medium,
-                    fontSize: 12,
-                  ),
-                ),
-                SizedBox(height: 10),
-                Text(
-                  'Privacy Policy',
-                  style: greyTextStyle.copyWith(
-                    fontWeight: medium,
-                    fontSize: 12,
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Sosial Media', style: whiteTextStyle),
-                SizedBox(height: 20),
-                Row(
-                  children: [
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(AppImages().instagram),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(AppImages().facebook),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
-      );
-    }
+    // Widget footer() {
+    //   return Container(
+    //     height: 180,
+    //     width: double.infinity,
+    //     color: Colors.black,
+    //     child: Row(
+    //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    //       children: [
+    //         Column(
+    //           crossAxisAlignment: CrossAxisAlignment.start,
+    //           children: [
+    //             Container(
+    //               margin: EdgeInsets.only(left: 50, top: 30),
+    //               child: Row(
+    //                 children: [
+    //                   Container(
+    //                     margin: EdgeInsets.only(right: 10),
+    //                     width: 40,
+    //                     height: 40,
+    //                     decoration: BoxDecoration(
+    //                       image: DecorationImage(
+    //                         image: AssetImage(AppImages().imageFooter),
+    //                       ),
+    //                     ),
+    //                   ),
+    //                   Text(
+    //                     AppString().judul,
+    //                     style: whiteTextStyle.copyWith(fontSize: 25),
+    //                   ),
+    //                 ],
+    //               ),
+    //             ),
+    //             SizedBox(height: 10),
+    //             Container(
+    //               margin: EdgeInsets.only(left: 50),
+    //               child: Text(
+    //                 'Platform untuk bengkel dan customer bengkel\nyang memberikan kemudahan bekaitan dengan\nperawatan kendaraan',
+    //                 style: whiteTextStyle.copyWith(
+    //                   fontSize: isMobile(screenWidth) ? 10 : 14,
+    //                 ),
+    //               ),
+    //             ),
+    //           ],
+    //         ),
+    //         Column(
+    //           mainAxisAlignment: MainAxisAlignment.center,
+    //           crossAxisAlignment: CrossAxisAlignment.start,
+    //           children: [
+    //             Text(
+    //               'Learn More',
+    //               style: whiteTextStyle.copyWith(
+    //                 fontSize: 16,
+    //                 fontWeight: bold,
+    //               ),
+    //             ),
+    //             SizedBox(height: 20),
+    //             Text(
+    //               'Tentang Kami',
+    //               style: greyTextStyle.copyWith(
+    //                 fontWeight: medium,
+    //                 fontSize: 12,
+    //               ),
+    //             ),
+    //             SizedBox(height: 10),
+    //             Text(
+    //               'Layanan',
+    //               style: greyTextStyle.copyWith(
+    //                 fontWeight: medium,
+    //                 fontSize: 12,
+    //               ),
+    //             ),
+    //           ],
+    //         ),
+    //         Column(
+    //           mainAxisAlignment: MainAxisAlignment.center,
+    //           crossAxisAlignment: CrossAxisAlignment.start,
+    //           children: [
+    //             Text(
+    //               'Contact Us',
+    //               style: whiteTextStyle.copyWith(fontSize: 16),
+    //             ),
+    //             SizedBox(height: 15),
+    //             Text(
+    //               'Term of Services',
+    //               style: greyTextStyle.copyWith(
+    //                 fontWeight: medium,
+    //                 fontSize: 12,
+    //               ),
+    //             ),
+    //             SizedBox(height: 10),
+    //             Text(
+    //               'Privacy Policy',
+    //               style: greyTextStyle.copyWith(
+    //                 fontWeight: medium,
+    //                 fontSize: 12,
+    //               ),
+    //             ),
+    //           ],
+    //         ),
+    //         Column(
+    //           mainAxisAlignment: MainAxisAlignment.center,
+    //           crossAxisAlignment: CrossAxisAlignment.start,
+    //           children: [
+    //             Text('Sosial Media', style: whiteTextStyle),
+    //             SizedBox(height: 20),
+    //             Row(
+    //               children: [
+    //                 Container(
+    //                   width: 40,
+    //                   height: 40,
+    //                   decoration: BoxDecoration(
+    //                     image: DecorationImage(
+    //                       image: AssetImage(AppImages().instagram),
+    //                     ),
+    //                   ),
+    //                 ),
+    //                 Container(
+    //                   width: 40,
+    //                   height: 40,
+    //                   decoration: BoxDecoration(
+    //                     image: DecorationImage(
+    //                       image: AssetImage(AppImages().facebook),
+    //                     ),
+    //                   ),
+    //                 ),
+    //               ],
+    //             ),
+    //           ],
+    //         ),
+    //       ],
+    //     ),
+    //   );
+    // }
 
     Widget footerMobile() {
       return Container(
