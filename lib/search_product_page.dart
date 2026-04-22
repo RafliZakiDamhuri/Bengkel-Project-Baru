@@ -398,8 +398,6 @@ class SearchProductPage extends StatelessWidget {
                 SizedBox(height: 5.h),
                 buildTable(controller.allDataModel),
                 SizedBox(height: 15.h),
-                personaldata(),
-                footer(),
               ],
             ),
           ),

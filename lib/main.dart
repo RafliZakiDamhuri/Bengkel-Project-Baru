@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:project/controller/globalController.dart';
 import 'package:project/controller/homeController.dart';
+import 'package:project/controller/mainProductController.dart';
 import 'package:project/home.dart';
 import 'package:project/search_product_page.dart';
 
@@ -13,7 +15,9 @@ void main() async {
     url: 'https://hkuubnsamodgtlsgyhrv.supabase.co',
     anonKey: 'sb_publishable_ucLnPqx9eVJ3RILC2HwE1w_CjsGgvvF',
   );
-  Get.put(Homecontroller()); // hanya sekali, global
+  Get.put(Homecontroller());
+  Get.put(GlobalController()); // hanya sekali, global
+  Get.put(MainProductController());
 
   runApp(const MyApp());
 }

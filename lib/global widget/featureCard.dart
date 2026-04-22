@@ -9,7 +9,8 @@ Widget featureCard({
   required bool isMobile,
 }) {
   return Container(
-    padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 2.w),
+    width: 20.h,
+    height: 60.h,
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(2.w),
@@ -19,10 +20,10 @@ Widget featureCard({
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SizedBox(height: 1.h),
-        Image.asset(
+        Image.network(
           image,
-          width: isMobile ? 70.sp : 50.sp,
-          height: isMobile ? 70.sp : 50.sp,
+          width: isMobile ? 70.sp : 50.w,
+          height: isMobile ? 70.sp : 50.h,
         ),
         SizedBox(height: 1.h),
         Text(
@@ -33,7 +34,6 @@ Widget featureCard({
             fontSize: (isMobile) ? 16.sp : 12.sp, // responsive font
           ),
         ),
-        SizedBox(height: 0.5.h),
       ],
     ),
   );
