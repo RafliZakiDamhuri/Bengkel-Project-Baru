@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -12,6 +14,7 @@ import 'package:project/model/allDataModel.dart';
 import 'package:project/product_page.dart';
 import 'package:project/search_product_page.dart';
 import 'package:project/theme/app_images.dart';
+import 'package:project/theme/services_page.dart';
 import 'package:project/theme/string.dart';
 import 'package:project/theme/theme.dart';
 import 'package:sizer/sizer.dart';
@@ -167,7 +170,10 @@ class _GlobalappbarState extends State<Globalappbar> {
                         onTap: () => Get.to(() => ProductPage()),
                         child: AppbarElement(title: AppString().appBar1),
                       ),
-                      AppbarElement(title: AppString().appBar2),
+                      GestureDetector(
+                        onTap: () => Get.to(() => ServicesPage()),
+                        child: AppbarElement(title: AppString().appBar2),
+                      ),
                       GestureDetector(
                         onTap: () {
                           Get.to(SearchProductPage());
