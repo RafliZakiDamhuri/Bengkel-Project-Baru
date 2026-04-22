@@ -6,7 +6,10 @@ import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:project/appbar/appbar_element.dart';
 import 'package:project/controller/homeController.dart';
 import 'package:project/detail_product.dart';
+import 'package:project/global%20widget/footer.dart';
+import 'package:project/global%20widget/personalData.dart';
 import 'package:project/model/allDataModel.dart';
+import 'package:project/product_page.dart';
 import 'package:project/search_product_page.dart';
 import 'package:project/theme/app_images.dart';
 import 'package:project/theme/string.dart';
@@ -97,6 +100,11 @@ class _GlobalappbarState extends State<Globalappbar> {
     }
 
     return Scaffold(
+      floatingActionButton: Image.asset(
+        AppImages().il_whastapp,
+        width: 5.w,
+        height: 5.h,
+      ),
       appBar: AppBar(
         backgroundColor: kAppbarBackgroundColor,
 
@@ -156,7 +164,7 @@ class _GlobalappbarState extends State<Globalappbar> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       GestureDetector(
-                        onTap: () => Get.to(() => SearchProductPage()),
+                        onTap: () => Get.to(() => ProductPage()),
                         child: AppbarElement(title: AppString().appBar1),
                       ),
                       AppbarElement(title: AppString().appBar2),
@@ -192,7 +200,9 @@ class _GlobalappbarState extends State<Globalappbar> {
               ),
             )
           : null,
-      body: widget.pageWidget,
+      body: SingleChildScrollView(
+        child: Column(children: [widget.pageWidget, personaldata(), footer()]),
+      ),
     );
   }
 }

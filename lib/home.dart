@@ -2,21 +2,25 @@
 import 'dart:ui_web';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:project/appbar/appbar_element.dart';
 import 'package:project/appbar/list_home.dart';
 import 'package:project/controller/homeController.dart';
+import 'package:project/controller/mainProductController.dart';
 import 'package:project/custom_text_field.dart';
 import 'package:project/detail_location.dart';
 import 'package:project/detail_product.dart';
 import 'package:project/global%20widget/featureCard.dart';
 import 'package:project/global%20widget/footer.dart';
+import 'package:project/global%20widget/globalLoadingWidget.dart';
 import 'package:project/global%20widget/personalData.dart';
 import 'package:project/logoChooseUS.dart';
 import 'package:project/model/allDataModel.dart';
 import 'package:project/model/featureCardModel.dart';
+import 'package:project/model/serviceModel.dart';
 import 'package:project/search_product_page.dart';
 import 'package:project/theme/app_images.dart';
 import 'package:project/theme/string.dart';
@@ -38,8 +42,11 @@ class _HomeState extends State<Home> {
   bool isDesktop(double width) => width >= 900;
 
   bool isTablet(double width) => width >= 600 && width < 900;
-
+  ExpandableCarouselController carouselController =
+      ExpandableCarouselController();
   bool isMobile(double width) => width < 600;
+  var homecontroller = Get.find<Homecontroller>();
+  var mainProductController = Get.find<MainProductController>();
 
   @override
   Widget build(BuildContext context) {
@@ -62,192 +69,243 @@ class _HomeState extends State<Home> {
         "Aluminum Plate & Bar\nCooler & Heat Exchanger",
       ),
     ];
-
-    Widget plusPoint() {
-      // Ambil lebar layar sekali untuk penggunaan isMobile di luar LayoutBuilder
-      final screenWidth = MediaQuery.of(context).size.width;
-
-      return Container(
-        color: Color(0xffF2F2F2),
-        width: 100.w,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(height: 5.h),
-            Text(
-              AppString().plusPointTitle,
-              style: blackTextStyle.copyWith(
-                fontSize: 18.sp,
-                fontWeight: bold,
-                color: Colors.black,
-              ),
-              textAlign: TextAlign.center,
+    Widget nextButton({required VoidCallback onTap, isServices = false}) {
+      return GestureDetector(
+        onTap: onTap,
+        child: Container(
+          width: (isServices) ? 80 : 45,
+          height: (isServices) ? 30 : 85,
+          decoration: BoxDecoration(
+            color: (isServices == false) ? Colors.grey.shade300 : darkblue,
+            borderRadius: BorderRadius.circular(30),
+          ),
+          child: Center(
+            child: Icon(
+              Icons.arrow_forward_outlined, // bisa diganti Icons.arrow_forward
+              color: (isServices) ? kWhiteColor : Colors.black,
+              size: 28,
             ),
-            SizedBox(height: 1.h),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 5.w),
-              child: Text(
-                AppString().pluspointSubTitle,
-                textAlign: TextAlign.center,
-                style: greyTextStyle.copyWith(
-                  fontSize: 12.sp,
-                  fontWeight: light,
-                ),
-              ),
-            ),
-            SizedBox(height: 5.h),
-            Padding(
-              // Menggunakan isMobile di sini
-              padding: EdgeInsets.symmetric(
-                horizontal: isMobile(screenWidth) ? 5.w : 15.w,
-              ),
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  // Menetapkan crossAxisCount berdasarkan lebar lokal GridView (constraints.maxWidth)
-                  int crossAxisCount = 1;
-                  if (constraints.maxWidth > 900) {
-                    crossAxisCount = 3;
-                  } else if (constraints.maxWidth > 600) {
-                    crossAxisCount = 2;
-                  } else {
-                    crossAxisCount = 1;
-                  }
-
-                  // **PENTING: Logika childAspectRatio**
-                  // Tetapkan rasio aspek untuk menentukan tinggi item: lebar / tinggi
-                  double aspect_ratio;
-                  if (crossAxisCount == 1) {
-                    // Jika 1 kolom (Mobile), rasio aspek harus besar (lebar >> tinggi) untuk kartu vertikal yang ramping.
-                    aspect_ratio =
-                        0.90; // Disesuaikan sedikit lebih besar dari 5 agar kartu lebih ramping
-                  } else if (crossAxisCount == 2) {
-                    // Jika 2 kolom (Tablet), rasio aspek harus lebih kecil untuk memberikan ruang vertikal lebih banyak.
-                    aspect_ratio = 0.9;
-                  } else {
-                    // Jika 3 kolom (Desktop), rasio aspek harus kecil.
-                    aspect_ratio = 0.50;
-                  }
-                  //
-
-                  return GridView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: crossAxisCount,
-                      crossAxisSpacing: 3.w,
-                      mainAxisSpacing: 3.h,
-                      childAspectRatio:
-                          aspect_ratio, // Menggunakan nilai dinamis
-                    ),
-                    itemCount: featureData.length,
-                    itemBuilder: (context, index) {
-                      return featureCard(
-                        title: featureData[index].title,
-
-                        image: featureData[index].image,
-                        isMobile: isMobile(screenWidth),
-                      );
-                    },
-                  );
-                },
-              ),
-            ),
-            SizedBox(height: 5.h),
-          ],
+          ),
         ),
       );
     }
 
-    Widget secondPlusPoint() {
-      // Ambil lebar layar sekali untuk penggunaan isMobile di luar LayoutBuilder
-      final screenWidth = MediaQuery.of(context).size.width;
+    Widget prevButton({required VoidCallback onTap}) {
+      return GestureDetector(
+        onTap: onTap,
+        child: Container(
+          width: 45,
+          height: 80,
+          decoration: BoxDecoration(
+            color: Colors.grey.shade300,
+            borderRadius: BorderRadius.circular(30),
+          ),
+          child: Center(
+            child: Icon(
+              Icons.arrow_back_outlined, // bisa diganti Icons.arrow_forward
 
+              color: Colors.black,
+              size: 28,
+            ),
+          ),
+        ),
+      );
+    }
+
+    List<List<T>> chunk<T>(List<T> list, int size) {
+      List<List<T>> chunks = [];
+      for (int i = 0; i < list.length; i += size) {
+        chunks.add(
+          list.sublist(i, i + size > list.length ? list.length : i + size),
+        );
+      }
+      return chunks;
+    }
+
+    Widget plusPoint() {
+      // Ambil lebar layar sekali untuk penggunaan isMobile di luar LayoutBuilder
+
+      return GetBuilder<MainProductController>(
+        builder: (controller) {
+          final screenWidth = MediaQuery.of(context).size.width;
+          final grouped = chunk(
+            mainProductController.mainProductModel ?? [],
+            3,
+          );
+          return Container(
+            color: Color(0xffF2F2F2),
+            width: 100.w,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: 5.h),
+                Text(
+                  AppString().plusPointTitle,
+                  style: blackTextStyle.copyWith(
+                    fontSize: 18.sp,
+                    fontWeight: bold,
+                    color: Colors.black,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 1.h),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5.w),
+                  child: Text(
+                    AppString().pluspointSubTitle,
+                    textAlign: TextAlign.center,
+                    style: greyTextStyle.copyWith(
+                      fontSize: 12.sp,
+                      fontWeight: light,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 5.h),
+
+                (controller.isLoading == true)
+                    ? globalLoading()
+                    : (isMobile(screenWidth))
+                    ? ExpandableCarousel(
+                        items: mainProductController.mainProductModel?.map((
+                          group,
+                        ) {
+                          return Container(
+                            margin: EdgeInsets.only(right: 12, left: 12),
+                            child: featureCard(
+                              title: group.productName,
+                              image: group.imageUrl,
+                              isMobile: isMobile(screenWidth),
+                            ),
+                          );
+                        }).toList(),
+                        options: ExpandableCarouselOptions(
+                          controller: carouselController,
+                          autoPlay: true,
+                          autoPlayAnimationDuration: Duration(seconds: 1),
+                          viewportFraction: 1,
+                          enableInfiniteScroll: false,
+                        ),
+                      )
+                    : ExpandableCarousel(
+                        items: grouped.map((group) {
+                          return Row(
+                            children: [
+                              SizedBox(width: 20),
+                              prevButton(
+                                onTap: () {
+                                  carouselController.previousPage(
+                                    duration: Duration(milliseconds: 300),
+                                    curve: Curves.linear,
+                                  );
+                                },
+                              ),
+                              ...group.map((item) {
+                                return Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: featureCard(
+                                      title: item.productName,
+                                      image: item.imageUrl,
+                                      isMobile: isMobile(screenWidth),
+                                    ),
+                                  ),
+                                );
+                              }),
+                              nextButton(
+                                onTap: () {
+                                  carouselController.startAutoPlay();
+
+                                  carouselController.nextPage(
+                                    duration: Duration(milliseconds: 300),
+                                    curve: Curves.linear,
+                                  );
+                                },
+                              ),
+                              SizedBox(width: 20),
+                            ],
+                          );
+                        }).toList(),
+
+                        options: ExpandableCarouselOptions(
+                          controller: carouselController,
+                          viewportFraction: 1, // wajib full
+                          enableInfiniteScroll: false,
+                        ),
+                      ),
+                SizedBox(height: 5.h),
+              ],
+            ),
+          );
+        },
+      );
+    }
+
+    Widget servicesContentWidget(ServiceModel? serviceModel) {
+      return Expanded(
+        child: Container(
+          margin: EdgeInsets.only(left: 10, right: 10),
+          child: Column(
+            children: [
+              Image.network(serviceModel?.imageUrl ?? ''),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    serviceModel?.serviceName ?? '',
+                    style: blackTextStyle.copyWith(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  nextButton(onTap: () {}, isServices: true),
+                ],
+              ),
+              SizedBox(height: 8),
+              Text(
+                serviceModel?.description ?? '',
+                style: greyTextStyle.copyWith(fontSize: 12.sp),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    Widget servicesWidget() {
       return Container(
-        color: Color(0xffF2F2F2),
-        width: 100.w,
+        margin: EdgeInsets.only(top: 60),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: 5.h),
             Text(
-              AppString().plusPointTitle,
+              'Radiator or Heat Exchanger Service and Repair Specialist',
               style: blackTextStyle.copyWith(
                 fontSize: 18.sp,
-                fontWeight: bold,
-                color: Colors.black,
+                fontWeight: FontWeight.bold,
               ),
-              textAlign: TextAlign.center,
             ),
-            SizedBox(height: 1.h),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 5.w),
+            Container(
+              margin: EdgeInsets.only(left: 32, right: 32),
               child: Text(
-                AppString().pluspointSubTitle,
+                'Indocool can carry out minor repairs or complete overhauls to most makes and models of industrial cooling system components. Radiators, oil coolers,and heat exchangers, within the mining, oil & gas, marine, industrial power generation, and general industries.',
                 textAlign: TextAlign.center,
-                style: greyTextStyle.copyWith(
-                  fontSize: 12.sp,
-                  fontWeight: light,
-                ),
+                style: greyTextStyle.copyWith(fontSize: 12.sp),
               ),
             ),
-            SizedBox(height: 5.h),
-            Padding(
-              // Menggunakan isMobile di sini
-              padding: EdgeInsets.symmetric(
-                horizontal: isMobile(screenWidth) ? 5.w : 15.w,
-              ),
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  // Menetapkan crossAxisCount berdasarkan lebar lokal GridView (constraints.maxWidth)
-                  int crossAxisCount = 1;
-                  if (constraints.maxWidth > 900) {
-                    crossAxisCount = 3;
-                  } else if (constraints.maxWidth > 600) {
-                    crossAxisCount = 2;
-                  } else {
-                    crossAxisCount = 1;
-                  }
-
-                  // **PENTING: Logika childAspectRatio**
-                  // Tetapkan rasio aspek untuk menentukan tinggi item: lebar / tinggi
-                  double aspect_ratio;
-                  if (crossAxisCount == 1) {
-                    // Jika 1 kolom (Mobile), rasio aspek harus besar (lebar >> tinggi) untuk kartu vertikal yang ramping.
-                    aspect_ratio =
-                        0.90; // Disesuaikan sedikit lebih besar dari 5 agar kartu lebih ramping
-                  } else if (crossAxisCount == 2) {
-                    // Jika 2 kolom (Tablet), rasio aspek harus lebih kecil untuk memberikan ruang vertikal lebih banyak.
-                    aspect_ratio = 0.9;
-                  } else {
-                    // Jika 3 kolom (Desktop), rasio aspek harus kecil.
-                    aspect_ratio = 0.50;
-                  }
-                  //
-
-                  return GridView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: crossAxisCount,
-                      crossAxisSpacing: 3.w,
-                      mainAxisSpacing: 3.h,
-                      childAspectRatio:
-                          aspect_ratio, // Menggunakan nilai dinamis
-                    ),
-                    itemCount: secondfeatureData.length,
-                    itemBuilder: (context, index) {
-                      return featureCard(
-                        title: secondfeatureData[index].title,
-
-                        image: secondfeatureData[index].image,
-                        isMobile: isMobile(screenWidth),
-                      );
-                    },
+            SizedBox(height: 20.sp),
+            Row(
+              children: [
+                SizedBox(width: 12.w),
+                ...List.generate(homecontroller.serviceModel?.length ?? 0, (
+                  index,
+                ) {
+                  return servicesContentWidget(
+                    homecontroller.serviceModel?[index],
                   );
-                },
-              ),
+                }),
+                SizedBox(width: 12.w),
+              ],
             ),
-            SizedBox(height: 5.h),
           ],
         ),
       );
@@ -794,12 +852,20 @@ class _HomeState extends State<Home> {
               title: AppString().listHomeTitle1,
               warna: isMobile(screenWidth) ? blackTextStyle : whiteTextStyle,
             ),
-            SizedBox(height: 1.5.h),
-            Text(
-              AppString().listHomeSubtitle,
-              style: greyTextStyle.copyWith(
-                fontSize: (isMobile(screenWidth)) ? 14.sp : 10.sp,
-                fontWeight: semiBold,
+            Visibility(
+              visible: homecontroller.isViewListHome1 == true,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 1.5.h),
+                  Text(
+                    AppString().listHomeSubtitle1,
+                    style: greyTextStyle.copyWith(
+                      fontSize: (isMobile(screenWidth)) ? 14.sp : 10.sp,
+                      fontWeight: semiBold,
+                    ),
+                  ),
+                ],
               ),
             ),
             Container(
@@ -810,10 +876,33 @@ class _HomeState extends State<Home> {
             ),
 
             // Item 02 s/d 05
-            ListHome(
-              warna: isMobile(screenWidth) ? blackTextStyle : whiteTextStyle,
-              nomer: AppString().listHomeNumber2,
-              title: AppString().listHomeTitle2,
+            GestureDetector(
+              onTap: () {
+                homecontroller.isViewListHome2 =
+                    !homecontroller.isViewListHome2;
+                homecontroller.update();
+              },
+              child: ListHome(
+                warna: isMobile(screenWidth) ? blackTextStyle : whiteTextStyle,
+                nomer: AppString().listHomeNumber2,
+                title: AppString().listHomeTitle2,
+              ),
+            ),
+            Visibility(
+              visible: homecontroller.isViewListHome2 == true,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 1.5.h),
+                  Text(
+                    AppString().listHomeSubtitle2,
+                    style: greyTextStyle.copyWith(
+                      fontSize: (isMobile(screenWidth)) ? 14.sp : 10.sp,
+                      fontWeight: semiBold,
+                    ),
+                  ),
+                ],
+              ),
             ),
             Container(
               height: 2,
@@ -821,10 +910,33 @@ class _HomeState extends State<Home> {
               color: Colors.grey.shade300,
               margin: EdgeInsets.symmetric(vertical: 2.h),
             ),
-            ListHome(
-              warna: isMobile(screenWidth) ? blackTextStyle : whiteTextStyle,
-              nomer: AppString().listHomeNumber3,
-              title: AppString().listHomeTitle3,
+            GestureDetector(
+              onTap: () {
+                homecontroller.isViewListHome3 =
+                    !homecontroller.isViewListHome3;
+                homecontroller.update();
+              },
+              child: ListHome(
+                warna: isMobile(screenWidth) ? blackTextStyle : whiteTextStyle,
+                nomer: AppString().listHomeNumber3,
+                title: AppString().listHomeTitle3,
+              ),
+            ),
+            Visibility(
+              visible: homecontroller.isViewListHome3 == true,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 1.5.h),
+                  Text(
+                    AppString().listHomeSubtitle3,
+                    style: greyTextStyle.copyWith(
+                      fontSize: (isMobile(screenWidth)) ? 14.sp : 10.sp,
+                      fontWeight: semiBold,
+                    ),
+                  ),
+                ],
+              ),
             ),
             Container(
               height: 2,
@@ -832,10 +944,33 @@ class _HomeState extends State<Home> {
               color: Colors.grey.shade300,
               margin: EdgeInsets.symmetric(vertical: 2.h),
             ),
-            ListHome(
-              warna: isMobile(screenWidth) ? blackTextStyle : whiteTextStyle,
-              nomer: AppString().listHomeNumber4,
-              title: AppString().listHomeTitle4,
+            GestureDetector(
+              onTap: () {
+                homecontroller.isViewListHome4 =
+                    !homecontroller.isViewListHome4;
+                homecontroller.update();
+              },
+              child: ListHome(
+                warna: isMobile(screenWidth) ? blackTextStyle : whiteTextStyle,
+                nomer: AppString().listHomeNumber4,
+                title: AppString().listHomeTitle4,
+              ),
+            ),
+            Visibility(
+              visible: homecontroller.isViewListHome4 == true,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 1.5.h),
+                  Text(
+                    AppString().listHomeSubtitle4,
+                    style: greyTextStyle.copyWith(
+                      fontSize: (isMobile(screenWidth)) ? 14.sp : 10.sp,
+                      fontWeight: semiBold,
+                    ),
+                  ),
+                ],
+              ),
             ),
             Container(
               height: 2,
@@ -843,10 +978,33 @@ class _HomeState extends State<Home> {
               color: Colors.grey.shade300,
               margin: EdgeInsets.symmetric(vertical: 2.h),
             ),
-            ListHome(
-              warna: isMobile(screenWidth) ? blackTextStyle : whiteTextStyle,
-              nomer: AppString().listHomeNumber5,
-              title: AppString().listHomeTitle5,
+            GestureDetector(
+              onTap: () {
+                homecontroller.isViewListHome5 =
+                    !homecontroller.isViewListHome5;
+                homecontroller.update();
+              },
+              child: ListHome(
+                warna: isMobile(screenWidth) ? blackTextStyle : whiteTextStyle,
+                nomer: AppString().listHomeNumber5,
+                title: AppString().listHomeTitle5,
+              ),
+            ),
+            Visibility(
+              visible: homecontroller.isViewListHome5 == true,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 1.5.h),
+                  Text(
+                    AppString().listHomeSubtitle5,
+                    style: greyTextStyle.copyWith(
+                      fontSize: (isMobile(screenWidth)) ? 14.sp : 10.sp,
+                      fontWeight: semiBold,
+                    ),
+                  ),
+                ],
+              ),
             ),
             Container(
               height: 2,
@@ -854,10 +1012,33 @@ class _HomeState extends State<Home> {
               color: Colors.grey.shade300,
               margin: EdgeInsets.symmetric(vertical: 2.h),
             ),
-            ListHome(
-              warna: isMobile(screenWidth) ? blackTextStyle : whiteTextStyle,
-              nomer: AppString().listHomeNumber6,
-              title: AppString().listHomeTitle6,
+            GestureDetector(
+              onTap: () {
+                homecontroller.isViewListHome6 =
+                    !homecontroller.isViewListHome6;
+                homecontroller.update();
+              },
+              child: ListHome(
+                warna: isMobile(screenWidth) ? blackTextStyle : whiteTextStyle,
+                nomer: AppString().listHomeNumber6,
+                title: AppString().listHomeTitle6,
+              ),
+            ),
+            Visibility(
+              visible: homecontroller.isViewListHome6 == true,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 1.5.h),
+                  Text(
+                    AppString().listHomeSubtitle6,
+                    style: greyTextStyle.copyWith(
+                      fontSize: (isMobile(screenWidth)) ? 14.sp : 10.sp,
+                      fontWeight: semiBold,
+                    ),
+                  ),
+                ],
+              ),
             ),
             Container(
               height: 2,
@@ -1509,6 +1690,7 @@ class _HomeState extends State<Home> {
           featureListSection(),
           SizedBox(height: 5.h),
           plusPoint(),
+          servicesWidget(),
 
           Column(
             children: [
@@ -1582,7 +1764,9 @@ class _HomeState extends State<Home> {
           SizedBox(height: 10.h),
 
           plusPoint(),
-          plusPoint(),
+          servicesWidget(),
+          SizedBox(height: 10.h),
+
           reasonSection(),
           SizedBox(height: 10.h),
           chooseUs(),

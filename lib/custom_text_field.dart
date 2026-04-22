@@ -6,6 +6,8 @@ class CustoumTextField extends StatelessWidget {
   final bool obsecureText;
   final double width;
   final int maxLines;
+  final TextEditingController? controller;
+  final void Function(String)? onChangedFunction;
 
   const CustoumTextField({
     super.key,
@@ -13,14 +15,18 @@ class CustoumTextField extends StatelessWidget {
     required this.obsecureText,
     required this.width,
     this.maxLines = 1,
+    this.controller,
+    this.onChangedFunction,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      margin: EdgeInsets.only(bottom: 20),
+      margin: EdgeInsets.only(bottom: 20, left: 12, right: 12),
       child: TextFormField(
+        onChanged: onChangedFunction,
+        controller: controller,
         obscureText: obsecureText,
         maxLines: maxLines,
         cursorColor: kBlackColor,

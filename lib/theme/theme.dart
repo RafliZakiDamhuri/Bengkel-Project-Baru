@@ -5,7 +5,7 @@ double defultMargin = 24.0;
 double defultRadius = 17.0;
 
 Color kPrimaryColor = Color(0xff5C40CC);
-Color kBlackColor = Color(0xff1F1449);
+Color kBlackColor = Color(0xff000000);
 Color kWhiteColor = Color(0xffFFFFFF);
 Color kGreyColor = Color(0xff9698A9);
 Color kGreenColor = Color(0xff0EC3AE);
@@ -18,6 +18,9 @@ Color kLigtblueColor = Color(0xff155FAE);
 Color kAppbarBackgroundColor = Color(0xff0570FC);
 Color kFactoryTitleColor = Color(0xff005CBC);
 Color darkGrey = Color(0xff444444);
+Color lightGrey = Color(0xffDCD7C9);
+Color darkblue = Color(0xff005CBC);
+
 TextStyle blackTextStyle = GoogleFonts.poppins(color: kBlackColor);
 TextStyle whiteTextStyle = GoogleFonts.poppins(color: kWhiteColor);
 TextStyle greyTextStyle = GoogleFonts.poppins(color: kGreyColor);

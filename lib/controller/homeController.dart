@@ -1,8 +1,16 @@
 import 'package:get/get.dart';
 import 'package:project/model/allDataModel.dart';
+import 'package:project/model/serviceModel.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Homecontroller extends GetxController {
+  bool isViewListHome1 = true;
+  bool isViewListHome2 = false;
+  bool isViewListHome3 = false;
+  bool isViewListHome4 = false;
+  bool isViewListHome5 = false;
+  bool isViewListHome6 = false;
+
   final supabase = Supabase.instance.client;
   List<AllDataModel> allDataModel = [];
   Future<void> getDatabyPlatNumber(String? value) async {
@@ -26,9 +34,18 @@ class Homecontroller extends GetxController {
     update();
   }
 
+  List<ServiceModel>? serviceModel;
+  Future getService() async {
+    serviceModel = [];
+    final response = await supabase.from('Services').select();
+    serviceModel = response.map((e) => ServiceModel.fromJson(e)).toList();
+    update();
+  }
+
   @override
   void onInit() {
     super.onInit();
+    getService();
     print("App sudah load!");
   }
 }
