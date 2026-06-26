@@ -102,7 +102,11 @@ class ProductPage extends StatelessWidget {
       required VoidCallback onTap,
     }) {
       return InkWell(
-        onTap: onTap,
+        onTap: () {
+          mainProductController.downloadPdfWeb(
+            'https://hkuubnsamodgtlsgyhrv.supabase.co/storage/v1/object/public/ProductPDFs/RADMAX%20Removable%20Tube%20Catalogue.pdf',
+          );
+        },
         borderRadius: BorderRadius.circular(12),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
@@ -244,43 +248,47 @@ class ProductPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  child: headerProduct(
-                    description: AppString().productHeaderDescription1,
-                    image: AppImages().imgHeaderProduct1,
-                  ),
-                ),
-                Container(
-                  child: headerProduct(
-                    description: AppString().productHeaderDescription2,
-                    image: AppImages().imgHeaderProduct2,
-                  ),
-                ),
-                Container(
-                  child: headerProduct(
-                    description: AppString().productHeaderDescription3,
-                    image: AppImages().imgHeaderProduct3,
-                  ),
-                ),
-                Container(
-                  child: headerProduct(
-                    description: AppString().productHeaderDescription4,
-                    image: AppImages().imgHeaderProduct4,
-                  ),
-                ),
-                Container(
-                  child: headerProduct(
-                    description: AppString().productHeaderDescription5,
-                    image: AppImages().imgHeaderProduct5,
-                  ),
-                ),
-              ],
-            ),
-
             productIntroductionContent(),
+
+            Container(
+              margin: EdgeInsets.only(left: 30, right: 30),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    child: headerProduct(
+                      description: AppString().productHeaderDescription1,
+                      image: AppImages().imgHeaderProduct1,
+                    ),
+                  ),
+                  Container(
+                    child: headerProduct(
+                      description: AppString().productHeaderDescription2,
+                      image: AppImages().imgHeaderProduct2,
+                    ),
+                  ),
+                  Container(
+                    child: headerProduct(
+                      description: AppString().productHeaderDescription3,
+                      image: AppImages().imgHeaderProduct3,
+                    ),
+                  ),
+                  Container(
+                    child: headerProduct(
+                      description: AppString().productHeaderDescription4,
+                      image: AppImages().imgHeaderProduct4,
+                    ),
+                  ),
+                  Container(
+                    child: headerProduct(
+                      description: AppString().productHeaderDescription5,
+                      image: AppImages().imgHeaderProduct5,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 30),
             mainProductContent(),
           ],
         ),
