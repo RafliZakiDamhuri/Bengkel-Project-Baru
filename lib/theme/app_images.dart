@@ -14,4 +14,8 @@ class AppImages {
   String imgHeaderProduct5 = 'assets/images/product-header-image-5.png';
   String imgIntroductionProductImage =
       'assets/images/introductionProductImage.png';
+  String contactUsImage = 'assets/images/contactUs-image.png';
+  String aboutUsHistory = 'assets/images/AboutUsHistory.png';
+  String companySertification = 'assets/images/company-certification.png';
+  String indoCoolCarrer = 'assets/images/Indocool-Career.png';
 }

@@ -5,6 +5,7 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:project/about_us.dart';
 import 'package:project/appbar/appbar_element.dart';
 import 'package:project/controller/homeController.dart';
 import 'package:project/detail_product.dart';
@@ -204,6 +205,12 @@ class _GlobalappbarState extends State<Globalappbar> {
                       ),
 
                       AppbarElement(title: AppString().appBar4),
+                      GestureDetector(
+                        onTap: () {
+                          Get.to(AboutUsPage());
+                        },
+                        child: AppbarElement(title: AppString().appBar5),
+                      ),
                       SizedBox(width: screenWidth * 0.1, child: search()),
                     ],
                   ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:project/controller/aboutUsController.dart';
 import 'package:project/controller/globalController.dart';
 import 'package:project/controller/homeController.dart';
 import 'package:project/controller/mainProductController.dart';
@@ -18,6 +19,7 @@ void main() async {
   Get.put(Homecontroller());
   Get.put(GlobalController()); // hanya sekali, global
   Get.put(MainProductController());
+  Get.put(AboutUsController());
 
   runApp(const MyApp());
 }
