@@ -39,3 +39,31 @@ Widget bookServiceSchedule() {
     ),
   );
 }
+
+Widget customBlueAppBarButton({
+  VoidCallback? onTap,
+  String title = '-',
+  double width = 250,
+  Color? backGroundColor,
+}) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Container(
+      // padding: EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.only(left: 20, right: 20),
+
+      width: width,
+      height: 40,
+      decoration: BoxDecoration(
+        color: backGroundColor ?? kAppbarBackgroundColor,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Center(
+        child: Text(
+          title,
+          style: whiteTextStyle.copyWith(fontSize: 14, fontWeight: bold),
+        ),
+      ),
+    ),
+  );
+}

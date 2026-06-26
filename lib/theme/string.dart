@@ -43,6 +43,7 @@ class AppString {
   String appBar2 = 'Services';
   String appBar3 = 'Search Part';
   String appBar4 = 'Insight';
+  String appBar5 = 'About Us';
   String drawerTitle = 'Buku Bengkel Menu';
   String detailProduct = 'Detail Produk';
   String ISCPN = 'ISC P/N';
@@ -67,4 +68,31 @@ class AppString {
   String introductionTextTitle = 'Products Range';
   String introductionTextSubtitle =
       'Indocool can support with a high variety of\ncooling system products that suit your\nindustries, for whatever your operations are,\nwe can deliver the best we have.';
+  String aboutUsHtml = '''
+<p>
+  <strong>INDOCOOL GROUP</strong>, a leading name in the industrial cooling system </br> sector, is dedicated to excellence and innovation. The group oversees
+  two dynamic subsidiaries:
+</p>
+
+<ul>
+  <li><strong>PT Indocool Solusi Cemerlang (Bogor, Balikpapan, &amp; Sangatta)</strong></li>
+  <li><strong>PT Indocool Rekayasa Batam (Batam Island)</strong></li>
+</ul>
+
+<p>
+  We are a company with more than 47 years of experience in maintenance,
+  repair, service, manufacturing, and fabricating radiators &amp; heat exchangers
+  in Indonesia. We have 5 facilities in Java, Kalimantan, and Batam, and we have
+  a mission to become the best company in Southeast Asia in the Radiator &amp;
+  Heat Exchanger.
+</p>
+''';
+
+  String indocoolCareers = ''' 
+Indocool gives you a enjoy and rewarding career experience. Whether you’re just starting or a seasoned veteran in the workshop or office.
+
+Indocool Group consistently conducts training and researches the latest technological developments. This applies not only to our products but also to our human resources, who we expect to always be able to adapt to the evolving era.
+
+We currently have job openings throughout Indonesia. If you’re interested and would like to learn and grow with us, please visit our job portal below:
+''';
 }
