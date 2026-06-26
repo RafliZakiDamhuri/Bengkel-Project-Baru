@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/utils.dart';
 import 'package:project/global%20widget/baseLayoutWrapper.dart';
+import 'package:project/global%20widget/customButton.dart';
 import 'package:project/global%20widget/globalAppBar.dart';
 import 'package:project/theme/services_images.dart';
 import 'package:project/theme/theme.dart';
@@ -59,22 +60,8 @@ class ServicesPage extends StatelessWidget {
                     ),
                     SizedBox(height: 40),
                     Container(
-                      width: 200,
-                      height: 40,
                       margin: EdgeInsets.only(left: 140),
-                      decoration: BoxDecoration(
-                        color: kBlueColor,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Book Service Schedule',
-                          style: whiteTextStyle.copyWith(
-                            fontSize: 14,
-                            fontWeight: bold,
-                          ),
-                        ),
-                      ),
+                      child: bookServiceSchedule(),
                     ),
                   ],
                 ),
@@ -99,7 +86,7 @@ class ServicesPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                margin: EdgeInsets.only(right: 20, left: 141),
+                margin: EdgeInsets.only(right: 40, left: 141),
                 width: 348,
                 height: 231,
                 decoration: BoxDecoration(
@@ -110,8 +97,8 @@ class ServicesPage extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(right: 20),
-                width: 30.w,
+                margin: EdgeInsets.only(right: 40),
+                width: 348,
                 height: 231,
                 decoration: BoxDecoration(
                   image: DecorationImage(
@@ -121,8 +108,8 @@ class ServicesPage extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(right: 20),
-                width: 30.w,
+                margin: EdgeInsets.only(right: 40),
+                width: 348,
                 height: 231,
                 decoration: BoxDecoration(
                   image: DecorationImage(
@@ -156,6 +143,7 @@ class ServicesPage extends StatelessWidget {
         ServicesImages(),
         ServicesImages(),
         ServicesImages(),
+        SizedBox(height: 20),
       ],
     );
   }

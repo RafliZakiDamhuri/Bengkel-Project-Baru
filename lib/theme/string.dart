@@ -58,7 +58,7 @@ class AppString {
   String CoreType = 'Core Type';
   String EquipmentType = 'Equipment Type';
   String Compatible = 'Compatible';
-  String phoneNumber = '628121000256';
+  String indocoolWhatsappNumber = '628121000256';
   String productHeaderDescription1 = 'MINING INDUSTRY';
   String productHeaderDescription2 = 'OIL & GAS INDUSTRY';
   String productHeaderDescription3 = 'POWER GENERATION INDUSTRY';

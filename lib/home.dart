@@ -15,6 +15,7 @@ import 'package:project/detail_location.dart';
 import 'package:project/detail_product.dart';
 import 'package:project/global%20widget/featureCard.dart';
 import 'package:project/global%20widget/footer.dart';
+import 'package:project/global%20widget/globalAppBar.dart';
 import 'package:project/global%20widget/globalLoadingWidget.dart';
 import 'package:project/global%20widget/personalData.dart';
 import 'package:project/logoChooseUS.dart';
@@ -284,6 +285,7 @@ class _HomeState extends State<Home> {
                 fontWeight: FontWeight.bold,
               ),
             ),
+            SizedBox(height: 10),
             Container(
               margin: EdgeInsets.only(left: 32, right: 32),
               child: Text(
@@ -409,12 +411,7 @@ class _HomeState extends State<Home> {
       return Container(
         width: 100.w,
         height: 65.h,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/Rectangle 39 (1).png'),
-            fit: BoxFit.cover,
-          ),
-        ),
+        decoration: BoxDecoration(color: darkblue),
         child: Column(
           children: [
             Container(
@@ -1463,140 +1460,6 @@ class _HomeState extends State<Home> {
       );
     }
 
-    // Widget footer() {
-    //   return Container(
-    //     height: 180,
-    //     width: double.infinity,
-    //     color: Colors.black,
-    //     child: Row(
-    //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    //       children: [
-    //         Column(
-    //           crossAxisAlignment: CrossAxisAlignment.start,
-    //           children: [
-    //             Container(
-    //               margin: EdgeInsets.only(left: 50, top: 30),
-    //               child: Row(
-    //                 children: [
-    //                   Container(
-    //                     margin: EdgeInsets.only(right: 10),
-    //                     width: 40,
-    //                     height: 40,
-    //                     decoration: BoxDecoration(
-    //                       image: DecorationImage(
-    //                         image: AssetImage(AppImages().imageFooter),
-    //                       ),
-    //                     ),
-    //                   ),
-    //                   Text(
-    //                     AppString().judul,
-    //                     style: whiteTextStyle.copyWith(fontSize: 25),
-    //                   ),
-    //                 ],
-    //               ),
-    //             ),
-    //             SizedBox(height: 10),
-    //             Container(
-    //               margin: EdgeInsets.only(left: 50),
-    //               child: Text(
-    //                 'Platform untuk bengkel dan customer bengkel\nyang memberikan kemudahan bekaitan dengan\nperawatan kendaraan',
-    //                 style: whiteTextStyle.copyWith(
-    //                   fontSize: isMobile(screenWidth) ? 10 : 14,
-    //                 ),
-    //               ),
-    //             ),
-    //           ],
-    //         ),
-    //         Column(
-    //           mainAxisAlignment: MainAxisAlignment.center,
-    //           crossAxisAlignment: CrossAxisAlignment.start,
-    //           children: [
-    //             Text(
-    //               'Learn More',
-    //               style: whiteTextStyle.copyWith(
-    //                 fontSize: 16,
-    //                 fontWeight: bold,
-    //               ),
-    //             ),
-    //             SizedBox(height: 20),
-    //             Text(
-    //               'Tentang Kami',
-    //               style: greyTextStyle.copyWith(
-    //                 fontWeight: medium,
-    //                 fontSize: 12,
-    //               ),
-    //             ),
-    //             SizedBox(height: 10),
-    //             Text(
-    //               'Layanan',
-    //               style: greyTextStyle.copyWith(
-    //                 fontWeight: medium,
-    //                 fontSize: 12,
-    //               ),
-    //             ),
-    //           ],
-    //         ),
-    //         Column(
-    //           mainAxisAlignment: MainAxisAlignment.center,
-    //           crossAxisAlignment: CrossAxisAlignment.start,
-    //           children: [
-    //             Text(
-    //               'Contact Us',
-    //               style: whiteTextStyle.copyWith(fontSize: 16),
-    //             ),
-    //             SizedBox(height: 15),
-    //             Text(
-    //               'Term of Services',
-    //               style: greyTextStyle.copyWith(
-    //                 fontWeight: medium,
-    //                 fontSize: 12,
-    //               ),
-    //             ),
-    //             SizedBox(height: 10),
-    //             Text(
-    //               'Privacy Policy',
-    //               style: greyTextStyle.copyWith(
-    //                 fontWeight: medium,
-    //                 fontSize: 12,
-    //               ),
-    //             ),
-    //           ],
-    //         ),
-    //         Column(
-    //           mainAxisAlignment: MainAxisAlignment.center,
-    //           crossAxisAlignment: CrossAxisAlignment.start,
-    //           children: [
-    //             Text('Sosial Media', style: whiteTextStyle),
-    //             SizedBox(height: 20),
-    //             Row(
-    //               children: [
-    //                 Container(
-    //                   width: 40,
-    //                   height: 40,
-    //                   decoration: BoxDecoration(
-    //                     image: DecorationImage(
-    //                       image: AssetImage(AppImages().instagram),
-    //                     ),
-    //                   ),
-    //                 ),
-    //                 Container(
-    //                   width: 40,
-    //                   height: 40,
-    //                   decoration: BoxDecoration(
-    //                     image: DecorationImage(
-    //                       image: AssetImage(AppImages().facebook),
-    //                     ),
-    //                   ),
-    //                 ),
-    //               ],
-    //             ),
-    //           ],
-    //         ),
-    //       ],
-    //     ),
-    //   );
-    // }
-
     Widget footerMobile() {
       return Container(
         width: double.infinity,
@@ -1781,9 +1644,6 @@ class _HomeState extends State<Home> {
           //   ],
           // ),
           SizedBox(height: 10.h),
-          personaldata(),
-
-          footer(),
         ],
       );
     }
@@ -1854,109 +1714,8 @@ class _HomeState extends State<Home> {
 
     return GetBuilder<Homecontroller>(
       builder: (controller) {
-        return Scaffold(
-          appBar: AppBar(
-            backgroundColor: kAppbarBackgroundColor,
-
-            title: LayoutBuilder(
-              builder: (context, constraints) {
-                if (isMobile(constraints.maxWidth)) {
-                  return Row(
-                    children: [
-                      Container(
-                        width: 200,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(AppImages().imageHomePage2),
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                    ],
-                  );
-                } else {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // Gunakan Expanded di sini agar bagian kiri mengambil sisa ruang yang ada
-                      // sehingga spaceBetween di Row utama bisa mendorong menu kanan ke pojok.
-                      Row(
-                        // Sekarang spaceAround akan bekerja karena sudah ada ruang dari Expanded
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          // Logo dan Judul
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Container(
-                                width: 50.w,
-                                height: 100,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                      AppImages().imageHomePage2,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 8),
-                            ],
-                          ),
-
-                          const SizedBox(
-                            width: 20,
-                          ), // Jarak antara judul dan search bar
-                          // Bagian Search
-                        ],
-                      ),
-
-                      // Row Menu Kanan (Tetap di pojok kanan)
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          GestureDetector(
-                            onTap: () => Get.to(() => SearchProductPage()),
-                            child: AppbarElement(title: AppString().appBar1),
-                          ),
-                          AppbarElement(title: AppString().appBar2),
-                          GestureDetector(
-                            onTap: () {
-                              Get.to(SearchProductPage());
-                            },
-                            child: AppbarElement(title: AppString().appBar3),
-                          ),
-
-                          AppbarElement(title: AppString().appBar4),
-                          SizedBox(width: screenWidth * 0.1, child: search()),
-                        ],
-                      ),
-                    ],
-                  );
-                }
-              },
-            ),
-
-            automaticallyImplyLeading: isMobile(
-              MediaQuery.of(context).size.width,
-            ),
-          ),
-
-          drawer: isMobile(MediaQuery.of(context).size.width)
-              ? Drawer(
-                  child: ListView(
-                    padding: EdgeInsets.zero,
-                    children: [
-                      DrawerHeader(child: Text(AppString().drawerTitle)),
-                      ListTile(title: Text(AppString().appBar1), onTap: () {}),
-                      ListTile(title: Text(AppString().appBar2), onTap: () {}),
-                      ListTile(title: Text(AppString().appBar3), onTap: () {}),
-                    ],
-                  ),
-                )
-              : null,
-
-          body: SingleChildScrollView(
+        return Globalappbar(
+          pageWidget: SingleChildScrollView(
             child: LayoutBuilder(
               builder: (context, constraints) {
                 // Tentukan layout berdasarkan lebar layar

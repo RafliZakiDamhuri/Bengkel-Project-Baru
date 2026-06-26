@@ -10,6 +10,7 @@ import 'package:project/controller/homeController.dart';
 import 'package:project/detail_product.dart';
 import 'package:project/global%20widget/footer.dart';
 import 'package:project/global%20widget/personalData.dart';
+import 'package:project/home.dart';
 import 'package:project/model/allDataModel.dart';
 import 'package:project/product_page.dart';
 import 'package:project/search_product_page.dart';
@@ -18,6 +19,7 @@ import 'package:project/theme/services_page.dart';
 import 'package:project/theme/string.dart';
 import 'package:project/theme/theme.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Globalappbar extends StatefulWidget {
   Widget pageWidget;
@@ -33,6 +35,17 @@ class _GlobalappbarState extends State<Globalappbar> {
   bool isTablet(double width) => width >= 600 && width < 900;
 
   bool isMobile(double width) => width < 600;
+  Future<void> openWhatsApp(String phone, String message) async {
+    final url = Uri.parse(
+      "https://wa.me/$phone?text=${Uri.encodeComponent(message)}",
+    );
+
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url, mode: LaunchMode.externalApplication);
+    } else {
+      throw 'Could not launch WhatsApp';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,10 +116,14 @@ class _GlobalappbarState extends State<Globalappbar> {
     }
 
     return Scaffold(
-      floatingActionButton: Image.asset(
-        AppImages().il_whastapp,
-        width: 5.w,
-        height: 5.h,
+      floatingActionButton: GestureDetector(
+        onTap: () {
+          openWhatsApp(
+            AppString().indocoolWhatsappNumber,
+            "Halo Saya Ingin Bertanya",
+          );
+        },
+        child: Image.asset(AppImages().il_whastapp, width: 5.w, height: 5.h),
       ),
       appBar: AppBar(
         backgroundColor: kAppbarBackgroundColor,
@@ -142,12 +159,17 @@ class _GlobalappbarState extends State<Globalappbar> {
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Container(
-                            width: 50.w,
-                            height: 100,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(AppImages().imageHomePage2),
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(Home());
+                            },
+                            child: Container(
+                              width: 50.w,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(AppImages().imageHomePage2),
+                                ),
                               ),
                             ),
                           ),
