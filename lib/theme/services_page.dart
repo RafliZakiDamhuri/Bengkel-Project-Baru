@@ -28,7 +28,12 @@ class ServicesPage extends StatelessWidget {
     return Container(
       width: Get.width,
 
-      decoration: BoxDecoration(color: kBlackColor),
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/images/Hero-Service 1.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
       child: Column(
         children: [
           Row(
@@ -66,19 +71,19 @@ class ServicesPage extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                margin: EdgeInsets.only(top: 12),
-                width: 60.w,
-                height: 60.h,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(
-                      'assets/images/Service-Repair-Foto 1.png',
-                    ),
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              ),
+              // Container(
+              //   margin: EdgeInsets.only(top: 12),
+              //   width: 60.w,
+              //   height: 60.h,
+              //   decoration: BoxDecoration(
+              //     image: DecorationImage(
+              //       image: AssetImage(
+              //         'assets/images/Service-Repair-Foto 1.png',
+              //       ),
+              //       fit: BoxFit.contain,
+              //     ),
+              //   ),
+              // ),
             ],
           ),
           SizedBox(height: 40),
@@ -86,7 +91,7 @@ class ServicesPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                margin: EdgeInsets.only(right: 40, left: 141),
+                margin: EdgeInsets.only(top: 50, right: 40),
                 width: 348,
                 height: 231,
                 decoration: BoxDecoration(
@@ -97,7 +102,7 @@ class ServicesPage extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(right: 40),
+                margin: EdgeInsets.only(top: 50, right: 40),
                 width: 348,
                 height: 231,
                 decoration: BoxDecoration(
@@ -108,7 +113,7 @@ class ServicesPage extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(right: 40),
+                margin: EdgeInsets.only(top: 50, right: 40),
                 width: 348,
                 height: 231,
                 decoration: BoxDecoration(
@@ -128,7 +133,20 @@ class ServicesPage extends StatelessWidget {
 
   Widget repairRadiator() {
     return Column(
-      children: [ServicesImages(), ServicesImages(), ServicesImages()],
+      children: [
+        ServicesImages(
+          title: 'Minor Repair Radiator',
+          imag: 'assets/images/04-Minor-Repair 1.png',
+        ),
+        ServicesImages(
+          title: 'Major Repair Radiator',
+          imag: 'assets/omages/05-Major-Repair 1.png',
+        ),
+        ServicesImages(
+          title: 'Complete Overhaul Radiator',
+          imag: 'assets/images/06-Overhaul-Repair 1.png',
+        ),
+      ],
     );
   }
 
@@ -140,10 +158,20 @@ class ServicesPage extends StatelessWidget {
     return Column(
       children: [
         ServiceAndRepair(),
-        ServicesImages(),
-        ServicesImages(),
-        ServicesImages(),
-        SizedBox(height: 20),
+        ServicesImages(
+          title: 'Minor Repair Radiator',
+          imag: 'assets/images/04-Minor-Repair 1.png',
+        ),
+        SizedBox(height: 60),
+        ServicesImages(
+          title: 'Major Repair Radiator',
+          imag: 'assets/images/05-Major-Repair 1.png',
+        ),
+        SizedBox(height: 60),
+        ServicesImages(
+          title: 'Complete Overhaul Radiator',
+          imag: 'assets/images/06-Overhaul-Repair 1.png',
+        ),
       ],
     );
   }

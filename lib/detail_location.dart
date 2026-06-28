@@ -24,28 +24,30 @@ class DetailLocation extends StatelessWidget {
 
     bool isMobile(double width) => width < 600;
     final screenWidth = MediaQuery.of(context).size.width;
-    return Column(
-      children: [
-        Container(
-          width: 16.w,
-          height: 10.h,
+    return Container(
+      child: Column(
+        children: [
+          Container(
+            width: 16.w,
+            height: 10.h,
 
-          decoration: BoxDecoration(
-            image: DecorationImage(image: AssetImage(number)),
-          ),
-        ),
-        Container(
-          width: isDesktop(screenWidth) ? 25.w : 60.w,
-          height: isDesktop(screenWidth) ? 25.h : 28.h,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(factory),
-              fit: BoxFit.contain,
+            decoration: BoxDecoration(
+              image: DecorationImage(image: AssetImage(number)),
             ),
           ),
-        ),
-        Container(child: Text(title, style: factoryTitleTextStyle)),
-      ],
+          Container(
+            width: isDesktop(screenWidth) ? 20.w : 60.w,
+            height: isDesktop(screenWidth) ? 25.h : 28.h,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(factory),
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+          Container(child: Text(title, style: factoryTitleTextStyle)),
+        ],
+      ),
     );
   }
 }
