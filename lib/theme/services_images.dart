@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/utils.dart';
+import 'package:project/global%20widget/customButton.dart';
 import 'package:project/theme/theme.dart';
 
 class ServicesImages extends StatelessWidget {
