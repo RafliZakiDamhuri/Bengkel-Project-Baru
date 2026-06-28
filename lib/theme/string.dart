@@ -39,11 +39,13 @@ class AppString {
       'RADMAX Engine Coolant delivers advanced OAT (Organic Additive Technology) protection, combining eco-friendly performance with superior heat transfer efficiency for every heavy-duty application.';
 
   String judul = 'Buku Bengkel';
-  String appBar1 = 'Product';
-  String appBar2 = 'Services';
-  String appBar3 = 'Search Part';
-  String appBar4 = 'Insight';
-  String appBar5 = 'About Us';
+  String appBar1 = 'PRODUCTS';
+  String appBar2 = 'SERVICES';
+  String appBar3 = 'SEARCH PART';
+  String appBar4 = 'INSIGHT';
+  String appBar5 = 'ABOUT US';
+  String appBar6 = 'CONTACT';
+
   String drawerTitle = 'Buku Bengkel Menu';
   String detailProduct = 'Detail Produk';
   String ISCPN = 'ISC P/N';
@@ -94,5 +96,23 @@ Indocool gives you a enjoy and rewarding career experience. Whether you’re jus
 Indocool Group consistently conducts training and researches the latest technological developments. This applies not only to our products but also to our human resources, who we expect to always be able to adapt to the evolving era.
 
 We currently have job openings throughout Indonesia. If you’re interested and would like to learn and grow with us, please visit our job portal below:
+''';
+
+  String linkedInUrl = 'https://www.linkedin.com/company/indocool-group';
+  String jobStreetUrl =
+      'https://id.jobstreet.com/id/lndocool-jobs/at-this-company';
+
+  String contactUsHtml = '''
+<p>
+  Ask us any questions, such as the causes of radiator overheating,
+  the right heat exchanger products for heavy equipment, preventive
+  measures to stay productive by maintaining your heat exchangers,
+  and much more.
+</p>
+
+<p>
+  Contact our team, leave the rest to us, and you can focus on
+  keeping your operations running smoothly.
+</p>
 ''';
 }

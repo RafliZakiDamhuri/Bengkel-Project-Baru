@@ -5,8 +5,9 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
-import 'package:project/about_us.dart';
+import 'package:project/about_us_page.dart';
 import 'package:project/appbar/appbar_element.dart';
+import 'package:project/contact_us_page.dart';
 import 'package:project/controller/homeController.dart';
 import 'package:project/detail_product.dart';
 import 'package:project/global%20widget/footer.dart';
@@ -24,7 +25,12 @@ import 'package:url_launcher/url_launcher.dart';
 
 class Globalappbar extends StatefulWidget {
   Widget pageWidget;
-  Globalappbar({super.key, required this.pageWidget});
+  bool isNeedInquiryPage;
+  Globalappbar({
+    super.key,
+    required this.pageWidget,
+    this.isNeedInquiryPage = true,
+  });
 
   @override
   State<Globalappbar> createState() => _GlobalappbarState();
@@ -211,6 +217,13 @@ class _GlobalappbarState extends State<Globalappbar> {
                         },
                         child: AppbarElement(title: AppString().appBar5),
                       ),
+                      GestureDetector(
+                        onTap: () {
+                          Get.to(ContactUsPage());
+                        },
+                        child: AppbarElement(title: AppString().appBar6),
+                      ),
+
                       SizedBox(width: screenWidth * 0.1, child: search()),
                     ],
                   ),
@@ -236,7 +249,13 @@ class _GlobalappbarState extends State<Globalappbar> {
             )
           : null,
       body: SingleChildScrollView(
-        child: Column(children: [widget.pageWidget, personaldata(), footer()]),
+        child: Column(
+          children: [
+            widget.pageWidget,
+            (widget.isNeedInquiryPage == false) ? Container() : personaldata(),
+            footer(),
+          ],
+        ),
       ),
     );
   }
