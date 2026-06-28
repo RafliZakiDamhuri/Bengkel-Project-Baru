@@ -252,7 +252,7 @@ class _HomeState extends State<Home> {
                 children: [
                   Text(
                     serviceModel?.serviceName ?? '',
-                    style: blackTextStyle.copyWith(
+                    style: whiteTextStyle.copyWith(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.bold,
                     ),
@@ -273,13 +273,14 @@ class _HomeState extends State<Home> {
 
     Widget servicesWidget() {
       return Container(
+        color: Colors.black,
         margin: EdgeInsets.only(top: 60),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
               'Radiator or Heat Exchanger Service and Repair Specialist',
-              style: blackTextStyle.copyWith(
+              style: whiteTextStyle.copyWith(
                 fontSize: 18.sp,
                 fontWeight: FontWeight.bold,
               ),
@@ -289,7 +290,10 @@ class _HomeState extends State<Home> {
               child: Text(
                 'Indocool can carry out minor repairs or complete overhauls to most makes and models of industrial cooling system components. Radiators, oil coolers,and heat exchangers, within the mining, oil & gas, marine, industrial power generation, and general industries.',
                 textAlign: TextAlign.center,
-                style: greyTextStyle.copyWith(fontSize: 12.sp),
+                style: whiteTextStyle.copyWith(
+                  fontSize: 12.sp,
+                  fontWeight: regular,
+                ),
               ),
             ),
             SizedBox(height: 20.sp),
@@ -306,6 +310,7 @@ class _HomeState extends State<Home> {
                 SizedBox(width: 12.w),
               ],
             ),
+            SizedBox(height: 100),
           ],
         ),
       );
@@ -407,97 +412,212 @@ class _HomeState extends State<Home> {
 
     Widget reasonSection() {
       return Container(
-        width: 100.w,
-        height: 65.h,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/Rectangle 39 (1).png'),
-            fit: BoxFit.cover,
-          ),
+        color: kLigtblueColor,
+        width: double.infinity,
+        child: Row(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(
+                    left: 260,
+                    bottom: 45,
+                    top: 56,
+                    right: 150,
+                  ),
+                  child: Text(
+                    'THE REASON OUR\nCUSTOMERS CHOOSE US',
+                    style: whiteTextStyle.copyWith(
+                      fontSize: 40,
+                      fontWeight: bold,
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 260, bottom: 50),
+                  width: 536,
+                  height: 292,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(
+                        'assets/images/007-Indocool-Customer 1.png',
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(right: 44),
+                      width: 160,
+                      height: 141,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(
+                            'assets/images/006-ISO-Indocool 1.png',
+                          ),
+                        ),
+                      ),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('ISO 9001, 14001, 45001 Company Certified'),
+                        Text(
+                          'We are committed to setting globally recognized standards (ISO) in quality,\nenvironmental, and occupational health and safety management systems.\nWe strive to provide the best services and products to our customers.',
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(right: 44),
+                      width: 160,
+                      height: 141,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(
+                            'assets/images/005-Project-Indocool 1.png',
+                          ),
+                        ),
+                      ),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('ISO 9001, 14001, 45001 Company Certified'),
+                        Text(
+                          'We are committed to setting globally recognized standards (ISO) in quality,\nenvironmental, and occupational health and safety management systems.\nWe strive to provide the best services and products to our customers.',
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(right: 44),
+                      width: 160,
+                      height: 141,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(
+                            'assets/images/006-Indocool-Indonesia 1.png',
+                          ),
+                        ),
+                      ),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('ISO 9001, 14001, 45001 Company Certified'),
+                        Text(
+                          'We are committed to setting globally recognized standards (ISO) in quality,\nenvironmental, and occupational health and safety management systems.\nWe strive to provide the best services and products to our customers.',
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
         ),
+      );
+    }
+
+    Widget headerProduct({String? description, String? image}) {
+      return Container(
+        margin: EdgeInsets.only(right: 24),
         child: Column(
           children: [
-            Container(
-              margin: EdgeInsets.only(top: 64),
-              child: Text(
-                'The Reason They Choose Us',
-                style: whiteTextStyle.copyWith(fontWeight: bold, fontSize: 36),
-              ),
-            ),
-            SizedBox(height: 48),
+            Image.asset(image ?? '', width: 300, height: 300),
+            SizedBox(height: 19),
+            Text(description ?? '', style: blackTextStyle),
+          ],
+        ),
+      );
+    }
+
+    Widget industry() {
+      return Container(
+        width: double.infinity,
+        color: Colors.black,
+        child: Column(
+          children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Column(
-                  children: [
-                    Container(
-                      child: Text(
-                        'ISO 9001, 14001, 45001\nCompany Certified',
-                        style: whiteTextStyle.copyWith(
-                          fontWeight: bold,
-                          fontSize: 24,
-                        ),
-                      ),
+                Container(
+                  margin: EdgeInsets.only(left: 260, right: 106, top: 100),
+                  width: 374,
+                  height: 306,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/Logo-47 1.png'),
+                      fit: BoxFit.cover,
                     ),
-                    Container(
-                      child: Text(
-                        textAlign: TextAlign.center,
-                        'We are committed to setting globally\nrecognized standards (ISO) in\nquality, environmental, and\noccupational health and safety\nmanagement systems. We strive to\nprovide the best services and\nproducts to our customers.',
-                        style: whiteTextStyle.copyWith(
-                          fontWeight: regular,
-                          fontSize: 20,
-                        ),
-                      ),
+                  ),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'We have 47 years of proven performance, we understand your industry,\n we provide solutions, and here is how we can support your operation.',
+                      style: whiteTextStyle.copyWith(fontSize: 24),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      'From heavy-duty radiators and industrial cooling systems to repair services,\nengine coolants, and spare parts, Indocool delivers reliable solutions to \nmaximize equipment performance and minimize downtime.',
+                      style: whiteTextStyle.copyWith(fontSize: 24),
                     ),
                   ],
                 ),
-
-                Column(
-                  children: [
-                    Container(
-                      child: Text(
-                        '17.000+ Projects Handled',
-                        style: whiteTextStyle.copyWith(
-                          fontWeight: bold,
-                          fontSize: 24,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      child: Text(
-                        textAlign: TextAlign.center,
-                        'A testament to our extensive\nexperience and trusted expertise,\nwe have successfully delivered over\n17.000 projects across various\nindustries, ensuring quality and\nreliability. We are still counting on\nmore project.',
-                        style: whiteTextStyle.copyWith(
-                          fontWeight: regular,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                  ],
+              ],
+            ),
+            SizedBox(height: 95),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  child: headerProduct(
+                    description: AppString().productHeaderDescription1,
+                    image: AppImages().imgHeaderProduct1,
+                  ),
                 ),
-
-                Column(
-                  children: [
-                    Container(
-                      child: Text(
-                        '17.000+ Projects Handled',
-                        style: whiteTextStyle.copyWith(
-                          fontWeight: bold,
-                          fontSize: 24,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      child: Text(
-                        textAlign: TextAlign.center,
-                        'A testament to our extensive\nexperience and trusted expertise,\nwe have successfully delivered over\n17.000 projects across various\nindustries, ensuring quality and\nreliability. We are still counting on\nmore project.',
-                        style: whiteTextStyle.copyWith(
-                          fontWeight: regular,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                  ],
+                Container(
+                  child: headerProduct(
+                    description: AppString().productHeaderDescription2,
+                    image: AppImages().imgHeaderProduct2,
+                  ),
+                ),
+                Container(
+                  child: headerProduct(
+                    description: AppString().productHeaderDescription3,
+                    image: AppImages().imgHeaderProduct3,
+                  ),
+                ),
+                Container(
+                  child: headerProduct(
+                    description: AppString().productHeaderDescription4,
+                    image: AppImages().imgHeaderProduct4,
+                  ),
+                ),
+                Container(
+                  child: headerProduct(
+                    description: AppString().productHeaderDescription5,
+                    image: AppImages().imgHeaderProduct5,
+                  ),
                 ),
               ],
             ),
@@ -520,7 +640,7 @@ class _HomeState extends State<Home> {
             ),
             child: Text(
               AppString().titleLandingPage1,
-              style: blackTextStyle.copyWith(
+              style: whiteTextStyle.copyWith(
                 fontSize: isDesktop(screenWidth)
                     ? 20.sp
                     : 24.sp, // Ukuran font responsif
@@ -538,7 +658,7 @@ class _HomeState extends State<Home> {
             ),
             child: Text(
               AppString().heroSectionContentTitle,
-              style: greyTextStyle.copyWith(fontWeight: light, fontSize: 14.sp),
+              style: whiteTextStyle.copyWith(fontSize: 14.sp),
               textAlign: isDesktop(screenWidth)
                   ? TextAlign.left
                   : TextAlign.center,
@@ -577,11 +697,11 @@ class _HomeState extends State<Home> {
 
                 SizedBox(width: 15), // Jarak antar tombol
                 // TOMBOL PUTIH
-                OutlinedButton.icon(
+                ElevatedButton.icon(
                   onPressed: () {},
                   icon: Text(
                     "Learn More",
-                    style: TextStyle(color: Colors.black),
+                    style: blackTextStyle.copyWith(fontWeight: bold),
                   ),
                   label: Icon(
                     Icons.arrow_forward,
@@ -589,6 +709,7 @@ class _HomeState extends State<Home> {
                     size: isDesktop(screenWidth) ? 12.sp : 17.sp,
                   ),
                   style: OutlinedButton.styleFrom(
+                    backgroundColor: Colors.white,
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                     side: BorderSide(
                       color: Colors.grey.shade300,
@@ -601,7 +722,7 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
-          SizedBox(height: isDesktop(screenWidth) ? 10.h : 5.h),
+          SizedBox(height: isDesktop(screenWidth) ? 20.h : 5.h),
         ],
       );
     }
@@ -834,23 +955,11 @@ class _HomeState extends State<Home> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              AppString().featureListSectionTitle,
-              style: isDesktop(screenWidth)
-                  ? whiteTextStyle.copyWith(
-                      fontSize: isDesktop(screenWidth) ? 20.sp : 16.sp,
-                      fontWeight: bold,
-                    )
-                  : blackTextStyle.copyWith(
-                      fontSize: isDesktop(screenWidth) ? 20.sp : 16.sp,
-                      fontWeight: bold,
-                    ),
-            ),
             SizedBox(height: 3.h),
             ListHome(
               nomer: AppString().listHomeNumber1,
               title: AppString().listHomeTitle1,
-              warna: isMobile(screenWidth) ? blackTextStyle : whiteTextStyle,
+              warna: isMobile(screenWidth) ? blackTextStyle : blackTextStyle,
             ),
             Visibility(
               visible: homecontroller.isViewListHome1 == true,
@@ -860,9 +969,9 @@ class _HomeState extends State<Home> {
                   SizedBox(height: 1.5.h),
                   Text(
                     AppString().listHomeSubtitle1,
-                    style: greyTextStyle.copyWith(
+                    style: blackTextStyle.copyWith(
                       fontSize: (isMobile(screenWidth)) ? 14.sp : 10.sp,
-                      fontWeight: semiBold,
+                      fontWeight: regular,
                     ),
                   ),
                 ],
@@ -883,7 +992,7 @@ class _HomeState extends State<Home> {
                 homecontroller.update();
               },
               child: ListHome(
-                warna: isMobile(screenWidth) ? blackTextStyle : whiteTextStyle,
+                warna: isMobile(screenWidth) ? blackTextStyle : blackTextStyle,
                 nomer: AppString().listHomeNumber2,
                 title: AppString().listHomeTitle2,
               ),
@@ -896,9 +1005,9 @@ class _HomeState extends State<Home> {
                   SizedBox(height: 1.5.h),
                   Text(
                     AppString().listHomeSubtitle2,
-                    style: greyTextStyle.copyWith(
+                    style: blackTextStyle.copyWith(
                       fontSize: (isMobile(screenWidth)) ? 14.sp : 10.sp,
-                      fontWeight: semiBold,
+                      fontWeight: regular,
                     ),
                   ),
                 ],
@@ -917,7 +1026,7 @@ class _HomeState extends State<Home> {
                 homecontroller.update();
               },
               child: ListHome(
-                warna: isMobile(screenWidth) ? blackTextStyle : whiteTextStyle,
+                warna: isMobile(screenWidth) ? blackTextStyle : blackTextStyle,
                 nomer: AppString().listHomeNumber3,
                 title: AppString().listHomeTitle3,
               ),
@@ -930,9 +1039,9 @@ class _HomeState extends State<Home> {
                   SizedBox(height: 1.5.h),
                   Text(
                     AppString().listHomeSubtitle3,
-                    style: greyTextStyle.copyWith(
+                    style: blackTextStyle.copyWith(
                       fontSize: (isMobile(screenWidth)) ? 14.sp : 10.sp,
-                      fontWeight: semiBold,
+                      fontWeight: regular,
                     ),
                   ),
                 ],
@@ -951,7 +1060,7 @@ class _HomeState extends State<Home> {
                 homecontroller.update();
               },
               child: ListHome(
-                warna: isMobile(screenWidth) ? blackTextStyle : whiteTextStyle,
+                warna: isMobile(screenWidth) ? blackTextStyle : blackTextStyle,
                 nomer: AppString().listHomeNumber4,
                 title: AppString().listHomeTitle4,
               ),
@@ -964,9 +1073,9 @@ class _HomeState extends State<Home> {
                   SizedBox(height: 1.5.h),
                   Text(
                     AppString().listHomeSubtitle4,
-                    style: greyTextStyle.copyWith(
+                    style: blackTextStyle.copyWith(
                       fontSize: (isMobile(screenWidth)) ? 14.sp : 10.sp,
-                      fontWeight: semiBold,
+                      fontWeight: regular,
                     ),
                   ),
                 ],
@@ -985,7 +1094,7 @@ class _HomeState extends State<Home> {
                 homecontroller.update();
               },
               child: ListHome(
-                warna: isMobile(screenWidth) ? blackTextStyle : whiteTextStyle,
+                warna: isMobile(screenWidth) ? blackTextStyle : blackTextStyle,
                 nomer: AppString().listHomeNumber5,
                 title: AppString().listHomeTitle5,
               ),
@@ -998,9 +1107,9 @@ class _HomeState extends State<Home> {
                   SizedBox(height: 1.5.h),
                   Text(
                     AppString().listHomeSubtitle5,
-                    style: greyTextStyle.copyWith(
+                    style: blackTextStyle.copyWith(
                       fontSize: (isMobile(screenWidth)) ? 14.sp : 10.sp,
-                      fontWeight: semiBold,
+                      fontWeight: regular,
                     ),
                   ),
                 ],
@@ -1019,7 +1128,7 @@ class _HomeState extends State<Home> {
                 homecontroller.update();
               },
               child: ListHome(
-                warna: isMobile(screenWidth) ? blackTextStyle : whiteTextStyle,
+                warna: isMobile(screenWidth) ? blackTextStyle : blackTextStyle,
                 nomer: AppString().listHomeNumber6,
                 title: AppString().listHomeTitle6,
               ),
@@ -1032,9 +1141,9 @@ class _HomeState extends State<Home> {
                   SizedBox(height: 1.5.h),
                   Text(
                     AppString().listHomeSubtitle6,
-                    style: greyTextStyle.copyWith(
+                    style: blackTextStyle.copyWith(
                       fontSize: (isMobile(screenWidth)) ? 14.sp : 10.sp,
-                      fontWeight: semiBold,
+                      fontWeight: regular,
                     ),
                   ),
                 ],
@@ -1059,25 +1168,11 @@ class _HomeState extends State<Home> {
           margin: EdgeInsets.only(top: 50),
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    'Office & Workshop Location',
-                    style: blackTextStyle.copyWith(
-                      fontWeight: bold,
-                      fontSize: 36,
-                    ),
-                  ),
-                  Text(
-                    '100% Made in Indonesia\nand by Indonesian Hands',
-                    style: blackTextStyle.copyWith(
-                      fontWeight: bold,
-                      fontSize: 24,
-                    ),
-                  ),
-                ],
+              Text(
+                'Office & Workshop Location',
+                style: blackTextStyle.copyWith(fontWeight: bold, fontSize: 36),
               ),
+
               SizedBox(height: 5.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -1095,13 +1190,17 @@ class _HomeState extends State<Home> {
                   Column(
                     children: [
                       Container(
-                        margin: EdgeInsets.only(right: 140),
-                        child: Text(
-                          'INDOCOOL GROUP, a leading name in the industrial\ncooling system sector, is dedicated to excellence\nand innovation. The group oversees two dynamic\nsubsidiaries:\n(1)PT Indocool Solusi Cemerlang (Bogor,\nBalikpapan, & Sangatta)\n(2)PT Indocool Rekayasa Batam (Batam Island)',
-                          style: blackTextStyle.copyWith(fontWeight: regular),
+                        width: 438,
+                        height: 138,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(
+                              'assets/images/Indocool-Indonesia-Australia-2 1.png',
+                            ),
+                          ),
                         ),
                       ),
-                      SizedBox(height: 15),
+                      SizedBox(height: 44),
                       Container(
                         margin: EdgeInsets.only(right: 120),
                         child: Text(
@@ -1115,22 +1214,21 @@ class _HomeState extends State<Home> {
               ),
               SizedBox(height: 5.h),
               Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   DetailLocation(
                     number: 'assets/images/1 8.png',
-                    factory: 'assets/images/Rectangle 9.png',
+                    factory: 'assets/images/Rectangle 11.png',
                     title: 'Bogor Head Office & Workshop',
                   ),
                   DetailLocation(
                     number: 'assets/images/2 1.png',
-                    factory: 'assets/images/Rectangle 10.png',
+                    factory: 'assets/images/Rectangle 9.png',
                     title: 'Balikpapan Office & Workshop',
                   ),
                   DetailLocation(
                     number: 'assets/images/3 1.png',
-                    factory: 'assets/images/Rectangle 11.png',
+                    factory: 'assets/images/Rectangle 10.png',
                     title: 'Sangatta Office & Workshop',
                   ),
                   DetailLocation(
@@ -1269,25 +1367,32 @@ class _HomeState extends State<Home> {
 
     Widget chooseUs() {
       return Container(
-        color: kWhiteColor,
-        width: 100.w,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/Indocool-Global-Customer 1.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Those Who Choose Us',
-              style: blackTextStyle.copyWith(fontWeight: bold, fontSize: 36),
+            Container(
+              margin: EdgeInsets.only(bottom: 33, left: 260, top: 40),
+              child: Text(
+                'EXPANDING OUR REACH ACROSS\nGLOBAL INDUSTRIES',
+                style: whiteTextStyle.copyWith(fontSize: 40, fontWeight: bold),
+              ),
             ),
-            Row(
-              children: [
-                Logochooseus(image: 'assets/images/AMMAN Logo 1.png'),
-                Logochooseus(image: 'assets/images/Logo-Madhani 1.png'),
-                Logochooseus(image: 'assets/images/Logo-KPC 1.png'),
-                Logochooseus(image: 'assets/images/image 1.png'),
-                Logochooseus(
-                  image: 'assets/images/Logo-Cipta-Andalan-Teknindo 1.png',
+            Container(
+              margin: EdgeInsets.only(bottom: 80, left: 260),
+              child: Text(
+                'From Indonesia to international markets, our commitment to quality,\nreliability, and customer satisfaction continues to drive long-term\npartnerships across critical industries.',
+                style: whiteTextStyle.copyWith(
+                  fontSize: 20,
+                  fontWeight: semiBold,
                 ),
-                Logochooseus(image: 'assets/images/Logo-Thriveni 1.png'),
-              ],
+              ),
             ),
           ],
         ),
@@ -1709,55 +1814,77 @@ class _HomeState extends State<Home> {
     Widget desktopWidget() {
       return Column(
         children: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 10.w,
-              vertical: 10.h,
-            ), // Padding global di Desktop
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(child: heroSectionContent()), // Kolom kiri
-                Expanded(
-                  child: Container(
-                    // Hapus margin tetap dan batasi lebar/tinggi dengan Expanded
-                    width: double.infinity,
-                    height: 50.h, // Tinggi responsif
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(AppImages().imageHomePage1),
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ),
-                ), // Kolom kanan
-              ],
+          Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                  'assets/images/Indocool-Provide-Radiator-for-Multi-Sector-2 1.png',
+                ),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 10.w,
+                vertical: 10.h,
+              ), // Padding global di Desktop
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(child: heroSectionContent()), // Kolom kiri
+                ],
+              ),
             ),
           ),
-          SizedBox(height: 10.h),
+          industry(),
+          // SizedBox(height: 10.h),
           // Section Fitur Terbaik
           Container(
-            color: kLigtblueColor,
-            child: Row(
+            color: kWhiteColor,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  child: Container(
-                    // Gambar di kiri
-                    width: double.infinity,
-                    height: 100.h,
-                    margin: EdgeInsets.only(
-                      left: 5.w,
-                    ), // Sedikit margin ke kiri
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(AppImages().imageHomePage3),
-                        fit: BoxFit.contain,
-                      ),
-                    ),
+                Container(
+                  margin: EdgeInsets.only(left: 260, top: 75),
+                  child: Text(
+                    AppString().featureListSectionTitle,
+                    style: isDesktop(screenWidth)
+                        ? blackTextStyle.copyWith(
+                            fontSize: isDesktop(screenWidth) ? 20.sp : 16.sp,
+                            fontWeight: bold,
+                          )
+                        : blackTextStyle.copyWith(
+                            fontSize: isDesktop(screenWidth) ? 20.sp : 16.sp,
+                            fontWeight: bold,
+                          ),
                   ),
                 ),
-                Expanded(child: featureListSection()), // Daftar Fitur di kanan
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        // Gambar di kiri
+                        width: 438,
+                        height: 618,
+                        margin: EdgeInsets.only(
+                          left: 5.w,
+                        ), // Sedikit margin ke kiri
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(AppImages().imageHomePage3),
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: featureListSection(),
+                    ), // Daftar Fitur di kanan
+                  ],
+                ),
               ],
             ),
           ),
@@ -1765,12 +1892,11 @@ class _HomeState extends State<Home> {
 
           plusPoint(),
           servicesWidget(),
-          SizedBox(height: 10.h),
 
           reasonSection(),
-          SizedBox(height: 10.h),
+
           chooseUs(),
-          SizedBox(height: 10.h),
+
           location(),
 
           // Row(

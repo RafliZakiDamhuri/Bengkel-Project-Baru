@@ -8,11 +8,10 @@ class AppString {
   String pluspointSubTitle =
       "We specialize in delivering high quality radiator & and heat exchanger solutions to a diverse spectrum of industries. Whether you operate inmining, oil & gas, offshore, power plants, industrial, marine environments, locomotives, drilling, or exploration, we've got you covered.";
   String titleLandingPage1 =
-      'Briliant Solutions\nfor Industrial Radiators\nand Heavy Equiqment';
+      'POWERING INDUSTRIAL OPERATIONS\nWITH SUPERIOR HEAVY-DUTY\nCOOLING SOLUTIONS ';
   String heroSectionContentTitle =
-      'We are experienced in supplying and handling various types of radiators and\ncooling systems for the mining, oil and gas, marie or shipping,power generation,\nand manufacturing industries ';
-  String featureListSectionTitle =
-      'One Stop Solutions for Radiator and Cooling System Needs';
+      'With 47 years of industry expertise, Indocool specializes in supplying reliable\nradiator and heat exchanger solutions, supported by engineering excellence\nand comprehensive services for mining, oil & gas, marine, power generation,\nand industrial applications. ';
+  String featureListSectionTitle = 'LINE OF BUSINESS';
   String listHomeNumber1 = '01';
   String listHomeNumber2 = '02';
   String listHomeNumber3 = '03';
@@ -26,17 +25,17 @@ class AppString {
   String listHomeTitle5 = 'RADMAX Engine Coolant';
   String listHomeTitle6 = 'Fans and Component';
   String listHomeSubtitle1 =
-      'RADMAX Removable Tube Radiator is a radiator brand from Indocool, known\nfor its advantages where the radiator consists of a combination of individual\nremovable tube cores. Each tube can be removed and replaced.';
+      'RADMAX™ (equivalent with MESABI®) is innovative radiator technology with individual replaceable tubes, reducing downtime and maintenance costs for heavy-duty operations.';
   String listHomeSubtitle2 =
-      'Indocool can provide radiator and cooling system for most famous heavy-duty equipment in the world. From conventional radiator into heavy-duty plate & bar radiator, our radiator is match for heavy-duty operations.';
+      'High-performance radiator solutions for world-leading heavy equipment, including\nconventional, aluminum tube & fin, and plate & bar radiator technologies. ';
   String listHomeSubtitle3 =
-      'With the massive industrial development in Indonesia, we provide radiators and cooling systems for industrial needs. Such as plate heat exchangers, power plant radiators, shell and tube oil coolers, and other cooling systems.';
+      'Complete industrial cooling systems including plate heat exchangers, oil coolers, power\ngeneration radiators, and custom cooling applications.';
   String listHomeSubtitle4 =
-      'Indocool can carry out minor repairs or complete overhauls to most makes and models of industrial cooling system components. Within the mining, oil & gas, marine, industrial power generation, and general industries.';
+      'Comprehensive repair, refurbishment, and overhaul services for radiators and cooling\nsystems across mining, oil & gas, marine, power generation, and industrial sectors.';
   String listHomeSubtitle5 =
-      'RADMAX Engine Coolant delivers advanced OAT (Organic Additive Technology) protection, combining eco-friendly performance with superior heat transfer efficiency for every heavy-duty application.';
+      'Advanced OAT coolant technology designed to provide superior corrosion protection,\nlonger service life, and efficient heat transfer for heavy-duty applications.';
   String listHomeSubtitle6 =
-      'RADMAX Engine Coolant delivers advanced OAT (Organic Additive Technology) protection, combining eco-friendly performance with superior heat transfer efficiency for every heavy-duty application.';
+      'Complete range of radiator and cooling system spare parts, including caps, cores, tubes,\ngaskets, fans, gasketed heat exchangers, and other necessary components.';
 
   String judul = 'Buku Bengkel';
   String appBar1 = 'Product';
