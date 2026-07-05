@@ -636,34 +636,44 @@ class _HomeState extends State<Home> {
         children: [
           SizedBox(height: isDesktop(screenWidth) ? 10.h : 5.h),
           Container(
-            // Hapus margin tetap, ganti dengan Padding atau alignment
-            padding: EdgeInsets.symmetric(
-              horizontal: isDesktop(screenWidth) ? 0 : 5.w,
+            decoration: BoxDecoration(
+              color: Colors.black.withOpacity(0.45),
+              borderRadius: BorderRadius.circular(30),
             ),
-            child: Text(
-              AppString().titleLandingPage1,
-              style: whiteTextStyle.copyWith(
-                fontSize: isDesktop(screenWidth)
-                    ? 20.sp
-                    : 24.sp, // Ukuran font responsif
-                fontWeight: bold,
-              ),
-              textAlign: isDesktop(screenWidth)
-                  ? TextAlign.left
-                  : TextAlign.center,
-            ),
-          ),
-          SizedBox(height: 2.h),
-          Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: isDesktop(screenWidth) ? 0 : 5.w,
-            ),
-            child: Text(
-              AppString().heroSectionContentTitle,
-              style: whiteTextStyle.copyWith(fontSize: 14.sp),
-              textAlign: isDesktop(screenWidth)
-                  ? TextAlign.left
-                  : TextAlign.center,
+            child: Column(
+              children: [
+                Container(
+                  // Hapus margin tetap, ganti dengan Padding atau alignment
+                  padding: EdgeInsets.symmetric(
+                    horizontal: isDesktop(screenWidth) ? 0 : 5.w,
+                  ),
+                  child: Text(
+                    AppString().titleLandingPage1,
+                    style: whiteTextStyle.copyWith(
+                      fontSize: isDesktop(screenWidth)
+                          ? 20.sp
+                          : 24.sp, // Ukuran font responsif
+                      fontWeight: bold,
+                    ),
+                    textAlign: isDesktop(screenWidth)
+                        ? TextAlign.left
+                        : TextAlign.center,
+                  ),
+                ),
+                SizedBox(height: 2.h),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: isDesktop(screenWidth) ? 0 : 5.w,
+                  ),
+                  child: Text(
+                    AppString().heroSectionContentTitle,
+                    style: whiteTextStyle.copyWith(fontSize: 14.sp),
+                    textAlign: isDesktop(screenWidth)
+                        ? TextAlign.left
+                        : TextAlign.center,
+                  ),
+                ),
+              ],
             ),
           ),
 
