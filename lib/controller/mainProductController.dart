@@ -39,7 +39,7 @@ class MainProductController extends GetxController {
     }
   }
 
-  Future<void> downloadPdfWeb(String url) async {
+  Future<void> downloadPdfWeb(String url, {String pdfName = "file.pdf"}) async {
     final response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
@@ -47,7 +47,7 @@ class MainProductController extends GetxController {
       final urlBlob = html.Url.createObjectUrlFromBlob(blob);
 
       final anchor = html.AnchorElement(href: urlBlob)
-        ..setAttribute("download", "file.pdf")
+        ..setAttribute("download", pdfName)
         ..click();
 
       html.Url.revokeObjectUrl(urlBlob);

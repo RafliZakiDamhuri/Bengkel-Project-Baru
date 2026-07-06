@@ -114,4 +114,16 @@ We currently have job openings throughout Indonesia. If you’re interested and 
   keeping your operations running smoothly.
 </p>
 ''';
+
+  String productListDescription = '''
+<p>
+    Indocool provides a comprehensive range of cooling system
+    solutions designed to meet the unique demands of various industries.
+    Whatever your operation requires, we are committed to delivering reliable
+    products, technical expertise, and trusted support.
+  </p> ''';
+  String companyProfilePdfUrl =
+      'https://hkuubnsamodgtlsgyhrv.supabase.co/storage/v1/object/public/Company%20Profile/Company%20Profile%20-%20Indocool%20Group%20-%20Rev.9.pdf';
+  String productListPdfUrl =
+      'https://hkuubnsamodgtlsgyhrv.supabase.co/storage/v1/object/public/ProductPDFs/All%20Products%20Line%20Up%20Catalogue.pdf';
 }

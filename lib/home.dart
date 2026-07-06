@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:project/appbar/appbar_element.dart';
 import 'package:project/appbar/list_home.dart';
+import 'package:project/controller/globalController.dart';
 import 'package:project/controller/homeController.dart';
 import 'package:project/controller/mainProductController.dart';
 import 'package:project/custom_text_field.dart';
@@ -22,6 +23,7 @@ import 'package:project/logoChooseUS.dart';
 import 'package:project/model/allDataModel.dart';
 import 'package:project/model/featureCardModel.dart';
 import 'package:project/model/serviceModel.dart';
+import 'package:project/routes/routes_name.dart';
 import 'package:project/search_product_page.dart';
 import 'package:project/theme/app_images.dart';
 import 'package:project/theme/string.dart';
@@ -48,11 +50,11 @@ class _HomeState extends State<Home> {
   bool isMobile(double width) => width < 600;
   var homecontroller = Get.find<Homecontroller>();
   var mainProductController = Get.find<MainProductController>();
+  var globalController = Get.find<GlobalController>();
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-
     // Data fitur tetap sama
     final List<Feature> featureData = [
       Feature('assets/images/D85ESS-Transp 1.png', "Removable Tube Radiator"),
@@ -636,11 +638,22 @@ class _HomeState extends State<Home> {
         children: [
           SizedBox(height: isDesktop(screenWidth) ? 10.h : 5.h),
           Container(
+            margin: EdgeInsets.only(
+              left: isDesktop(screenWidth) ? 0.w : 5.w,
+              right: isDesktop(screenWidth) ? 15.w : 5.w,
+            ),
+            padding: EdgeInsets.symmetric(
+              vertical: isDesktop(screenWidth) ? 40 : 2.h,
+              horizontal: isDesktop(screenWidth) ? 36 : 0.w,
+            ),
             decoration: BoxDecoration(
               color: Colors.black.withOpacity(0.45),
               borderRadius: BorderRadius.circular(30),
             ),
             child: Column(
+              crossAxisAlignment: isDesktop(screenWidth)
+                  ? CrossAxisAlignment.start
+                  : CrossAxisAlignment.center,
               children: [
                 Container(
                   // Hapus margin tetap, ganti dengan Padding atau alignment
@@ -673,67 +686,82 @@ class _HomeState extends State<Home> {
                         : TextAlign.center,
                   ),
                 ),
+                Container(
+                  margin: EdgeInsets.only(
+                    top: isDesktop(screenWidth) ? 3.h : 3.h,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: isDesktop(screenWidth)
+                        ? MainAxisAlignment.start
+                        : MainAxisAlignment.center,
+                    children: [
+                      // TOMBOL BIRU
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          globalController.openWhatsApp(
+                            AppString().indocoolWhatsappNumber,
+                            'Halo Saya Ingin Bertanya',
+                          );
+                        },
+                        icon: Text(
+                          "Contact Us",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        label: Icon(
+                          Icons.phone_callback,
+                          color: Colors.white,
+                          size: isDesktop(screenWidth) ? 12.sp : 17.sp,
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blueAccent,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 15,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                              12,
+                            ), // Membuat sudut melengkung
+                          ),
+                        ),
+                      ),
+
+                      SizedBox(width: 15), // Jarak antar tombol
+                      // TOMBOL PUTIH
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          Get.toNamed(AppRouteName.product);
+                        },
+                        icon: Text(
+                          "Learn More",
+                          style: blackTextStyle.copyWith(fontWeight: bold),
+                        ),
+                        label: Icon(
+                          Icons.arrow_forward,
+                          color: Colors.black,
+                          size: isDesktop(screenWidth) ? 12.sp : 17.sp,
+                        ),
+                        style: OutlinedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 15,
+                          ),
+                          side: BorderSide(
+                            color: Colors.grey.shade300,
+                          ), // Garis pinggir tipis
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
 
-          Container(
-            margin: EdgeInsets.only(top: isDesktop(screenWidth) ? 3.h : 3.h),
-            child: Row(
-              mainAxisAlignment: isDesktop(screenWidth)
-                  ? MainAxisAlignment.start
-                  : MainAxisAlignment.center,
-              children: [
-                // TOMBOL BIRU
-                ElevatedButton.icon(
-                  onPressed: () {},
-                  icon: Text(
-                    "Contact Us",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  label: Icon(
-                    Icons.phone_callback,
-                    color: Colors.white,
-                    size: isDesktop(screenWidth) ? 12.sp : 17.sp,
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueAccent,
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                        12,
-                      ), // Membuat sudut melengkung
-                    ),
-                  ),
-                ),
-
-                SizedBox(width: 15), // Jarak antar tombol
-                // TOMBOL PUTIH
-                ElevatedButton.icon(
-                  onPressed: () {},
-                  icon: Text(
-                    "Learn More",
-                    style: blackTextStyle.copyWith(fontWeight: bold),
-                  ),
-                  label: Icon(
-                    Icons.arrow_forward,
-                    color: Colors.black,
-                    size: isDesktop(screenWidth) ? 12.sp : 17.sp,
-                  ),
-                  style: OutlinedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                    side: BorderSide(
-                      color: Colors.grey.shade300,
-                    ), // Garis pinggir tipis
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
           SizedBox(height: isDesktop(screenWidth) ? 20.h : 5.h),
         ],
       );
@@ -1856,6 +1884,7 @@ class _HomeState extends State<Home> {
     return GetBuilder<Homecontroller>(
       builder: (controller) {
         return Globalappbar(
+          isNeedScrollButton: true,
           pageWidget: SingleChildScrollView(
             child: LayoutBuilder(
               builder: (context, constraints) {

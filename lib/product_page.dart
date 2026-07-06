@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 import 'package:project/controller/mainProductController.dart';
 import 'package:project/global%20widget/baseLayoutWrapper.dart';
+import 'package:project/global%20widget/customButton.dart';
 import 'package:project/global%20widget/footer.dart';
 import 'package:project/global%20widget/globalAppBar.dart';
 import 'package:project/global%20widget/personalData.dart';
@@ -31,36 +33,67 @@ class ProductPage extends StatelessWidget {
     }
 
     Widget productIntroductionContent() {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+      return Stack(
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                AppString().introductionTextTitle,
-                style: blackTextStyle.copyWith(
-                  fontSize: 36,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(height: 24),
-              Text(
-                AppString().introductionTextSubtitle,
-                style: blackTextStyle.copyWith(
-                  fontSize: 20,
-
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ],
+          Image.asset(
+            AppImages().incoCoolProductList,
+            width: double.infinity,
+            fit: BoxFit.fitWidth,
           ),
-          Container(
-            margin: EdgeInsets.only(right: 24),
-            child: Image.asset(
-              AppImages().imgIntroductionProductImage,
-              width: 800,
-              height: 800,
+
+          Padding(
+            padding: const EdgeInsets.only(left: 120, top: 165),
+            child: SizedBox(
+              width: Get.width / 2,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'INDOCOOL PRODUCT\nPORTFOLIO',
+                    style: TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 40),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Html(
+                          data: AppString().productListDescription,
+                          style: {
+                            "body": Style(
+                              color: Colors.white,
+                              fontSize: FontSize(24),
+                              margin: Margins.zero,
+                              padding: HtmlPaddings.zero,
+                              lineHeight: const LineHeight(1.5),
+                            ),
+                            "p": Style(margin: Margins.only(bottom: 12)),
+                            "ul": Style(
+                              margin: Margins.only(left: 20, bottom: 12),
+                            ),
+                            "li": Style(color: Colors.white),
+                            "strong": Style(fontWeight: FontWeight.bold),
+                          },
+                        ),
+                      ),
+                      SizedBox(width: 180),
+                    ],
+                  ),
+                  const SizedBox(height: 50),
+                  customBlueAppBarButton(
+                    onTap: () {
+                      mainProductController.downloadPdfWeb(
+                        AppString().productListPdfUrl,
+                        pdfName: "All Products Line Up Catalogue.pdf",
+                      );
+                    },
+                    title: 'Request Catalogue',
+                  ),
+                ],
+              ),
             ),
           ),
         ],
@@ -99,12 +132,14 @@ class ProductPage extends StatelessWidget {
 
     Widget learnMoreButton({
       String text = "Learn More",
-      required VoidCallback onTap,
+      required url,
+      String? pdfName,
     }) {
       return InkWell(
         onTap: () {
           mainProductController.downloadPdfWeb(
-            'https://hkuubnsamodgtlsgyhrv.supabase.co/storage/v1/object/public/ProductPDFs/RADMAX%20Removable%20Tube%20Catalogue.pdf',
+            url,
+            pdfName: pdfName ?? "file.pdf",
           );
         },
         borderRadius: BorderRadius.circular(12),
@@ -145,45 +180,68 @@ class ProductPage extends StatelessWidget {
         children: List.generate(
           mainProductController.mainProductModel?.length ?? 0,
           (index) {
-            var data = mainProductController.mainProductModel?[index];
-            return Container(
-              width: Get.width,
-              color: lightGrey,
-              child: Container(
-                margin: EdgeInsets.only(left: 140, right: 500, top: 80),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.network(
-                      data?.imageUrl ?? '',
-                      width: 400,
-                      height: 400,
-                    ),
-                    SizedBox(width: 100),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            data?.productName ?? '',
+            final data = mainProductController.mainProductModel?[index];
 
-                            style: blackTextStyle.copyWith(
-                              fontSize: 32,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          const SizedBox(height: 26),
-                          Text(
-                            data?.description.replaceAll(r'\n', '\n') ?? '',
-                            style: blackTextStyle.copyWith(fontSize: 12),
-                          ),
-                          const SizedBox(height: 26),
-                          learnMoreButton(onTap: () {}),
-                        ],
-                      ),
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 40),
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 1200),
+                  child: Container(
+                    padding: const EdgeInsets.all(40),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: Colors.black12, width: 1),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.08),
+                          blurRadius: 24,
+                          offset: const Offset(0, 8),
+                        ),
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.04),
+                          blurRadius: 6,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
                     ),
-                  ],
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.network(
+                          data?.imageUrl ?? '',
+                          width: 300,
+                          height: 300,
+                        ),
+                        const SizedBox(width: 80),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                data?.productName ?? '',
+                                style: blackTextStyle.copyWith(
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              const SizedBox(height: 26),
+                              Text(
+                                data?.description.replaceAll(r'\n', '\n') ?? '',
+                                style: blackTextStyle.copyWith(fontSize: 12),
+                              ),
+                              const SizedBox(height: 26),
+                              learnMoreButton(
+                                url: data?.pdfData ?? '',
+                                pdfName: '${data?.productName}.pdf',
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             );
@@ -228,7 +286,10 @@ class ProductPage extends StatelessWidget {
                           style: blackTextStyle.copyWith(fontSize: 12),
                         ),
                         const SizedBox(height: 12),
-                        learnMoreButton(onTap: () {}),
+                        learnMoreButton(
+                          url: data?.pdfData ?? '',
+                          pdfName: data?.productName ?? '',
+                        ),
                         const SizedBox(height: 24),
                       ],
                     ),
@@ -242,56 +303,12 @@ class ProductPage extends StatelessWidget {
     }
 
     Widget desktopWidget() {
-      return Container(
-        margin: EdgeInsets.only(top: 20),
-
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            productIntroductionContent(),
-
-            Container(
-              margin: EdgeInsets.only(left: 30, right: 30),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    child: headerProduct(
-                      description: AppString().productHeaderDescription1,
-                      image: AppImages().imgHeaderProduct1,
-                    ),
-                  ),
-                  Container(
-                    child: headerProduct(
-                      description: AppString().productHeaderDescription2,
-                      image: AppImages().imgHeaderProduct2,
-                    ),
-                  ),
-                  Container(
-                    child: headerProduct(
-                      description: AppString().productHeaderDescription3,
-                      image: AppImages().imgHeaderProduct3,
-                    ),
-                  ),
-                  Container(
-                    child: headerProduct(
-                      description: AppString().productHeaderDescription4,
-                      image: AppImages().imgHeaderProduct4,
-                    ),
-                  ),
-                  Container(
-                    child: headerProduct(
-                      description: AppString().productHeaderDescription5,
-                      image: AppImages().imgHeaderProduct5,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 30),
-            mainProductContent(),
-          ],
-        ),
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          productIntroductionContent(),
+          Center(child: mainProductContent()),
+        ],
       );
     }
 

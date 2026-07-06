@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
@@ -15,6 +16,7 @@ import 'package:project/global%20widget/personalData.dart';
 import 'package:project/home.dart';
 import 'package:project/model/allDataModel.dart';
 import 'package:project/product_page.dart';
+import 'package:project/routes/routes_name.dart';
 import 'package:project/search_product_page.dart';
 import 'package:project/theme/app_images.dart';
 import 'package:project/theme/services_page.dart';
@@ -26,10 +28,12 @@ import 'package:url_launcher/url_launcher.dart';
 class Globalappbar extends StatefulWidget {
   Widget pageWidget;
   bool isNeedInquiryPage;
+  bool isNeedScrollButton;
   Globalappbar({
     super.key,
     required this.pageWidget,
     this.isNeedInquiryPage = true,
+    this.isNeedScrollButton = false,
   });
 
   @override
@@ -38,7 +42,7 @@ class Globalappbar extends StatefulWidget {
 
 class _GlobalappbarState extends State<Globalappbar> {
   bool isDesktop(double width) => width >= 900;
-
+  final ScrollController scrollController = ScrollController();
   bool isTablet(double width) => width >= 600 && width < 900;
 
   bool isMobile(double width) => width < 600;
@@ -57,7 +61,7 @@ class _GlobalappbarState extends State<Globalappbar> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-
+    var homeController = Get.find<Homecontroller>();
     Widget search() {
       return GetBuilder<Homecontroller>(
         builder: (controller) {
@@ -123,14 +127,42 @@ class _GlobalappbarState extends State<Globalappbar> {
     }
 
     return Scaffold(
-      floatingActionButton: GestureDetector(
-        onTap: () {
-          openWhatsApp(
-            AppString().indocoolWhatsappNumber,
-            "Halo Saya Ingin Bertanya",
-          );
-        },
-        child: Image.asset(AppImages().il_whastapp, width: 5.w, height: 5.h),
+      floatingActionButton: Column(
+        mainAxisAlignment: widget.isNeedScrollButton
+            ? MainAxisAlignment.center
+            : MainAxisAlignment.end,
+        children: [
+          Visibility(
+            visible: widget.isNeedScrollButton,
+            child: Container(
+              margin: EdgeInsets.only(bottom: 400, top: 400),
+              child: GestureDetector(
+                onTap: () {
+                  scrollController.animateTo(
+                    scrollController.offset + 500,
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.easeInOut,
+                  );
+                },
+                child: Image.asset(AppImages().scroll, width: 5.w, height: 5.h),
+              ),
+            ),
+          ),
+
+          GestureDetector(
+            onTap: () {
+              openWhatsApp(
+                AppString().indocoolWhatsappNumber,
+                "Halo Saya Ingin Bertanya",
+              );
+            },
+            child: Image.asset(
+              AppImages().il_whastapp,
+              width: 5.w,
+              height: 5.h,
+            ),
+          ),
+        ],
       ),
       appBar: AppBar(
         backgroundColor: kAppbarBackgroundColor,
@@ -168,7 +200,7 @@ class _GlobalappbarState extends State<Globalappbar> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              Get.to(Home());
+                              Get.toNamed(AppRouteName.home);
                             },
                             child: Container(
                               width: 50.w,
@@ -196,29 +228,29 @@ class _GlobalappbarState extends State<Globalappbar> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       GestureDetector(
-                        onTap: () => Get.to(() => ProductPage()),
+                        onTap: () => Get.toNamed(AppRouteName.product),
                         child: AppbarElement(title: AppString().appBar1),
                       ),
                       GestureDetector(
-                        onTap: () => Get.to(() => ServicesPage()),
+                        onTap: () => Get.toNamed(AppRouteName.services),
                         child: AppbarElement(title: AppString().appBar2),
                       ),
                       GestureDetector(
                         onTap: () {
-                          Get.to(SearchProductPage());
+                          Get.toNamed(AppRouteName.searchProduct);
                         },
                         child: AppbarElement(title: AppString().appBar3),
                       ),
 
                       GestureDetector(
                         onTap: () {
-                          Get.to(AboutUsPage());
+                          Get.toNamed(AppRouteName.aboutUs);
                         },
                         child: AppbarElement(title: AppString().appBar5),
                       ),
                       GestureDetector(
                         onTap: () {
-                          Get.to(ContactUsPage());
+                          Get.toNamed(AppRouteName.contactUs);
                         },
                         child: AppbarElement(title: AppString().appBar6),
                       ),
@@ -273,6 +305,7 @@ class _GlobalappbarState extends State<Globalappbar> {
             )
           : null,
       body: SingleChildScrollView(
+        controller: scrollController,
         child: Column(
           children: [
             widget.pageWidget,
