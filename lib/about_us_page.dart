@@ -5,6 +5,7 @@ import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:get/state_manager.dart';
 import 'package:project/controller/aboutUsController.dart';
 import 'package:project/controller/globalController.dart';
+import 'package:project/controller/mainProductController.dart';
 import 'package:project/global%20widget/baseLayoutWrapper.dart';
 import 'package:project/global%20widget/customButton.dart';
 import 'package:project/global%20widget/globalAppBar.dart';
@@ -18,6 +19,7 @@ class AboutUsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var mainProductController = Get.find<MainProductController>();
     GlobalController globalController = Get.find<GlobalController>();
     Widget mobileHeroSection() {
       return Stack(
@@ -117,7 +119,12 @@ class AboutUsPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 50),
                   customBlueAppBarButton(
-                    onTap: () {},
+                    onTap: () {
+                      mainProductController.downloadPdfWeb(
+                        AppString().companyProfilePdfUrl,
+                        pdfName: "Company Profile - Indocool Group.pdf",
+                      );
+                    },
                     title: 'Request Company Profile',
                   ),
                 ],

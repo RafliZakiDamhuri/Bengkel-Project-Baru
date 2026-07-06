@@ -3,6 +3,7 @@ import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:project/global%20widget/baseLayoutWrapper.dart';
 import 'package:project/product_page.dart';
+import 'package:project/routes/routes_name.dart';
 import 'package:project/theme/app_images.dart';
 import 'package:project/theme/string.dart';
 import 'package:project/theme/theme.dart';
@@ -160,7 +161,7 @@ Widget footer() {
                     margin: EdgeInsets.only(top: 30),
                     child: GestureDetector(
                       onTap: () {
-                        Get.to(ProductPage());
+                        Get.toNamed(AppRouteName.product);
                       },
                       child: Text(
                         'Product',
@@ -632,7 +633,7 @@ Widget footer() {
                                 margin: EdgeInsets.only(top: 30),
                                 child: GestureDetector(
                                   onTap: () {
-                                    Get.to(ProductPage());
+                                    Get.toNamed(AppRouteName.product);
                                   },
                                   child: Text(
                                     'Product',

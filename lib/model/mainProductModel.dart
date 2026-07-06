@@ -5,6 +5,7 @@ class MainProductModel {
     required this.productName,
     required this.imageUrl,
     required this.description,
+    required this.pdfData,
   });
 
   final int id;
@@ -12,6 +13,7 @@ class MainProductModel {
   final String productName;
   final String imageUrl;
   final String description;
+  final String pdfData;
 
   MainProductModel copyWith({
     int? id,
@@ -19,6 +21,7 @@ class MainProductModel {
     String? productName,
     String? imageUrl,
     String? description,
+    String? pdfData,
   }) {
     return MainProductModel(
       id: id ?? this.id,
@@ -26,6 +29,7 @@ class MainProductModel {
       productName: productName ?? this.productName,
       imageUrl: imageUrl ?? this.imageUrl,
       description: description ?? this.description,
+      pdfData: pdfData ?? this.pdfData,
     );
   }
 
@@ -36,6 +40,7 @@ class MainProductModel {
       productName: json["productName"] ?? "",
       imageUrl: json["imageUrl"] ?? "",
       description: json["description"] ?? "",
+      pdfData: json["pdfData"] ?? "",
     );
   }
 
@@ -45,10 +50,11 @@ class MainProductModel {
     "productName": productName,
     "imageUrl": imageUrl,
     "description": description,
+    "pdfData": pdfData,
   };
 
   @override
   String toString() {
-    return "$id, $createdAt, $productName,$imageUrl,$description";
+    return "$id, $createdAt, $productName,$imageUrl,$description,$pdfData";
   }
 }

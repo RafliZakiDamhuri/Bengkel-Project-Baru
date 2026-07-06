@@ -7,12 +7,15 @@ import 'package:project/controller/globalController.dart';
 import 'package:project/controller/homeController.dart';
 import 'package:project/controller/mainProductController.dart';
 import 'package:project/home.dart';
+import 'package:project/routes/routes_name.dart';
+import 'package:project/routes/routes_navigator.dart';
 import 'package:project/search_product_page.dart';
 
 import 'package:sizer/sizer.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Supabase.initialize(
     url: 'https://hkuubnsamodgtlsgyhrv.supabase.co',
     anonKey: 'sb_publishable_ucLnPqx9eVJ3RILC2HwE1w_CjsGgvvF',
@@ -35,8 +38,8 @@ class MyApp extends StatelessWidget {
       builder: (context, orientation, deviceType) {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          home: const Home(),
-          routes: {'/cek': (context) => const Home()},
+          initialRoute: AppRouteName.home,
+          getPages: AppPages.pages,
         );
       },
     );

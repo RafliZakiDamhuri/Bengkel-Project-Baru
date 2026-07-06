@@ -20,4 +20,6 @@ class AppImages {
   String companySertification = 'assets/images/company-certification.png';
   String indoCoolCarrer = 'assets/images/Indocool-Career.png';
   String contactUs = 'assets/images/contact-us.png';
+  String scroll = 'assets/images/scroll.png';
+  String incoCoolProductList = 'assets/images/indocool-product-list.png';
 }
