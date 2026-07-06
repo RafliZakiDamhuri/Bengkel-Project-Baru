@@ -64,6 +64,11 @@ class ContactUsPage extends StatelessWidget {
                       "strong": Style(fontWeight: FontWeight.bold),
                     },
                   ),
+                  customBlueAppBarButton(
+                    onTap: () {},
+                    title: 'Contact Us',
+                    width: 120,
+                  ),
                 ],
               ),
             ),

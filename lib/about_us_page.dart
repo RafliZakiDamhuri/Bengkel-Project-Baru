@@ -66,6 +66,11 @@ class AboutUsPage extends StatelessWidget {
                       "strong": Style(fontWeight: FontWeight.bold),
                     },
                   ),
+                  customBlueAppBarButton(
+                    onTap: () {},
+                    title: 'Request Company Profile',
+                  ),
+                  SizedBox(height: 40),
                 ],
               ),
             ),
