@@ -210,7 +210,6 @@ class _GlobalappbarState extends State<Globalappbar> {
                         child: AppbarElement(title: AppString().appBar3),
                       ),
 
-                      AppbarElement(title: AppString().appBar4),
                       GestureDetector(
                         onTap: () {
                           Get.to(AboutUsPage());
@@ -241,9 +240,34 @@ class _GlobalappbarState extends State<Globalappbar> {
                 padding: EdgeInsets.zero,
                 children: [
                   DrawerHeader(child: Text(AppString().drawerTitle)),
-                  ListTile(title: Text(AppString().appBar1), onTap: () {}),
-                  ListTile(title: Text(AppString().appBar2), onTap: () {}),
-                  ListTile(title: Text(AppString().appBar3), onTap: () {}),
+                  ListTile(
+                    title: Text(AppString().appBar1),
+                    onTap: () => Get.to(() => ProductPage()),
+                  ),
+                  ListTile(
+                    title: Text(AppString().appBar2),
+                    onTap: () {
+                      Get.to(SearchProductPage());
+                    },
+                  ),
+                  ListTile(
+                    title: Text(AppString().appBar3),
+                    onTap: () {
+                      Get.to(SearchProductPage());
+                    },
+                  ),
+                  ListTile(
+                    title: Text(AppString().appBar5),
+                    onTap: () {
+                      Get.to(AboutUsPage());
+                    },
+                  ),
+                  ListTile(
+                    title: Text(AppString().appBar6),
+                    onTap: () {
+                      Get.to(ContactUsPage());
+                    },
+                  ),
                 ],
               ),
             )
