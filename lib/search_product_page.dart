@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project/controller/globalController.dart';
 
 import 'package:project/controller/searchProductController.dart';
 import 'package:project/global%20widget/footer.dart';
@@ -7,6 +8,7 @@ import 'package:project/global%20widget/globalAppBar.dart';
 import 'package:project/global%20widget/personalData.dart';
 import 'package:project/model/allDataModel.dart';
 import 'package:project/model/makeModel.dart';
+import 'package:project/theme/string.dart';
 import 'package:project/theme/theme.dart';
 import 'package:sizer/sizer.dart';
 
@@ -29,6 +31,8 @@ class SearchProductPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var globalController = Get.find<GlobalController>();
+
     Get.put(Searchproductcontroller());
     Widget buildTable(List<AllDataModel> data) {
       return Card(
@@ -228,7 +232,12 @@ class SearchProductPage extends StatelessWidget {
                       ),
                       SizedBox(height: 19),
                       ElevatedButton.icon(
-                        onPressed: () {},
+                        onPressed: () {
+                          globalController.openWhatsApp(
+                            AppString().indocoolWhatsappNumber,
+                            'Halo Saya Ingin Booking Service Schedule',
+                          );
+                        },
                         icon: Text(
                           "Contact Our Parts Specialist",
                           style: TextStyle(color: Colors.white),

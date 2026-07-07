@@ -285,7 +285,12 @@ class _HomeState extends State<Home> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  nextButton(onTap: () {}, isServices: true),
+                  nextButton(
+                    onTap: () {
+                      Get.toNamed(AppRouteName.services);
+                    },
+                    isServices: true,
+                  ),
                 ],
               ),
               SizedBox(height: 8),

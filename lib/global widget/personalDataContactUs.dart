@@ -17,6 +17,7 @@ Widget personaldataContactUs() {
   String? message;
   String? position;
   String? phoneNumber;
+  var globalController = Get.find<GlobalController>();
 
   Widget textWithIcon({required IconData iconData, required String text}) {
     return Row(
@@ -172,7 +173,7 @@ Widget personaldataContactUs() {
           ),
           SizedBox(height: 3.h),
           Container(
-            width: 65.w,
+            width: 70.w,
 
             decoration: BoxDecoration(
               color: kWhiteColor,
@@ -317,7 +318,7 @@ Widget personaldataContactUs() {
 
           Center(
             child: SizedBox(
-              width: 65.w, // sama dengan form
+              width: 70.w, // sama dengan form
               child: GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -330,11 +331,19 @@ Widget personaldataContactUs() {
                 ),
                 itemBuilder: (_, index) {
                   var data = controller.contactModel[index];
-                  return cardContact(
-                    name: data.name,
-                    phoneNumber: data.phoneNumber,
-                    email: data.email,
-                    image: data.image,
+                  return GestureDetector(
+                    onTap: () {
+                      globalController.openWhatsApp(
+                        data.phoneNumber ?? '',
+                        'Halo Saya Ingin Booking Service Schedule',
+                      );
+                    },
+                    child: cardContact(
+                      name: data.name,
+                      phoneNumber: data.phoneNumber,
+                      email: data.email,
+                      image: data.image,
+                    ),
                   );
                 },
               ),
