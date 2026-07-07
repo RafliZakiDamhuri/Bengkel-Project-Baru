@@ -25,19 +25,20 @@ class AppString {
   String listHomeTitle5 = 'RADMAX Engine Coolant';
   String listHomeTitle6 = 'Fans and Component';
   String listHomeSubtitle1 =
-      'RADMAX™ (equivalent with MESABI®) is innovative radiator technology with individual replaceable tubes, reducing downtime and maintenance costs for heavy-duty operations.';
+      'Design, manufacture, fabricate, and source high-quality radiators,\nheat exchangers, oil coolers, air coolers, and cooling system\ncomponents from trusted global partners. We provide complete\ncooling solutions tailored to meet diverse industrial and heavy-\nduty equipment requirements.';
   String listHomeSubtitle2 =
-      'High-performance radiator solutions for world-leading heavy equipment, including\nconventional, aluminum tube & fin, and plate & bar radiator technologies. ';
+      'Restore the performance of radiators, heat exchangers, and\ncooling systems through inspection, repair, re-core,\nrefurbishment, and field service, helping customers reduce\ndowntime and maintenance costs.';
   String listHomeSubtitle3 =
-      'Complete industrial cooling systems including plate heat exchangers, oil coolers, power\ngeneration radiators, and custom cooling applications.';
+      'Deliver thermal analysis, cooling system design, reverse\nengineering, and performance optimization to improve equipment\nefficiency, extend service life, and solve complex cooling\nchallenges.';
   String listHomeSubtitle4 =
-      'Comprehensive repair, refurbishment, and overhaul services for radiators and cooling\nsystems across mining, oil & gas, marine, power generation, and industrial sectors.';
+      'Supply RADMAX engine coolant, replacement radiator cores,\nspare parts, cooling fans, radiator accessories, and aftermarket\ncomponents to ensure reliable cooling system performance\nthroughout the equipment lifecycle.';
   String listHomeSubtitle5 =
       'Advanced OAT coolant technology designed to provide superior corrosion protection,\nlonger service life, and efficient heat transfer for heavy-duty applications.';
   String listHomeSubtitle6 =
       'Complete range of radiator and cooling system spare parts, including caps, cores, tubes,\ngaskets, fans, gasketed heat exchangers, and other necessary components.';
 
   String judul = 'Buku Bengkel';
+  String appBar0 = 'HOME';
   String appBar1 = 'PRODUCTS';
   String appBar2 = 'SERVICES';
   String appBar3 = 'SEARCH PART';

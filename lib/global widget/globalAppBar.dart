@@ -165,6 +165,7 @@ class _GlobalappbarState extends State<Globalappbar> {
         ],
       ),
       appBar: AppBar(
+        toolbarHeight: 90,
         backgroundColor: kAppbarBackgroundColor,
 
         title: LayoutBuilder(
@@ -203,8 +204,8 @@ class _GlobalappbarState extends State<Globalappbar> {
                               Get.toNamed(AppRouteName.home);
                             },
                             child: Container(
-                              width: 50.w,
-                              height: 100,
+                              width: 264,
+                              height: 64,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: AssetImage(AppImages().imageHomePage2),
@@ -227,6 +228,10 @@ class _GlobalappbarState extends State<Globalappbar> {
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
+                      GestureDetector(
+                        onTap: () => Get.toNamed(AppRouteName.home),
+                        child: AppbarElement(title: AppString().appBar0),
+                      ),
                       GestureDetector(
                         onTap: () => Get.toNamed(AppRouteName.product),
                         child: AppbarElement(title: AppString().appBar1),
