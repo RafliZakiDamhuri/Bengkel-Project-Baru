@@ -1,8 +1,7 @@
 class AppImages {
   AppImages();
   String imageHomePage1 = 'assets/images/Group 2_result.webp';
-  String imageHomePage2 =
-      'assets/images/Screenshot 2026-01-21 191102_result.webp';
+  String imageHomePage2 = 'assets/images/Logo-Indocool 1.png';
   String imageHomePage3 =
       'assets/images/ChatGPT Image Jul 2, 2026, 05_53_15 PM 1_result.webp';
   String imageFooter = 'assets/images/Indocool-Logo-Website-3 1_result.webp';

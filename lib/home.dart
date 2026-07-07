@@ -302,15 +302,18 @@ class _HomeState extends State<Home> {
     Widget servicesWidget() {
       return Container(
         color: Colors.black,
-        margin: EdgeInsets.only(top: 60),
+
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              'Radiator or Heat Exchanger Service and Repair Specialist',
-              style: whiteTextStyle.copyWith(
-                fontSize: 18.sp,
-                fontWeight: FontWeight.bold,
+            Container(
+              margin: EdgeInsets.only(top: 40),
+              child: Text(
+                'Radiator or Heat Exchanger Service and Repair Specialist',
+                style: whiteTextStyle.copyWith(
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             SizedBox(height: 10),
@@ -626,6 +629,10 @@ class _HomeState extends State<Home> {
                 const SizedBox(height: 12),
                 Text(
                   description ?? '',
+                  style: whiteTextStyle.copyWith(
+                    fontSize: 20,
+                    fontWeight: semiBold,
+                  ),
                   textAlign: TextAlign.center,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -663,65 +670,80 @@ class _HomeState extends State<Home> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'We have 47 years of proven performance, we understand your industry,\n we provide solutions, and here is how we can support your operation.',
-                        style: whiteTextStyle.copyWith(fontSize: 24),
+                        'We have 47 years of proven performance, we understand your industry,\nwe provide solutions, and here is how we can support your operation.',
+                        style: whiteTextStyle.copyWith(fontSize: 20),
                       ),
                       SizedBox(height: 10),
                       Text(
                         'From heavy-duty radiators and industrial cooling systems to repair services,\nengine coolants, and spare parts, Indocool delivers reliable solutions to \nmaximize equipment performance and minimize downtime.',
-                        style: whiteTextStyle.copyWith(fontSize: 24),
+                        style: whiteTextStyle.copyWith(fontSize: 20),
                       ),
                     ],
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 95),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            SizedBox(height: 70),
+            Container(
+              child: Text(
+                'INDUSTRY WE SERVE:',
+                style: whiteTextStyle.copyWith(
+                  fontSize: 29,
+                  fontWeight: semiBold,
+                ),
+              ),
+            ),
+            SizedBox(height: 44),
+            Column(
               children: [
-                Container(
-                  child: Flexible(
-                    child: headerProduct(
-                      description: AppString().productHeaderDescription1,
-                      image: AppImages().imgHeaderProduct1,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      child: Flexible(
+                        child: headerProduct(
+                          description: AppString().productHeaderDescription1,
+                          image: AppImages().imgHeaderProduct1,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                Container(
-                  child: Flexible(
-                    child: headerProduct(
-                      description: AppString().productHeaderDescription2,
-                      image: AppImages().imgHeaderProduct2,
+                    Container(
+                      child: Flexible(
+                        child: headerProduct(
+                          description: AppString().productHeaderDescription2,
+                          image: AppImages().imgHeaderProduct2,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                Container(
-                  child: Flexible(
-                    child: headerProduct(
-                      description: AppString().productHeaderDescription3,
-                      image: AppImages().imgHeaderProduct3,
+                    Container(
+                      child: Flexible(
+                        child: headerProduct(
+                          description: AppString().productHeaderDescription3,
+                          image: AppImages().imgHeaderProduct3,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                Container(
-                  child: Flexible(
-                    child: headerProduct(
-                      description: AppString().productHeaderDescription4,
-                      image: AppImages().imgHeaderProduct4,
+                    Container(
+                      child: Flexible(
+                        child: headerProduct(
+                          description: AppString().productHeaderDescription4,
+                          image: AppImages().imgHeaderProduct4,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                Container(
-                  child: Flexible(
-                    child: headerProduct(
-                      description: AppString().productHeaderDescription5,
-                      image: AppImages().imgHeaderProduct5,
+                    Container(
+                      child: Flexible(
+                        child: headerProduct(
+                          description: AppString().productHeaderDescription5,
+                          image: AppImages().imgHeaderProduct5,
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ],
             ),
+            SizedBox(height: 104),
           ],
         ),
       );
@@ -1092,7 +1114,8 @@ class _HomeState extends State<Home> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 3.h),
+            SizedBox(height: 1.h),
+
             ListHome(
               nomer: AppString().listHomeNumber1,
               title: AppString().listHomeTitle1,
@@ -1104,193 +1127,115 @@ class _HomeState extends State<Home> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 1.5.h),
-                  Text(
-                    AppString().listHomeSubtitle1,
-                    style: blackTextStyle.copyWith(
-                      fontSize: (isMobile(screenWidth)) ? 14.sp : 10.sp,
-                      fontWeight: regular,
+                  Container(
+                    margin: EdgeInsets.only(left: 58),
+                    child: Text(
+                      AppString().listHomeSubtitle1,
+                      style: blackTextStyle.copyWith(
+                        fontSize: (isMobile(screenWidth)) ? 14.sp : 10.sp,
+                        fontWeight: regular,
+                      ),
                     ),
                   ),
-                ],
-              ),
-            ),
-            Container(
-              height: 2,
-              width: double.infinity,
-              color: Colors.grey.shade300,
-              margin: EdgeInsets.symmetric(vertical: 2.h),
-            ),
+                  Container(
+                    height: 2,
+                    width: double.infinity,
+                    color: Colors.grey.shade300,
+                    margin: EdgeInsets.symmetric(vertical: 2.h),
+                  ),
+                  ListHome(
+                    nomer: AppString().listHomeNumber2,
+                    title: AppString().listHomeTitle2,
+                    warna: isMobile(screenWidth)
+                        ? blackTextStyle
+                        : blackTextStyle,
+                  ),
+                  Visibility(
+                    visible: homecontroller.isViewListHome1 == true,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 1.5.h),
+                        Container(
+                          margin: EdgeInsets.only(left: 58),
+                          child: Text(
+                            AppString().listHomeSubtitle2,
+                            style: blackTextStyle.copyWith(
+                              fontSize: (isMobile(screenWidth)) ? 14.sp : 10.sp,
+                              fontWeight: regular,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 2,
+                    width: double.infinity,
+                    color: Colors.grey.shade300,
+                    margin: EdgeInsets.symmetric(vertical: 2.h),
+                  ),
+                  ListHome(
+                    nomer: AppString().listHomeNumber3,
+                    title: AppString().listHomeTitle3,
+                    warna: isMobile(screenWidth)
+                        ? blackTextStyle
+                        : blackTextStyle,
+                  ),
+                  Visibility(
+                    visible: homecontroller.isViewListHome1 == true,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 1.5.h),
+                        Container(
+                          margin: EdgeInsets.only(left: 58),
+                          child: Text(
+                            AppString().listHomeSubtitle1,
+                            style: blackTextStyle.copyWith(
+                              fontSize: (isMobile(screenWidth)) ? 14.sp : 10.sp,
+                              fontWeight: regular,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
 
-            // Item 02 s/d 05
-            GestureDetector(
-              onTap: () {
-                homecontroller.isViewListHome2 =
-                    !homecontroller.isViewListHome2;
-                homecontroller.update();
-              },
-              child: ListHome(
-                warna: isMobile(screenWidth) ? blackTextStyle : blackTextStyle,
-                nomer: AppString().listHomeNumber2,
-                title: AppString().listHomeTitle2,
-              ),
-            ),
-            Visibility(
-              visible: homecontroller.isViewListHome2 == true,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 1.5.h),
-                  Text(
-                    AppString().listHomeSubtitle2,
-                    style: blackTextStyle.copyWith(
-                      fontSize: (isMobile(screenWidth)) ? 14.sp : 10.sp,
-                      fontWeight: regular,
+                  ListHome(
+                    nomer: AppString().listHomeNumber4,
+                    title: AppString().listHomeTitle4,
+                    warna: isMobile(screenWidth)
+                        ? blackTextStyle
+                        : blackTextStyle,
+                  ),
+                  Visibility(
+                    visible: homecontroller.isViewListHome1 == true,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 1.5.h),
+                        Container(
+                          margin: EdgeInsets.only(left: 58),
+                          child: Text(
+                            AppString().listHomeSubtitle4,
+                            style: blackTextStyle.copyWith(
+                              fontSize: (isMobile(screenWidth)) ? 14.sp : 10.sp,
+                              fontWeight: regular,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 2,
+                          width: double.infinity,
+                          color: Colors.grey.shade300,
+                          margin: EdgeInsets.symmetric(vertical: 2.h),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
-            ),
-            Container(
-              height: 2,
-              width: double.infinity,
-              color: Colors.grey.shade300,
-              margin: EdgeInsets.symmetric(vertical: 2.h),
-            ),
-            GestureDetector(
-              onTap: () {
-                homecontroller.isViewListHome3 =
-                    !homecontroller.isViewListHome3;
-                homecontroller.update();
-              },
-              child: ListHome(
-                warna: isMobile(screenWidth) ? blackTextStyle : blackTextStyle,
-                nomer: AppString().listHomeNumber3,
-                title: AppString().listHomeTitle3,
-              ),
-            ),
-            Visibility(
-              visible: homecontroller.isViewListHome3 == true,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 1.5.h),
-                  Text(
-                    AppString().listHomeSubtitle3,
-                    style: blackTextStyle.copyWith(
-                      fontSize: (isMobile(screenWidth)) ? 14.sp : 10.sp,
-                      fontWeight: regular,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              height: 2,
-              width: double.infinity,
-              color: Colors.grey.shade300,
-              margin: EdgeInsets.symmetric(vertical: 2.h),
-            ),
-            GestureDetector(
-              onTap: () {
-                homecontroller.isViewListHome4 =
-                    !homecontroller.isViewListHome4;
-                homecontroller.update();
-              },
-              child: ListHome(
-                warna: isMobile(screenWidth) ? blackTextStyle : blackTextStyle,
-                nomer: AppString().listHomeNumber4,
-                title: AppString().listHomeTitle4,
-              ),
-            ),
-            Visibility(
-              visible: homecontroller.isViewListHome4 == true,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 1.5.h),
-                  Text(
-                    AppString().listHomeSubtitle4,
-                    style: blackTextStyle.copyWith(
-                      fontSize: (isMobile(screenWidth)) ? 14.sp : 10.sp,
-                      fontWeight: regular,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              height: 2,
-              width: double.infinity,
-              color: Colors.grey.shade300,
-              margin: EdgeInsets.symmetric(vertical: 2.h),
-            ),
-            GestureDetector(
-              onTap: () {
-                homecontroller.isViewListHome5 =
-                    !homecontroller.isViewListHome5;
-                homecontroller.update();
-              },
-              child: ListHome(
-                warna: isMobile(screenWidth) ? blackTextStyle : blackTextStyle,
-                nomer: AppString().listHomeNumber5,
-                title: AppString().listHomeTitle5,
-              ),
-            ),
-            Visibility(
-              visible: homecontroller.isViewListHome5 == true,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 1.5.h),
-                  Text(
-                    AppString().listHomeSubtitle5,
-                    style: blackTextStyle.copyWith(
-                      fontSize: (isMobile(screenWidth)) ? 14.sp : 10.sp,
-                      fontWeight: regular,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              height: 2,
-              width: double.infinity,
-              color: Colors.grey.shade300,
-              margin: EdgeInsets.symmetric(vertical: 2.h),
-            ),
-            GestureDetector(
-              onTap: () {
-                homecontroller.isViewListHome6 =
-                    !homecontroller.isViewListHome6;
-                homecontroller.update();
-              },
-              child: ListHome(
-                warna: isMobile(screenWidth) ? blackTextStyle : blackTextStyle,
-                nomer: AppString().listHomeNumber6,
-                title: AppString().listHomeTitle6,
-              ),
-            ),
-            Visibility(
-              visible: homecontroller.isViewListHome6 == true,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 1.5.h),
-                  Text(
-                    AppString().listHomeSubtitle6,
-                    style: blackTextStyle.copyWith(
-                      fontSize: (isMobile(screenWidth)) ? 14.sp : 10.sp,
-                      fontWeight: regular,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              height: 2,
-              width: double.infinity,
-              color: Colors.grey.shade300,
-              margin: EdgeInsets.symmetric(vertical: 2.h),
             ),
           ],
         ),
@@ -1904,7 +1849,6 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
-          SizedBox(height: 10.h),
 
           plusPoint(),
           servicesWidget(),
