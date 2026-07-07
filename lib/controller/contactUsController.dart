@@ -18,7 +18,11 @@ class Contactuscontroller extends GetxController {
 
   String? selectedInquiryType;
   Future<void> getContact() async {
-    final response = await supabase.from('Contact').select();
+    final response = await supabase
+        .from('Contact')
+        .select()
+        .order('id', ascending: true);
+    ;
     contactModel = response.map((e) => ContactModel.fromJson(e)).toList();
     print('Ini adalah response ::::: $response');
     update();

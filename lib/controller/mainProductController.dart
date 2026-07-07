@@ -16,7 +16,10 @@ class MainProductController extends GetxController {
   List<MainProductModel>? mainProductModel;
   Future getProduct() async {
     mainProductModel = [];
-    final response = await supabase.from('MainProduct').select();
+    final response = await supabase
+        .from('MainProduct')
+        .select()
+        .order('id', ascending: true);
     mainProductModel = response
         .map((e) => MainProductModel.fromJson(e))
         .toList();

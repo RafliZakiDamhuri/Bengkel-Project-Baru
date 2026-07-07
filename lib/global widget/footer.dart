@@ -10,6 +10,230 @@ import 'package:project/theme/theme.dart';
 import 'package:sizer/sizer.dart';
 
 Widget footer() {
+  Widget products() {
+    return GestureDetector(
+      onTap: () {
+        Get.toNamed(AppRouteName.product);
+      },
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: EdgeInsets.only(top: 30),
+            child: GestureDetector(
+              onTap: () {
+                Get.toNamed(AppRouteName.product);
+              },
+              child: Text(
+                'Products',
+                style: whiteTextStyle.copyWith(fontSize: 16, fontWeight: bold),
+              ),
+            ),
+          ),
+          SizedBox(height: 8),
+          Text(
+            'Removable Tube Radiator',
+            style: whiteTextStyle.copyWith(fontWeight: medium, fontSize: 14),
+          ),
+          SizedBox(height: 8),
+          Text(
+            'Alumunium Tube & Fin Core',
+            style: whiteTextStyle.copyWith(fontWeight: medium, fontSize: 14),
+          ),
+          SizedBox(height: 8),
+          Text(
+            'Alumunium Plate & Bar Core',
+            style: whiteTextStyle.copyWith(fontWeight: medium, fontSize: 14),
+          ),
+          SizedBox(height: 8),
+          Text(
+            'Copper Brass Core',
+            style: whiteTextStyle.copyWith(fontWeight: medium, fontSize: 14),
+          ),
+          SizedBox(height: 8),
+          Text(
+            'CAT® Core Replacement',
+            style: whiteTextStyle.copyWith(fontWeight: medium, fontSize: 14),
+          ),
+          SizedBox(height: 8),
+          Text(
+            'Tube & Shell Oil Cooler',
+            style: whiteTextStyle.copyWith(fontWeight: medium, fontSize: 14),
+          ),
+          SizedBox(height: 8),
+          Text(
+            'Radiator Coolant',
+            style: whiteTextStyle.copyWith(fontWeight: medium, fontSize: 14),
+          ),
+          SizedBox(height: 8),
+          Text(
+            'Air Cooled Heat Exchanger',
+            style: whiteTextStyle.copyWith(fontWeight: medium, fontSize: 14),
+          ),
+          SizedBox(height: 8),
+          Text(
+            'Plate Heat Exchanger',
+            style: whiteTextStyle.copyWith(fontWeight: medium, fontSize: 14),
+          ),
+          SizedBox(height: 8),
+          Text(
+            'Industrial Oil Cooler',
+            style: whiteTextStyle.copyWith(fontWeight: medium, fontSize: 14),
+          ),
+          SizedBox(height: 8),
+          Text(
+            'Safety Radiator Cap',
+            style: whiteTextStyle.copyWith(fontWeight: medium, fontSize: 14),
+          ),
+          SizedBox(height: 8),
+          Text(
+            'Replacement Fan',
+            style: whiteTextStyle.copyWith(fontWeight: medium, fontSize: 14),
+          ),
+          SizedBox(height: 19),
+        ],
+      ),
+    );
+  }
+
+  Widget services() {
+    return GestureDetector(
+      onTap: () {
+        Get.toNamed(AppRouteName.services);
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: EdgeInsets.only(top: 30),
+            child: Text(
+              'Services',
+              style: whiteTextStyle.copyWith(fontSize: 16, fontWeight: bold),
+            ),
+          ),
+          SizedBox(height: 8),
+          Text(
+            'Minor Repair',
+            style: whiteTextStyle.copyWith(fontWeight: medium, fontSize: 14),
+          ),
+          SizedBox(height: 8),
+          Text(
+            'Major Repair',
+            style: whiteTextStyle.copyWith(fontWeight: medium, fontSize: 14),
+          ),
+          SizedBox(height: 8),
+          Text(
+            'General Overhaul',
+            style: whiteTextStyle.copyWith(fontWeight: medium, fontSize: 14),
+          ),
+          SizedBox(height: 22),
+        ],
+      ),
+    );
+  }
+
+  Widget aboutUs() {
+    return GestureDetector(
+      onTap: () {
+        Get.toNamed(AppRouteName.aboutUs);
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+
+        children: [
+          Container(
+            margin: EdgeInsets.only(top: 30),
+            child: Text(
+              'About Us',
+              style: whiteTextStyle.copyWith(fontSize: 16, fontWeight: bold),
+            ),
+          ),
+          SizedBox(height: 8),
+          Text(
+            'Company Profile',
+            style: whiteTextStyle.copyWith(fontWeight: medium, fontSize: 14),
+          ),
+          SizedBox(height: 8),
+          Text(
+            'Portfolio',
+            style: whiteTextStyle.copyWith(fontWeight: medium, fontSize: 14),
+          ),
+
+          SizedBox(height: 22),
+        ],
+      ),
+    );
+  }
+
+  Widget contactUs() {
+    return GestureDetector(
+      onTap: () {
+        Get.toNamed(AppRouteName.contactUs);
+      },
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: EdgeInsets.only(top: 30),
+            child: Text(
+              'Contact',
+              style: whiteTextStyle.copyWith(fontSize: 16, fontWeight: bold),
+            ),
+          ),
+          SizedBox(height: 8),
+          Text(
+            'Indocool Quick Contact Line',
+            style: whiteTextStyle.copyWith(fontWeight: medium, fontSize: 14),
+          ),
+          SizedBox(height: 8),
+          Text(
+            'Inquiry',
+            style: whiteTextStyle.copyWith(fontWeight: medium, fontSize: 14),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget partNumberSearch() {
+    return GestureDetector(
+      onTap: () {
+        Get.toNamed(AppRouteName.searchProduct);
+      },
+      child: Container(
+        margin: EdgeInsets.only(left: 200, top: 30),
+        width: 280,
+        height: 67,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/Rectangle 48_result.webp'),
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'PART NUMBER SEARCH',
+              style: whiteTextStyle.copyWith(fontSize: 14, fontWeight: bold),
+            ),
+            SizedBox(width: 8),
+            Container(
+              width: 20,
+              height: 17,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/Logo-SHop 1_result.webp'),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget footerDesktop() {
     return Container(
       width: double.infinity,
@@ -17,448 +241,165 @@ Widget footer() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(left: 50, top: 30),
-                    child: Row(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(right: 10),
-                          width: 437,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(AppImages().imageFooter),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Column(
+          Container(
+            margin: EdgeInsets.only(left: 180),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(right: 80),
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        margin: EdgeInsets.only(left: 50),
-                        child: Text(
-                          'PT. Indocool Solusi Cemerlang',
-                          style: whiteTextStyle.copyWith(
-                            fontSize: 16,
-                            fontWeight: bold,
-                          ),
+                        margin: EdgeInsets.only(left: 50, top: 30),
+                        child: Row(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(right: 10),
+                              width: 437,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(AppImages().imageFooter),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      SizedBox(height: 12),
-                      Container(
-                        margin: EdgeInsets.only(left: 50),
-                        child: Text(
-                          'Bogor Head Office: Bogor, Jawa Barat, Indonesia\nBranch Balikpapan: Balikpapan, Kalimantan Timur, Indonesia\nBranch Sangatta: Kutai Timur, Kalimantan Timur, Indonesia',
-                          style: whiteTextStyle.copyWith(
-                            fontSize: 14,
-                            fontWeight: regular,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 12),
-                      Container(
-                        margin: EdgeInsets.only(left: 50),
-                        child: Text(
-                          'PT. Indocool Rekayasa Batam',
-                          style: whiteTextStyle.copyWith(
-                            fontSize: 16,
-                            fontWeight: bold,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 12),
-                      Container(
-                        margin: EdgeInsets.only(left: 50),
-                        child: Text(
-                          'Batam Head Office: Batam, Kepulauan Riau, Indonesia',
-                          style: whiteTextStyle.copyWith(
-                            fontSize: 14,
-                            fontWeight: regular,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 24),
-                      Row(
+                      SizedBox(height: 10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
                             margin: EdgeInsets.only(left: 50),
-                            width: 15,
-                            height: 15,
+                            child: Text(
+                              'PT. Indocool Solusi Cemerlang',
+                              style: whiteTextStyle.copyWith(
+                                fontSize: 16,
+                                fontWeight: bold,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 12),
+                          Container(
+                            margin: EdgeInsets.only(left: 50),
+                            child: Text(
+                              'Bogor Head Office: Bogor, Jawa Barat, Indonesia\nBranch Balikpapan: Balikpapan, Kalimantan Timur, Indonesia\nBranch Sangatta: Kutai Timur, Kalimantan Timur, Indonesia',
+                              style: whiteTextStyle.copyWith(
+                                fontSize: 14,
+                                fontWeight: regular,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 12),
+                          Container(
+                            margin: EdgeInsets.only(left: 50),
+                            child: Text(
+                              'PT. Indocool Rekayasa Batam',
+                              style: whiteTextStyle.copyWith(
+                                fontSize: 16,
+                                fontWeight: bold,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 12),
+                          Container(
+                            margin: EdgeInsets.only(left: 50),
+                            child: Text(
+                              'Batam Head Office: Batam, Kepulauan Riau, Indonesia',
+                              style: whiteTextStyle.copyWith(
+                                fontSize: 14,
+                                fontWeight: regular,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 24),
+                          Row(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(left: 50),
+                                width: 15,
+                                height: 15,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                      'assets/images/Logo-WhatsApp 1_result.webp',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                '+62 812-1000-256',
+                                style: whiteTextStyle.copyWith(
+                                  fontWeight: medium,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 5),
+                          Row(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(left: 50),
+                                width: 15,
+                                height: 15,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                      'assets/images/Logo-Email-2 1_result.webp',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                'customersupport@indocool.co.id',
+                                style: whiteTextStyle.copyWith(
+                                  fontWeight: medium,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 29),
+                          Container(
+                            margin: EdgeInsets.only(left: 50),
+                            width: 437,
+                            height: 28,
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 image: AssetImage(
-                                  'assets/images/Logo-WhatsApp 1_result.webp',
+                                  'assets/images/Logo-ISO 1_result.webp',
                                 ),
                               ),
                             ),
                           ),
-                          Text(
-                            '+62 812-1000-256',
-                            style: whiteTextStyle.copyWith(
-                              fontWeight: medium,
-                              fontSize: 14,
-                            ),
-                          ),
+                          SizedBox(height: 22),
                         ],
                       ),
-                      SizedBox(height: 5),
-                      Row(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(left: 50),
-                            width: 15,
-                            height: 15,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(
-                                  'assets/images/Logo-Email-2 1_result.webp',
-                                ),
-                              ),
-                            ),
-                          ),
-                          Text(
-                            'customersupport@indocool.co.id',
-                            style: whiteTextStyle.copyWith(
-                              fontWeight: medium,
-                              fontSize: 14,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 29),
-                      Container(
-                        margin: EdgeInsets.only(left: 50),
-                        width: 437,
-                        height: 28,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(
-                              'assets/images/Logo-ISO 1_result.webp',
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 22),
                     ],
                   ),
-                ],
-              ),
-
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 30),
-                    child: GestureDetector(
-                      onTap: () {
-                        Get.toNamed(AppRouteName.product);
-                      },
-                      child: Text(
-                        'Product',
-                        style: whiteTextStyle.copyWith(
-                          fontSize: 16,
-                          fontWeight: bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Removable Tube Radiator',
-                    style: whiteTextStyle.copyWith(
-                      fontWeight: medium,
-                      fontSize: 14,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Conventional Radiator',
-                    style: whiteTextStyle.copyWith(
-                      fontWeight: medium,
-                      fontSize: 14,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Aluminum Plate & Bar Core',
-                    style: whiteTextStyle.copyWith(
-                      fontWeight: medium,
-                      fontSize: 14,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'After & Inter Cooler',
-                    style: whiteTextStyle.copyWith(
-                      fontWeight: medium,
-                      fontSize: 14,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Tube & Shell Oil Cooler',
-                    style: whiteTextStyle.copyWith(
-                      fontWeight: medium,
-                      fontSize: 14,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Radiator Coolant',
-                    style: whiteTextStyle.copyWith(
-                      fontWeight: medium,
-                      fontSize: 14,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Air Cooled Heat Exchanger',
-                    style: whiteTextStyle.copyWith(
-                      fontWeight: medium,
-                      fontSize: 14,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Plate Heat Exchanger',
-                    style: whiteTextStyle.copyWith(
-                      fontWeight: medium,
-                      fontSize: 14,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Industrial Oil Cooler',
-                    style: whiteTextStyle.copyWith(
-                      fontWeight: medium,
-                      fontSize: 14,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Safety Radiator Cap',
-                    style: whiteTextStyle.copyWith(
-                      fontWeight: medium,
-                      fontSize: 14,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Screw Cap Adapter',
-                    style: whiteTextStyle.copyWith(
-                      fontWeight: medium,
-                      fontSize: 14,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Replacement Fan',
-                    style: whiteTextStyle.copyWith(
-                      fontWeight: medium,
-                      fontSize: 14,
-                    ),
-                  ),
-                  SizedBox(height: 19),
-                ],
-              ),
-
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 30),
-                    child: Text(
-                      'Services',
-                      style: whiteTextStyle.copyWith(
-                        fontSize: 16,
-                        fontWeight: bold,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Minor Repair',
-                    style: whiteTextStyle.copyWith(
-                      fontWeight: medium,
-                      fontSize: 14,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Major Repair',
-                    style: whiteTextStyle.copyWith(
-                      fontWeight: medium,
-                      fontSize: 14,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'General Overhaul',
-                    style: whiteTextStyle.copyWith(
-                      fontWeight: medium,
-                      fontSize: 14,
-                    ),
-                  ),
-                  SizedBox(height: 27),
-                  Container(
-                    margin: EdgeInsets.only(top: 30),
-                    child: Text(
-                      'Insight',
-                      style: whiteTextStyle.copyWith(
-                        fontSize: 16,
-                        fontWeight: bold,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Company News',
-                    style: whiteTextStyle.copyWith(
-                      fontWeight: medium,
-                      fontSize: 14,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Product Insight',
-                    style: whiteTextStyle.copyWith(
-                      fontWeight: medium,
-                      fontSize: 14,
-                    ),
-                  ),
-                ],
-              ),
-
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 30),
-                    child: Text(
-                      'About Us',
-                      style: whiteTextStyle.copyWith(
-                        fontSize: 16,
-                        fontWeight: bold,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Company Profile',
-                    style: whiteTextStyle.copyWith(
-                      fontWeight: medium,
-                      fontSize: 14,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Portfolio',
-                    style: whiteTextStyle.copyWith(
-                      fontWeight: medium,
-                      fontSize: 14,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Job Vacancies',
-                    style: whiteTextStyle.copyWith(
-                      fontWeight: medium,
-                      fontSize: 14,
-                    ),
-                  ),
-                  SizedBox(height: 27),
-                  Container(
-                    margin: EdgeInsets.only(top: 30),
-                    child: Text(
-                      'Contact',
-                      style: whiteTextStyle.copyWith(
-                        fontSize: 16,
-                        fontWeight: bold,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Inquiry',
-                    style: whiteTextStyle.copyWith(
-                      fontWeight: medium,
-                      fontSize: 14,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Customer Support',
-                    style: whiteTextStyle.copyWith(
-                      fontWeight: medium,
-                      fontSize: 14,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Company Location',
-                    style: whiteTextStyle.copyWith(
-                      fontWeight: medium,
-                      fontSize: 14,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-
-          Row(
-            children: [
-              Spacer(flex: 5),
-
-              Container(
-                width: 336,
-                height: 67,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/Rectangle 48_result.webp'),
-                  ),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'PART NUMBER SEARCH',
-                      style: whiteTextStyle.copyWith(
-                        fontSize: 20,
-                        fontWeight: bold,
-                      ),
-                    ),
-                    Container(
-                      width: 40,
-                      height: 37,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(
-                            'assets/images/Logo-SHop 1_result.webp',
-                          ),
-                        ),
-                      ),
+                    products(),
+                    SizedBox(width: 100),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [services(), aboutUs(), contactUs()],
                     ),
                   ],
                 ),
-              ),
-              Spacer(flex: 1),
-            ],
+                partNumberSearch(),
+              ],
+            ),
           ),
+
           SizedBox(height: 40),
 
           // 🔽 GARIS (TAMBAHAN DOANG)
@@ -640,7 +581,7 @@ Widget footer() {
                                     Get.toNamed(AppRouteName.product);
                                   },
                                   child: Text(
-                                    'Product',
+                                    'Products',
                                     style: whiteTextStyle.copyWith(
                                       fontSize: 16,
                                       fontWeight: bold,
