@@ -196,7 +196,7 @@ class SearchProductPage extends StatelessWidget {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(
-                        'assets/images/Indoocool-Search-Part 1.png',
+                        'assets/images/Indoocool-Search-Part 1_result.webp',
                       ),
                       fit: BoxFit.cover,
                     ),

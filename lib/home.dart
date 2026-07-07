@@ -14,6 +14,7 @@ import 'package:project/controller/mainProductController.dart';
 import 'package:project/custom_text_field.dart';
 import 'package:project/detail_location.dart';
 import 'package:project/detail_product.dart';
+import 'package:project/global%20widget/appPreCache.dart';
 import 'package:project/global%20widget/featureCard.dart';
 import 'package:project/global%20widget/footer.dart';
 import 'package:project/global%20widget/globalAppBar.dart';
@@ -40,8 +41,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List<bool> expandedIcons = [false, false, false, false, false];
-  // bool isExpanded = false;
-  // Tentukan breakpoint (Anda dapat menyesuaikannya)
+  bool _visible = false;
   bool isDesktop(double width) => width >= 900;
 
   bool isTablet(double width) => width >= 600 && width < 900;
@@ -53,22 +53,47 @@ class _HomeState extends State<Home> {
   var globalController = Get.find<GlobalController>();
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      AppPrecache.preload(context);
+      if (mounted) {
+        setState(() {
+          _visible = true;
+        });
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     // Data fitur tetap sama
     final List<Feature> featureData = [
-      Feature('assets/images/D85ESS-Transp 1.png', "Removable Tube Radiator"),
-      Feature('assets/images/D375-Transp 1.png', "Conventional Radiator Core"),
       Feature(
-        'assets/images/777E-Transp 1.png',
+        'assets/images/D85ESS-Transp 1_result.webp',
+        "Removable Tube Radiator",
+      ),
+      Feature(
+        'assets/images/D375-Transp 1_result.webp',
+        "Conventional Radiator Core",
+      ),
+      Feature(
+        'assets/images/777E-Transp 1_result.webp',
         "Aluminum Plate & Bar\nCooler & Heat Exchanger",
       ),
     ];
     final List<Feature> secondfeatureData = [
-      Feature('assets/images/D85ESS-Transp 1.png', "Removable Tube Radiator"),
-      Feature('assets/images/D375-Transp 1.png', "Conventional Radiator Core"),
       Feature(
-        'assets/images/777E-Transp 1.png',
+        'assets/images/D85ESS-Transp 1_result.webp',
+        "Removable Tube Radiator",
+      ),
+      Feature(
+        'assets/images/D375-Transp 1_result.webp',
+        "Conventional Radiator Core",
+      ),
+      Feature(
+        'assets/images/777E-Transp 1_result.webp',
         "Aluminum Plate & Bar\nCooler & Heat Exchanger",
       ),
     ];
@@ -326,7 +351,7 @@ class _HomeState extends State<Home> {
         padding: EdgeInsets.symmetric(vertical: 64, horizontal: 20),
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/Rectangle 39 (1).png'),
+            image: AssetImage('assets/images/Rectangle 39 (1)_result.webp'),
             fit: BoxFit.cover,
           ),
         ),
@@ -426,7 +451,7 @@ class _HomeState extends State<Home> {
               children: [
                 Container(
                   margin: EdgeInsets.only(
-                    left: 260,
+                    left: 150,
                     bottom: 45,
                     top: 56,
                     right: 150,
@@ -440,120 +465,180 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 260, bottom: 50),
+                  margin: EdgeInsets.only(left: 150, bottom: 50),
                   width: 536,
                   height: 292,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(
-                        'assets/images/007-Indocool-Customer 1.png',
+                        'assets/images/007-Indocool-Customer 1_result.webp',
                       ),
                     ),
                   ),
                 ),
               ],
             ),
-            Column(
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(right: 44),
-                      width: 160,
-                      height: 141,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(
-                            'assets/images/006-ISO-Indocool 1.png',
+            Expanded(
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(right: 44, bottom: 20),
+                        width: 160,
+                        height: 141,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(
+                              'assets/images/006-ISO-Indocool 1_result.webp',
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('ISO 9001, 14001, 45001 Company Certified'),
-                        Text(
-                          'We are committed to setting globally recognized standards (ISO) in quality,\nenvironmental, and occupational health and safety management systems.\nWe strive to provide the best services and products to our customers.',
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'ISO 9001, 14001, 45001 Company Certified',
+                              style: whiteTextStyle.copyWith(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'We are committed to setting globally recognized standards (ISO) in quality,\nenvironmental, and occupational health and safety management systems.\nWe strive to provide the best services and products to our customers.',
+                              style: whiteTextStyle.copyWith(fontSize: 14),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(right: 44),
-                      width: 160,
-                      height: 141,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(
-                            'assets/images/005-Project-Indocool 1.png',
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(right: 44, bottom: 20),
+                        width: 160,
+                        height: 141,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(
+                              'assets/images/005-Project-Indocool 1_result.webp',
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('ISO 9001, 14001, 45001 Company Certified'),
-                        Text(
-                          'We are committed to setting globally recognized standards (ISO) in quality,\nenvironmental, and occupational health and safety management systems.\nWe strive to provide the best services and products to our customers.',
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'ISO 9001, 14001, 45001 Company Certified',
+                              style: whiteTextStyle.copyWith(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'We are committed to setting globally recognized standards (ISO) in quality,\nenvironmental, and occupational health and safety management systems.\nWe strive to provide the best services and products to our customers.',
+                              style: whiteTextStyle.copyWith(fontSize: 14),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(right: 44),
-                      width: 160,
-                      height: 141,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(
-                            'assets/images/006-Indocool-Indonesia 1.png',
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(right: 44, bottom: 20),
+                        width: 160,
+                        height: 141,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(
+                              'assets/images/006-Indocool-Indonesia 1_result.webp',
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('ISO 9001, 14001, 45001 Company Certified'),
-                        Text(
-                          'We are committed to setting globally recognized standards (ISO) in quality,\nenvironmental, and occupational health and safety management systems.\nWe strive to provide the best services and products to our customers.',
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'ISO 9001, 14001, 45001 Company Certified',
+                              style: whiteTextStyle.copyWith(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'We are committed to setting globally recognized standards (ISO) in quality,\nenvironmental, and occupational health and safety management systems.\nWe strive to provide the best services and products to our customers.',
+                              style: whiteTextStyle.copyWith(fontSize: 14),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),
       );
     }
 
+    // Widget headerProduct({String? description, String? image}) {
+    //   return Container(
+    //     margin: EdgeInsets.only(right: 24, left: 24),
+    //     child: Column(
+    //       children: [
+    //         Image.asset(image ?? '', width: 300, height: 300),
+    //         SizedBox(height: 19),
+    //         Text(description ?? '', style: blackTextStyle),
+    //       ],
+    //     ),
+    //   );
+    // }
+
     Widget headerProduct({String? description, String? image}) {
-      return Container(
-        margin: EdgeInsets.only(right: 24),
-        child: Column(
-          children: [
-            Image.asset(image ?? '', width: 300, height: 300),
-            SizedBox(height: 19),
-            Text(description ?? '', style: blackTextStyle),
-          ],
-        ),
+      return LayoutBuilder(
+        builder: (context, constraints) {
+          final size = constraints.maxWidth * 0.9;
+
+          return Container(
+            margin: EdgeInsets.only(right: 10, left: 10),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset(
+                  image ?? '',
+                  width: size.clamp(120.0, 300),
+                  height: size.clamp(120.0, 300),
+                  fit: BoxFit.contain,
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  description ?? '',
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          );
+        },
       );
     }
 
     Widget industry() {
+      final isDesktop = MediaQuery.of(context).size.width > 1500;
       return Container(
         width: double.infinity,
         color: Colors.black,
@@ -567,25 +652,27 @@ class _HomeState extends State<Home> {
                   height: 306,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/images/Logo-47 1.png'),
+                      image: AssetImage('assets/images/Logo-47 1_result.webp'),
                       fit: BoxFit.cover,
                     ),
                   ),
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'We have 47 years of proven performance, we understand your industry,\n we provide solutions, and here is how we can support your operation.',
-                      style: whiteTextStyle.copyWith(fontSize: 24),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      'From heavy-duty radiators and industrial cooling systems to repair services,\nengine coolants, and spare parts, Indocool delivers reliable solutions to \nmaximize equipment performance and minimize downtime.',
-                      style: whiteTextStyle.copyWith(fontSize: 24),
-                    ),
-                  ],
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'We have 47 years of proven performance, we understand your industry,\n we provide solutions, and here is how we can support your operation.',
+                        style: whiteTextStyle.copyWith(fontSize: 24),
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        'From heavy-duty radiators and industrial cooling systems to repair services,\nengine coolants, and spare parts, Indocool delivers reliable solutions to \nmaximize equipment performance and minimize downtime.',
+                        style: whiteTextStyle.copyWith(fontSize: 24),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -594,33 +681,43 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  child: headerProduct(
-                    description: AppString().productHeaderDescription1,
-                    image: AppImages().imgHeaderProduct1,
+                  child: Flexible(
+                    child: headerProduct(
+                      description: AppString().productHeaderDescription1,
+                      image: AppImages().imgHeaderProduct1,
+                    ),
                   ),
                 ),
                 Container(
-                  child: headerProduct(
-                    description: AppString().productHeaderDescription2,
-                    image: AppImages().imgHeaderProduct2,
+                  child: Flexible(
+                    child: headerProduct(
+                      description: AppString().productHeaderDescription2,
+                      image: AppImages().imgHeaderProduct2,
+                    ),
                   ),
                 ),
                 Container(
-                  child: headerProduct(
-                    description: AppString().productHeaderDescription3,
-                    image: AppImages().imgHeaderProduct3,
+                  child: Flexible(
+                    child: headerProduct(
+                      description: AppString().productHeaderDescription3,
+                      image: AppImages().imgHeaderProduct3,
+                    ),
                   ),
                 ),
                 Container(
-                  child: headerProduct(
-                    description: AppString().productHeaderDescription4,
-                    image: AppImages().imgHeaderProduct4,
+                  child: Flexible(
+                    child: headerProduct(
+                      description: AppString().productHeaderDescription4,
+                      image: AppImages().imgHeaderProduct4,
+                    ),
                   ),
                 ),
                 Container(
-                  child: headerProduct(
-                    description: AppString().productHeaderDescription5,
-                    image: AppImages().imgHeaderProduct5,
+                  child: Flexible(
+                    child: headerProduct(
+                      description: AppString().productHeaderDescription5,
+                      image: AppImages().imgHeaderProduct5,
+                    ),
                   ),
                 ),
               ],
@@ -1222,7 +1319,9 @@ class _HomeState extends State<Home> {
                     height: 30.h,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/images/MAP-Indocool-1 1.png'),
+                        image: AssetImage(
+                          'assets/images/MAP-Indocool-1 1_result.webp',
+                        ),
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -1235,7 +1334,7 @@ class _HomeState extends State<Home> {
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             image: AssetImage(
-                              'assets/images/Indocool-Indonesia-Australia-2 1.png',
+                              'assets/images/Indocool-Indonesia-Australia-2 1_result.webp',
                             ),
                           ),
                         ),
@@ -1257,23 +1356,23 @@ class _HomeState extends State<Home> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   DetailLocation(
-                    number: 'assets/images/1 8.png',
-                    factory: 'assets/images/Rectangle 11.png',
+                    number: 'assets/images/1 8_result.webp',
+                    factory: 'assets/images/Rectangle 11_result.webp',
                     title: 'Bogor Head Office & Workshop',
                   ),
                   DetailLocation(
-                    number: 'assets/images/2 1.png',
-                    factory: 'assets/images/Rectangle 9.png',
+                    number: 'assets/images/2 1_result.webp',
+                    factory: 'assets/images/Rectangle 9_result.webp',
                     title: 'Balikpapan Office & Workshop',
                   ),
                   DetailLocation(
-                    number: 'assets/images/3 1.png',
-                    factory: 'assets/images/Rectangle 10.png',
+                    number: 'assets/images/3 1_result.webp',
+                    factory: 'assets/images/Rectangle 10_result.webp',
                     title: 'Sangatta Office & Workshop',
                   ),
                   DetailLocation(
-                    number: 'assets/images/4 6754.png',
-                    factory: 'assets/images/Rectangle 12.png',
+                    number: 'assets/images/4 6754_result.webp',
+                    factory: 'assets/images/Rectangle 12_result.webp',
                     title: 'Batam Head Office & Workshop',
                   ),
                 ],
@@ -1311,7 +1410,9 @@ class _HomeState extends State<Home> {
               height: 25.h,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/images/MAP-Indocool-1 1.png'),
+                  image: AssetImage(
+                    'assets/images/MAP-Indocool-1 1_result.webp',
+                  ),
                   fit: BoxFit.contain,
                 ),
               ),
@@ -1338,26 +1439,26 @@ class _HomeState extends State<Home> {
               child: Row(
                 children: [
                   DetailLocation(
-                    number: 'assets/images/1 8.png',
-                    factory: 'assets/images/Rectangle 9.png',
+                    number: 'assets/images/1 8_result.webp',
+                    factory: 'assets/images/Rectangle 9_result.webp',
                     title: 'Bogor Head Office & Workshop',
                   ),
                   SizedBox(width: 20),
                   DetailLocation(
-                    number: 'assets/images/2 1.png',
-                    factory: 'assets/images/Rectangle 10.png',
+                    number: 'assets/images/2 1_result.webp',
+                    factory: 'assets/images/Rectangle 10_result.webp',
                     title: 'Balikpapan Office & Workshop',
                   ),
                   SizedBox(width: 20),
                   DetailLocation(
-                    number: 'assets/images/3 1.png',
-                    factory: 'assets/images/Rectangle 11.png',
+                    number: 'assets/images/3 1_result.webp',
+                    factory: 'assets/images/Rectangle 11_result.webp',
                     title: 'Sangatta Office & Workshop',
                   ),
                   SizedBox(width: 20),
                   DetailLocation(
-                    number: 'assets/images/4 6754.png',
-                    factory: 'assets/images/Rectangle 12.png',
+                    number: 'assets/images/4 6754_result.webp',
+                    factory: 'assets/images/Rectangle 12_result.webp',
                     title: 'Batam Head Office & Workshop',
                   ),
                 ],
@@ -1388,14 +1489,21 @@ class _HomeState extends State<Home> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Logochooseus(image: 'assets/images/AMMAN Logo 1.png'),
-                    Logochooseus(image: 'assets/images/Logo-Madhani 1.png'),
-                    Logochooseus(image: 'assets/images/Logo-KPC 1.png'),
-                    Logochooseus(image: 'assets/images/image 1.png'),
                     Logochooseus(
-                      image: 'assets/images/Logo-Cipta-Andalan-Teknindo 1.png',
+                      image: 'assets/images/AMMAN Logo 1_result.webp',
                     ),
-                    Logochooseus(image: 'assets/images/Logo-Thriveni 1.png'),
+                    Logochooseus(
+                      image: 'assets/images/Logo-Madhani 1_result.webp',
+                    ),
+                    Logochooseus(image: 'assets/images/Logo-KPC 1_result.webp'),
+                    Logochooseus(image: 'assets/images/image 1_result.webp'),
+                    Logochooseus(
+                      image:
+                          'assets/images/Logo-Cipta-Andalan-Teknindo 1_result.webp',
+                    ),
+                    Logochooseus(
+                      image: 'assets/images/Logo-Thriveni 1_result.webp',
+                    ),
                   ],
                 ),
               ),
@@ -1410,7 +1518,9 @@ class _HomeState extends State<Home> {
         width: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/Indocool-Global-Customer 1.png'),
+            image: AssetImage(
+              'assets/images/Indocool-Global-Customer 1_result.webp',
+            ),
             fit: BoxFit.cover,
           ),
         ),
@@ -1725,7 +1835,7 @@ class _HomeState extends State<Home> {
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
-                  'assets/images/Indocool-Provide-Radiator-for-Multi-Sector-2 1.png',
+                  'assets/images/Indocool-Provide-Radiator-for-Multi-Sector-2 1_result.webp',
                 ),
                 fit: BoxFit.cover,
               ),
@@ -1883,20 +1993,24 @@ class _HomeState extends State<Home> {
 
     return GetBuilder<Homecontroller>(
       builder: (controller) {
-        return Globalappbar(
-          isNeedScrollButton: true,
-          pageWidget: SingleChildScrollView(
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                // Tentukan layout berdasarkan lebar layar
-                final width = constraints.maxWidth;
+        return AnimatedOpacity(
+          opacity: _visible ? 1 : 0,
+          duration: const Duration(milliseconds: 500),
+          child: Globalappbar(
+            isNeedScrollButton: true,
+            pageWidget: SingleChildScrollView(
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  // Tentukan layout berdasarkan lebar layar
+                  final width = constraints.maxWidth;
 
-                if (isDesktop(width)) {
-                  return desktopWidget();
-                } else {
-                  return mobileWidget();
-                }
-              },
+                  if (isDesktop(width)) {
+                    return desktopWidget();
+                  } else {
+                    return mobileWidget();
+                  }
+                },
+              ),
             ),
           ),
         );

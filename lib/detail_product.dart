@@ -58,7 +58,7 @@ class DetailProduct extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Image.asset('assets/images/D85ESS-Transp 1.png'),
+            Image.asset('assets/images/D85ESS-Transp 1_result.webp'),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: productDetails.map((e) {

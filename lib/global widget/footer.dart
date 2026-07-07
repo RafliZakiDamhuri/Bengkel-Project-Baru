@@ -98,7 +98,7 @@ Widget footer() {
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 image: AssetImage(
-                                  'assets/images/Logo-WhatsApp 1.png',
+                                  'assets/images/Logo-WhatsApp 1_result.webp',
                                 ),
                               ),
                             ),
@@ -122,7 +122,7 @@ Widget footer() {
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 image: AssetImage(
-                                  'assets/images/Logo-Email-2 1.png',
+                                  'assets/images/Logo-Email-2 1_result.webp',
                                 ),
                               ),
                             ),
@@ -143,7 +143,9 @@ Widget footer() {
                         height: 28,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage('assets/images/Logo-ISO 1.png'),
+                            image: AssetImage(
+                              'assets/images/Logo-ISO 1_result.webp',
+                            ),
                           ),
                         ),
                       ),
@@ -427,7 +429,7 @@ Widget footer() {
                 height: 67,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/Rectangle 48.png'),
+                    image: AssetImage('assets/images/Rectangle 48_result.webp'),
                   ),
                 ),
                 child: Row(
@@ -445,7 +447,9 @@ Widget footer() {
                       height: 37,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage('assets/images/Logo-SHop 1.png'),
+                          image: AssetImage(
+                            'assets/images/Logo-SHop 1_result.webp',
+                          ),
                         ),
                       ),
                     ),
@@ -584,7 +588,7 @@ Widget footer() {
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: AssetImage(
-                                    'assets/images/Logo-WhatsApp 1.png',
+                                    'assets/images/Logo-WhatsApp 1_result.webp',
                                   ),
                                 ),
                               ),
@@ -608,7 +612,7 @@ Widget footer() {
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: AssetImage(
-                                    'assets/images/Logo-Email-2 1.png',
+                                    'assets/images/Logo-Email-2 1_result.webp',
                                   ),
                                 ),
                               ),
@@ -896,7 +900,9 @@ Widget footer() {
                           height: 28,
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage('assets/images/Logo-ISO 1.png'),
+                              image: AssetImage(
+                                'assets/images/Logo-ISO 1_result.webp',
+                              ),
                             ),
                           ),
                         ),
@@ -918,7 +924,7 @@ Widget footer() {
                 height: 67,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/Rectangle 48.png'),
+                    image: AssetImage('assets/images/Rectangle 48_result.webp'),
                   ),
                 ),
                 child: Row(
@@ -937,7 +943,9 @@ Widget footer() {
                       height: 20,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage('assets/images/Logo-SHop 1.png'),
+                          image: AssetImage(
+                            'assets/images/Logo-SHop 1_result.webp',
+                          ),
                         ),
                       ),
                     ),

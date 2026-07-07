@@ -5,6 +5,7 @@ import 'package:project/global%20widget/baseLayoutWrapper.dart';
 import 'package:project/global%20widget/customButton.dart';
 import 'package:project/global%20widget/globalAppBar.dart';
 import 'package:project/theme/services_images.dart';
+import 'package:project/theme/string.dart';
 import 'package:project/theme/theme.dart';
 import 'package:sizer/sizer.dart';
 
@@ -24,13 +25,13 @@ class ServicesPage extends StatelessWidget {
     );
   }
 
-  Widget ServiceAndRepair() {
+  Widget serviceAndRepair() {
     return Container(
       width: Get.width,
 
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/Hero-Service 1.png'),
+          image: AssetImage('assets/images/Hero-Service 1_result.webp'),
           fit: BoxFit.cover,
         ),
       ),
@@ -78,7 +79,7 @@ class ServicesPage extends StatelessWidget {
               //   decoration: BoxDecoration(
               //     image: DecorationImage(
               //       image: AssetImage(
-              //         'assets/images/Service-Repair-Foto 1.png',
+              //         'assets/images/Service-Repair-Foto 1_result.webp',
               //       ),
               //       fit: BoxFit.contain,
               //     ),
@@ -96,7 +97,7 @@ class ServicesPage extends StatelessWidget {
                 height: 231,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/01-Welding-1.png'),
+                    image: AssetImage('assets/images/01-Welding-1_result.webp'),
                     fit: BoxFit.contain,
                   ),
                 ),
@@ -107,7 +108,7 @@ class ServicesPage extends StatelessWidget {
                 height: 231,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/02-Service-1.png'),
+                    image: AssetImage('assets/images/02-Service-1_result.webp'),
                     fit: BoxFit.contain,
                   ),
                 ),
@@ -118,7 +119,9 @@ class ServicesPage extends StatelessWidget {
                 height: 231,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/03-Cleaning 1.png'),
+                    image: AssetImage(
+                      'assets/images/03-Cleaning 1_result.webp',
+                    ),
                     fit: BoxFit.contain,
                   ),
                 ),
@@ -131,25 +134,6 @@ class ServicesPage extends StatelessWidget {
     );
   }
 
-  Widget repairRadiator() {
-    return Column(
-      children: [
-        ServicesImages(
-          title: 'Minor Repair Radiator',
-          imag: 'assets/images/04-Minor-Repair 1.png',
-        ),
-        ServicesImages(
-          title: 'Major Repair Radiator',
-          imag: 'assets/omages/05-Major-Repair 1.png',
-        ),
-        ServicesImages(
-          title: 'Complete Overhaul Radiator',
-          imag: 'assets/images/06-Overhaul-Repair 1.png',
-        ),
-      ],
-    );
-  }
-
   Widget mobileWidget() {
     return Container();
   }
@@ -157,21 +141,27 @@ class ServicesPage extends StatelessWidget {
   Widget desktopWidget() {
     return Column(
       children: [
-        ServiceAndRepair(),
+        serviceAndRepair(),
+        SizedBox(height: 60),
+
         ServicesImages(
           title: 'Minor Repair Radiator',
-          imag: 'assets/images/04-Minor-Repair 1.png',
+          imag: 'assets/images/04-Minor-Repair 1_result.webp',
+          htmlData: AppString().minorRepair,
         ),
         SizedBox(height: 60),
         ServicesImages(
           title: 'Major Repair Radiator',
-          imag: 'assets/images/05-Major-Repair 1.png',
+          imag: 'assets/images/05-Major-Repair 1_result.webp',
+          htmlData: AppString().majorRepair,
         ),
         SizedBox(height: 60),
         ServicesImages(
           title: 'Complete Overhaul Radiator',
-          imag: 'assets/images/06-Overhaul-Repair 1.png',
+          imag: 'assets/images/06-Overhaul-Repair 1_result.webp',
+          htmlData: AppString().completeOverhaul,
         ),
+        SizedBox(height: 60),
       ],
     );
   }

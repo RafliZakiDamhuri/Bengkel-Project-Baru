@@ -13,9 +13,11 @@ import 'package:project/search_product_page.dart';
 
 import 'package:sizer/sizer.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  usePathUrlStrategy();
   await Supabase.initialize(
     url: 'https://hkuubnsamodgtlsgyhrv.supabase.co',
     anonKey: 'sb_publishable_ucLnPqx9eVJ3RILC2HwE1w_CjsGgvvF',
@@ -40,6 +42,8 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           initialRoute: AppRouteName.home,
           getPages: AppPages.pages,
+          defaultTransition: Transition.fadeIn,
+          transitionDuration: const Duration(milliseconds: 500),
         );
       },
     );

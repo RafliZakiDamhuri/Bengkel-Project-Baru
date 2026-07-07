@@ -126,4 +126,142 @@ We currently have job openings throughout Indonesia. If you’re interested and 
       'https://hkuubnsamodgtlsgyhrv.supabase.co/storage/v1/object/public/Company%20Profile/Company%20Profile%20-%20Indocool%20Group%20-%20Rev.9.pdf';
   String productListPdfUrl =
       'https://hkuubnsamodgtlsgyhrv.supabase.co/storage/v1/object/public/ProductPDFs/All%20Products%20Line%20Up%20Catalogue.pdf';
+
+  String minorRepair = '''
+<p>
+  At Indocool, we provide fast and reliable minor radiator repair services to keep your cooling system performing at its best and prevent small issues from becoming major failures.
+</p>
+
+<p>
+  <strong>Our service covers essential maintenance and repair activities:</strong>
+</p>
+
+<ul>
+  <li>
+    <strong>Radiator Cleaning</strong>
+    <div>
+      Removal of dirt, scale, and debris to restore optimal heat transfer performance.
+    </div>
+  </li>
+
+  <li>
+    <strong>Radiator Testing</strong>
+    <div>
+      Pressure and performance testing to identify potential leaks or weak points.
+    </div>
+  </li>
+
+  <li>
+    <strong>Leak Repair (Minor Damage)</strong>
+    <div>
+      Repair of leaks within the minor affected area, ensuring quick and cost-effective restoration.
+    </div>
+  </li>
+
+  <li>
+    <strong>Minor Component Replacement</strong>
+    <div>
+      Replacement of small parts such as radiator caps, filler necks, gaskets, and other small components.
+    </div>
+  </li>
+</ul>
+
+<p>
+  With experienced technicians and proper inspection procedures, Indocool ensures your radiator is returned to safe, efficient, and reliable operating condition.
+</p>
+
+<p>
+  Prevent downtime. Extend equipment life. Keep your system running efficiently with Indocool.
+</p>
+''';
+
+  String majorRepair = '''
+<p>
+ At Indocool, we provide detailed and reliable major radiator repair services to keep your cooling system performing at its best and prevent serious failures that will halt your operation.
+</p>
+
+<p>
+  <strong>Our service covers essential maintenance and repair activities:</strong>
+</p>
+
+<ul>
+  <li>
+    <strong>Radiator Cleaning</strong>
+    <div>
+      Removal of dirt, scale, and debris to restore optimal heat transfer performance.
+    </div>
+  </li>
+
+  <li>
+    <strong>Radiator Testing</strong>
+    <div>
+      Pressure and performance testing to identify potential leaks or weak points.
+    </div>
+  </li>
+
+  <li>
+    <strong>Overhauls (Major Damage)</strong>
+    <div>
+      Disassembling, inspecting, cleaning, repair and replacing damage parts  to restore to its original like performance and efficiency, ensuring detailed and cost-effective restoration
+    </div>
+  </li>
+
+  <li>
+    <strong>Major Component Replacementt</strong>
+    <div>
+      Replacement of critical parts such as tank, port, side member and other necessary critical parts.
+    </div>
+  </li>
+</ul>
+
+<p>
+  With experienced technicians and proper inspection procedures, Indocool ensures your radiator is returned to safe, efficient, and reliable operating condition.
+</p>
+
+''';
+
+  String completeOverhaul = '''
+<p>
+ At Indocool, we provide fast and complete overhauls radiator repair to bring it back to top working performance or to significantly improve its efficiency and to prevent caused damage to another component.
+</p>
+
+<p>
+  <strong>Our service covers essential maintenance and repair activities:</strong>
+</p>
+
+<ul>
+  <li>
+    <strong>Radiator Cleaning</strong>
+    <div>
+      Removal of dirt, scale, and debris to restore optimal heat transfer performance.
+    </div>
+  </li>
+
+  <li>
+    <strong>Radiator Testing</strong>
+    <div>
+      Pressure and performance testing to identify potential leaks or weak points.
+    </div>
+  </li>
+
+  <li>
+    <strong>Complete Overhauls</strong>
+    <div>
+     Complete dismantled, and every component is inspected,cleaned and replaced to significantly improve its efficiency.
+    </div>
+  </li>
+
+  <li>
+    <strong>Component Replacement</strong>
+    <div>
+      Replacement of key parts such as core, cooler, tube, heat exchanger and other necessary components.
+    </div>
+  </li>
+</ul>
+
+<p>
+  With experienced technicians and proper inspection procedures, Indocool ensures your radiator is returned to safe, efficient, and reliable operating condition.
+</p>
+
+''';
 }

@@ -13,11 +13,32 @@ import 'package:project/global%20widget/personalDataContactUs.dart';
 import 'package:project/theme/app_images.dart';
 import 'package:project/theme/string.dart';
 
-class ContactUsPage extends StatelessWidget {
+class ContactUsPage extends StatefulWidget {
   const ContactUsPage({super.key});
 
   @override
+  State<ContactUsPage> createState() => _ContactUsPageState();
+}
+
+class _ContactUsPageState extends State<ContactUsPage> {
+  bool _ready = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    precacheImage(AssetImage(AppImages().contactUs), context).then((_) {
+      if (mounted) {
+        setState(() {
+          _ready = true;
+        });
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    var controller = Get.put(Contactuscontroller());
     Widget mobileHeroSection() {
       return Stack(
         children: [
@@ -151,6 +172,9 @@ class ContactUsPage extends StatelessWidget {
         await Get.find<Contactuscontroller>().getContact();
       },
       builder: (controller) {
+        if (!_ready) {
+          return const Center(child: CircularProgressIndicator());
+        }
         return Globalappbar(
           pageWidget: SingleChildScrollView(
             child: ResponsiveLayout(

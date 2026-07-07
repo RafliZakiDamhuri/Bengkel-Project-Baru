@@ -14,6 +14,8 @@ class Contactuscontroller extends GetxController {
   final positionController = TextEditingController();
   final phoneController = TextEditingController();
   final messageController = TextEditingController();
+  bool imageLoaded = false;
+
   String? selectedInquiryType;
   Future<void> getContact() async {
     final response = await supabase.from('Contact').select();
