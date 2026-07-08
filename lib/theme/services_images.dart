@@ -94,7 +94,7 @@ class ServicesImages extends StatelessWidget {
                     onTap: () {
                       globalController.openWhatsApp(
                         AppString().indocoolWhatsappNumber,
-                        'Halo Saya Ingin Booking Service Schedule',
+                        'I opened the Indocool website, I want a booking service!',
                       );
                     },
                     child: Container(

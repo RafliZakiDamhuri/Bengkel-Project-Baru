@@ -20,7 +20,7 @@ Widget bookServiceSchedule() {
     onTap: () {
       openWhatsApp(
         AppString().indocoolWhatsappNumber,
-        'Halo Saya Ingin Booking',
+        'I opened the Indocool website, I want a booking service!',
       );
     },
     child: Container(

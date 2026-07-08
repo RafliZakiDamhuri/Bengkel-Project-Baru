@@ -235,7 +235,7 @@ class SearchProductPage extends StatelessWidget {
                         onPressed: () {
                           globalController.openWhatsApp(
                             AppString().indocoolWhatsappNumber,
-                            'Halo Saya Ingin Booking Service Schedule',
+                            'I opened the Indocool website, I want to find my radiator part number!',
                           );
                         },
                         icon: Text(

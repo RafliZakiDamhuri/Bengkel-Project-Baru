@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
+import 'package:project/controller/globalController.dart';
 import 'package:project/global%20widget/baseLayoutWrapper.dart';
 import 'package:project/product_page.dart';
 import 'package:project/routes/routes_name.dart';
@@ -10,6 +13,88 @@ import 'package:project/theme/theme.dart';
 import 'package:sizer/sizer.dart';
 
 Widget footer() {
+  GlobalController globalController = Get.find<GlobalController>();
+  Widget socialMedia() {
+    return Row(
+      children: [
+        GestureDetector(
+          onTap: () {
+            globalController.openUrl(AppString().facebook);
+          },
+          child: Container(
+            width: 20,
+            height: 20,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(AppImages().facebookNewLogo),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 8),
+        GestureDetector(
+          onTap: () {
+            globalController.openUrl(AppString().instagram);
+          },
+          child: Container(
+            width: 20,
+            height: 20,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(AppImages().instagramNewLogo),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 8),
+        GestureDetector(
+          onTap: () {
+            globalController.openUrl(AppString().linkedInUrl);
+          },
+          child: Container(
+            width: 20,
+            height: 20,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(AppImages().linkedInNewLogo),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 8),
+        GestureDetector(
+          onTap: () {
+            globalController.openUrl(AppString().tiktok);
+          },
+          child: Container(
+            width: 20,
+            height: 20,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(AppImages().tiktokNewLogo),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 8),
+        GestureDetector(
+          onTap: () {
+            globalController.openUrl(AppString().youtube);
+          },
+          child: Container(
+            width: 20,
+            height: 20,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(AppImages().youtubeNewLogo),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget products() {
     return GestureDetector(
       onTap: () {
@@ -395,7 +480,19 @@ Widget footer() {
                     ),
                   ],
                 ),
-                partNumberSearch(),
+                Container(
+                  margin: EdgeInsets.only(left: 100),
+                  child: Column(
+                    children: [
+                      partNumberSearch(),
+                      SizedBox(height: 300),
+                      Container(
+                        margin: EdgeInsets.only(left: 100),
+                        child: socialMedia(),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

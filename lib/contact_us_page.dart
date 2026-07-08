@@ -39,6 +39,8 @@ class _ContactUsPageState extends State<ContactUsPage> {
   @override
   Widget build(BuildContext context) {
     var controller = Get.put(Contactuscontroller());
+    var globalController = Get.find<GlobalController>();
+
     Widget mobileHeroSection() {
       return Stack(
         children: [
@@ -86,7 +88,12 @@ class _ContactUsPageState extends State<ContactUsPage> {
                     },
                   ),
                   customBlueAppBarButton(
-                    onTap: () {},
+                    onTap: () {
+                      globalController.openWhatsApp(
+                        AppString().indocoolWhatsappNumber,
+                        'I opened the Indocool website, I want to communicate with your sales!',
+                      );
+                    },
                     title: 'Contact Us',
                     width: 120,
                   ),
@@ -149,7 +156,16 @@ class _ContactUsPageState extends State<ContactUsPage> {
                     ],
                   ),
                   const SizedBox(height: 50),
-                  customBlueAppBarButton(onTap: () {}, title: 'Contact Us'),
+                  customBlueAppBarButton(
+                    onTap: () {
+                      globalController.openWhatsApp(
+                        AppString().indocoolWhatsappNumber,
+                        'I opened the Indocool website, I want to communicate with your sales!',
+                      );
+                    },
+                    title: 'Contact Us',
+                    width: 120,
+                  ),
                 ],
               ),
             ),

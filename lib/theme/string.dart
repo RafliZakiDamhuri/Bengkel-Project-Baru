@@ -99,6 +99,11 @@ We currently have job openings throughout Indonesia. If you’re interested and 
 ''';
 
   String linkedInUrl = 'https://www.linkedin.com/company/indocool-group';
+  String facebook = 'https://www.facebook.com/indocoolgroup';
+  String youtube = 'https://www.youtube.com/@indocoolgroup';
+  String tiktok = 'https://www.tiktok.com/@indocool.group';
+  String instagram = 'https://www.instagram.com/indocool.group/';
+
   String jobStreetUrl =
       'https://id.jobstreet.com/id/lndocool-jobs/at-this-company';
 

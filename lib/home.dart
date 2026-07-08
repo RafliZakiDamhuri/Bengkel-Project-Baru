@@ -824,7 +824,7 @@ class _HomeState extends State<Home> {
                         onPressed: () {
                           globalController.openWhatsApp(
                             AppString().indocoolWhatsappNumber,
-                            'Halo Saya Ingin Bertanya',
+                            'I opened the Indocool website, I want to know your business!',
                           );
                         },
                         icon: Text(

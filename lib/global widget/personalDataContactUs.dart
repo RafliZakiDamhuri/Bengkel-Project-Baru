@@ -335,7 +335,7 @@ Widget personaldataContactUs() {
                     onTap: () {
                       globalController.openWhatsApp(
                         data.phoneNumber ?? '',
-                        'Halo Saya Ingin Booking Service Schedule',
+                        'I opened the Indocool website, I want to consult about my needs!',
                       );
                     },
                     child: cardContact(

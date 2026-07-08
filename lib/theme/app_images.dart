@@ -24,4 +24,9 @@ class AppImages {
   String scroll = 'assets/images/scroll_result.webp';
   String incoCoolProductList =
       'assets/images/indocool-product-list_result.webp';
+  String facebookNewLogo = 'assets/images/Facebook.png';
+  String instagramNewLogo = 'assets/images/Instagram.png';
+  String youtubeNewLogo = 'assets/images/YouTube.png';
+  String tiktokNewLogo = 'assets/images/TikTok.png';
+  String linkedInNewLogo = 'assets/images/LinkedIn.png';
 }
