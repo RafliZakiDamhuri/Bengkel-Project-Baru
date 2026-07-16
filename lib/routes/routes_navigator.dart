@@ -2,7 +2,9 @@ import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:project/about_us_page.dart';
 import 'package:project/contact_us_page.dart';
 import 'package:project/home.dart';
+import 'package:project/login_page.dart';
 import 'package:project/product_page.dart';
+import 'package:project/register_page.dart';
 import 'package:project/routes/routes_name.dart';
 import 'package:project/search_product_page.dart';
 import 'package:project/theme/services_page.dart';
@@ -18,5 +20,7 @@ class AppPages {
     GetPage(name: AppRouteName.aboutUs, page: () => const AboutUsPage()),
     GetPage(name: AppRouteName.contactUs, page: () => const ContactUsPage()),
     GetPage(name: AppRouteName.services, page: () => const ServicesPage()),
+    GetPage(name: AppRouteName.login, page: () => const LoginPage()),
+    GetPage(name: AppRouteName.register, page: () => const RegisterPage()),
   ];
 }
