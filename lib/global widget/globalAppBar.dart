@@ -14,6 +14,7 @@ import 'package:project/detail_product.dart';
 import 'package:project/global%20widget/footer.dart';
 import 'package:project/global%20widget/personalData.dart';
 import 'package:project/home.dart';
+import 'package:project/login_page.dart';
 import 'package:project/model/allDataModel.dart';
 import 'package:project/product_page.dart';
 import 'package:project/routes/routes_name.dart';
@@ -249,7 +250,9 @@ class _GlobalappbarState extends State<Globalappbar> {
 
                       GestureDetector(
                         onTap: () {
-                          Get.toNamed(AppRouteName.aboutUs);
+                          Get.toNamed(AppRouteName.register);
+
+                          // Get.toNamed(AppRouteName.aboutUs);
                         },
                         child: AppbarElement(title: AppString().appBar5),
                       ),
