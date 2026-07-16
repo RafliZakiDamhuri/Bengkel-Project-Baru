@@ -10,6 +10,7 @@ import 'package:project/about_us_page.dart';
 import 'package:project/appbar/appbar_element.dart';
 import 'package:project/contact_us_page.dart';
 import 'package:project/controller/homeController.dart';
+import 'package:project/controller/mainProductController.dart';
 import 'package:project/detail_product.dart';
 import 'package:project/global%20widget/footer.dart';
 import 'package:project/global%20widget/personalData.dart';
@@ -58,10 +59,14 @@ class _GlobalappbarState extends State<Globalappbar> {
     }
   }
 
+  var homecontroller = Get.find<Homecontroller>();
+  var mainProductController = Get.find<MainProductController>();
+  // var globalController = Get.find<GlobalController>();
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    var homeController = Get.find<Homecontroller>();
+
     Widget search() {
       return GetBuilder<Homecontroller>(
         builder: (controller) {
@@ -153,7 +158,7 @@ class _GlobalappbarState extends State<Globalappbar> {
             onTap: () {
               openWhatsApp(
                 AppString().indocoolWhatsappNumber,
-                "Halo Saya Ingin Bertanya",
+                "I opened the Indocool website, I want to know your business!",
               );
             },
             child: Image.asset(
@@ -189,10 +194,7 @@ class _GlobalappbarState extends State<Globalappbar> {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Gunakan Expanded di sini agar bagian kiri mengambil sisa ruang yang ada
-                  // sehingga spaceBetween di Row utama bisa mendorong menu kanan ke pojok.
                   Row(
-                    // Sekarang spaceAround akan bekerja karena sudah ada ruang dari Expanded
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       // Logo dan Judul
@@ -217,14 +219,10 @@ class _GlobalappbarState extends State<Globalappbar> {
                         ],
                       ),
 
-                      const SizedBox(
-                        width: 20,
-                      ), // Jarak antara judul dan search bar
-                      // Bagian Search
+                      const SizedBox(width: 20),
                     ],
                   ),
 
-                  // Row Menu Kanan (Tetap di pojok kanan)
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -233,13 +231,62 @@ class _GlobalappbarState extends State<Globalappbar> {
                         child: AppbarElement(title: AppString().appBar0),
                       ),
                       GestureDetector(
-                        onTap: () => Get.toNamed(AppRouteName.product),
-                        child: AppbarElement(title: AppString().appBar1),
+                        onTap: () {
+                          Get.toNamed(AppRouteName.product);
+                        },
+                        child: GetBuilder<MainProductController>(
+                          builder: (controller) {
+                            return HoverDropdownMenu(
+                              title: AppString().appBar1,
+
+                              items: List.generate(
+                                controller.mainProductModel?.length ?? 0,
+
+                                (index) {
+                                  return HoverDropdownItem(
+                                    title:
+                                        controller
+                                            .mainProductModel?[index]
+                                            .productName ??
+                                        '',
+
+                                    onTap: () {
+                                      Get.toNamed(AppRouteName.product);
+                                    },
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        ),
                       ),
                       GestureDetector(
-                        onTap: () => Get.toNamed(AppRouteName.services),
-                        child: AppbarElement(title: AppString().appBar2),
+                        onTap: () {
+                          Get.toNamed(AppRouteName.services);
+                        },
+                        child: HoverDropdownMenu(
+                          title: AppString().appBar2,
+
+                          items: List.generate(
+                            homecontroller.serviceModel?.length ?? 0,
+
+                            (index) {
+                              return HoverDropdownItem(
+                                title:
+                                    homecontroller
+                                        .serviceModel?[index]
+                                        .serviceName ??
+                                    '',
+
+                                onTap: () {
+                                  Get.toNamed(AppRouteName.services);
+                                },
+                              );
+                            },
+                          ),
+                        ),
                       ),
+
                       GestureDetector(
                         onTap: () {
                           Get.toNamed(AppRouteName.searchProduct);
@@ -319,6 +366,105 @@ class _GlobalappbarState extends State<Globalappbar> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class HoverDropdownItem {
+  final String title;
+  final VoidCallback onTap;
+
+  HoverDropdownItem({required this.title, required this.onTap});
+}
+
+class HoverDropdownMenu extends StatefulWidget {
+  final String title;
+  final List<HoverDropdownItem> items;
+
+  const HoverDropdownMenu({
+    super.key,
+    required this.title,
+    required this.items,
+  });
+
+  @override
+  State<HoverDropdownMenu> createState() => _HoverDropdownMenuState();
+}
+
+class _HoverDropdownMenuState extends State<HoverDropdownMenu> {
+  final MenuController _controller = MenuController();
+
+  bool _isHoverAnchor = false;
+  bool _isHoverMenu = false;
+
+  void _checkClose() {
+    Future.delayed(const Duration(milliseconds: 300), () {
+      if (!_isHoverAnchor && !_isHoverMenu) {
+        _controller.close();
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MenuAnchor(
+      controller: _controller,
+
+      alignmentOffset: const Offset(-10, 20),
+
+      style: MenuStyle(
+        elevation: const WidgetStatePropertyAll(12),
+
+        backgroundColor: const WidgetStatePropertyAll(Colors.white),
+
+        surfaceTintColor: const WidgetStatePropertyAll(Colors.transparent),
+
+        shape: WidgetStatePropertyAll(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        ),
+      ),
+
+      menuChildren: [
+        MouseRegion(
+          onEnter: (_) {
+            _isHoverMenu = true;
+          },
+
+          onExit: (_) {
+            _isHoverMenu = false;
+            _checkClose();
+          },
+
+          child: Column(
+            children: widget.items.map((item) {
+              return Container(
+                margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: MenuItemButton(
+                  onPressed: item.onTap,
+
+                  child: SizedBox(width: 180, child: Text(item.title)),
+                ),
+              );
+            }).toList(),
+          ),
+        ),
+      ],
+
+      builder: (context, controller, child) {
+        return MouseRegion(
+          onEnter: (_) {
+            _isHoverAnchor = true;
+            controller.open();
+          },
+
+          onExit: (_) {
+            _isHoverAnchor = false;
+            _checkClose();
+          },
+
+          child: AppbarElement(title: widget.title),
+        );
+      },
     );
   }
 }

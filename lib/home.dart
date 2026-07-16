@@ -621,7 +621,7 @@ class _HomeState extends State<Home> {
           final size = constraints.maxWidth * 0.9;
 
           return Container(
-            margin: EdgeInsets.only(right: 10, left: 10),
+            margin: const EdgeInsets.symmetric(horizontal: 10),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -631,16 +631,23 @@ class _HomeState extends State<Home> {
                   height: size.clamp(120.0, 300),
                   fit: BoxFit.contain,
                 ),
+
                 const SizedBox(height: 12),
-                Text(
-                  description ?? '',
-                  style: whiteTextStyle.copyWith(
-                    fontSize: 20,
-                    fontWeight: semiBold,
+
+                SizedBox(
+                  height: 56,
+                  child: Center(
+                    child: Text(
+                      description ?? '',
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: whiteTextStyle.copyWith(
+                        fontSize: 20,
+                        fontWeight: semiBold,
+                      ),
+                    ),
                   ),
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
                 ),
               ],
             ),
@@ -741,6 +748,14 @@ class _HomeState extends State<Home> {
                         child: headerProduct(
                           description: AppString().productHeaderDescription5,
                           image: AppImages().imgHeaderProduct5,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      child: Flexible(
+                        child: headerProduct(
+                          description: AppString().productHeaderDescription6,
+                          image: AppImages().imgHeaderProduct6,
                         ),
                       ),
                     ),
@@ -1206,7 +1221,12 @@ class _HomeState extends State<Home> {
                       ],
                     ),
                   ),
-
+                  Container(
+                    height: 2,
+                    width: double.infinity,
+                    color: Colors.grey.shade300,
+                    margin: EdgeInsets.symmetric(vertical: 2.h),
+                  ),
                   ListHome(
                     nomer: AppString().listHomeNumber4,
                     title: AppString().listHomeTitle4,

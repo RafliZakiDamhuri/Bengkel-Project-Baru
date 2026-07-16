@@ -13,6 +13,8 @@ class AppImages {
   String imgHeaderProduct3 = 'assets/images/product-header-image-3_result.webp';
   String imgHeaderProduct4 = 'assets/images/product-header-image-4_result.webp';
   String imgHeaderProduct5 = 'assets/images/product-header-image-5_result.webp';
+  String imgHeaderProduct6 = 'assets/images/product-header-image-6_result.webp';
+
   String imgIntroductionProductImage =
       'assets/images/introductionProductImage_result.webp';
   String aboutUsImage = 'assets/images/contactUs-image_result.webp';

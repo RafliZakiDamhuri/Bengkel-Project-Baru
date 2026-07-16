@@ -67,6 +67,8 @@ class AppString {
   String productHeaderDescription3 = 'POWER GENERATION INDUSTRY';
   String productHeaderDescription4 = 'MARINE INDUSTRY';
   String productHeaderDescription5 = 'GENERAL INDUSTRY';
+  String productHeaderDescription6 = 'LOCOMOTIVE INDUSTRY';
+
   String introductionTextTitle = 'Products Range';
   String introductionTextSubtitle =
       'Indocool can support with a high variety of\ncooling system products that suit your\nindustries, for whatever your operations are,\nwe can deliver the best we have.';

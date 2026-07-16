@@ -288,7 +288,6 @@ Widget footer() {
         Get.toNamed(AppRouteName.searchProduct);
       },
       child: Container(
-        margin: EdgeInsets.only(left: 200, top: 30),
         width: 280,
         height: 67,
         decoration: BoxDecoration(
@@ -319,221 +318,270 @@ Widget footer() {
     );
   }
 
-  Widget footerDesktop() {
+  Widget footerLeft() {
     return Container(
-      width: double.infinity,
-      color: Colors.black,
+      margin: EdgeInsets.only(right: 80),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            margin: EdgeInsets.only(left: 180),
+            margin: EdgeInsets.only(left: 50, top: 30),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  margin: EdgeInsets.only(right: 80),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(left: 50, top: 30),
-                        child: Row(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(right: 10),
-                              width: 437,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage(AppImages().imageFooter),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(left: 50),
-                            child: Text(
-                              'PT. Indocool Solusi Cemerlang',
-                              style: whiteTextStyle.copyWith(
-                                fontSize: 16,
-                                fontWeight: bold,
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 12),
-                          Container(
-                            margin: EdgeInsets.only(left: 50),
-                            child: Text(
-                              'Bogor Head Office: Bogor, Jawa Barat, Indonesia\nBranch Balikpapan: Balikpapan, Kalimantan Timur, Indonesia\nBranch Sangatta: Kutai Timur, Kalimantan Timur, Indonesia',
-                              style: whiteTextStyle.copyWith(
-                                fontSize: 14,
-                                fontWeight: regular,
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 12),
-                          Container(
-                            margin: EdgeInsets.only(left: 50),
-                            child: Text(
-                              'PT. Indocool Rekayasa Batam',
-                              style: whiteTextStyle.copyWith(
-                                fontSize: 16,
-                                fontWeight: bold,
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 12),
-                          Container(
-                            margin: EdgeInsets.only(left: 50),
-                            child: Text(
-                              'Batam Head Office: Batam, Kepulauan Riau, Indonesia',
-                              style: whiteTextStyle.copyWith(
-                                fontSize: 14,
-                                fontWeight: regular,
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 24),
-                          Row(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(left: 50),
-                                width: 15,
-                                height: 15,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                      'assets/images/Logo-WhatsApp 1_result.webp',
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                '+62 812-1000-256',
-                                style: whiteTextStyle.copyWith(
-                                  fontWeight: medium,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 5),
-                          Row(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(left: 50),
-                                width: 15,
-                                height: 15,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                      'assets/images/Logo-Email-2 1_result.webp',
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                'customersupport@indocool.co.id',
-                                style: whiteTextStyle.copyWith(
-                                  fontWeight: medium,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 29),
-                          Container(
-                            margin: EdgeInsets.only(left: 50),
-                            width: 437,
-                            height: 28,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(
-                                  'assets/images/Logo-ISO 1_result.webp',
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 22),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    products(),
-                    SizedBox(width: 100),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [services(), aboutUs(), contactUs()],
+                  margin: EdgeInsets.only(right: 10),
+                  width: 437,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(AppImages().imageFooter),
                     ),
-                  ],
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 100),
-                  child: Column(
-                    children: [
-                      partNumberSearch(),
-                      SizedBox(height: 300),
-                      Container(
-                        margin: EdgeInsets.only(left: 100),
-                        child: socialMedia(),
-                      ),
-                    ],
                   ),
                 ),
               ],
             ),
           ),
-
-          SizedBox(height: 40),
-
-          // 🔽 GARIS (TAMBAHAN DOANG)
-          Center(
-            child: Container(
-              width: 80.w,
-              height: 1,
-              margin: EdgeInsets.symmetric(horizontal: 40),
-              color: Colors.white,
-            ),
-          ),
-          SizedBox(height: 25),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+          SizedBox(height: 10),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
+                margin: EdgeInsets.only(left: 50),
                 child: Text(
-                  "All manufacturer's names, symbols, part numbers, or descriptions, are used for reference purpose only.\nIt is not our intent to imply that any part mentioned is the product of OEM.",
+                  'PT. Indocool Solusi Cemerlang',
                   style: whiteTextStyle.copyWith(
-                    fontSize: 10,
-                    fontWeight: regular,
-                  ),
-                ),
-              ),
-              Container(
-                child: Text(
-                  'Copyright © 2026 PT. INDOCOOL SOLUSI CEMERLANG  | All Right Reserved',
-                  style: whiteTextStyle.copyWith(
-                    fontSize: 14,
+                    fontSize: 16,
                     fontWeight: bold,
                   ),
                 ),
               ),
+              SizedBox(height: 12),
+              Container(
+                margin: EdgeInsets.only(left: 50),
+                child: Text(
+                  'Bogor Head Office: Bogor, Jawa Barat, Indonesia\nBranch Balikpapan: Balikpapan, Kalimantan Timur, Indonesia\nBranch Sangatta: Kutai Timur, Kalimantan Timur, Indonesia',
+                  style: whiteTextStyle.copyWith(
+                    fontSize: 14,
+                    fontWeight: regular,
+                  ),
+                ),
+              ),
+              SizedBox(height: 12),
+              Container(
+                margin: EdgeInsets.only(left: 50),
+                child: Text(
+                  'PT. Indocool Rekayasa Batam',
+                  style: whiteTextStyle.copyWith(
+                    fontSize: 16,
+                    fontWeight: bold,
+                  ),
+                ),
+              ),
+              SizedBox(height: 12),
+              Container(
+                margin: EdgeInsets.only(left: 50),
+                child: Text(
+                  'Batam Head Office: Batam, Kepulauan Riau, Indonesia',
+                  style: whiteTextStyle.copyWith(
+                    fontSize: 14,
+                    fontWeight: regular,
+                  ),
+                ),
+              ),
+              SizedBox(height: 24),
+              Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(left: 50),
+                    width: 15,
+                    height: 15,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(
+                          'assets/images/Logo-WhatsApp 1_result.webp',
+                        ),
+                      ),
+                    ),
+                  ),
+                  Text(
+                    '+62 812-1000-256',
+                    style: whiteTextStyle.copyWith(
+                      fontWeight: medium,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 5),
+              Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(left: 50),
+                    width: 15,
+                    height: 15,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(
+                          'assets/images/Logo-Email-2 1_result.webp',
+                        ),
+                      ),
+                    ),
+                  ),
+                  Text(
+                    'customersupport@indocool.co.id',
+                    style: whiteTextStyle.copyWith(
+                      fontWeight: medium,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 29),
+              Container(
+                margin: EdgeInsets.only(left: 50),
+                width: 437,
+                height: 28,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/Logo-ISO 1_result.webp'),
+                  ),
+                ),
+              ),
+              SizedBox(height: 22),
             ],
           ),
         ],
       ),
+    );
+  }
+
+  Widget footerMenu() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        products(),
+        SizedBox(width: 100),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [services(), aboutUs(), contactUs()],
+        ),
+      ],
+    );
+  }
+
+  Widget footerRight(bool isSmallDesktop) {
+    if (isSmallDesktop) {
+      return Padding(
+        padding: const EdgeInsets.only(top: 20),
+        child: Row(
+          children: [
+            partNumberSearch(),
+            const SizedBox(width: 40),
+            socialMedia(),
+          ],
+        ),
+      );
+    }
+
+    return Container(
+      margin: const EdgeInsets.only(left: 100),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          partNumberSearch(),
+          const SizedBox(height: 300),
+          socialMedia(),
+        ],
+      ),
+    );
+  }
+
+  Widget footerBottom() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Container(
+          child: Text(
+            "All manufacturer's names, symbols, part numbers, or descriptions, are used for reference purpose only.\nIt is not our intent to imply that any part mentioned is the product of OEM.",
+            style: whiteTextStyle.copyWith(fontSize: 10, fontWeight: regular),
+          ),
+        ),
+        Container(
+          child: Text(
+            'Copyright © 2026 PT. INDOCOOL SOLUSI CEMERLANG  | All Right Reserved',
+            style: whiteTextStyle.copyWith(fontSize: 14, fontWeight: bold),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget footerContent(bool isSmallDesktop) {
+    if (isSmallDesktop) {
+      return Container(
+        margin: const EdgeInsets.only(left: 80, top: 30),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [footerLeft(), const SizedBox(width: 80), footerMenu()],
+            ),
+
+            const SizedBox(height: 50),
+
+            footerRight(isSmallDesktop),
+          ],
+        ),
+      );
+    }
+
+    return Container(
+      margin: const EdgeInsets.only(left: 180, top: 30),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          footerLeft(),
+
+          footerMenu(),
+
+          Expanded(
+            child: Align(
+              alignment: Alignment.topRight,
+              child: footerRight(isSmallDesktop),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget footerDesktop() {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isSmallDesktop = constraints.maxWidth < 1500;
+
+        return Container(
+          width: double.infinity,
+          color: Colors.black,
+          child: Column(
+            children: [
+              footerContent(isSmallDesktop),
+
+              const SizedBox(height: 40),
+
+              Center(
+                child: Container(width: 80.w, height: 1, color: Colors.white),
+              ),
+
+              const SizedBox(height: 25),
+
+              footerBottom(),
+            ],
+          ),
+        );
+      },
     );
   }
 
