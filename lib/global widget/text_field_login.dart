@@ -5,13 +5,14 @@ class TextFieldLogin extends StatelessWidget {
   final String textName;
   final String hintName;
   final bool obsecureText;
-
+  final TextEditingController controller;
   const TextFieldLogin({
     super.key,
 
     required this.hintName,
     required this.textName,
     required this.obsecureText,
+    required this.controller,
   });
 
   @override
@@ -30,6 +31,7 @@ class TextFieldLogin extends StatelessWidget {
               borderRadius: BorderRadius.circular(4),
             ),
             child: TextFormField(
+              controller: controller,
               style: whiteTextStyle.copyWith(fontSize: 14),
               cursorColor: Colors.white,
               obscureText: obsecureText,

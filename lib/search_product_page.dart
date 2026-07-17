@@ -191,296 +191,296 @@ class SearchProductPage extends StatelessWidget {
 
       builder: (controller) {
         return Globalappbar(
-          pageWidget: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  width: double.infinity,
-
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(
-                        'assets/images/Indoocool-Search-Part 1_result.webp',
-                      ),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 60),
-                        child: Text(
-                          'COMING SOON: SEARCH PART FEATURE',
-                          style: blackTextStyle.copyWith(
-                            fontSize: 64,
-                            fontWeight: bold,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 30),
-                      Container(
-                        child: Text(
-                          'Our intelligent Part Number Search is currently under development to help you quickly identify compatible\nradiator, heat exchanger, and cooling system components for your equipment.',
-                          textAlign: TextAlign.center,
-                          style: blackTextStyle.copyWith(
-                            fontSize: 24,
-                            fontWeight: medium,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 19),
-                      ElevatedButton.icon(
-                        onPressed: () {
-                          globalController.openWhatsApp(
-                            AppString().indocoolWhatsappNumber,
-                            'I opened the Indocool website, I want to find my radiator part number!',
-                          );
-                        },
-                        icon: Text(
-                          "Contact Our Parts Specialist",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        label: Icon(
-                          Icons.phone_callback,
-                          color: Colors.white,
-                          size: 12.sp,
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blueAccent,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 15,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                              12,
-                            ), // Membuat sudut melengkung
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 684),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
           // pageWidget: SingleChildScrollView(
           //   child: Column(
-          //     crossAxisAlignment: CrossAxisAlignment.center,
           //     children: [
           //       Container(
-          //         color: darkGrey,
-          //         padding: EdgeInsets.all(24),
+          //         width: double.infinity,
+
+          //         decoration: BoxDecoration(
+          //           image: DecorationImage(
+          //             image: AssetImage(
+          //               'assets/images/Indoocool-Search-Part 1_result.webp',
+          //             ),
+          //             fit: BoxFit.cover,
+          //           ),
+          //         ),
           //         child: Column(
+          //           mainAxisAlignment: MainAxisAlignment.center,
+          //           crossAxisAlignment: CrossAxisAlignment.center,
           //           children: [
-          //             Text(
-          //               'Search Part',
-          //               style: whiteTextStyle.copyWith(fontSize: 48),
+          //             Container(
+          //               margin: EdgeInsets.only(top: 60),
+          //               child: Text(
+          //                 'COMING SOON: SEARCH PART FEATURE',
+          //                 style: blackTextStyle.copyWith(
+          //                   fontSize: 64,
+          //                   fontWeight: bold,
+          //                 ),
+          //               ),
           //             ),
-          //             Row(
-          //               children: [
-          //                 Expanded(
-          //                   child: Column(
-          //                     crossAxisAlignment: CrossAxisAlignment.end,
-          //                     children: [
-          //                       Container(
-          //                         margin: EdgeInsets.symmetric(horizontal: 40),
-          //                         padding: EdgeInsets.all(10),
-          //                         child: TextFormField(
-          //                           onChanged: (value) {
-          //                             Get.find<Searchproductcontroller>()
-          //                                 .setTypedPlatNumber(value);
-          //                           },
-          //                           decoration: InputDecoration(
-          //                             fillColor: Colors.white,
-          //                             filled: true,
-          //                             suffixIcon: Icon(Icons.search),
-          //                             border: InputBorder.none,
-          //                             enabledBorder: OutlineInputBorder(
-          //                               borderSide: BorderSide(
-          //                                 color: Colors.blueGrey,
-          //                               ),
-          //                               borderRadius: BorderRadius.all(
-          //                                 Radius.circular(8),
-          //                               ),
-          //                             ),
-          //                             focusedBorder: OutlineInputBorder(
-          //                               borderSide: BorderSide(
-          //                                 color: Colors.blue,
-          //                               ),
-          //                               borderRadius: BorderRadius.all(
-          //                                 Radius.circular(8),
-          //                               ),
-          //                             ),
-          //                             hint: Row(
-          //                               children: [
-          //                                 Expanded(
-          //                                   child: Text(
-          //                                     'Cari berdasarkan plat number',
-          //                                     style: blackTextStyle.copyWith(
-          //                                       fontSize: 10.sp,
-          //                                     ),
-          //                                   ),
-          //                                 ),
-          //                               ],
-          //                             ),
-          //                           ),
-          //                         ),
-          //                       ),
-          //                       SizedBox(height: 16),
-          //                       Container(
-          //                         margin: EdgeInsets.symmetric(horizontal: 40),
-          //                         child: ElevatedButton.icon(
-          //                           onPressed: () async {
-          //                             await controller.getDatabyPlatNumber(
-          //                               controller.typedPlatNumber,
-          //                             );
-          //                           },
-          //                           icon: const Icon(Icons.search),
-          //                           label: const Text("SEARCH P/N"),
-          //                           style: ElevatedButton.styleFrom(
-          //                             backgroundColor: Colors.blue,
-          //                           ),
-          //                         ),
-          //                       ),
-          //                     ],
-          //                   ),
+          //             SizedBox(height: 30),
+          //             Container(
+          //               child: Text(
+          //                 'Our intelligent Part Number Search is currently under development to help you quickly identify compatible\nradiator, heat exchanger, and cooling system components for your equipment.',
+          //                 textAlign: TextAlign.center,
+          //                 style: blackTextStyle.copyWith(
+          //                   fontSize: 24,
+          //                   fontWeight: medium,
           //                 ),
-          //                 Expanded(
-          //                   child: Column(
-          //                     children: [
-          //                       dropDowns(
-          //                         hint: "Select a Maker",
-          //                         value: controller.selectedMake,
-          //                         items: controller.makeModel,
-          //                         labelBuilder: (item) => item?.makeName ?? '',
-          //                         onChanged: (val) =>
-          //                             controller.setSelectedMake(val ?? ''),
-          //                       ),
-          //                       dropDowns(
-          //                         hint: "Select core type",
-          //                         value: controller.selectedCoreType,
-          //                         items: controller.coreTypeModel,
-          //                         labelBuilder: (item) => item?.coreType ?? '',
-          //                         onChanged: (val) =>
-          //                             controller.setSelectedCoreType(val ?? ''),
-          //                       ),
-          //                     ],
-          //                   ),
-          //                 ),
-
-          //                 //     // 3. Dropdown Material
-          //                 //     dropDowns(
-          //                 //       hint: "Pilih Model",
-          //                 //       value: controller.selectedModel,
-          //                 //       items: controller.modelModel,
-          //                 //       labelBuilder: (item) => item?.modelName ?? '',
-          //                 //       onChanged: (val) =>
-          //                 //           controller.setSelectedModel(val ?? ''),
-          //                 //     ),
-          //                 //   ],
-          //                 // ),
-          //                 // SizedBox(height: 5.h),
-          //                 // Center(
-          //                 //   child: Row(
-          //                 //     mainAxisAlignment: MainAxisAlignment.center,
-          //                 //     children: [
-          //                 //       dropDowns(
-          //                 //         hint: "Pilih Material",
-          //                 //         value: controller.selectedMaterial,
-          //                 //         items: controller.materialModel,
-          //                 //         labelBuilder: (item) => item?.materialName ?? '',
-          //                 //         onChanged: (val) =>
-          //                 //             controller.setSelectedMaterial(val ?? ''),
-          //                 //       ),
-          //                 Expanded(
-          //                   child: Column(
-          //                     children: [
-          //                       dropDowns(
-          //                         hint: "Select a Model",
-          //                         value: controller.selectedModel,
-          //                         items: controller.modelModel,
-          //                         labelBuilder: (item) => item?.modelName ?? '',
-          //                         onChanged: (val) =>
-          //                             controller.setSelectedModel(val ?? ''),
-          //                       ),
-          //                       dropDowns(
-          //                         hint: "Select Material",
-          //                         value: controller.selectedMaterial,
-          //                         items: controller.materialModel,
-          //                         labelBuilder: (item) =>
-          //                             item?.materialName ?? '',
-          //                         onChanged: (val) =>
-          //                             controller.setSelectedMaterial(val ?? ''),
-          //                       ),
-          //                     ],
-          //                   ),
-          //                 ),
-          //                 Expanded(
-          //                   child: Column(
-          //                     children: [
-          //                       dropDowns(
-          //                         hint: "Pilih Application",
-          //                         value: controller.selectedApplication,
-          //                         items: controller.applicationModel,
-          //                         labelBuilder: (item) =>
-          //                             item?.applicationName ?? '',
-          //                         onChanged: (val) => controller
-          //                             .setSelectedApplication(val ?? ''),
-          //                       ),
-          //                       SizedBox(height: 16),
-          //                       Row(
-          //                         mainAxisAlignment: MainAxisAlignment.center,
-          //                         children: [
-          //                           ElevatedButton.icon(
-          //                             onPressed: () async {
-          //                               await controller.getData();
-          //                             },
-          //                             icon: const Icon(Icons.search),
-          //                             label: const Text("Cari"),
-          //                             style: ElevatedButton.styleFrom(
-          //                               backgroundColor: Colors.blue,
-          //                             ),
-          //                           ),
-
-          //                           const SizedBox(width: 12),
-
-          //                           ElevatedButton.icon(
-          //                             onPressed: () {
-          //                               controller.selectedApplication = null;
-          //                               controller.selectedMake = null;
-          //                               controller.selectedMaterial = null;
-          //                             },
-          //                             icon: const Icon(
-          //                               Icons.refresh,
-          //                             ), // Ikon otomatis di kiri
-          //                             label: const Text(
-          //                               "Reset",
-          //                             ), // Teks otomatis di kanan
-          //                             style: ElevatedButton.styleFrom(
-          //                               backgroundColor: Colors.grey,
-          //                             ),
-          //                           ),
-          //                         ],
-          //                       ),
-          //                     ],
-          //                   ),
-          //                 ),
-          //               ],
+          //               ),
           //             ),
+          //             SizedBox(height: 19),
+          //             ElevatedButton.icon(
+          //               onPressed: () {
+          //                 globalController.openWhatsApp(
+          //                   AppString().indocoolWhatsappNumber,
+          //                   'I opened the Indocool website, I want to find my radiator part number!',
+          //                 );
+          //               },
+          //               icon: Text(
+          //                 "Contact Our Parts Specialist",
+          //                 style: TextStyle(color: Colors.white),
+          //               ),
+          //               label: Icon(
+          //                 Icons.phone_callback,
+          //                 color: Colors.white,
+          //                 size: 12.sp,
+          //               ),
+          //               style: ElevatedButton.styleFrom(
+          //                 backgroundColor: Colors.blueAccent,
+          //                 padding: EdgeInsets.symmetric(
+          //                   horizontal: 20,
+          //                   vertical: 15,
+          //                 ),
+          //                 shape: RoundedRectangleBorder(
+          //                   borderRadius: BorderRadius.circular(
+          //                     12,
+          //                   ), // Membuat sudut melengkung
+          //                 ),
+          //               ),
+          //             ),
+          //             SizedBox(height: 684),
           //           ],
           //         ),
           //       ),
-
-          //       SizedBox(height: 5.h),
-          //       buildTable(controller.allDataModel),
-          //       SizedBox(height: 15.h),
           //     ],
           //   ),
           // ),
+          pageWidget: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  color: darkGrey,
+                  padding: EdgeInsets.all(24),
+                  child: Column(
+                    children: [
+                      Text(
+                        'Search Part',
+                        style: whiteTextStyle.copyWith(fontSize: 48),
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.symmetric(horizontal: 40),
+                                  padding: EdgeInsets.all(10),
+                                  child: TextFormField(
+                                    onChanged: (value) {
+                                      Get.find<Searchproductcontroller>()
+                                          .setTypedPlatNumber(value);
+                                    },
+                                    decoration: InputDecoration(
+                                      fillColor: Colors.white,
+                                      filled: true,
+                                      suffixIcon: Icon(Icons.search),
+                                      border: InputBorder.none,
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Colors.blueGrey,
+                                        ),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(8),
+                                        ),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Colors.blue,
+                                        ),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(8),
+                                        ),
+                                      ),
+                                      hint: Row(
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              'Cari berdasarkan plat number',
+                                              style: blackTextStyle.copyWith(
+                                                fontSize: 10.sp,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 16),
+                                Container(
+                                  margin: EdgeInsets.symmetric(horizontal: 40),
+                                  child: ElevatedButton.icon(
+                                    onPressed: () async {
+                                      await controller.getDatabyPlatNumber(
+                                        controller.typedPlatNumber,
+                                      );
+                                    },
+                                    icon: const Icon(Icons.search),
+                                    label: const Text("SEARCH P/N"),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.blue,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Column(
+                              children: [
+                                dropDowns(
+                                  hint: "Select a Maker",
+                                  value: controller.selectedMake,
+                                  items: controller.makeModel,
+                                  labelBuilder: (item) => item?.makeName ?? '',
+                                  onChanged: (val) =>
+                                      controller.setSelectedMake(val ?? ''),
+                                ),
+                                dropDowns(
+                                  hint: "Select core type",
+                                  value: controller.selectedCoreType,
+                                  items: controller.coreTypeModel,
+                                  labelBuilder: (item) => item?.coreType ?? '',
+                                  onChanged: (val) =>
+                                      controller.setSelectedCoreType(val ?? ''),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          //     // 3. Dropdown Material
+                          //     dropDowns(
+                          //       hint: "Pilih Model",
+                          //       value: controller.selectedModel,
+                          //       items: controller.modelModel,
+                          //       labelBuilder: (item) => item?.modelName ?? '',
+                          //       onChanged: (val) =>
+                          //           controller.setSelectedModel(val ?? ''),
+                          //     ),
+                          //   ],
+                          // ),
+                          // SizedBox(height: 5.h),
+                          // Center(
+                          //   child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.center,
+                          //     children: [
+                          //       dropDowns(
+                          //         hint: "Pilih Material",
+                          //         value: controller.selectedMaterial,
+                          //         items: controller.materialModel,
+                          //         labelBuilder: (item) => item?.materialName ?? '',
+                          //         onChanged: (val) =>
+                          //             controller.setSelectedMaterial(val ?? ''),
+                          //       ),
+                          Expanded(
+                            child: Column(
+                              children: [
+                                dropDowns(
+                                  hint: "Select a Model",
+                                  value: controller.selectedModel,
+                                  items: controller.modelModel,
+                                  labelBuilder: (item) => item?.modelName ?? '',
+                                  onChanged: (val) =>
+                                      controller.setSelectedModel(val ?? ''),
+                                ),
+                                dropDowns(
+                                  hint: "Select Material",
+                                  value: controller.selectedMaterial,
+                                  items: controller.materialModel,
+                                  labelBuilder: (item) =>
+                                      item?.materialName ?? '',
+                                  onChanged: (val) =>
+                                      controller.setSelectedMaterial(val ?? ''),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Column(
+                              children: [
+                                dropDowns(
+                                  hint: "Pilih Application",
+                                  value: controller.selectedApplication,
+                                  items: controller.applicationModel,
+                                  labelBuilder: (item) =>
+                                      item?.applicationName ?? '',
+                                  onChanged: (val) => controller
+                                      .setSelectedApplication(val ?? ''),
+                                ),
+                                SizedBox(height: 16),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ElevatedButton.icon(
+                                      onPressed: () async {
+                                        await controller.getData();
+                                      },
+                                      icon: const Icon(Icons.search),
+                                      label: const Text("Cari"),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.blue,
+                                      ),
+                                    ),
+
+                                    const SizedBox(width: 12),
+
+                                    ElevatedButton.icon(
+                                      onPressed: () {
+                                        controller.selectedApplication = null;
+                                        controller.selectedMake = null;
+                                        controller.selectedMaterial = null;
+                                      },
+                                      icon: const Icon(
+                                        Icons.refresh,
+                                      ), // Ikon otomatis di kiri
+                                      label: const Text(
+                                        "Reset",
+                                      ), // Teks otomatis di kanan
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.grey,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+
+                SizedBox(height: 5.h),
+                buildTable(controller.allDataModel),
+                SizedBox(height: 15.h),
+              ],
+            ),
+          ),
         );
       },
     );
