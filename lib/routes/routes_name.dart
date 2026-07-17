@@ -7,4 +7,5 @@ class AppRouteName {
   static const services = '/services';
   static const login = '/login';
   static const register = '/register';
+  static const cms = '/cms';
 }
