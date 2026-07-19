@@ -12,8 +12,8 @@ class CmsSidebar extends StatelessWidget {
       controller: controller,
 
       theme: SidebarXTheme(
-        width: 240,
-        margin: const EdgeInsets.all(10),
+        width: 100,
+        margin: EdgeInsets.zero,
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border(right: BorderSide(color: Colors.grey.shade200)),
@@ -37,36 +37,39 @@ class CmsSidebar extends StatelessWidget {
       ),
 
       extendedTheme: const SidebarXTheme(width: 240),
-
-      headerBuilder: (_, __) {
+      headerBuilder: (_, extended) {
         return Padding(
           padding: const EdgeInsets.all(20),
-
           child: Row(
             children: [
-              CircleAvatar(
-                radius: 22,
-                backgroundColor: Colors.blue,
-                child: Text("R", style: TextStyle(color: Colors.white)),
-              ),
+              if (extended) ...[
+                const SizedBox(width: 12),
 
-              SizedBox(width: 12),
-
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "RADMAX",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-
-                    Text(
-                      "Content Management",
-                      style: TextStyle(fontSize: 12, color: Colors.grey),
-                    ),
-                  ],
+                const Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "RADMAX",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        "Content Management",
+                        style: TextStyle(fontSize: 12, color: Colors.grey),
+                      ),
+                    ],
+                  ),
                 ),
+              ],
+              IconButton(
+                icon: Icon(
+                  extended
+                      ? Icons.keyboard_double_arrow_left
+                      : Icons.keyboard_double_arrow_right,
+                ),
+                onPressed: () {
+                  controller.setExtended(!extended);
+                },
               ),
             ],
           ),
@@ -83,18 +86,32 @@ class CmsSidebar extends StatelessWidget {
         );
       },
       items: const [
-        SidebarXItem(icon: Icons.dashboard, label: "Radiators & Coolers"),
+        SidebarXItem(icon: Icons.inventory, label: "Add Data"),
 
-        SidebarXItem(icon: Icons.shopping_bag, label: "Radiator Cap & Adapter"),
+        SidebarXItem(icon: Icons.arrow_right, label: "   Radiators & Coolers"),
 
         SidebarXItem(
-          icon: Icons.category,
-          label: "CATERPILLAR® Core Replacement",
+          icon: Icons.arrow_right,
+          label: "   Radiator Cap & Adapter",
         ),
 
         SidebarXItem(
-          icon: Icons.person,
-          label: "CATERPILLAR® Tube & Shell Oil Cooler",
+          icon: Icons.arrow_right,
+          label: "   CATERPILLAR® Core Replacement",
+        ),
+
+        SidebarXItem(icon: Icons.inventory, label: "Edit Data"),
+
+        SidebarXItem(icon: Icons.arrow_right, label: "   Radiators & Coolers"),
+
+        SidebarXItem(
+          icon: Icons.arrow_right,
+          label: "   Radiator Cap & Adapter",
+        ),
+
+        SidebarXItem(
+          icon: Icons.arrow_right,
+          label: "   CATERPILLAR® Core Replacement",
         ),
       ],
     );
