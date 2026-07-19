@@ -99,6 +99,10 @@ class CmsSidebar extends StatelessWidget {
           icon: Icons.arrow_right,
           label: "   CATERPILLAR® Core Replacement",
         ),
+        SidebarXItem(
+          icon: Icons.arrow_right,
+          label: "   CATERPILLAR RADIATOR CORE",
+        ),
 
         SidebarXItem(icon: Icons.inventory, label: "Edit Data"),
 

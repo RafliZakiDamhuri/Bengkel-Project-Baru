@@ -36,9 +36,12 @@ class CmsPage extends StatelessWidget {
 
                       AddData(titleCategory: "Radiator Cap and Adapter"),
 
-                      AddData(titleCategory: "Radiators and Coolers"),
+                      AddData(
+                        titleCategory:
+                            "CATERPILLAR® TUBE AND SHELL OIL COOLER SEARCH PART",
+                      ),
 
-                      AddData(titleCategory: "Radiators and Coolers"),
+                      AddData(titleCategory: "CATERPILLAR RADIATOR CORE"),
 
                       PreEdit(titleCategory: "Radiators and Coolers"),
 
