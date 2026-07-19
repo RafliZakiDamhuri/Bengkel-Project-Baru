@@ -20,6 +20,7 @@ Color kFactoryTitleColor = Color(0xff005CBC);
 Color darkGrey = Color(0xff444444);
 Color lightGrey = Color(0xffDCD7C9);
 Color darkblue = Color(0xff005CBC);
+Color backgroundgrey = Color(0xffD9D9D9);
 
 TextStyle blackTextStyle = GoogleFonts.inter(color: kBlackColor);
 TextStyle whiteTextStyle = GoogleFonts.inter(color: kWhiteColor);

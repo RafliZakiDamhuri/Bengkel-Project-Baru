@@ -1,6 +1,7 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:project/Auth/controller/auth_controller.dart';
 import 'package:project/CMS/presentation/cms.dart';
+import 'package:project/CMS/presentation/edit_data.dart';
 import 'package:project/about_us_page.dart';
 import 'package:project/contact_us_page.dart';
 import 'package:project/home.dart';
@@ -31,5 +32,6 @@ class AppPages {
       middlewares: [AuthMiddleware()],
     ),
     GetPage(name: AppRouteName.cms, page: () => CmsPage()),
+    GetPage(name: AppRouteName.editData, page: () => EditData()),
   ];
 }
