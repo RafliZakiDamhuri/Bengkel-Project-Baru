@@ -11,7 +11,7 @@ class Homecontroller extends GetxController {
   bool isViewListHome4 = false;
   bool isViewListHome5 = false;
   bool isViewListHome6 = false;
-
+  List<String> categoryType = [];
   final supabase = Supabase.instance.client;
   List<AllDataModel> allDataModel = [];
   Future<void> getDatabyPlatNumber(String? value) async {
@@ -43,10 +43,19 @@ class Homecontroller extends GetxController {
     update();
   }
 
+  Future<void> getCategoryType() async {
+    final response = await supabase.rpc('get_distinct_category_products');
+    print('Ini adalah response ;;; $response');
+    categoryType = (response as List)
+        .map((e) => e['category_products'] as String)
+        .toList();
+  }
+
   @override
   void onInit() {
     super.onInit();
     getService();
+    getCategoryType();
     print("App sudah load!");
   }
 }

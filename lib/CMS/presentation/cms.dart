@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project/CMS/controller/cms_controller.dart';
 import 'package:project/CMS/global_widget/cms_sidebar.dart';
+import 'package:project/CMS/presentation/add_data.dart';
+import 'package:project/CMS/presentation/edit_data.dart';
+import 'package:project/CMS/presentation/pre_edit.dart';
+import 'package:project/global%20widget/globalAppBar.dart';
 
 class CmsPage extends StatelessWidget {
   CmsPage({super.key});
@@ -10,38 +14,48 @@ class CmsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Row(
-        children: [
-          CmsSidebar(controller: controller.sidebarController),
+    return Globalappbar(
+      isNeedInquiryPage: false,
+      pageWidget: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        child: Row(
+          children: [
+            CmsSidebar(controller: controller.sidebarController),
 
-          Expanded(
-            child: AnimatedBuilder(
-              animation: controller.sidebarController,
+            Expanded(
+              child: AnimatedBuilder(
+                animation: controller.sidebarController,
 
-              builder: (context, child) {
-                return IndexedStack(
-                  index: controller.sidebarController.selectedIndex,
+                builder: (context, child) {
+                  return IndexedStack(
+                    index: controller.sidebarController.selectedIndex,
 
-                  children: const [
-                    // DashboardPage(),
+                    children: const [
+                      AddData(titleCategory: "Radiators and Coolers"),
+                      AddData(titleCategory: "Radiators and Coolers"),
 
-                    // ProductPage(),
+                      AddData(titleCategory: "Radiator Cap and Adapter"),
 
-                    // CategoryPage(),
-                    Center(child: Text("Product")),
+                      AddData(titleCategory: "Radiators and Coolers"),
 
-                    Center(child: Text("Category")),
+                      AddData(titleCategory: "Radiators and Coolers"),
 
-                    Center(child: Text("Profile")),
+                      PreEdit(titleCategory: "Radiators and Coolers"),
 
-                    Center(child: Text("Profile")),
-                  ],
-                );
-              },
+                      PreEdit(titleCategory: "Radiator Cap and Adapter"),
+
+                      AddData(titleCategory: "Radiators and Coolers"),
+
+                      AddData(titleCategory: "Radiators and Coolers"),
+
+                      AddData(titleCategory: "Radiators and Coolers"),
+                    ],
+                  );
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

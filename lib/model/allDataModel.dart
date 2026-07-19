@@ -2,7 +2,7 @@ import 'package:project/model/alternativeModel.dart';
 import 'package:project/model/applicationModel.dart';
 import 'package:project/model/coreTypeModel.dart';
 import 'package:project/model/equipmentTypeModel.dart';
-import 'package:project/model/makeModel.dart';
+import 'package:project/model/dropDownModel.dart';
 import 'package:project/model/materialModel.dart';
 import 'package:project/model/modelModel.dart';
 import 'package:project/model/platNumberModel.dart';
@@ -25,7 +25,7 @@ class AllDataModel {
     this.coreTypeModel,
     this.equipmentTypeModel,
     this.compatible,
-    this.make, // Objek Nested
+    this.dropdownModel, // Objek Nested
     this.applicationRel, // Objek Nested (nama diubah agar tidak bentrok dengan string application)
     this.material, // Objek Nested
   });
@@ -48,7 +48,7 @@ class AllDataModel {
   final String? compatible;
 
   // Model Referensi
-  final MakeModel? make;
+  final DropdownModel? dropdownModel;
   final Applicationmodel? applicationRel;
   final Materialmodel? material;
 
@@ -81,7 +81,9 @@ class AllDataModel {
           : null,
       compatible: json["compatible"],
       // Mapping Nested Object
-      make: json["Make"] != null ? MakeModel.fromJson(json["Make"]) : null,
+      dropdownModel: json["Make"] != null
+          ? DropdownModel.fromJson(json["Make"])
+          : null,
       applicationRel: json["Application"] != null
           ? Applicationmodel.fromJson(json["Application"])
           : null,

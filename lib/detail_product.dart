@@ -22,7 +22,10 @@ class DetailProduct extends StatelessWidget {
         'label': AppString().OEMPN,
         "value": allDataModel.platNumber?.platNumber ?? '',
       },
-      {'label': AppString().Make, "value": allDataModel.make?.makeName ?? ''},
+      {
+        'label': AppString().Make,
+        "value": allDataModel.dropdownModel?.name ?? '',
+      },
       {
         'label': AppString().Model,
         "value": allDataModel.modelData?.modelName ?? '',
@@ -49,7 +52,7 @@ class DetailProduct extends StatelessWidget {
       {'label': AppString().Compatible, "value": allDataModel.compatible ?? ''},
     ];
     String judul =
-        '${allDataModel.coreTypeModel?.coreType} ${allDataModel.applicationRel?.applicationName} ${allDataModel.make?.makeName} ${allDataModel.modelData?.modelName}';
+        '${allDataModel.coreTypeModel?.coreType} ${allDataModel.applicationRel?.applicationName} ${allDataModel.dropdownModel?.name} ${allDataModel.modelData?.modelName}';
 
     Widget detailProductWidget() {
       return Container(
