@@ -20,6 +20,9 @@ class CmsController extends GetxController {
   final applicationController = TextEditingController();
   final sizeController = TextEditingController();
   final pressureRatinController = TextEditingController();
+  final sealTypeController = TextEditingController();
+  final overTankController = TextEditingController();
+  final coretypeController = TextEditingController();
 
   final supabase = Supabase.instance.client;
   List<ProductModel> productModel = [];
@@ -42,6 +45,9 @@ class CmsController extends GetxController {
   }
 
   void cleanTextEditingController() {
+    coretypeController.clear();
+    sealTypeController.clear();
+    overTankController.clear();
     catalogueNumberController.clear();
     makesController.clear();
     equipmentTypeController.clear();
@@ -100,6 +106,30 @@ class CmsController extends GetxController {
     }
   }
 
+  Future<void> savecaterpillarRadiatorCore({String? categoryProducts}) async {
+    try {
+      await supabase.from('products').insert({
+        'catalogue_number': catalogueNumberController.text.trim(),
+        'makes': makesController.text.trim(),
+        'equipment_type': equipmentTypeController.text.trim(),
+        'models': modelsController.text.trim(),
+        'oem_part_number': oemPartcontroller.text.trim(),
+        'seal_type': sealTypeController.text.trim(),
+        'product_type': productTypeController.text.trim(),
+        'over_tank_dimension': overTankController.text.trim(),
+        'material_type': materialTypeController.text.trim(),
+        'core_type': coretypeController.text.trim(),
+        'category_products': categoryProducts?.trim(),
+      });
+
+      Get.snackbar('Berhasil', 'Produk berhasil ditambahkan');
+      cleanTextEditingController();
+      update();
+    } catch (e) {
+      Get.snackbar('Error', e.toString());
+    }
+  }
+
   Future<void> saveProductRadiatorsAndCoolers({
     String? categoryProducts,
   }) async {
@@ -116,8 +146,6 @@ class CmsController extends GetxController {
         'material_type': materialTypeController.text.trim(),
         'description_application': descriptionController.text.trim(),
         'category_products': categoryProducts?.trim(),
-        'product_header':
-            '${partNumberController.text.trim()} ${descriptionController.text.trim()}',
       });
 
       Get.snackbar('Berhasil', 'Produk berhasil ditambahkan');
@@ -141,6 +169,35 @@ class CmsController extends GetxController {
         'category_products': categoryProducts?.trim(),
         'product_header':
             '${catalogueNumberController.text.trim()} ${makesController.text.trim()} ${modelsController.text.trim()} ${oemPartcontroller.text.trim()} ${productTypeController.text.trim()} ${productTypeDesignController.text.trim()}',
+      });
+
+      Get.snackbar('Berhasil', 'Produk berhasil ditambahkan');
+      cleanTextEditingController();
+      update();
+    } catch (e) {
+      print('ini adalah error ; $e');
+      Get.snackbar('Error', e.toString());
+    }
+  }
+
+  Future<void> savecaterpillarTubeAndShellOil({
+    String? categoryProducts,
+  }) async {
+    try {
+      await supabase.from('products').insert({
+        'catalogue_number': catalogueNumberController.text.trim(),
+        'makes': makesController.text.trim(),
+        'equipment_type': equipmentTypeController.text.trim(),
+        'models': modelsController.text.trim(),
+        'oem_part_number': oemPartcontroller.text.trim(),
+        'industry': industryController.text.trim(),
+        'product_type': productTypeController.text.trim(),
+        'product_type_design': productTypeDesignController.text.trim(),
+        'material_type': materialTypeController.text.trim(),
+        'category_products': categoryProducts?.trim(),
+        'application': applicationController.text.trim(),
+        'product_header':
+            '${catalogueNumberController.text.trim()} ${modelsController.text.trim()} ${oemPartcontroller.text.trim()} ${productTypeController.text.trim()} ${productTypeDesignController.text.trim()}',
       });
 
       Get.snackbar('Berhasil', 'Produk berhasil ditambahkan');

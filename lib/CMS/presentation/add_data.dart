@@ -193,6 +193,199 @@ class AddData extends StatelessWidget {
       );
     }
 
+    Widget caterpillarTubeAndShellOil(CmsController controller) {
+      return Container(
+        margin: EdgeInsets.only(left: 40, top: 80, bottom: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(titleCategory, style: blackTextStyle.copyWith(fontSize: 30)),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(
+                  children: [
+                    TextFieldData(
+                      hintName: 'CATALOGUE NUMBER',
+                      obsecureText: false,
+                      textName: 'CATALOGUE NUMBER',
+                      controller: controller.catalogueNumberController,
+                    ),
+                    TextFieldData(
+                      hintName: 'MAKES',
+                      obsecureText: false,
+                      textName: 'MAKES',
+                      controller: controller.makesController,
+                    ),
+                    TextFieldData(
+                      hintName: 'EQUIPMENT TYPE',
+                      obsecureText: false,
+                      textName: 'EQUIPMENT TYPE',
+                      controller: controller.equipmentTypeController,
+                    ),
+                    TextFieldData(
+                      hintName: 'MODELS',
+                      obsecureText: false,
+                      textName: 'MODELS',
+                      controller: controller.modelsController,
+                    ),
+                    TextFieldData(
+                      hintName: 'OEM PART NUMBER',
+                      obsecureText: false,
+                      textName: 'OEM PART NUMBER',
+                      controller: controller.oemPartcontroller,
+                    ),
+                    TextFieldData(
+                      hintName: 'INDUSTRY',
+                      obsecureText: false,
+                      textName: 'INDUSTRY',
+                      controller: controller.industryController,
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextFieldData(
+                      hintName: 'PRODUCT TYPE',
+                      obsecureText: false,
+                      textName: 'PRODUCT TYPE',
+                      controller: controller.productTypeController,
+                    ),
+                    TextFieldData(
+                      hintName: 'PRODUCT TYPE DESIGN',
+                      obsecureText: false,
+                      textName: 'PRODUCT TYPE DESIGN',
+                      controller: controller.productTypeDesignController,
+                    ),
+                    TextFieldData(
+                      hintName: 'MATERIAL TYPE',
+                      obsecureText: false,
+                      textName: 'MATERIAL TYPE',
+                      controller: controller.materialTypeController,
+                    ),
+                    TextFieldData(
+                      hintName: 'APPLICATION',
+                      obsecureText: false,
+                      textName: 'APPLICATION',
+                      controller: controller.applicationController,
+                    ),
+                    SizedBox(height: 20),
+                    customBlueAppBarButton(
+                      onTap: () async {
+                        await controller.savecaterpillarTubeAndShellOil(
+                          categoryProducts: titleCategory,
+                        );
+                      },
+                      title: 'Submit',
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget catetpillarRadiatorCORE(CmsController controller) {
+      return Container(
+        margin: EdgeInsets.only(left: 40, top: 80, bottom: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(titleCategory, style: blackTextStyle.copyWith(fontSize: 30)),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(
+                  children: [
+                    TextFieldData(
+                      hintName: 'CATALOGUE NUMBER',
+                      obsecureText: false,
+                      textName: 'CATALOGUE NUMBER',
+                      controller: controller.catalogueNumberController,
+                    ),
+                    TextFieldData(
+                      hintName: 'MAKES',
+                      obsecureText: false,
+                      textName: 'MAKES',
+                      controller: controller.makesController,
+                    ),
+                    TextFieldData(
+                      hintName: 'EQUIPMENT TYPE',
+                      obsecureText: false,
+                      textName: 'EQUIPMENT TYPE',
+                      controller: controller.equipmentTypeController,
+                    ),
+                    TextFieldData(
+                      hintName: 'MODELS',
+                      obsecureText: false,
+                      textName: 'MODELS',
+                      controller: controller.modelsController,
+                    ),
+                    TextFieldData(
+                      hintName: 'OEM PART NUMBER',
+                      obsecureText: false,
+                      textName: 'OEM PART NUMBER',
+                      controller: controller.oemPartcontroller,
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextFieldData(
+                      hintName: 'PRODUCT TYPE',
+                      obsecureText: false,
+                      textName: 'PRODUCT TYPE',
+                      controller: controller.productTypeController,
+                    ),
+                    TextFieldData(
+                      hintName: 'CORE TYPE',
+                      obsecureText: false,
+                      textName: 'CORE TYPE',
+                      controller: controller.coretypeController,
+                    ),
+
+                    TextFieldData(
+                      hintName: 'SEAL TYPE',
+                      obsecureText: false,
+                      textName: 'SEAL TYPE',
+                      controller: controller.sealTypeController,
+                    ),
+                    TextFieldData(
+                      hintName: 'MATERIAL TYPE',
+                      obsecureText: false,
+                      textName: 'MATERIAL TYPE',
+                      controller: controller.materialTypeController,
+                    ),
+                    TextFieldData(
+                      hintName: 'OVER TANK DIMENSION "A"',
+                      obsecureText: false,
+                      textName: 'OVER TANK DIMENSION "A"',
+                      controller: controller.overTankController,
+                    ),
+                    SizedBox(height: 20),
+                    customBlueAppBarButton(
+                      onTap: () async {
+                        await controller.savecaterpillarRadiatorCore(
+                          categoryProducts: titleCategory,
+                        );
+                      },
+                      title: 'Submit',
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    }
+
     return GetBuilder<CmsController>(
       initState: (state) {
         Get.find<CmsController>().cleanTextEditingController();
@@ -204,6 +397,11 @@ class AddData extends StatelessWidget {
                 ? radiatorsAndCoolers(controller)
                 : (titleCategory == 'Radiator Cap and Adapter')
                 ? radiatorsCapAndAdapter(controller)
+                : (titleCategory ==
+                      'CATERPILLAR® TUBE AND SHELL OIL COOLER SEARCH PART')
+                ? caterpillarTubeAndShellOil(controller)
+                : (titleCategory == 'CATERPILLAR RADIATOR CORE')
+                ? catetpillarRadiatorCORE(controller)
                 : Container(),
           ),
         );

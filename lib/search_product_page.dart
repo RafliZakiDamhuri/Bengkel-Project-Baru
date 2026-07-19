@@ -783,7 +783,9 @@ class _SearchProductPageState extends State<SearchProductPage> {
           pageWidget: SingleChildScrollView(
             child: (argument.flow == 'Radiators and Coolers')
                 ? radiatorAndCoolersWidget(controller)
-                : radiatorsCapAndAdapter(controller),
+                : (argument.flow == 'Radiator Cap and Adapter')
+                ? radiatorsCapAndAdapter(controller)
+                : Container(),
           ),
         );
       },
