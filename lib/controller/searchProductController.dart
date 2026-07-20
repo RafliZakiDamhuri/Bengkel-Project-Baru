@@ -15,6 +15,7 @@ class Searchproductcontroller extends GetxController {
 
   List<DropdownModel?> makeModel = [];
   List<DropdownModel?> productList = [];
+  List<DropdownModel?> productDesignList = [];
 
   List<DropdownModel?> applicationModel = [];
   List<DropdownModel?> modelsModel = [];
@@ -40,6 +41,7 @@ class Searchproductcontroller extends GetxController {
   String? selectedModel;
   String? selectedCoreType;
   String? selectedSize;
+  String? selectedProductTypeDesign;
 
   String? typedPlatNumber;
   final GlobalKey tableKey = GlobalKey();
@@ -72,13 +74,25 @@ class Searchproductcontroller extends GetxController {
     update();
   }
 
-  Future getAllMake() async {
+  Future getAllMake({required String? category}) async {
     try {
-      final response = await Supabase.instance.client.rpc('get_distinct_makes');
-      makeModel = (response as List)
-          .map((e) => DropdownModel.fromJson(e))
-          .toList();
-      update();
+      if (category == 'CATERPILLAR® TUBE AND SHELL OIL COOLER SEARCH PART') {
+        final response = await Supabase.instance.client.rpc(
+          'get_distinct_makes_caterpillar',
+        );
+        makeModel = (response as List)
+            .map((e) => DropdownModel.fromJson(e))
+            .toList();
+        update();
+      } else {
+        final response = await Supabase.instance.client.rpc(
+          'get_distinct_makes',
+        );
+        makeModel = (response as List)
+            .map((e) => DropdownModel.fromJson(e))
+            .toList();
+        update();
+      }
     } catch (e) {
       print('Ini adalah : $e');
     }
@@ -148,8 +162,24 @@ class Searchproductcontroller extends GetxController {
     typedPlatNumber = null;
     selectedSize = null;
     selectedPressureRating = null;
+    selectedProductTypeDesign = null;
 
     getAllProductsV2(categoryProducts: flow);
+    update();
+  }
+
+  Future getAllProductTypeDesign() async {
+    try {
+      final response = await Supabase.instance.client.rpc(
+        'get_distinct_product_type_design',
+      );
+      productDesignList = (response as List)
+          .map((e) => DropdownModel.fromJson(e))
+          .toList();
+      update();
+    } catch (e) {
+      print('Ini adalah : $e');
+    }
     update();
   }
 
@@ -219,6 +249,47 @@ class Searchproductcontroller extends GetxController {
     }
 
     final response = await query;
+
+    productModel = (response as List)
+        .map((e) => ProductModel.fromJson(e))
+        .toList();
+
+    update();
+  }
+
+  Future<void> getDataNewCatapillarTubeAndShellOilCooler({
+    required String categoryProducts,
+  }) async {
+    print('ini adalah :: $categoryProducts');
+    var query = supabase
+        .from('products')
+        .select()
+        .eq('category_products', categoryProducts);
+
+    if (selectedMake != null && selectedMake!.isNotEmpty) {
+      query = query.eq('makes', selectedMake!);
+    }
+
+    if (selectedModel != null && selectedModel!.isNotEmpty) {
+      query = query.eq('models', selectedModel!);
+    }
+
+    if (selectedEquipmentType != null && selectedEquipmentType!.isNotEmpty) {
+      query = query.eq('equipment_type', selectedEquipmentType!);
+    }
+
+    if (selectedProductTypeDesign != null &&
+        selectedProductTypeDesign!.isNotEmpty) {
+      query = query.eq('product_type_design', selectedProductTypeDesign!);
+    }
+
+    if (selectedIndustry != null && selectedIndustry!.isNotEmpty) {
+      query = query.eq('industry', selectedIndustry!);
+    }
+
+    final response = await query;
+
+    print('Jumlah data: ${(response as List).length}');
 
     productModel = (response as List)
         .map((e) => ProductModel.fromJson(e))
@@ -347,6 +418,23 @@ class Searchproductcontroller extends GetxController {
     }
   }
 
+  Future<void> getAllProductsProductTypeDesign() async {
+    try {
+      final response = await Supabase.instance.client
+          .from('products')
+          .select('*')
+          .order('product_type_design', ascending: true);
+
+      productModel = (response as List)
+          .map((e) => ProductModel.fromJson(e))
+          .toList();
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
   Future<void> getAllProductsOEMPartNumber() async {
     try {
       final response = await Supabase.instance.client
@@ -417,6 +505,11 @@ class Searchproductcontroller extends GetxController {
 
   void setSelectedMake(String value) {
     selectedMake = value;
+    update();
+  }
+
+  void setSelectedProductTypeDesign(String value) {
+    selectedProductTypeDesign = value;
     update();
   }
 
