@@ -756,9 +756,6 @@ class _SearchProductPageState extends State<SearchProductPage> {
             ),
           ),
 
-          // =========================
-          // TABLE
-          // =========================
           buildTableRadiatorAndCap(controller.productModel),
 
           SizedBox(height: 15.h),
