@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:project/CMS/controller/cms_controller.dart';
+import 'package:project/CMS/global_widget/custom_table.dart';
 import 'package:project/CMS/global_widget/textfield_widget.dart';
 import 'package:project/CMS/presentation/edit_data.dart';
 import 'package:project/controller/searchProductController.dart';
@@ -9,15 +11,27 @@ import 'package:project/model/productModel.dart';
 import 'package:project/routes/routes_name.dart';
 import 'package:project/theme/theme.dart';
 
-class PreEdit extends StatelessWidget {
+class PreEdit extends StatefulWidget {
   final String titleCategory;
 
   const PreEdit({super.key, required this.titleCategory});
 
   @override
+  State<PreEdit> createState() => _PreEditState();
+}
+
+class _PreEditState extends State<PreEdit> {
+  var cmsController = Get.find<CmsController>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var searchController = Get.find<Searchproductcontroller>();
-    var cmsController = Get.find<CmsController>();
 
     DataCell tableCell(String? text) {
       return DataCell(
@@ -36,15 +50,18 @@ class PreEdit extends StatelessWidget {
       required VoidCallback onTap,
     }) {
       return DataColumn(
-        label: Center(
-          child: Container(
-            margin: EdgeInsets.only(left: 40),
-            child: Text(
-              title,
-              textAlign: TextAlign.center,
-              style: whiteTextStyle.copyWith(
-                fontWeight: FontWeight.w700,
-                fontSize: 12,
+        label: GestureDetector(
+          onTap: onTap,
+          child: Center(
+            child: Container(
+              margin: const EdgeInsets.only(left: 40),
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                style: whiteTextStyle.copyWith(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 12,
+                ),
               ),
             ),
           ),
@@ -52,129 +69,185 @@ class PreEdit extends StatelessWidget {
       );
     }
 
-    Widget buildTableRadiatorAndCoolers(List<ProductModel> data) {
-      return Card(
-        elevation: 2,
-        margin: const EdgeInsets.all(8),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical, // Scroll atas-bawah
-          child: SingleChildScrollView(
-            scrollDirection:
-                Axis.horizontal, // Scroll kiri-kanan untuk kolom banyak
-            child: Row(
-              children: [
-                DataTable(
-                  headingRowColor: WidgetStateProperty.all(darkGrey),
-                  dividerThickness: 2,
+    DataCell actionCell({
+      required VoidCallback onEdit,
+      required VoidCallback onDelete,
+    }) {
+      return DataCell(
+        Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: onEdit,
+                child: Icon(Icons.edit_calendar, color: kBlueColor),
+              ),
 
-                  columns: [
-                    tableHeader(
-                      title: 'Catalogue Number',
-                      onTap: searchController.getAllProductsV2CatalogueNumber,
-                    ),
-                    tableHeader(title: 'Makes ', onTap: () {}),
-                    tableHeader(
-                      title: 'Equipment Type',
-                      onTap: searchController.getAllProductsV2EquipmentType,
-                    ),
-                    tableHeader(
-                      title: 'Models ',
-                      onTap: searchController.getAllProductsV2Models,
-                    ),
-                    tableHeader(
-                      title: 'OEM Part Number',
-                      onTap: searchController.getAllProductsOEMPartNumber,
-                    ),
-                    tableHeader(
-                      title: 'Industry',
-                      onTap: searchController.getAllProductsIndustry,
-                    ),
-                    tableHeader(
-                      title: 'Product Type',
-                      onTap: searchController.getAllProductsProductType,
-                    ),
-                    // tableHeader(
-                    //   title: 'Product Type Design',
-                    //   onTap: searchController.getAllProductsProductType,
-                    // ),
-                    // tableHeader(
-                    //   title: 'Material',
-                    //   onTap:
-                    //       searchController.getAllProductsDescriptionApplication,
-                    // ),
-                    // tableHeader(
-                    //   title: 'DESCRIPTION / APPLICATION',
-                    //   onTap:
-                    //       searchController.getAllProductsDescriptionApplication,
-                    // ),
-                    DataColumn(
-                      label: GestureDetector(
-                        onTap: () {},
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              'Action Type',
-                              textAlign: TextAlign.center,
-                              style: whiteTextStyle.copyWith(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                  rows: data.map((item) {
-                    return DataRow(
-                      cells: [
-                        tableCell(item.catalogueNumber),
-                        tableCell(item.makes),
-                        tableCell(item.equipmentType),
-                        tableCell(item.models),
-                        tableCell(item.oemPartNumber),
-                        tableCell(item.industry),
-                        tableCell(item.productType),
+              const SizedBox(width: 10),
 
-                        DataCell(
-                          Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    Get.toNamed(
-                                      AppRouteName.editData,
-                                      arguments: EditDataArgument(
-                                        titleCategory: titleCategory,
-                                        productModel: item,
-                                      ),
-                                    );
-                                  },
-                                  child: Icon(
-                                    Icons.edit_calendar,
-                                    color: kBlueColor,
-                                  ),
-                                ),
-                                SizedBox(width: 10),
-                                GestureDetector(
-                                  onTap: () async {
-                                    await cmsController.deleteProduct(item.id);
-                                  },
-                                  child: Icon(Icons.delete, color: Colors.red),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    );
-                  }).toList(),
-                ),
-              ],
-            ),
+              GestureDetector(
+                onTap: onDelete,
+                child: const Icon(Icons.delete, color: Colors.red),
+              ),
+            ],
           ),
+        ),
+      );
+    }
+
+    Widget buildTableRadiatorAndCoolers(List<ProductModel> data) {
+      return CustomProductTable(
+        columns: [
+          tableHeader(
+            title: 'Catalogue Number',
+            onTap: searchController.getAllProductsV2CatalogueNumber,
+          ),
+
+          tableHeader(title: 'Makes', onTap: () {}),
+
+          tableHeader(
+            title: 'Equipment Type',
+            onTap: searchController.getAllProductsV2EquipmentType,
+          ),
+
+          tableHeader(
+            title: 'Models',
+            onTap: searchController.getAllProductsV2Models,
+          ),
+
+          tableHeader(
+            title: 'OEM Part Number',
+            onTap: searchController.getAllProductsOEMPartNumber,
+          ),
+
+          tableHeader(
+            title: 'Industry',
+            onTap: searchController.getAllProductsIndustry,
+          ),
+
+          tableHeader(
+            title: 'Product Type',
+            onTap: searchController.getAllProductsProductType,
+          ),
+
+          tableHeader(title: 'Action Type', onTap: () {}),
+        ],
+
+        rows: data.map((item) {
+          return DataRow(
+            cells: [
+              tableCell(item.catalogueNumber),
+              tableCell(item.makes),
+              tableCell(item.equipmentType),
+              tableCell(item.models),
+              tableCell(item.oemPartNumber),
+              tableCell(item.industry),
+              tableCell(item.productType),
+
+              actionCell(
+                onEdit: () {
+                  Get.toNamed(
+                    AppRouteName.editData,
+                    parameters: {
+                      'id': item.id.toString(),
+                      'category': widget.titleCategory,
+                    },
+                  );
+                },
+
+                onDelete: () async {
+                  await cmsController.deleteProduct(item.id);
+                },
+              ),
+            ],
+          );
+        }).toList(),
+      );
+    }
+
+    Widget buildTableRadiatorAndCap(List<ProductModel> data) {
+      return CustomProductTable(
+        columns: [
+          tableHeader(
+            title: 'Part Number',
+            onTap: searchController.getAllProductsV2CatalogueNumber,
+          ),
+
+          tableHeader(
+            title: 'Makes',
+            onTap: () {
+              searchController.getAllProductsV2(
+                categoryProducts: widget.titleCategory,
+              );
+            },
+          ),
+
+          tableHeader(
+            title: 'Application',
+            onTap: searchController.getAllProductsV2EquipmentType,
+          ),
+
+          tableHeader(
+            title: 'Size',
+            onTap: searchController.getAllProductsV2Models,
+          ),
+
+          tableHeader(
+            title: 'Pressure Rating',
+            onTap: searchController.getAllProductsOEMPartNumber,
+          ),
+
+          tableHeader(
+            title: 'Material',
+            onTap: searchController.getAllProductsIndustry,
+          ),
+
+          tableHeader(
+            title: 'Description Application',
+            onTap: searchController.getAllProductsProductType,
+          ),
+
+          tableHeader(title: 'Action Type', onTap: () {}),
+        ],
+
+        rows: data.map((item) {
+          return DataRow(
+            cells: [
+              tableCell(item.partNumber),
+              tableCell(item.makes),
+              tableCell(item.application),
+              tableCell(item.size),
+              tableCell(item.pressureRating),
+              tableCell(item.materialType),
+              tableCell(item.descriptionApplication),
+
+              actionCell(
+                onEdit: () {
+                  print('Ini adalah item partnumber : ${item.partNumber}');
+                  Get.toNamed(
+                    AppRouteName.editData,
+                    parameters: {
+                      'id': item.id.toString(),
+                      'category': widget.titleCategory,
+                    },
+                  );
+                },
+
+                onDelete: () async {
+                  await cmsController.deleteProduct(item.id);
+                },
+              ),
+            ],
+          );
+        }).toList(),
+      );
+    }
+
+    Widget loading() {
+      return Center(
+        child: LoadingAnimationWidget.staggeredDotsWave(
+          color: kBlackColor,
+          size: 100,
         ),
       );
     }
@@ -185,15 +258,23 @@ class PreEdit extends StatelessWidget {
           body: SingleChildScrollView(
             child: Container(
               margin: EdgeInsets.only(top: 80, bottom: 20, left: 60),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    titleCategory,
-                    style: blackTextStyle.copyWith(fontSize: 30),
-                  ),
-                  buildTableRadiatorAndCoolers(controller.productModel),
-                ],
+              child: Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      widget.titleCategory,
+                      style: blackTextStyle.copyWith(fontSize: 30),
+                    ),
+                    (controller.isLoading == true)
+                        ? loading()
+                        : (widget.titleCategory == 'Radiators and Coolers')
+                        ? buildTableRadiatorAndCoolers(controller.productModel)
+                        : (widget.titleCategory == 'Radiator Cap and Adapter')
+                        ? buildTableRadiatorAndCap(controller.productModel)
+                        : Container(),
+                  ],
+                ),
               ),
             ),
           ),

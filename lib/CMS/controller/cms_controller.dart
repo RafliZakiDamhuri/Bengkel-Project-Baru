@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project/global%20widget/globalLoadingWidget.dart';
 import 'package:project/model/productModel.dart';
+import 'package:project/theme/string.dart';
 import 'package:sidebarx/sidebarx.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -20,19 +22,30 @@ class CmsController extends GetxController {
   final applicationController = TextEditingController();
   final sizeController = TextEditingController();
   final pressureRatinController = TextEditingController();
-
+  String? categoryTypeData;
   final supabase = Supabase.instance.client;
   List<ProductModel> productModel = [];
-
+  ProductModel? productModelSingle;
+  bool isLoading = false;
   @override
   void onInit() async {
     super.onInit();
 
     sidebarController = SidebarXController(selectedIndex: 0, extended: true);
-    sidebarController.addListener(() {
+    sidebarController.addListener(() async {
+      final index = sidebarController.selectedIndex;
+
       cleanTextEditingController();
+      productModel = [];
+      productModel.clear();
+      if (index == 5) {
+        await getAllData(categoryTypeData: AppString().radiatorAndCoolers);
+        categoryTypeData == AppString().radiatorAndCoolers;
+      } else if (index == 6) {
+        await getAllData(categoryTypeData: AppString().radiatorCapAndAdapters);
+        categoryTypeData == AppString().radiatorCapAndAdapters;
+      }
     });
-    await getRadiatorAndCoolers();
   }
 
   @override
@@ -69,10 +82,35 @@ class CmsController extends GetxController {
     productTypeDesignController.text = item?.productTypeDesign ?? '';
     materialTypeController.text = item?.materialType ?? '';
     descriptionController.text = item?.descriptionApplication ?? '';
+    partNumberController.text = item?.partNumber ?? '';
+    applicationController.text = item?.application ?? '';
+    sizeController.text = item?.size ?? '';
+    pressureRatinController.text = item?.pressureRating ?? '';
+  }
+
+  Future<void> getProductById(int id) async {
+    try {
+      isLoading = true;
+      update();
+
+      final response = await supabase
+          .from('products')
+          .select()
+          .eq('id', id)
+          .single();
+
+      productModelSingle = ProductModel.fromJson(response);
+    } catch (e) {
+      Get.snackbar('Error', 'Failed to get product: $e');
+    } finally {
+      isLoading = false;
+      update();
+    }
   }
 
   Future<void> updateProductRadiatorAndCoolers({required int id}) async {
     try {
+      showLoadingDialog();
       await supabase
           .from('products')
           .update({
@@ -86,15 +124,24 @@ class CmsController extends GetxController {
             'product_type_design': productTypeDesignController.text.trim(),
             'material_type': materialTypeController.text.trim(),
             'description_application': descriptionController.text.trim(),
+            'part_number': partNumberController.text.trim(),
+            'application': applicationController.text.trim(),
+            'size': sizeController.text.trim(),
+            'pressure_rating': pressureRatinController.text.trim(),
             'updated_at': DateTime.now().toIso8601String(),
           })
           .eq('id', id);
       Get.snackbar('Success', 'Product updated successfully');
-      await getRadiatorAndCoolers();
+      await getAllData(categoryTypeData: categoryTypeData);
       cleanTextEditingController();
-      sidebarController.selectIndex(5);
+      if (categoryTypeData == AppString().radiatorAndCoolers) {
+        sidebarController.selectIndex(5);
+      } else if (categoryTypeData == AppString().radiatorCapAndAdapters) {
+        sidebarController.selectIndex(6);
+      }
 
       Get.offNamed('/cms');
+      hideLoadingDialog();
     } catch (e) {
       Get.snackbar('Error', 'Failed to update product: $e');
     }
@@ -152,20 +199,32 @@ class CmsController extends GetxController {
     }
   }
 
-  Future<void> getRadiatorAndCoolers() async {
+  Future<void> getAllData({String? categoryTypeData}) async {
     try {
-      final response = await supabase
+      isLoading = true;
+      update();
+
+      var response;
+      print('Ini adalah categoryTypeData : $categoryTypeData');
+
+      response = await supabase
           .from('products')
           .select('*')
-          .eq('category_products', 'Radiators and Coolers')
+          .eq('category_products', categoryTypeData ?? '')
           .order('makes', ascending: true);
 
+      print('Ini adalah response ::: $response');
       productModel = (response as List)
           .map((e) => ProductModel.fromJson(e))
           .toList();
+      await Future.delayed(Duration(seconds: 3));
+      isLoading = false;
       update();
     } catch (e) {
-      Get.snackbar('Error', 'Failed to get radiators coolers : $e');
+      Get.snackbar('Error', 'Failed to get data: $e');
+    } finally {
+      isLoading = false;
+      update();
     }
   }
 
@@ -176,7 +235,7 @@ class CmsController extends GetxController {
 
       Get.snackbar('Success', 'Product deleted successfully');
 
-      await getRadiatorAndCoolers();
+      await getAllData(categoryTypeData: categoryTypeData);
       update();
     } catch (e) {
       Get.snackbar('Error', 'Failed to delete product: $e');

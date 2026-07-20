@@ -4,24 +4,16 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 void showLoadingDialog({String message = "Loading..."}) {
   Get.dialog(
-    Dialog(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
+    PopScope(
+      canPop: false,
       child: Center(
         child: Container(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(20),
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const CircularProgressIndicator(),
-              const SizedBox(height: 16),
-              Text(message),
-            ],
-          ),
+          child: LoadingAnimationWidget.beat(color: Colors.blue, size: 80),
         ),
       ),
     ),
