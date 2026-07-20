@@ -8,6 +8,7 @@ import 'package:project/home.dart';
 import 'package:project/Auth/presentation/login_page.dart';
 import 'package:project/product_page.dart';
 import 'package:project/Auth/presentation/register_page.dart';
+import 'package:project/radiator_core.dart';
 import 'package:project/routes/routes_name.dart';
 import 'package:project/search_product_page.dart';
 import 'package:project/theme/services_page.dart';
@@ -24,6 +25,7 @@ class AppPages {
     GetPage(name: AppRouteName.contactUs, page: () => const ContactUsPage()),
     GetPage(name: AppRouteName.services, page: () => const ServicesPage()),
     GetPage(name: AppRouteName.login, page: () => const LoginPage()),
+    GetPage(name: AppRouteName.radiator, page: () => const RadiatorCore()),
     GetPage(
       name: AppRouteName.register,
       page: () => const RegisterPage(),

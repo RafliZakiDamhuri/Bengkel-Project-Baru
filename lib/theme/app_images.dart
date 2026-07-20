@@ -31,4 +31,12 @@ class AppImages {
   String youtubeNewLogo = 'assets/images/YouTube.png';
   String tiktokNewLogo = 'assets/images/TikTok.png';
   String linkedInNewLogo = 'assets/images/LinkedIn.png';
+  String amocsCore = 'assets/images/Indocool-AMOCS-Core-1.webp';
+  String foldedCore = 'assets/images/Indocool-Folded-Core-1.webp';
+  String modularCore = 'assets/images/Indocool-Modular-Core-1.webp';
+  String ngmrCore = 'assets/images/Indocool-NGMR-Core-1.webp';
+  String foldedSealCore = 'assets/images/Indocool-Folded-Core-Seal-1.webp';
+  String amocsSealCore = 'assets/images/Indocool-Amocs-Core-Seal-1.webp';
+  String modularSealCore = 'assets/images/Indocool-Modular-Core-Seal-1.webp';
+  String ngmrSealCore = 'assets/images/Indocool-NGMR-Core-Seal-1.webp';
 }
