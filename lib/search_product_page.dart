@@ -97,6 +97,11 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 await controller.getDataNewRadiatorCapAndAdapter(
                   categoryProducts: argument.flow ?? '',
                 );
+              } else if (argument.flow ==
+                  'CATERPILLAR® TUBE AND SHELL OIL COOLER SEARCH PART') {
+                await controller.getDataNewCatapillarTubeAndShellOilCooler(
+                  categoryProducts: argument.flow ?? '',
+                );
               }
               controller.scrollToTable();
             },
@@ -180,6 +185,78 @@ class _SearchProductPageState extends State<SearchProductPage> {
                     tableCell(item.industry),
                     tableCell(item.productType),
                     tableCell(item.descriptionApplication),
+                  ],
+                );
+              }).toList(),
+            ),
+          ),
+        ),
+      );
+    }
+
+    Widget buildCaterpillarTubeAndShellOil(List<ProductModel> data) {
+      return Card(
+        elevation: 2,
+        margin: const EdgeInsets.all(8),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical, // Scroll atas-bawah
+          child: SingleChildScrollView(
+            scrollDirection:
+                Axis.horizontal, // Scroll kiri-kanan untuk kolom banyak
+            child: DataTable(
+              headingRowColor: WidgetStateProperty.all(darkGrey),
+              dividerThickness: 2,
+              columnSpacing: 90,
+              columns: [
+                tableHeader(
+                  title: 'Catalogue Number',
+                  onTap: searchController.getAllProductsV2CatalogueNumber,
+                ),
+                tableHeader(
+                  title: 'Makes',
+                  onTap: () {
+                    searchController.getAllProductsV2(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
+                ),
+                tableHeader(
+                  title: 'Equipment Type',
+                  onTap: searchController.getAllProductsV2EquipmentType,
+                ),
+                tableHeader(
+                  title: 'Models',
+                  onTap: searchController.getAllProductsV2Models,
+                ),
+                tableHeader(
+                  title: 'OEM Part Number',
+                  onTap: searchController.getAllProductsOEMPartNumber,
+                ),
+
+                tableHeader(
+                  title: 'Industry',
+                  onTap: searchController.getAllProductsIndustry,
+                ),
+                tableHeader(
+                  title: 'Product Type',
+                  onTap: searchController.getAllProductsProductType,
+                ),
+                tableHeader(
+                  title: 'Product Type Design',
+                  onTap: searchController.getAllProductsProductTypeDesign,
+                ),
+              ],
+              rows: data.map((item) {
+                return DataRow(
+                  cells: [
+                    tableCell(item.catalogueNumber),
+                    tableCell(item.makes),
+                    tableCell(item.equipmentType),
+                    tableCell(item.models),
+                    tableCell(item.oemPartNumber),
+                    tableCell(item.industry),
+                    tableCell(item.productType),
+                    tableCell(item.productTypeDesign),
                   ],
                 );
               }).toList(),
@@ -589,6 +666,191 @@ class _SearchProductPageState extends State<SearchProductPage> {
       );
     }
 
+    Widget catepillarTubeAndShellOilCoolerSearchPartWidget(
+      Searchproductcontroller controller,
+    ) {
+      return Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              margin: EdgeInsets.only(top: 80, left: 60, right: 60),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: darkGrey,
+              ),
+              padding: EdgeInsets.all(24),
+              child: Column(
+                children: [
+                  Text(
+                    '${argument.flow} SEARCH PART',
+                    style: whiteTextStyle.copyWith(fontSize: 48),
+                  ),
+                  SizedBox(height: 30),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.symmetric(horizontal: 40),
+                              padding: EdgeInsets.all(10),
+                              child: TextFormField(
+                                onChanged: (value) {
+                                  Get.find<Searchproductcontroller>()
+                                      .setTypedPlatNumber(value);
+                                },
+                                decoration: InputDecoration(
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                  suffixIcon: Icon(Icons.search),
+                                  border: InputBorder.none,
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.blueGrey,
+                                    ),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(8),
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.blue),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(8),
+                                    ),
+                                  ),
+                                  hint: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          'Part Number Search',
+                                          style: blackTextStyle.copyWith(
+                                            fontSize: 10.sp,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 16),
+                            Container(
+                              margin: EdgeInsets.symmetric(horizontal: 40),
+                              child: ElevatedButton.icon(
+                                onPressed: () async {
+                                  await controller.getDatabyPartNumber(
+                                    controller.typedPlatNumber,
+                                  );
+                                  controller.scrollToTable();
+                                },
+                                icon: const Icon(Icons.search),
+                                label: Text(
+                                  "SEARCH P/N",
+                                  style: whiteTextStyle,
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.blue,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        height: 120,
+                        width: 2,
+                        decoration: BoxDecoration(
+                          color: kWhiteColor,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          children: [
+                            dropDowns(
+                              hint: "Select a makes",
+                              value: controller.selectedMake,
+                              items: controller.makeModel,
+                              labelBuilder: (item) => item?.name ?? '',
+                              onChanged: (val) =>
+                                  controller.setSelectedMake(val ?? ''),
+                            ),
+                            dropDowns(
+                              hint: "Select a produt type design",
+                              value: controller.selectedProductTypeDesign,
+                              items: controller.productDesignList,
+                              labelBuilder: (item) => item?.name ?? '',
+                              onChanged: (val) => controller
+                                  .setSelectedProductTypeDesign(val ?? ''),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      Expanded(
+                        child: Column(
+                          children: [
+                            dropDowns(
+                              hint: "Select a model",
+                              value: controller.selectedModel,
+                              items: controller.modelsModel,
+                              labelBuilder: (item) => item?.name ?? '',
+                              onChanged: (val) =>
+                                  controller.setSelectedModel(val ?? ''),
+                            ),
+                            dropDowns(
+                              hint: "Select an industry",
+                              value: controller.selectedIndustry,
+                              items: controller.industryModel,
+                              labelBuilder: (item) => item?.name ?? '',
+                              onChanged: (val) =>
+                                  controller.setSelectedIndustry(val ?? ''),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          children: [
+                            dropDowns(
+                              hint: "Select an equipment",
+                              value: controller.selectedEquipmentType,
+                              items: controller.equipmentTypeList,
+                              labelBuilder: (item) => item?.name ?? '',
+                              onChanged: (val) => controller
+                                  .setSelectedEquipmentType(val ?? ''),
+                            ),
+                            SizedBox(height: 16),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                buttonSort(controller),
+
+                                const SizedBox(width: 12),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+            Container(
+              key: controller.tableKey,
+              child: buildCaterpillarTubeAndShellOil(controller.productModel),
+            ),
+
+            SizedBox(height: 15.h),
+          ],
+        ),
+      );
+    }
+
     Widget radiatorsCapAndAdapter(Searchproductcontroller controller) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -768,13 +1030,16 @@ class _SearchProductPageState extends State<SearchProductPage> {
 
     return GetBuilder<Searchproductcontroller>(
       initState: (state) async {
-        await Get.find<Searchproductcontroller>().getAllMake();
+        await Get.find<Searchproductcontroller>().getAllMake(
+          category: argument.flow,
+        );
         await Get.find<Searchproductcontroller>().getAllProducts();
         await Get.find<Searchproductcontroller>().getAllModel();
         await Get.find<Searchproductcontroller>().getAllIndustry();
         await Get.find<Searchproductcontroller>().getAllEquipmentType();
         await Get.find<Searchproductcontroller>().getAllSize();
         await Get.find<Searchproductcontroller>().getAllPressureRating();
+        await Get.find<Searchproductcontroller>().getAllProductTypeDesign();
       },
 
       builder: (controller) {
@@ -785,6 +1050,9 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 ? radiatorAndCoolersWidget(controller)
                 : (argument.flow == 'Radiator Cap and Adapter')
                 ? radiatorsCapAndAdapter(controller)
+                : (argument.flow ==
+                      'CATERPILLAR® TUBE AND SHELL OIL COOLER SEARCH PART')
+                ? catepillarTubeAndShellOilCoolerSearchPartWidget(controller)
                 : Container(),
           ),
         );
