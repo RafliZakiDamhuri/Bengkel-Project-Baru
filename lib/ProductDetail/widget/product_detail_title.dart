@@ -20,7 +20,7 @@ class ProductDetailTitle extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            width: 170,
+            width: 300,
             child: Text(
               title1,
               style: const TextStyle(
