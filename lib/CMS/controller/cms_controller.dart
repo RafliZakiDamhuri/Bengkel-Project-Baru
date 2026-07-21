@@ -283,6 +283,8 @@ class CmsController extends GetxController {
   }
 
   Future<void> saveProductRadiatorsAndCap({String? categoryProducts}) async {
+    showLoadingDialog();
+    await insertDrawing();
     await saveProduct(
       data: {
         'part_number': partNumberController.text.trim(),
@@ -293,6 +295,7 @@ class CmsController extends GetxController {
         'material_type': materialTypeController.text.trim(),
         'description_application': descriptionController.text.trim(),
         'category_products': categoryProducts?.trim(),
+        'drawing_2d': imageUrl,
         'product_header': [
           partNumberController.text.trim(),
           descriptionController.text.trim(),
@@ -304,6 +307,8 @@ class CmsController extends GetxController {
   Future<void> savecaterpillarTubeAndShellOil({
     String? categoryProducts,
   }) async {
+    showLoadingDialog();
+    await insertDrawing();
     await saveProduct(
       data: {
         'catalogue_number': catalogueNumberController.text.trim(),
@@ -316,6 +321,7 @@ class CmsController extends GetxController {
         'product_type_design': productTypeDesignController.text.trim(),
         'material_type': materialTypeController.text.trim(),
         'category_products': categoryProducts?.trim(),
+        'drawing_2d': imageUrl,
         'application': applicationController.text.trim(),
         'product_header': [
           catalogueNumberController.text.trim(),
