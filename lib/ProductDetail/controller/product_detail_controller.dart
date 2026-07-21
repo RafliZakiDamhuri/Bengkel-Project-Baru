@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:project/model/productModel.dart';
+import 'package:project/theme/string.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ProductDetailController extends GetxController {
@@ -33,12 +34,21 @@ class ProductDetailController extends GetxController {
     required String? categoryData,
     ProductModel? productModelData,
   }) async {
-    final response = await supabase
-        .from('products')
-        .select()
-        .eq('category_products', categoryData ?? '')
-        .eq('makes', productModelData?.makes ?? '')
-        .eq('models', productModelData?.models ?? '');
+    var response;
+    if (categoryData == AppString().radiatorAndCoolers) {
+      response = await supabase
+          .from('products')
+          .select()
+          .eq('category_products', categoryData ?? '')
+          .eq('makes', productModelData?.makes ?? '')
+          .eq('models', productModelData?.models ?? '');
+    } else {
+      response = await supabase
+          .from('products')
+          .select()
+          .eq('category_products', categoryData ?? '')
+          .eq('makes', productModelData?.makes ?? '');
+    }
 
     productModel = (response as List)
         .map((e) => ProductModel.fromJson(e))
