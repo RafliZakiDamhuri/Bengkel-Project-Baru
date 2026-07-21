@@ -1,5 +1,9 @@
+import 'dart:typed_data';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:project/global%20widget/globalLoadingWidget.dart';
 import 'package:project/model/productModel.dart';
 import 'package:project/theme/string.dart';
@@ -26,6 +30,9 @@ class CmsController extends GetxController {
   final sealTypeController = TextEditingController();
   final overTankController = TextEditingController();
   final coretypeController = TextEditingController();
+  Uint8List? bytes;
+  String? imageName;
+  String? imageUrl;
 
   final supabase = Supabase.instance.client;
   List<ProductModel> productModel = [];
@@ -62,6 +69,43 @@ class CmsController extends GetxController {
   void onClose() {
     sidebarController.dispose();
     super.onClose();
+  }
+
+  Future<void> pickAndUploadImage() async {
+    final ImagePicker picker = ImagePicker();
+
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+    if (image == null) return;
+
+    bytes = await image.readAsBytes();
+    imageName = image.name;
+    update();
+  }
+
+  Future<void> insertDrawing() async {
+    try {
+      final fileName = '${DateTime.now().millisecondsSinceEpoch}_$imageName';
+      final path = 'products/$fileName';
+      print('Ini adalah : ${imageName?.split('.').last}');
+      await Supabase.instance.client.storage
+          .from('2d-product-images')
+          .uploadBinary(
+            path,
+            bytes!,
+            fileOptions: FileOptions(
+              contentType: 'image/${imageName?.split('.').last}',
+            ),
+          );
+
+      imageUrl = Supabase.instance.client.storage
+          .from('2d-product-images')
+          .getPublicUrl(path);
+      hideLoadingDialog();
+    } on Exception catch (e) {
+      print('Ini adalah error : $e');
+      hideLoadingDialog();
+    }
   }
 
   void cleanTextEditingController() {
@@ -175,9 +219,23 @@ class CmsController extends GetxController {
     }
   }
 
-  Future<void> savecaterpillarRadiatorCore({String? categoryProducts}) async {
+  Future<void> saveProduct({required Map<String, dynamic> data}) async {
     try {
-      await supabase.from('products').insert({
+      await supabase.from('products').insert(data);
+
+      Get.snackbar('Berhasil', 'Produk berhasil ditambahkan');
+
+      cleanTextEditingController();
+
+      update();
+    } catch (e) {
+      Get.snackbar('Error', e.toString());
+    }
+  }
+
+  Future<void> savecaterpillarRadiatorCore({String? categoryProducts}) async {
+    await saveProduct(
+      data: {
         'catalogue_number': catalogueNumberController.text.trim(),
         'makes': makesController.text.trim(),
         'equipment_type': equipmentTypeController.text.trim(),
@@ -189,21 +247,17 @@ class CmsController extends GetxController {
         'material_type': materialTypeController.text.trim(),
         'core_type': coretypeController.text.trim(),
         'category_products': categoryProducts?.trim(),
-      });
-
-      Get.snackbar('Berhasil', 'Produk berhasil ditambahkan');
-      cleanTextEditingController();
-      update();
-    } catch (e) {
-      Get.snackbar('Error', e.toString());
-    }
+      },
+    );
   }
 
   Future<void> saveProductRadiatorsAndCoolers({
     String? categoryProducts,
   }) async {
-    try {
-      await supabase.from('products').insert({
+    showLoadingDialog();
+    await insertDrawing();
+    await saveProduct(
+      data: {
         'catalogue_number': catalogueNumberController.text.trim(),
         'makes': makesController.text.trim(),
         'equipment_type': equipmentTypeController.text.trim(),
@@ -215,19 +269,22 @@ class CmsController extends GetxController {
         'material_type': materialTypeController.text.trim(),
         'description_application': descriptionController.text.trim(),
         'category_products': categoryProducts?.trim(),
-      });
-
-      Get.snackbar('Berhasil', 'Produk berhasil ditambahkan');
-      cleanTextEditingController();
-      update();
-    } catch (e) {
-      Get.snackbar('Error', e.toString());
-    }
+        'drawing_2d': imageUrl,
+        'product_header': [
+          catalogueNumberController.text.trim(),
+          makesController.text.trim(),
+          modelsController.text.trim(),
+          oemPartcontroller.text.trim(),
+          productTypeController.text.trim(),
+          productTypeDesignController.text.trim(),
+        ].where((e) => e.isNotEmpty).join(' '),
+      },
+    );
   }
 
   Future<void> saveProductRadiatorsAndCap({String? categoryProducts}) async {
-    try {
-      await supabase.from('products').insert({
+    await saveProduct(
+      data: {
         'part_number': partNumberController.text.trim(),
         'makes': makesController.text.trim(),
         'application': applicationController.text.trim(),
@@ -236,24 +293,19 @@ class CmsController extends GetxController {
         'material_type': materialTypeController.text.trim(),
         'description_application': descriptionController.text.trim(),
         'category_products': categoryProducts?.trim(),
-        'product_header':
-            '${catalogueNumberController.text.trim()} ${makesController.text.trim()} ${modelsController.text.trim()} ${oemPartcontroller.text.trim()} ${productTypeController.text.trim()} ${productTypeDesignController.text.trim()}',
-      });
-
-      Get.snackbar('Berhasil', 'Produk berhasil ditambahkan');
-      cleanTextEditingController();
-      update();
-    } catch (e) {
-      print('ini adalah error ; $e');
-      Get.snackbar('Error', e.toString());
-    }
+        'product_header': [
+          partNumberController.text.trim(),
+          descriptionController.text.trim(),
+        ].where((e) => e.isNotEmpty).join(' '),
+      },
+    );
   }
 
   Future<void> savecaterpillarTubeAndShellOil({
     String? categoryProducts,
   }) async {
-    try {
-      await supabase.from('products').insert({
+    await saveProduct(
+      data: {
         'catalogue_number': catalogueNumberController.text.trim(),
         'makes': makesController.text.trim(),
         'equipment_type': equipmentTypeController.text.trim(),
@@ -265,17 +317,15 @@ class CmsController extends GetxController {
         'material_type': materialTypeController.text.trim(),
         'category_products': categoryProducts?.trim(),
         'application': applicationController.text.trim(),
-        'product_header':
-            '${catalogueNumberController.text.trim()} ${modelsController.text.trim()} ${oemPartcontroller.text.trim()} ${productTypeController.text.trim()} ${productTypeDesignController.text.trim()}',
-      });
-
-      Get.snackbar('Berhasil', 'Produk berhasil ditambahkan');
-      cleanTextEditingController();
-      update();
-    } catch (e) {
-      print('ini adalah error ; $e');
-      Get.snackbar('Error', e.toString());
-    }
+        'product_header': [
+          catalogueNumberController.text.trim(),
+          modelsController.text.trim(),
+          oemPartcontroller.text.trim(),
+          productTypeController.text.trim(),
+          productTypeDesignController.text.trim(),
+        ].where((e) => e.isNotEmpty).join(' '),
+      },
+    );
   }
 
   Future<void> getAllData({String? categoryTypeData}) async {
