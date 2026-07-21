@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:project/Auth/controller/auth_controller.dart';
 import 'package:project/CMS/controller/cms_controller.dart';
+import 'package:project/ProductDetail/controller/product_detail_controller.dart';
 import 'package:project/controller/aboutUsController.dart';
 import 'package:project/controller/contactUsController.dart';
 import 'package:project/controller/globalController.dart';
@@ -33,6 +34,7 @@ void main() async {
   Get.put(AuthController());
   Get.put(Searchproductcontroller());
   Get.put(CmsController());
+  Get.put(ProductDetailController());
 
   runApp(const MyApp());
 }

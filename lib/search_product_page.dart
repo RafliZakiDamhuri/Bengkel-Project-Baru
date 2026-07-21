@@ -11,6 +11,7 @@ import 'package:project/model/dropDownModel.dart';
 import 'package:project/model/productModel.dart';
 import 'package:project/product_radiator_core.dart';
 import 'package:project/radiator_core_element.dart';
+import 'package:project/routes/routes_name.dart';
 import 'package:project/theme/app_images.dart';
 import 'package:project/theme/string.dart';
 import 'package:project/theme/theme.dart';
@@ -48,13 +49,24 @@ class _SearchProductPageState extends State<SearchProductPage> {
     var globalController = Get.find<GlobalController>();
     var searchController = Get.find<Searchproductcontroller>();
 
-    DataCell tableCell(String? text) {
+    DataCell tableCell(ProductModel item, String? text) {
       return DataCell(
-        Center(
-          child: Text(
-            text ?? '',
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 14),
+        InkWell(
+          onTap: () {
+            Get.toNamed(
+              AppRouteName.productDetailPage,
+              parameters: {
+                'id': item.id.toString(),
+                'category': argument.flow ?? '',
+              },
+            );
+          },
+          child: Center(
+            child: Text(
+              text ?? '',
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 14),
+            ),
           ),
         ),
       );
@@ -207,14 +219,14 @@ class _SearchProductPageState extends State<SearchProductPage> {
               rows: data.map((item) {
                 return DataRow(
                   cells: [
-                    tableCell(item.catalogueNumber),
-                    tableCell(item.makes),
-                    tableCell(item.equipmentType),
-                    tableCell(item.models),
-                    tableCell(item.oemPartNumber),
-                    tableCell(item.industry),
-                    tableCell(item.productType),
-                    tableCell(item.descriptionApplication),
+                    tableCell(item, item.catalogueNumber),
+                    tableCell(item, item.makes),
+                    tableCell(item, item.equipmentType),
+                    tableCell(item, item.models),
+                    tableCell(item, item.oemPartNumber),
+                    tableCell(item, item.industry),
+                    tableCell(item, item.productType),
+                    tableCell(item, item.descriptionApplication),
                   ],
                 );
               }).toList(),
@@ -307,14 +319,14 @@ class _SearchProductPageState extends State<SearchProductPage> {
               rows: data.map((item) {
                 return DataRow(
                   cells: [
-                    tableCell(item.catalogueNumber),
-                    tableCell(item.makes),
-                    tableCell(item.equipmentType),
-                    tableCell(item.models),
-                    tableCell(item.oemPartNumber),
-                    tableCell(item.industry),
-                    tableCell(item.productType),
-                    tableCell(item.productTypeDesign),
+                    tableCell(item, item.catalogueNumber),
+                    tableCell(item, item.makes),
+                    tableCell(item, item.equipmentType),
+                    tableCell(item, item.models),
+                    tableCell(item, item.oemPartNumber),
+                    tableCell(item, item.industry),
+                    tableCell(item, item.productType),
+                    tableCell(item, item.productTypeDesign),
                   ],
                 );
               }).toList(),
@@ -398,13 +410,13 @@ class _SearchProductPageState extends State<SearchProductPage> {
               rows: data.map((item) {
                 return DataRow(
                   cells: [
-                    tableCell(item.partNumber),
-                    tableCell(item.makes),
-                    tableCell(item.application),
-                    tableCell(item.size),
-                    tableCell(item.pressureRating),
-                    tableCell(item.materialType),
-                    tableCell(item.descriptionApplication),
+                    tableCell(item, item.partNumber),
+                    tableCell(item, item.makes),
+                    tableCell(item, item.application),
+                    tableCell(item, item.size),
+                    tableCell(item, item.pressureRating),
+                    tableCell(item, item.materialType),
+                    tableCell(item, item.descriptionApplication),
                   ],
                 );
               }).toList(),
@@ -496,14 +508,14 @@ class _SearchProductPageState extends State<SearchProductPage> {
               rows: data.map((item) {
                 return DataRow(
                   cells: [
-                    tableCell(item.catalogueNumber),
-                    tableCell(item.makes),
-                    tableCell(item.equipmentType),
-                    tableCell(item.models),
-                    tableCell(item.oemPartNumber),
-                    tableCell(item.coreType),
-                    tableCell(item.materialType),
-                    tableCell(item.tankDimension),
+                    tableCell(item, item.catalogueNumber),
+                    tableCell(item, item.makes),
+                    tableCell(item, item.equipmentType),
+                    tableCell(item, item.models),
+                    tableCell(item, item.oemPartNumber),
+                    tableCell(item, item.coreType),
+                    tableCell(item, item.materialType),
+                    tableCell(item, item.tankDimension),
                   ],
                 );
               }).toList(),
@@ -587,13 +599,13 @@ class _SearchProductPageState extends State<SearchProductPage> {
               rows: data.map((item) {
                 return DataRow(
                   cells: [
-                    tableCell(item.catalogueNumber),
-                    tableCell(item.makes),
-                    tableCell(item.equipmentType),
-                    tableCell(item.models),
-                    tableCell(item.oemPartNumber),
-                    tableCell(item.sealType),
-                    tableCell(item.materialType),
+                    tableCell(item, item.catalogueNumber),
+                    tableCell(item, item.makes),
+                    tableCell(item, item.equipmentType),
+                    tableCell(item, item.models),
+                    tableCell(item, item.oemPartNumber),
+                    tableCell(item, item.sealType),
+                    tableCell(item, item.materialType),
                   ],
                 );
               }).toList(),

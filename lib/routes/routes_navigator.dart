@@ -6,7 +6,7 @@ import 'package:project/about_us_page.dart';
 import 'package:project/contact_us_page.dart';
 import 'package:project/home.dart';
 import 'package:project/Auth/presentation/login_page.dart';
-import 'package:project/product_detail_page.dart';
+import 'package:project/ProductDetail/presentation/product_detail_page.dart';
 import 'package:project/product_page.dart';
 import 'package:project/Auth/presentation/register_page.dart';
 import 'package:project/radiator_core.dart';
@@ -27,10 +27,7 @@ class AppPages {
     GetPage(name: AppRouteName.services, page: () => const ServicesPage()),
     GetPage(name: AppRouteName.login, page: () => const LoginPage()),
     GetPage(name: AppRouteName.radiator, page: () => const RadiatorCore()),
-    GetPage(
-      name: AppRouteName.productDetailPage,
-      page: () => const ProductDetailPage(),
-    ),
+
     GetPage(
       name: AppRouteName.register,
       page: () => const RegisterPage(),
@@ -38,5 +35,9 @@ class AppPages {
     ),
     GetPage(name: AppRouteName.cms, page: () => CmsPage()),
     GetPage(name: AppRouteName.editData, page: () => EditData()),
+    GetPage(
+      name: AppRouteName.productDetailPage,
+      page: () => const ProductDetailPage(),
+    ),
   ];
 }
