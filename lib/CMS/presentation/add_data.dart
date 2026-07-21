@@ -110,6 +110,7 @@ class AddData extends StatelessWidget {
                             ),
                           )
                         : Container(),
+                    SizedBox(height: 20),
                     customBlueAppBarButton(
                       onTap: () async {
                         await controller.saveProductRadiatorsAndCoolers(
@@ -190,16 +191,28 @@ class AddData extends StatelessWidget {
                     SizedBox(height: 20),
                     customBlueAppBarButton(
                       onTap: () async {
-                        if (titleCategory == 'Radiators and Coolers') {
-                          await controller.saveProductRadiatorsAndCoolers(
-                            categoryProducts: titleCategory,
-                          );
-                        } else if (titleCategory ==
-                            'Radiator Cap and Adapter') {
-                          await controller.saveProductRadiatorsAndCap(
-                            categoryProducts: titleCategory,
-                          );
-                        }
+                        await controller.pickAndUploadImage();
+                      },
+                      title: 'Pilih Gambar 2D',
+                    ),
+                    SizedBox(height: 20),
+                    controller.bytes != null
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Image.memory(
+                              controller.bytes!,
+                              width: 300,
+                              height: 200,
+                              fit: BoxFit.contain,
+                            ),
+                          )
+                        : Container(),
+                    SizedBox(height: 20),
+                    customBlueAppBarButton(
+                      onTap: () async {
+                        await controller.saveProductRadiatorsAndCap(
+                          categoryProducts: titleCategory,
+                        );
                       },
                       title: 'Submit',
                     ),
@@ -290,6 +303,25 @@ class AddData extends StatelessWidget {
                       textName: 'APPLICATION',
                       controller: controller.applicationController,
                     ),
+                    SizedBox(height: 20),
+                    customBlueAppBarButton(
+                      onTap: () async {
+                        await controller.pickAndUploadImage();
+                      },
+                      title: 'Pilih Gambar 2D',
+                    ),
+                    SizedBox(height: 20),
+                    controller.bytes != null
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Image.memory(
+                              controller.bytes!,
+                              width: 300,
+                              height: 200,
+                              fit: BoxFit.contain,
+                            ),
+                          )
+                        : Container(),
                     SizedBox(height: 20),
                     customBlueAppBarButton(
                       onTap: () async {
