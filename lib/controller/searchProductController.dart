@@ -234,7 +234,7 @@ class Searchproductcontroller extends GetxController {
     selectedPressureRating = null;
     selectedProductTypeDesign = null;
 
-    getAllProductsV2(categoryProducts: flow);
+    getAllProductsMakes(categoryProducts: flow);
     update();
   }
 
@@ -407,7 +407,7 @@ class Searchproductcontroller extends GetxController {
     update();
   }
 
-  Future<void> getAllProductsV2({required String categoryProducts}) async {
+  Future<void> getAllProductsMakes({required String categoryProducts}) async {
     try {
       final response = await Supabase.instance.client
           .from('products')
@@ -415,8 +415,6 @@ class Searchproductcontroller extends GetxController {
           .eq('category_products', categoryProducts)
           .order('makes', ascending: true);
 
-      print(response);
-      print('Ini adalah response ::: ${response}');
       productModel = (response as List)
           .map((e) => ProductModel.fromJson(e))
           .toList();
@@ -427,11 +425,72 @@ class Searchproductcontroller extends GetxController {
     }
   }
 
-  Future<void> getAllProductsV2CatalogueNumber() async {
+  Future<void> getAllProductsMakesSpecial({
+    required String categoryProducts,
+  }) async {
     try {
       final response = await Supabase.instance.client
           .from('products')
           .select('*')
+          .eq('category_products', categoryProducts)
+          .order('makes', ascending: true);
+
+      productModelSealSpecial = (response as List)
+          .map((e) => ProductModel.fromJson(e))
+          .toList();
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsSize({required String categoryProducts}) async {
+    try {
+      final response = await Supabase.instance.client
+          .from('products')
+          .select('*')
+          .eq('category_products', categoryProducts)
+          .order('size', ascending: true);
+
+      productModel = (response as List)
+          .map((e) => ProductModel.fromJson(e))
+          .toList();
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsPersureRating({
+    required String categoryProducts,
+  }) async {
+    try {
+      final response = await Supabase.instance.client
+          .from('products')
+          .select('*')
+          .eq('category_products', categoryProducts)
+          .order('pressure_rating', ascending: true);
+
+      productModel = (response as List)
+          .map((e) => ProductModel.fromJson(e))
+          .toList();
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsV2CatalogueNumber({
+    required String categoryProducts,
+  }) async {
+    try {
+      final response = await Supabase.instance.client
+          .from('products')
+          .select('*')
+          .eq('category_products', categoryProducts)
           .order('catalogue_number', ascending: true);
 
       productModel = (response as List)
@@ -444,11 +503,34 @@ class Searchproductcontroller extends GetxController {
     }
   }
 
-  Future<void> getAllProductsV2EquipmentType() async {
+  Future<void> getAllProductsV2CatalogueNumberSpecialSeal({
+    required String categoryProducts,
+  }) async {
     try {
       final response = await Supabase.instance.client
           .from('products')
           .select('*')
+          .eq('category_products', categoryProducts)
+          .order('catalogue_number', ascending: true);
+
+      productModelSealSpecial = (response as List)
+          .map((e) => ProductModel.fromJson(e))
+          .toList();
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsV2EquipmentType({
+    required String categoryProducts,
+  }) async {
+    try {
+      final response = await Supabase.instance.client
+          .from('products')
+          .select('*')
+          .eq('category_products', categoryProducts)
           .order('equipment_type', ascending: true);
 
       productModel = (response as List)
@@ -461,11 +543,34 @@ class Searchproductcontroller extends GetxController {
     }
   }
 
-  Future<void> getAllProductsV2Models() async {
+  Future<void> getAllProductsV2EquipmentTypeSpecialSeal({
+    required String categoryProducts,
+  }) async {
     try {
       final response = await Supabase.instance.client
           .from('products')
           .select('*')
+          .eq('category_products', categoryProducts)
+          .order('equipment_type', ascending: true);
+
+      productModelSealSpecial = (response as List)
+          .map((e) => ProductModel.fromJson(e))
+          .toList();
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsV2Models({
+    required String categoryProducts,
+  }) async {
+    try {
+      final response = await Supabase.instance.client
+          .from('products')
+          .select('*')
+          .eq('category_products', categoryProducts)
           .order('models', ascending: true);
 
       productModel = (response as List)
@@ -478,11 +583,34 @@ class Searchproductcontroller extends GetxController {
     }
   }
 
-  Future<void> getAllProductsProductTypeDesign() async {
+  Future<void> getAllProductsV2ModelsSpecialSeal({
+    required String categoryProducts,
+  }) async {
     try {
       final response = await Supabase.instance.client
           .from('products')
           .select('*')
+          .eq('category_products', categoryProducts)
+          .order('models', ascending: true);
+
+      productModelSealSpecial = (response as List)
+          .map((e) => ProductModel.fromJson(e))
+          .toList();
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsProductTypeDesign({
+    required String categoryProducts,
+  }) async {
+    try {
+      final response = await Supabase.instance.client
+          .from('products')
+          .select('*')
+          .eq('category_products', categoryProducts)
           .order('product_type_design', ascending: true);
 
       productModel = (response as List)
@@ -495,11 +623,94 @@ class Searchproductcontroller extends GetxController {
     }
   }
 
-  Future<void> getAllProductsOEMPartNumber() async {
+  Future<void> getAllProductsSealType({
+    required String categoryProducts,
+  }) async {
     try {
       final response = await Supabase.instance.client
           .from('products')
           .select('*')
+          .eq('category_products', categoryProducts)
+          .order('seal_type', ascending: true);
+
+      productModel = (response as List)
+          .map((e) => ProductModel.fromJson(e))
+          .toList();
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsOverTank({
+    required String categoryProducts,
+  }) async {
+    try {
+      final response = await Supabase.instance.client
+          .from('products')
+          .select('*')
+          .eq('category_products', categoryProducts)
+          .order('over_tank_dimension', ascending: true);
+
+      productModel = (response as List)
+          .map((e) => ProductModel.fromJson(e))
+          .toList();
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsMaterialType({
+    required String categoryProducts,
+  }) async {
+    try {
+      final response = await Supabase.instance.client
+          .from('products')
+          .select('*')
+          .eq('category_products', categoryProducts)
+          .order('material_type', ascending: true);
+
+      productModel = (response as List)
+          .map((e) => ProductModel.fromJson(e))
+          .toList();
+      print('Ini adalah response :: $response');
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsMaterialTypeSpesial({
+    required String categoryProducts,
+  }) async {
+    try {
+      final response = await Supabase.instance.client
+          .from('products')
+          .select('*')
+          .eq('category_products', categoryProducts)
+          .order('material_type', ascending: true);
+
+      productModelSealSpecial = (response as List)
+          .map((e) => ProductModel.fromJson(e))
+          .toList();
+      print('Ini adalah response :: $response');
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsOEMPartNumber({
+    required String categoryProducts,
+  }) async {
+    try {
+      final response = await Supabase.instance.client
+          .from('products')
+          .select('*')
+          .eq('category_products', categoryProducts)
           .order('oem_part_number', ascending: true);
 
       productModel = (response as List)
@@ -512,11 +723,34 @@ class Searchproductcontroller extends GetxController {
     }
   }
 
-  Future<void> getAllProductsIndustry() async {
+  Future<void> getAllProductsOEMPartNumberSpecialSeal({
+    required String categoryProducts,
+  }) async {
     try {
       final response = await Supabase.instance.client
           .from('products')
           .select('*')
+          .eq('category_products', categoryProducts)
+          .order('oem_part_number', ascending: true);
+
+      productModelSealSpecial = (response as List)
+          .map((e) => ProductModel.fromJson(e))
+          .toList();
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsIndustry({
+    required String categoryProducts,
+  }) async {
+    try {
+      final response = await Supabase.instance.client
+          .from('products')
+          .select('*')
+          .eq('category_products', categoryProducts)
           .order('industry', ascending: true);
 
       productModel = (response as List)
@@ -529,11 +763,34 @@ class Searchproductcontroller extends GetxController {
     }
   }
 
-  Future<void> getAllProductsProductType() async {
+  Future<void> getAllProductsIndustrySpecialSeal({
+    required String categoryProducts,
+  }) async {
     try {
       final response = await Supabase.instance.client
           .from('products')
           .select('*')
+          .eq('category_products', categoryProducts)
+          .order('industry', ascending: true);
+
+      productModelSealSpecial = (response as List)
+          .map((e) => ProductModel.fromJson(e))
+          .toList();
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsProductType({
+    required String categoryProducts,
+  }) async {
+    try {
+      final response = await Supabase.instance.client
+          .from('products')
+          .select('*')
+          .eq('category_products', categoryProducts)
           .order('product_type', ascending: true);
 
       productModel = (response as List)
@@ -546,11 +803,14 @@ class Searchproductcontroller extends GetxController {
     }
   }
 
-  Future<void> getAllProductsDescriptionApplication() async {
+  Future<void> getAllProductsDescriptionApplication({
+    required String categoryProducts,
+  }) async {
     try {
       final response = await Supabase.instance.client
           .from('products')
           .select('*')
+          .eq('category_products', categoryProducts)
           .order('  description_application', ascending: true);
 
       productModel = (response as List)

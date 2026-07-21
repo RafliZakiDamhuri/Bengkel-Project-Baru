@@ -103,34 +103,58 @@ class _PreEditState extends State<PreEdit> {
         columns: [
           tableHeader(
             title: 'Catalogue Number',
-            onTap: searchController.getAllProductsV2CatalogueNumber,
+            onTap: () {
+              searchController.getAllProductsV2CatalogueNumber(
+                categoryProducts: widget.titleCategory,
+              );
+            },
           ),
 
           tableHeader(title: 'Makes', onTap: () {}),
 
           tableHeader(
             title: 'Equipment Type',
-            onTap: searchController.getAllProductsV2EquipmentType,
+            onTap: () {
+              searchController.getAllProductsV2EquipmentType(
+                categoryProducts: widget.titleCategory,
+              );
+            },
           ),
 
           tableHeader(
             title: 'Models',
-            onTap: searchController.getAllProductsV2Models,
+            onTap: () {
+              searchController.getAllProductsV2Models(
+                categoryProducts: widget.titleCategory,
+              );
+            },
           ),
 
           tableHeader(
             title: 'OEM Part Number',
-            onTap: searchController.getAllProductsOEMPartNumber,
+            onTap: () {
+              searchController.getAllProductsOEMPartNumber(
+                categoryProducts: widget.titleCategory,
+              );
+            },
           ),
 
           tableHeader(
             title: 'Industry',
-            onTap: searchController.getAllProductsIndustry,
+            onTap: () {
+              searchController.getAllProductsIndustry(
+                categoryProducts: widget.titleCategory,
+              );
+            },
           ),
 
           tableHeader(
             title: 'Product Type',
-            onTap: searchController.getAllProductsProductType,
+            onTap: () {
+              searchController.getAllProductsProductType(
+                categoryProducts: widget.titleCategory,
+              );
+            },
           ),
 
           tableHeader(title: 'Action Type', onTap: () {}),
@@ -174,34 +198,58 @@ class _PreEditState extends State<PreEdit> {
         columns: [
           tableHeader(
             title: 'Catalogue Number',
-            onTap: searchController.getAllProductsV2CatalogueNumber,
+            onTap: () {
+              searchController.getAllProductsV2CatalogueNumber(
+                categoryProducts: widget.titleCategory,
+              );
+            },
           ),
 
           tableHeader(title: 'Makes', onTap: () {}),
 
           tableHeader(
             title: 'Equipment Type',
-            onTap: searchController.getAllProductsV2EquipmentType,
+            onTap: () {
+              searchController.getAllProductsV2EquipmentType(
+                categoryProducts: widget.titleCategory,
+              );
+            },
           ),
 
           tableHeader(
             title: 'Models',
-            onTap: searchController.getAllProductsV2Models,
+            onTap: () {
+              searchController.getAllProductsV2Models(
+                categoryProducts: widget.titleCategory,
+              );
+            },
           ),
 
           tableHeader(
             title: 'OEM Part Number',
-            onTap: searchController.getAllProductsOEMPartNumber,
+            onTap: () {
+              searchController.getAllProductsOEMPartNumber(
+                categoryProducts: widget.titleCategory,
+              );
+            },
           ),
 
           tableHeader(
             title: 'Industry',
-            onTap: searchController.getAllProductsIndustry,
+            onTap: () {
+              searchController.getAllProductsIndustry(
+                categoryProducts: widget.titleCategory,
+              );
+            },
           ),
 
           tableHeader(
             title: 'Product Type',
-            onTap: searchController.getAllProductsProductType,
+            onTap: () {
+              searchController.getAllProductsProductType(
+                categoryProducts: widget.titleCategory,
+              );
+            },
           ),
 
           tableHeader(title: 'Action Type', onTap: () {}),
@@ -244,49 +292,85 @@ class _PreEditState extends State<PreEdit> {
         columns: [
           tableHeader(
             title: 'Catalogue Number',
-            onTap: searchController.getAllProductsV2CatalogueNumber,
+            onTap: () {
+              searchController.getAllProductsV2CatalogueNumber(
+                categoryProducts: widget.titleCategory,
+              );
+            },
           ),
 
           tableHeader(title: 'Makes', onTap: () {}),
 
           tableHeader(
             title: 'Equipment Type',
-            onTap: searchController.getAllProductsV2EquipmentType,
+            onTap: () {
+              searchController.getAllProductsV2EquipmentType(
+                categoryProducts: widget.titleCategory,
+              );
+            },
           ),
 
           tableHeader(
             title: 'Models',
-            onTap: searchController.getAllProductsV2Models,
+            onTap: () {
+              searchController.getAllProductsV2Models(
+                categoryProducts: widget.titleCategory,
+              );
+            },
           ),
 
           tableHeader(
             title: 'OEM Part Number',
-            onTap: searchController.getAllProductsOEMPartNumber,
+            onTap: () {
+              searchController.getAllProductsOEMPartNumber(
+                categoryProducts: widget.titleCategory,
+              );
+            },
           ),
 
           tableHeader(
             title: 'Product Type',
-            onTap: searchController.getAllProductsProductType,
+            onTap: () {
+              searchController.getAllProductsProductType(
+                categoryProducts: widget.titleCategory,
+              );
+            },
           ),
 
           tableHeader(
             title: 'Core Type',
-            onTap: searchController.getAllProductsProductType,
+            onTap: () {
+              searchController.getAllProductsProductType(
+                categoryProducts: widget.titleCategory,
+              );
+            },
           ),
 
           tableHeader(
             title: 'Seal Type',
-            onTap: searchController.getAllProductsProductType,
+            onTap: () {
+              searchController.getAllProductsSealType(
+                categoryProducts: widget.titleCategory,
+              );
+            },
           ),
 
           tableHeader(
             title: 'Material Type',
-            onTap: searchController.getAllProductsProductType,
+            onTap: () {
+              searchController.getAllProductsMaterialType(
+                categoryProducts: widget.titleCategory,
+              );
+            },
           ),
 
           tableHeader(
             title: 'Over Tank Dimension',
-            onTap: searchController.getAllProductsProductType,
+            onTap: () {
+              searchController.getAllProductsOverTank(
+                categoryProducts: widget.titleCategory,
+              );
+            },
           ),
 
           tableHeader(title: 'Action Type', onTap: () {}),
@@ -331,13 +415,17 @@ class _PreEditState extends State<PreEdit> {
         columns: [
           tableHeader(
             title: 'Part Number',
-            onTap: searchController.getAllProductsV2CatalogueNumber,
+            onTap: () {
+              searchController.getAllProductsV2CatalogueNumber(
+                categoryProducts: widget.titleCategory,
+              );
+            },
           ),
 
           tableHeader(
             title: 'Makes',
             onTap: () {
-              searchController.getAllProductsV2(
+              searchController.getAllProductsMakes(
                 categoryProducts: widget.titleCategory,
               );
             },
@@ -345,27 +433,47 @@ class _PreEditState extends State<PreEdit> {
 
           tableHeader(
             title: 'Application',
-            onTap: searchController.getAllProductsV2EquipmentType,
+            onTap: () {
+              searchController.getAllProductsV2EquipmentType(
+                categoryProducts: widget.titleCategory,
+              );
+            },
           ),
 
           tableHeader(
             title: 'Size',
-            onTap: searchController.getAllProductsV2Models,
+            onTap: () {
+              searchController.getAllProductsSize(
+                categoryProducts: widget.titleCategory,
+              );
+            },
           ),
 
           tableHeader(
             title: 'Pressure Rating',
-            onTap: searchController.getAllProductsOEMPartNumber,
+            onTap: () {
+              searchController.getAllProductsPersureRating(
+                categoryProducts: widget.titleCategory,
+              );
+            },
           ),
 
           tableHeader(
             title: 'Material',
-            onTap: searchController.getAllProductsIndustry,
+            onTap: () {
+              searchController.getAllProductsMaterialType(
+                categoryProducts: widget.titleCategory,
+              );
+            },
           ),
 
           tableHeader(
             title: 'Description Application',
-            onTap: searchController.getAllProductsProductType,
+            onTap: () {
+              searchController.getAllProductsDescriptionApplication(
+                categoryProducts: widget.titleCategory,
+              );
+            },
           ),
 
           tableHeader(title: 'Action Type', onTap: () {}),

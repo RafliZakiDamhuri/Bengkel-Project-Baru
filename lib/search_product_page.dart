@@ -141,39 +141,67 @@ class _SearchProductPageState extends State<SearchProductPage> {
               columns: [
                 tableHeader(
                   title: 'Catalogue Number',
-                  onTap: searchController.getAllProductsV2CatalogueNumber,
+                  onTap: () {
+                    searchController.getAllProductsV2CatalogueNumber(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
                 tableHeader(
                   title: 'Makes',
                   onTap: () {
-                    searchController.getAllProductsV2(
+                    searchController.getAllProductsMakes(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
                 ),
                 tableHeader(
                   title: 'Equipment Type',
-                  onTap: searchController.getAllProductsV2EquipmentType,
+                  onTap: () {
+                    searchController.getAllProductsV2EquipmentType(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
                 tableHeader(
                   title: 'Models',
-                  onTap: searchController.getAllProductsV2Models,
+                  onTap: () {
+                    searchController.getAllProductsV2Models(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
                 tableHeader(
                   title: 'OEM Part Number',
-                  onTap: searchController.getAllProductsOEMPartNumber,
+                  onTap: () {
+                    searchController.getAllProductsOEMPartNumber(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
                 tableHeader(
                   title: 'Industry',
-                  onTap: searchController.getAllProductsIndustry,
+                  onTap: () {
+                    searchController.getAllProductsIndustry(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
                 tableHeader(
                   title: 'Product Type',
-                  onTap: searchController.getAllProductsProductType,
+                  onTap: () {
+                    searchController.getAllProductsProductType(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
                 tableHeader(
                   title: 'Description / Application',
-                  onTap: searchController.getAllProductsDescriptionApplication,
+                  onTap: () {
+                    searchController.getAllProductsDescriptionApplication(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
               ],
               rows: data.map((item) {
@@ -212,40 +240,68 @@ class _SearchProductPageState extends State<SearchProductPage> {
               columns: [
                 tableHeader(
                   title: 'Catalogue Number',
-                  onTap: searchController.getAllProductsV2CatalogueNumber,
+                  onTap: () {
+                    searchController.getAllProductsV2CatalogueNumber(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
                 tableHeader(
                   title: 'Makes',
                   onTap: () {
-                    searchController.getAllProductsV2(
+                    searchController.getAllProductsMakes(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
                 ),
                 tableHeader(
                   title: 'Equipment Type',
-                  onTap: searchController.getAllProductsV2EquipmentType,
+                  onTap: () {
+                    searchController.getAllProductsV2EquipmentType(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
                 tableHeader(
                   title: 'Models',
-                  onTap: searchController.getAllProductsV2Models,
+                  onTap: () {
+                    searchController.getAllProductsV2Models(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
                 tableHeader(
                   title: 'OEM Part Number',
-                  onTap: searchController.getAllProductsOEMPartNumber,
+                  onTap: () {
+                    searchController.getAllProductsOEMPartNumber(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
 
                 tableHeader(
                   title: 'Industry',
-                  onTap: searchController.getAllProductsIndustry,
+                  onTap: () {
+                    searchController.getAllProductsIndustry(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
                 tableHeader(
                   title: 'Product Type',
-                  onTap: searchController.getAllProductsProductType,
+                  onTap: () {
+                    searchController.getAllProductsProductType(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
                 tableHeader(
                   title: 'Product Type Design',
-                  onTap: searchController.getAllProductsProductTypeDesign,
+                  onTap: () {
+                    searchController.getAllProductsProductTypeDesign(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
               ],
               rows: data.map((item) {
@@ -284,35 +340,59 @@ class _SearchProductPageState extends State<SearchProductPage> {
               columns: [
                 tableHeader(
                   title: 'Part Number',
-                  onTap: searchController.getAllProductsV2CatalogueNumber,
+                  onTap: () {
+                    searchController.getAllProductsV2CatalogueNumber(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
                 tableHeader(
                   title: 'Makes',
                   onTap: () {
-                    searchController.getAllProductsV2(
+                    searchController.getAllProductsMakes(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
                 ),
                 tableHeader(
                   title: 'Application',
-                  onTap: searchController.getAllProductsV2EquipmentType,
+                  onTap: () {
+                    searchController.getAllProductsV2EquipmentType(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
                 tableHeader(
                   title: 'Size',
-                  onTap: searchController.getAllProductsV2Models,
+                  onTap: () {
+                    searchController.getAllProductsSize(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
                 tableHeader(
                   title: 'Pressure Rating',
-                  onTap: searchController.getAllProductsOEMPartNumber,
+                  onTap: () {
+                    searchController.getAllProductsPersureRating(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
                 tableHeader(
                   title: 'Material',
-                  onTap: searchController.getAllProductsIndustry,
+                  onTap: () {
+                    searchController.getAllProductsMaterialType(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
                 tableHeader(
                   title: 'Description Application',
-                  onTap: searchController.getAllProductsProductType,
+                  onTap: () {
+                    searchController.getAllProductsDescriptionApplication(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
               ],
               rows: data.map((item) {
@@ -350,39 +430,67 @@ class _SearchProductPageState extends State<SearchProductPage> {
               columns: [
                 tableHeader(
                   title: 'Catalogue Number',
-                  onTap: searchController.getAllProductsV2CatalogueNumber,
+                  onTap: () {
+                    searchController.getAllProductsV2CatalogueNumber(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
                 tableHeader(
                   title: 'Makes',
                   onTap: () {
-                    searchController.getAllProductsV2(
+                    searchController.getAllProductsMakes(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
                 ),
                 tableHeader(
                   title: 'Equipment Type',
-                  onTap: searchController.getAllProductsV2EquipmentType,
+                  onTap: () {
+                    searchController.getAllProductsV2EquipmentType(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
                 tableHeader(
                   title: 'Models',
-                  onTap: searchController.getAllProductsV2Models,
+                  onTap: () {
+                    searchController.getAllProductsV2Models(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
                 tableHeader(
                   title: 'OEM Part Number',
-                  onTap: searchController.getAllProductsOEMPartNumber,
+                  onTap: () {
+                    searchController.getAllProductsOEMPartNumber(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
                 tableHeader(
                   title: 'Core Type',
-                  onTap: searchController.getAllProductsIndustry,
+                  onTap: () {
+                    searchController.getAllProductsIndustry(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
                 tableHeader(
                   title: 'Material Type',
-                  onTap: searchController.getAllProductsProductType,
+                  onTap: () {
+                    searchController.getAllProductsMaterialType(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
                 tableHeader(
                   title: 'OVER TANK DIMENSION "A"',
-                  onTap: searchController.getAllProductsDescriptionApplication,
+                  onTap: () {
+                    searchController.getAllProductsDescriptionApplication(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
               ],
               rows: data.map((item) {
@@ -421,35 +529,59 @@ class _SearchProductPageState extends State<SearchProductPage> {
               columns: [
                 tableHeader(
                   title: 'Catalogue Number',
-                  onTap: searchController.getAllProductsV2CatalogueNumber,
+                  onTap: () {
+                    searchController.getAllProductsV2CatalogueNumberSpecialSeal(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
                 tableHeader(
                   title: 'Makes',
                   onTap: () {
-                    searchController.getAllProductsV2(
+                    searchController.getAllProductsMakesSpecial(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
                 ),
                 tableHeader(
                   title: 'Equipment Type',
-                  onTap: searchController.getAllProductsV2EquipmentType,
+                  onTap: () {
+                    searchController.getAllProductsV2EquipmentTypeSpecialSeal(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
                 tableHeader(
                   title: 'Models',
-                  onTap: searchController.getAllProductsV2Models,
+                  onTap: () {
+                    searchController.getAllProductsV2ModelsSpecialSeal(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
                 tableHeader(
                   title: 'OEM Part Number',
-                  onTap: searchController.getAllProductsOEMPartNumber,
+                  onTap: () {
+                    searchController.getAllProductsOEMPartNumberSpecialSeal(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
                 tableHeader(
                   title: 'Seal type',
-                  onTap: searchController.getAllProductsIndustry,
+                  onTap: () {
+                    searchController.getAllProductsIndustrySpecialSeal(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
                 tableHeader(
                   title: 'Material Type',
-                  onTap: searchController.getAllProductsProductType,
+                  onTap: () {
+                    searchController.getAllProductsMaterialTypeSpesial(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
                 ),
               ],
               rows: data.map((item) {
@@ -582,7 +714,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
 
                   GestureDetector(
                     onTap: () {
-                      searchController.getAllProductsV2(
+                      searchController.getAllProductsMakes(
                         categoryProducts: argument.flow ?? '',
                       );
                       searchController.scrollToTable();
