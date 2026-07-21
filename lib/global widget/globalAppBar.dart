@@ -239,7 +239,8 @@ class _GlobalappbarState extends State<Globalappbar> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         GestureDetector(
-                          onTap: () => Get.toNamed(AppRouteName.home),
+                          onTap: () =>
+                              Get.toNamed(AppRouteName.productDetailPage),
                           child: AppbarElement(title: AppString().appBar0),
                         ),
                         GestureDetector(

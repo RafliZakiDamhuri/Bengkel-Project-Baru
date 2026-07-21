@@ -10,4 +10,5 @@ class AppRouteName {
   static const cms = '/cms';
   static const radiator = '/radiator';
   static const editData = '/edit-data';
+  static const productDetailPage = '/product-detail';
 }
