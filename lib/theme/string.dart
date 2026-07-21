@@ -275,6 +275,6 @@ We currently have job openings throughout Indonesia. If you’re interested and 
 
   String radiatorAndCoolers = 'Radiators and Coolers';
   String radiatorCapAndAdapters = 'Radiator Cap and Adapter';
-  String caterpilarTube = 'CATERPILLAR® TUBE AND SHELL OIL COOLER SEARCH PART';
+  String caterpilarTube = 'CATERPILLAR® TUBE AND SHELL OIL COOLER';
   String caterpillarRadiatorCore = 'CATERPILLAR RADIATOR CORE';
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:project/controller/searchProductController.dart';
 import 'package:project/theme/theme.dart';
 
 class RadiatorCoreElement extends StatelessWidget {
@@ -13,6 +15,7 @@ class RadiatorCoreElement extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var searchPageController = Get.find<Searchproductcontroller>();
     return Column(
       children: [
         Center(
@@ -25,31 +28,36 @@ class RadiatorCoreElement extends StatelessWidget {
                   border: Border.all(color: Colors.grey),
                   color: kWhiteColor,
                 ),
-                child: Column(
-                  children: [
-                    Container(
-                      height: 35,
-                      width: double.infinity,
-                      alignment: Alignment.center,
-                      color: Colors.grey[800],
-                      child: Text(
-                        title,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                child: GestureDetector(
+                  onTap: () {
+                    searchPageController.getDataByCore(coreType: title);
+                  },
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 35,
+                        width: double.infinity,
+                        alignment: Alignment.center,
+                        color: Colors.grey[800],
+                        child: Text(
+                          title,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                    ),
 
-                    Container(
-                      margin: EdgeInsets.only(top: 40, left: 30, right: 30),
-                      width: 620,
-                      height: 196,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(image: AssetImage(img)),
+                      Container(
+                        margin: EdgeInsets.only(top: 40, left: 30, right: 30),
+                        width: 620,
+                        height: 196,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(image: AssetImage(img)),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],

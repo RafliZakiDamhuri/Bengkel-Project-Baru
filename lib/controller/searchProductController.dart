@@ -7,19 +7,20 @@ import 'package:project/model/dropDownModel.dart';
 import 'package:project/model/materialModel.dart';
 import 'package:project/model/modelModel.dart';
 import 'package:project/model/productModel.dart';
+import 'package:project/theme/string.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Searchproductcontroller extends GetxController {
   final supabase = Supabase.instance.client;
   List<DropdownModel?> sizeList = [];
 
-  List<DropdownModel?> makeModel = [];
+  List<DropdownModel?> makeList = [];
   List<DropdownModel?> productList = [];
   List<DropdownModel?> productDesignList = [];
 
   List<DropdownModel?> applicationModel = [];
-  List<DropdownModel?> modelsModel = [];
-  List<DropdownModel?> industryModel = [];
+  List<DropdownModel?> modelList = [];
+  List<DropdownModel?> industryList = [];
   List<DropdownModel?> equipmentTypeList = [];
   List<DropdownModel?> pressureRatingList = [];
 
@@ -29,6 +30,7 @@ class Searchproductcontroller extends GetxController {
 
   List<AllDataModel> allDataModel = [];
   List<ProductModel> productModel = [];
+  List<ProductModel> productModelSealSpecial = [];
 
   String? selectedMake;
   String? selectedApplication;
@@ -45,11 +47,129 @@ class Searchproductcontroller extends GetxController {
 
   String? typedPlatNumber;
   final GlobalKey tableKey = GlobalKey();
+  Future<List<DropdownModel>> _getDistinctData({
+    required String? category,
+    required Map<String, String> functionMap,
+    required String defaultFunction,
+  }) async {
+    final functionName = functionMap[category] ?? defaultFunction;
+
+    final response = await Supabase.instance.client.rpc(functionName);
+
+    return (response as List).map((e) => DropdownModel.fromJson(e)).toList();
+  }
+
+  Future<void> getDataByCore({required String coreType}) async {
+    final response = await Supabase.instance.client
+        .from('products')
+        .select('*')
+        .eq('core_type', coreType);
+    productModel = (response as List)
+        .map((e) => ProductModel.fromJson(e))
+        .toList();
+
+    update();
+  }
+
+  Future<void> getDataBySeal({required String sealType}) async {
+    final response = await Supabase.instance.client
+        .from('products')
+        .select('*')
+        .eq('seal_type', sealType);
+    productModelSealSpecial = (response as List)
+        .map((e) => ProductModel.fromJson(e))
+        .toList();
+
+    update();
+  }
+
+  Future<void> getAllMake({required String? category}) async {
+    makeList = await _getDistinctData(
+      category: category,
+      functionMap: {
+        AppString().caterpilarTube: 'get_distinct_makes_caterpillar_tube',
+        AppString().radiatorAndCoolers:
+            'get_distinct_makes_radiators_and_coolers',
+        AppString().radiatorCapAndAdapters:
+            'get_distinct_makes_radiators_and_cap',
+      },
+      defaultFunction: 'get_distinct_makes_radiators_and_coolers',
+    );
+
+    update();
+  }
+
+  Future<void> getAllEquipmentType({required String? category}) async {
+    equipmentTypeList = await _getDistinctData(
+      category: category,
+      functionMap: {
+        AppString().caterpilarTube:
+            'get_distinct_equipment_types_caterpillar_tube',
+        AppString().radiatorAndCoolers:
+            'get_distinct_equipment_types_radiators_and_coolers',
+        AppString().radiatorCapAndAdapters:
+            'get_distinct_equipment_types_radiators_and_cap',
+      },
+      defaultFunction: 'get_distinct_equipment_types_radiators_and_coolers',
+    );
+
+    update();
+  }
+
+  Future<void> getAllModel({required String? category}) async {
+    modelList = await _getDistinctData(
+      category: category,
+      functionMap: {
+        AppString().caterpilarTube: 'get_distinct_models_caterpillar_tube',
+        AppString().radiatorAndCoolers:
+            'get_distinct_models_radiators_and_coolers',
+        AppString().radiatorCapAndAdapters:
+            'get_distinct_models_radiators_and_cap',
+      },
+      defaultFunction: 'get_distinct_models_radiators_and_coolers',
+    );
+
+    update();
+  }
+
+  Future<void> getAllIndustry({required String? category}) async {
+    industryList = await _getDistinctData(
+      category: category,
+      functionMap: {
+        AppString().caterpilarTube: 'get_distinct_industries_caterpillar_tube',
+        AppString().radiatorAndCoolers:
+            'get_distinct_industries_radiators_and_coolers',
+        AppString().radiatorCapAndAdapters:
+            'get_distinct_industries_radiators_and_cap',
+      },
+      defaultFunction: 'get_distinct_industries_radiators_and_coolers',
+    );
+
+    update();
+  }
+
+  Future<void> getAllProductTypeDesign({required String? category}) async {
+    productDesignList = await _getDistinctData(
+      category: category,
+      functionMap: {
+        AppString().caterpilarTube:
+            'get_distinct_product_type_designs_caterpillar_tube',
+
+        AppString().radiatorAndCoolers:
+            'get_distinct_product_type_designs_radiators_and_coolers',
+        AppString().radiatorCapAndAdapters:
+            'get_distinct_product_type_designs_radiators_and_cap',
+      },
+      defaultFunction:
+          'get_distinct_product_type_designs_radiators_and_coolers',
+    );
+
+    update();
+  }
 
   Future getAllSize() async {
     try {
       final response = await Supabase.instance.client.rpc('get_distinct_size');
-      print('Ini adalah response :: $response');
       sizeList = (response as List)
           .map((e) => DropdownModel.fromJson(e))
           .toList();
@@ -74,30 +194,6 @@ class Searchproductcontroller extends GetxController {
     update();
   }
 
-  Future getAllMake({required String? category}) async {
-    try {
-      if (category == 'CATERPILLAR® TUBE AND SHELL OIL COOLER SEARCH PART') {
-        final response = await Supabase.instance.client.rpc(
-          'get_distinct_makes_caterpillar',
-        );
-        makeModel = (response as List)
-            .map((e) => DropdownModel.fromJson(e))
-            .toList();
-        update();
-      } else {
-        final response = await Supabase.instance.client.rpc(
-          'get_distinct_makes',
-        );
-        makeModel = (response as List)
-            .map((e) => DropdownModel.fromJson(e))
-            .toList();
-        update();
-      }
-    } catch (e) {
-      print('Ini adalah : $e');
-    }
-  }
-
   Future<void> scrollToTable() async {
     final context = tableKey.currentContext;
 
@@ -110,46 +206,20 @@ class Searchproductcontroller extends GetxController {
     }
   }
 
-  Future getAllProducts() async {
-    try {
-      final response = await Supabase.instance.client.rpc(
-        'get_distinct_product_type',
-      );
-      productList = (response as List)
-          .map((e) => DropdownModel.fromJson(e))
-          .toList();
-      update();
-    } catch (e) {
-      print('Ini adalah : $e');
-    }
-    update();
-  }
+  Future<void> getAllProducts({required String? category}) async {
+    productList = await _getDistinctData(
+      category: category,
+      functionMap: {
+        AppString().caterpilarTube:
+            'get_distinct_product_types_caterpillar_tube',
+        AppString().radiatorAndCoolers:
+            'get_distinct_product_types_radiators_and_coolers',
+        AppString().radiatorCapAndAdapters:
+            'get_distinct_product_types_radiators_and_cap',
+      },
+      defaultFunction: 'get_distinct_product_types_radiators_and_coolers',
+    );
 
-  Future getAllModel() async {
-    try {
-      final response = await Supabase.instance.client.rpc(
-        'get_distinct_models',
-      );
-      modelsModel = (response as List)
-          .map((e) => DropdownModel.fromJson(e))
-          .toList();
-      update();
-    } catch (e) {}
-    update();
-  }
-
-  Future getAllIndustry() async {
-    try {
-      final response = await Supabase.instance.client.rpc(
-        'get_distinct_industry',
-      );
-      industryModel = (response as List)
-          .map((e) => DropdownModel.fromJson(e))
-          .toList();
-      update();
-    } catch (e) {
-      print('Ini adalah : $e');
-    }
     update();
   }
 
@@ -165,36 +235,6 @@ class Searchproductcontroller extends GetxController {
     selectedProductTypeDesign = null;
 
     getAllProductsV2(categoryProducts: flow);
-    update();
-  }
-
-  Future getAllProductTypeDesign() async {
-    try {
-      final response = await Supabase.instance.client.rpc(
-        'get_distinct_product_type_design',
-      );
-      productDesignList = (response as List)
-          .map((e) => DropdownModel.fromJson(e))
-          .toList();
-      update();
-    } catch (e) {
-      print('Ini adalah : $e');
-    }
-    update();
-  }
-
-  Future getAllEquipmentType() async {
-    try {
-      final response = await Supabase.instance.client.rpc(
-        'get_distinct_equipment_type',
-      );
-      equipmentTypeList = (response as List)
-          .map((e) => DropdownModel.fromJson(e))
-          .toList();
-      update();
-    } catch (e) {
-      print('Ini adalah : $e');
-    }
     update();
   }
 
@@ -260,7 +300,6 @@ class Searchproductcontroller extends GetxController {
   Future<void> getDataNewCatapillarTubeAndShellOilCooler({
     required String categoryProducts,
   }) async {
-    print('ini adalah :: $categoryProducts');
     var query = supabase
         .from('products')
         .select()
@@ -288,8 +327,6 @@ class Searchproductcontroller extends GetxController {
     }
 
     final response = await query;
-
-    print('Jumlah data: ${(response as List).length}');
 
     productModel = (response as List)
         .map((e) => ProductModel.fromJson(e))
@@ -323,6 +360,28 @@ class Searchproductcontroller extends GetxController {
     update();
   }
 
+  Future<void> getDataNewCaterpillarRadiatorCore({
+    bool isTableSeal = false,
+  }) async {
+    var query = supabase
+        .from('products')
+        .select()
+        .eq('category_products', AppString().caterpillarRadiatorCore);
+
+    final response = await query;
+    if (isTableSeal == true) {
+      productModelSealSpecial = (response as List)
+          .map((e) => ProductModel.fromJson(e))
+          .toList();
+    } else {
+      productModel = (response as List)
+          .map((e) => ProductModel.fromJson(e))
+          .toList();
+    }
+
+    update();
+  }
+
   Future<void> getDatabyType(String? queryData, String? type) async {
     final Map<String, String> columnMap = {
       'BROWSE PER EQUIPMENT TYPE': 'equipment_type',
@@ -337,8 +396,9 @@ class Searchproductcontroller extends GetxController {
     if (column != null && queryData != null) {
       query = query.eq(column, queryData);
     }
-
-    final response = await query.order('makes', ascending: true);
+    final response = await query
+        .eq('category_products', AppString().radiatorAndCoolers)
+        .order('makes', ascending: true);
 
     productModel = (response as List)
         .map((e) => ProductModel.fromJson(e))

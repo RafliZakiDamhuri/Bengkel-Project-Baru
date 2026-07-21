@@ -28,7 +28,7 @@ Widget buildAddDataLayout({
 
                 const SizedBox(height: 20),
 
-                customBlueAppBarButton(onTap: onSubmit, title: 'Submit'),
+                customBlueAppBarButton(onTap: onSubmit, title: 'Update'),
               ],
             ),
           ],

@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:project/controller/searchProductController.dart';
 import 'package:project/theme/theme.dart';
 
 class ProductRadiatorCore extends StatelessWidget {
@@ -13,43 +16,51 @@ class ProductRadiatorCore extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 320,
+    var searchPageController = Get.find<Searchproductcontroller>();
 
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey),
-            color: kWhiteColor,
-          ),
-          child: Column(
-            children: [
-              Container(
-                height: 35,
-                width: double.infinity,
-                alignment: Alignment.center,
-                color: Colors.grey[800],
-                child: Text(
-                  title,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
+    return GestureDetector(
+      onTap: () async {
+        await searchPageController.getDataBySeal(sealType: title);
+      },
+      child: Column(
+        children: [
+          Container(
+            margin: EdgeInsets.only(right: 20),
+            width: 320,
+
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              color: kWhiteColor,
+            ),
+            child: Column(
+              children: [
+                Container(
+                  height: 35,
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  color: Colors.grey[800],
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                width: 300,
-                height: 176,
-                decoration: BoxDecoration(
-                  image: DecorationImage(image: AssetImage(img)),
+                Container(
+                  width: 300,
+                  height: 250,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(image: AssetImage(img)),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-        SizedBox(height: 16),
-        Text('click the picture to sort related product list'),
-      ],
+          SizedBox(height: 16),
+          Text('click the picture to sort related product list'),
+        ],
+      ),
     );
   }
 }

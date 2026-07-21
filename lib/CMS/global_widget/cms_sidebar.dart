@@ -97,13 +97,12 @@ class CmsSidebar extends StatelessWidget {
 
         SidebarXItem(
           icon: Icons.arrow_right,
-          label: "   CATERPILLAR® Core Replacement",
+          label: "   CATERPILLAR® TUBE AND SHELL OIL COOLER",
         ),
         SidebarXItem(
           icon: Icons.arrow_right,
           label: "   CATERPILLAR RADIATOR CORE",
         ),
-
         SidebarXItem(icon: Icons.inventory, label: "Edit Data"),
 
         SidebarXItem(icon: Icons.arrow_right, label: "   Radiators & Coolers"),
@@ -112,7 +111,10 @@ class CmsSidebar extends StatelessWidget {
           icon: Icons.arrow_right,
           label: "   Radiator Cap & Adapter",
         ),
-
+        SidebarXItem(
+          icon: Icons.arrow_right,
+          label: "   CATERPILLAR® TUBE AND SHELL OIL COOLER",
+        ),
         SidebarXItem(
           icon: Icons.arrow_right,
           label: "   CATERPILLAR® Core Replacement",

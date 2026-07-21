@@ -42,12 +42,18 @@ class CmsController extends GetxController {
       cleanTextEditingController();
       productModel = [];
       productModel.clear();
-      if (index == 5) {
+      if (index == 6) {
         await getAllData(categoryTypeData: AppString().radiatorAndCoolers);
-        categoryTypeData == AppString().radiatorAndCoolers;
-      } else if (index == 6) {
+        categoryTypeData = AppString().radiatorAndCoolers;
+      } else if (index == 7) {
         await getAllData(categoryTypeData: AppString().radiatorCapAndAdapters);
-        categoryTypeData == AppString().radiatorCapAndAdapters;
+        categoryTypeData = AppString().radiatorCapAndAdapters;
+      } else if (index == 8) {
+        await getAllData(categoryTypeData: AppString().caterpilarTube);
+        categoryTypeData = AppString().caterpilarTube;
+      } else if (index == 9) {
+        await getAllData(categoryTypeData: AppString().caterpillarRadiatorCore);
+        categoryTypeData = AppString().caterpillarRadiatorCore;
       }
     });
   }
@@ -76,6 +82,10 @@ class CmsController extends GetxController {
     applicationController.clear();
     sizeController.clear();
     pressureRatinController.clear();
+    coretypeController.clear();
+    overTankController.clear();
+    sealTypeController.clear();
+    productTypeDesignController.clear();
   }
 
   void fillTextEditinControllerRadiatorAndCoolers(ProductModel? item) {
@@ -93,6 +103,10 @@ class CmsController extends GetxController {
     applicationController.text = item?.application ?? '';
     sizeController.text = item?.size ?? '';
     pressureRatinController.text = item?.pressureRating ?? '';
+    productTypeDesignController.text = item?.productTypeDesign ?? '';
+    coretypeController.text = item?.coreType ?? '';
+    sealTypeController.text = item?.sealType ?? '';
+    overTankController.text = item?.tankDimension ?? '';
   }
 
   Future<void> getProductById(int id) async {
@@ -135,6 +149,9 @@ class CmsController extends GetxController {
             'application': applicationController.text.trim(),
             'size': sizeController.text.trim(),
             'pressure_rating': pressureRatinController.text.trim(),
+            'core_type': coretypeController.text.trim(),
+            'seal_type': sealTypeController.text.trim(),
+            'over_tank_dimension': overTankController.text.trim(),
             'updated_at': DateTime.now().toIso8601String(),
           })
           .eq('id', id);
@@ -142,9 +159,13 @@ class CmsController extends GetxController {
       await getAllData(categoryTypeData: categoryTypeData);
       cleanTextEditingController();
       if (categoryTypeData == AppString().radiatorAndCoolers) {
-        sidebarController.selectIndex(5);
-      } else if (categoryTypeData == AppString().radiatorCapAndAdapters) {
         sidebarController.selectIndex(6);
+      } else if (categoryTypeData == AppString().radiatorCapAndAdapters) {
+        sidebarController.selectIndex(7);
+      } else if (categoryTypeData == AppString().caterpilarTube) {
+        sidebarController.selectIndex(8);
+      } else if (categoryTypeData == AppString().caterpillarRadiatorCore) {
+        sidebarController.selectIndex(9);
       }
 
       Get.offNamed('/cms');
@@ -263,7 +284,7 @@ class CmsController extends GetxController {
       update();
 
       var response;
-      print('Ini adalah categoryTypeData : $categoryTypeData');
+      print('Ini adalah categoryTypeData 222 : $categoryTypeData');
 
       response = await supabase
           .from('products')

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:project/CMS/controller/cms_controller.dart';
 import 'package:project/CMS/global_widget/textfield_widget.dart';
 import 'package:project/global%20widget/customButton.dart';
+import 'package:project/theme/string.dart';
 import 'package:project/theme/theme.dart';
 
 class AddData extends StatelessWidget {
@@ -397,10 +398,9 @@ class AddData extends StatelessWidget {
                 ? radiatorsAndCoolers(controller)
                 : (titleCategory == 'Radiator Cap and Adapter')
                 ? radiatorsCapAndAdapter(controller)
-                : (titleCategory ==
-                      'CATERPILLAR® TUBE AND SHELL OIL COOLER SEARCH PART')
+                : (titleCategory == AppString().caterpilarTube)
                 ? caterpillarTubeAndShellOil(controller)
-                : (titleCategory == 'CATERPILLAR RADIATOR CORE')
+                : (titleCategory == AppString().caterpillarRadiatorCore)
                 ? catetpillarRadiatorCORE(controller)
                 : Container(),
           ),

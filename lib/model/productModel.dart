@@ -20,6 +20,9 @@ class ProductModel {
   final String? application;
   final String? size;
   final String? pressureRating;
+  final String? coreType;
+  final String? tankDimension;
+  final String? sealType;
 
   ProductModel({
     required this.id,
@@ -43,6 +46,9 @@ class ProductModel {
     this.application,
     this.size,
     this.pressureRating,
+    this.coreType,
+    this.tankDimension,
+    this.sealType,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
@@ -68,6 +74,9 @@ class ProductModel {
       application: json['application'] as String?,
       size: json['size'] as String?,
       pressureRating: json['pressure_rating'] as String?,
+      coreType: json['core_type'] as String?,
+      tankDimension: json['over_tank_dimension'] as String?,
+      sealType: json['seal_type'] as String?,
     );
   }
 
@@ -94,6 +103,9 @@ class ProductModel {
       'application': application,
       'size': size,
       'pressure_rating': pressureRating,
+      'core_type': coreType,
+      'over_tank_dimension': tankDimension,
+      'seal_type': sealType,
     };
   }
 }

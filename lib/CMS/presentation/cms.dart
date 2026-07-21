@@ -6,6 +6,7 @@ import 'package:project/CMS/presentation/add_data.dart';
 import 'package:project/CMS/presentation/edit_data.dart';
 import 'package:project/CMS/presentation/pre_edit.dart';
 import 'package:project/global%20widget/globalAppBar.dart';
+import 'package:project/theme/string.dart';
 
 class CmsPage extends StatelessWidget {
   CmsPage({super.key});
@@ -30,28 +31,23 @@ class CmsPage extends StatelessWidget {
                   return IndexedStack(
                     index: controller.sidebarController.selectedIndex,
 
-                    children: const [
-                      AddData(titleCategory: "Radiators and Coolers"),
+                    children: [
+                      Container(),
                       AddData(titleCategory: "Radiators and Coolers"),
 
                       AddData(titleCategory: "Radiator Cap and Adapter"),
 
-                      AddData(
-                        titleCategory:
-                            "CATERPILLAR® TUBE AND SHELL OIL COOLER SEARCH PART",
-                      ),
+                      AddData(titleCategory: AppString().caterpilarTube),
 
                       AddData(titleCategory: "CATERPILLAR RADIATOR CORE"),
 
+                      Container(),
                       PreEdit(titleCategory: "Radiators and Coolers"),
-
                       PreEdit(titleCategory: "Radiator Cap and Adapter"),
-
-                      AddData(titleCategory: "Radiators and Coolers"),
-
-                      AddData(titleCategory: "Radiators and Coolers"),
-
-                      AddData(titleCategory: "Radiators and Coolers"),
+                      PreEdit(titleCategory: AppString().caterpilarTube),
+                      PreEdit(
+                        titleCategory: AppString().caterpillarRadiatorCore,
+                      ),
                     ],
                   );
                 },
