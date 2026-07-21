@@ -6,9 +6,12 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/state_manager.dart';
 import 'package:project/CMS/controller/cms_controller.dart';
+import 'package:project/CMS/global_widget/custom_table.dart';
 import 'package:project/ProductDetail/controller/product_detail_controller.dart';
+import 'package:project/controller/searchProductController.dart';
 import 'package:project/global%20widget/globalAppBar.dart';
 import 'package:project/ProductDetail/widget/product_detail_title.dart';
+import 'package:project/model/productModel.dart';
 import 'package:project/routes/routes_name.dart';
 import 'package:project/theme/string.dart';
 import 'package:project/theme/theme.dart';
@@ -22,6 +25,8 @@ class ProductDetailPage extends StatefulWidget {
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
   var productDetailController = Get.find<ProductDetailController>();
+  var searchController = Get.find<Searchproductcontroller>();
+
   String titleCategory = '';
   String headerTitle = '';
   @override
@@ -29,8 +34,129 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     super.initState();
     var productId = int.parse(Get.parameters['id']!);
     titleCategory = Get.parameters['category'] ?? '';
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await productDetailController.getProductById(productId);
+      await productDetailController.getSimilarData(
+        categoryData: titleCategory,
+        productModelData: productDetailController.productModelSingle,
+      );
+      if (titleCategory == AppString().radiatorAndCoolers) {
+        headerTitle =
+            '${productDetailController.productModelSingle?.catalogueNumber}/${productDetailController.productModelSingle?.oemPartNumber} ${productDetailController.productModelSingle?.productType} ${productDetailController.productModelSingle?.productTypeDesign} ${productDetailController.productModelSingle?.makes} ${productDetailController.productModelSingle?.models}';
+      }
+    });
+  }
 
-    productDetailController.getProductById(productId);
+  DataCell tableCell(String? value) {
+    return DataCell(
+      Center(
+        child: SizedBox(
+          width: 120,
+          child: Text(
+            value ?? '-',
+            softWrap: true,
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ),
+    );
+  }
+
+  DataColumn tableHeader({required String title, required VoidCallback onTap}) {
+    return DataColumn(
+      label: GestureDetector(
+        onTap: onTap,
+        child: Center(
+          child: Container(
+            margin: const EdgeInsets.only(left: 40),
+            child: Text(
+              title,
+              textAlign: TextAlign.center,
+              style: whiteTextStyle.copyWith(
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildTableRadiatorAndCoolers(List<ProductModel> data) {
+    return CustomProductTable(
+      columns: [
+        tableHeader(
+          title: 'Catalogue Number',
+          onTap: () {
+            searchController.getAllProductsV2CatalogueNumber(
+              categoryProducts: titleCategory,
+            );
+          },
+        ),
+
+        tableHeader(title: 'Makes', onTap: () {}),
+
+        tableHeader(
+          title: 'Equipment Type',
+          onTap: () {
+            searchController.getAllProductsV2EquipmentType(
+              categoryProducts: titleCategory,
+            );
+          },
+        ),
+
+        tableHeader(
+          title: 'Models',
+          onTap: () {
+            searchController.getAllProductsV2Models(
+              categoryProducts: titleCategory,
+            );
+          },
+        ),
+
+        tableHeader(
+          title: 'OEM Part Number',
+          onTap: () {
+            searchController.getAllProductsOEMPartNumber(
+              categoryProducts: titleCategory,
+            );
+          },
+        ),
+
+        tableHeader(
+          title: 'Industry',
+          onTap: () {
+            searchController.getAllProductsIndustry(
+              categoryProducts: titleCategory,
+            );
+          },
+        ),
+
+        tableHeader(
+          title: 'Product Type',
+          onTap: () {
+            searchController.getAllProductsProductType(
+              categoryProducts: titleCategory,
+            );
+          },
+        ),
+      ],
+
+      rows: data.map((item) {
+        return DataRow(
+          cells: [
+            tableCell(item.catalogueNumber),
+            tableCell(item.makes),
+            tableCell(item.equipmentType),
+            tableCell(item.models),
+            tableCell(item.oemPartNumber),
+            tableCell(item.industry),
+            tableCell(item.productType),
+          ],
+        );
+      }).toList(),
+    );
   }
 
   Widget data(ProductDetailController controller) {
@@ -127,10 +253,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (titleCategory == AppString().radiatorAndCoolers) {
-      headerTitle =
-          '${productDetailController.productModelSingle?.catalogueNumber}/${productDetailController.productModelSingle?.oemPartNumber} ${productDetailController.productModelSingle?.productType} ${productDetailController.productModelSingle?.productTypeDesign} ${productDetailController.productModelSingle?.makes} ${productDetailController.productModelSingle?.models}';
-    }
     return GetBuilder<ProductDetailController>(
       builder: (controller) {
         return Globalappbar(
@@ -306,6 +428,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     ),
                   ],
                 ),
+
+                buildTableRadiatorAndCoolers(controller.productModel),
               ],
             ),
           ),
