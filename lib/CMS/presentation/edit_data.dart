@@ -186,6 +186,178 @@ class _EditDataState extends State<EditData> {
       );
     }
 
+    Widget caterpillarTube(CmsController controller) {
+      return buildAddDataLayout(
+        title: titleCategory,
+
+        leftFields: [
+          TextFieldData(
+            hintName: 'CATALOGUE NUMBER',
+            obsecureText: false,
+            textName: 'CATALOGUE NUMBER',
+            controller: controller.catalogueNumberController,
+          ),
+
+          TextFieldData(
+            hintName: 'MAKES',
+            obsecureText: false,
+            textName: 'MAKES',
+            controller: controller.makesController,
+          ),
+
+          TextFieldData(
+            hintName: 'EQUIPMENT TYPE',
+            obsecureText: false,
+            textName: 'EQUIPMENT TYPE',
+            controller: controller.equipmentTypeController,
+          ),
+
+          TextFieldData(
+            hintName: 'MODELS',
+            obsecureText: false,
+            textName: 'MODELS',
+            controller: controller.modelsController,
+          ),
+
+          TextFieldData(
+            hintName: 'OEM PART NUMBER',
+            obsecureText: false,
+            textName: 'OEM PART NUMBER',
+            controller: controller.oemPartcontroller,
+          ),
+
+          TextFieldData(
+            hintName: 'INDUSTRY',
+            obsecureText: false,
+            textName: 'INDUSTRY',
+            controller: controller.industryController,
+          ),
+        ],
+
+        rightFields: [
+          TextFieldData(
+            hintName: 'PRODUCT TYPE',
+            obsecureText: false,
+            textName: 'PRODUCT TYPE',
+            controller: controller.productTypeController,
+          ),
+
+          TextFieldData(
+            hintName: 'PRODUCT TYPE DESIGN',
+            obsecureText: false,
+            textName: 'PRODUCT TYPE DESIGN',
+            controller: controller.productTypeDesignController,
+          ),
+
+          TextFieldData(
+            hintName: 'MATERIAL TYPE',
+            obsecureText: false,
+            textName: 'MATERIAL TYPE',
+            controller: controller.materialTypeController,
+          ),
+
+          TextFieldData(
+            hintName: 'APPLICATION',
+            obsecureText: false,
+            textName: 'APPLICATION',
+            controller: controller.applicationController,
+          ),
+        ],
+
+        onSubmit: () async {
+          await controller.updateProductRadiatorAndCoolers(
+            id: controller.productModelSingle?.id ?? 0,
+          );
+        },
+      );
+    }
+
+    Widget caterPillarRadiatorCore(CmsController controller) {
+      return buildAddDataLayout(
+        title: titleCategory,
+
+        leftFields: [
+          TextFieldData(
+            hintName: 'CATALOGUE NUMBER',
+            obsecureText: false,
+            textName: 'CATALOGUE NUMBER',
+            controller: controller.catalogueNumberController,
+          ),
+
+          TextFieldData(
+            hintName: 'MAKES',
+            obsecureText: false,
+            textName: 'MAKES',
+            controller: controller.makesController,
+          ),
+
+          TextFieldData(
+            hintName: 'EQUIPMENT TYPE',
+            obsecureText: false,
+            textName: 'EQUIPMENT TYPE',
+            controller: controller.equipmentTypeController,
+          ),
+
+          TextFieldData(
+            hintName: 'MODELS',
+            obsecureText: false,
+            textName: 'MODELS',
+            controller: controller.modelsController,
+          ),
+
+          TextFieldData(
+            hintName: 'OEM PART NUMBER',
+            obsecureText: false,
+            textName: 'OEM PART NUMBER',
+            controller: controller.oemPartcontroller,
+          ),
+
+          TextFieldData(
+            hintName: 'PRODUCT TYPE',
+            obsecureText: false,
+            textName: 'PRODUCT TYPE',
+            controller: controller.productTypeController,
+          ),
+        ],
+
+        rightFields: [
+          TextFieldData(
+            hintName: 'CORE TYPE',
+            obsecureText: false,
+            textName: 'CORE TYPE',
+            controller: controller.coretypeController,
+          ),
+
+          TextFieldData(
+            hintName: 'SEAL TYPE',
+            obsecureText: false,
+            textName: 'SEAL TYPE',
+            controller: controller.sealTypeController,
+          ),
+
+          TextFieldData(
+            hintName: 'MATERIAL TYPE',
+            obsecureText: false,
+            textName: 'MATERIAL TYPE',
+            controller: controller.materialTypeController,
+          ),
+
+          TextFieldData(
+            hintName: 'OVER TANK DIMENSION "A"',
+            obsecureText: false,
+            textName: 'OVER TANK DIMENSION "A"',
+            controller: controller.overTankController,
+          ),
+        ],
+
+        onSubmit: () async {
+          await controller.updateProductRadiatorAndCoolers(
+            id: controller.productModelSingle?.id ?? 0,
+          );
+        },
+      );
+    }
+
     return GetBuilder<CmsController>(
       builder: (controller) {
         return Scaffold(
@@ -196,6 +368,10 @@ class _EditDataState extends State<EditData> {
                   ? radiatorsAndCoolers(controller)
                   : titleCategory == AppString().radiatorCapAndAdapters
                   ? radiatorsCapAndAdapter(controller)
+                  : titleCategory == AppString().caterpilarTube
+                  ? caterpillarTube(controller)
+                  : titleCategory == AppString().caterpillarRadiatorCore
+                  ? caterPillarRadiatorCore(controller)
                   : Container(),
             ),
           ),

@@ -12,6 +12,7 @@ import 'package:project/appbar/appbar_element.dart';
 import 'package:project/contact_us_page.dart';
 import 'package:project/controller/homeController.dart';
 import 'package:project/controller/mainProductController.dart';
+import 'package:project/controller/searchProductController.dart';
 import 'package:project/detail_product.dart';
 import 'package:project/global%20widget/footer.dart';
 import 'package:project/global%20widget/personalData.dart';
@@ -309,7 +310,11 @@ class _GlobalappbarState extends State<Globalappbar> {
                                 title: homecontroller.categoryType[index],
 
                                 onTap: () {
-                                  Get.toNamed(
+                                  var searchController =
+                                      Get.find<Searchproductcontroller>();
+                                  searchController.productModel.clear();
+                                  searchController.update();
+                                  Get.offNamed(
                                     '${AppRouteName.searchProduct}?flow=${Uri.encodeComponent(homecontroller.categoryType[index])}',
                                   );
                                 },

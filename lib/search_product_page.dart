@@ -9,6 +9,9 @@ import 'package:project/global%20widget/personalData.dart';
 import 'package:project/model/allDataModel.dart';
 import 'package:project/model/dropDownModel.dart';
 import 'package:project/model/productModel.dart';
+import 'package:project/product_radiator_core.dart';
+import 'package:project/radiator_core_element.dart';
+import 'package:project/theme/app_images.dart';
 import 'package:project/theme/string.dart';
 import 'package:project/theme/theme.dart';
 import 'package:sizer/sizer.dart';
@@ -97,8 +100,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 await controller.getDataNewRadiatorCapAndAdapter(
                   categoryProducts: argument.flow ?? '',
                 );
-              } else if (argument.flow ==
-                  'CATERPILLAR® TUBE AND SHELL OIL COOLER SEARCH PART') {
+              } else if (argument.flow == AppString().caterpilarTube) {
                 await controller.getDataNewCatapillarTubeAndShellOilCooler(
                   categoryProducts: argument.flow ?? '',
                 );
@@ -323,6 +325,143 @@ class _SearchProductPageState extends State<SearchProductPage> {
                     tableCell(item.pressureRating),
                     tableCell(item.materialType),
                     tableCell(item.descriptionApplication),
+                  ],
+                );
+              }).toList(),
+            ),
+          ),
+        ),
+      );
+    }
+
+    Widget buildTableRadiatorCoreCatalogList(List<ProductModel> data) {
+      return Card(
+        elevation: 2,
+        margin: const EdgeInsets.all(8),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical, // Scroll atas-bawah
+          child: SingleChildScrollView(
+            scrollDirection:
+                Axis.horizontal, // Scroll kiri-kanan untuk kolom banyak
+            child: DataTable(
+              headingRowColor: WidgetStateProperty.all(darkGrey),
+              dividerThickness: 2,
+              columnSpacing: 90,
+              columns: [
+                tableHeader(
+                  title: 'Catalogue Number',
+                  onTap: searchController.getAllProductsV2CatalogueNumber,
+                ),
+                tableHeader(
+                  title: 'Makes',
+                  onTap: () {
+                    searchController.getAllProductsV2(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
+                ),
+                tableHeader(
+                  title: 'Equipment Type',
+                  onTap: searchController.getAllProductsV2EquipmentType,
+                ),
+                tableHeader(
+                  title: 'Models',
+                  onTap: searchController.getAllProductsV2Models,
+                ),
+                tableHeader(
+                  title: 'OEM Part Number',
+                  onTap: searchController.getAllProductsOEMPartNumber,
+                ),
+                tableHeader(
+                  title: 'Core Type',
+                  onTap: searchController.getAllProductsIndustry,
+                ),
+                tableHeader(
+                  title: 'Material Type',
+                  onTap: searchController.getAllProductsProductType,
+                ),
+                tableHeader(
+                  title: 'OVER TANK DIMENSION "A"',
+                  onTap: searchController.getAllProductsDescriptionApplication,
+                ),
+              ],
+              rows: data.map((item) {
+                return DataRow(
+                  cells: [
+                    tableCell(item.catalogueNumber),
+                    tableCell(item.makes),
+                    tableCell(item.equipmentType),
+                    tableCell(item.models),
+                    tableCell(item.oemPartNumber),
+                    tableCell(item.coreType),
+                    tableCell(item.materialType),
+                    tableCell(item.tankDimension),
+                  ],
+                );
+              }).toList(),
+            ),
+          ),
+        ),
+      );
+    }
+
+    Widget buildTableRadiatorSealCatalogList(List<ProductModel> data) {
+      return Card(
+        elevation: 2,
+        margin: const EdgeInsets.all(8),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical, // Scroll atas-bawah
+          child: SingleChildScrollView(
+            scrollDirection:
+                Axis.horizontal, // Scroll kiri-kanan untuk kolom banyak
+            child: DataTable(
+              headingRowColor: WidgetStateProperty.all(darkGrey),
+              dividerThickness: 2,
+              columnSpacing: 90,
+              columns: [
+                tableHeader(
+                  title: 'Catalogue Number',
+                  onTap: searchController.getAllProductsV2CatalogueNumber,
+                ),
+                tableHeader(
+                  title: 'Makes',
+                  onTap: () {
+                    searchController.getAllProductsV2(
+                      categoryProducts: argument.flow ?? '',
+                    );
+                  },
+                ),
+                tableHeader(
+                  title: 'Equipment Type',
+                  onTap: searchController.getAllProductsV2EquipmentType,
+                ),
+                tableHeader(
+                  title: 'Models',
+                  onTap: searchController.getAllProductsV2Models,
+                ),
+                tableHeader(
+                  title: 'OEM Part Number',
+                  onTap: searchController.getAllProductsOEMPartNumber,
+                ),
+                tableHeader(
+                  title: 'Seal type',
+                  onTap: searchController.getAllProductsIndustry,
+                ),
+                tableHeader(
+                  title: 'Material Type',
+                  onTap: searchController.getAllProductsProductType,
+                ),
+              ],
+              rows: data.map((item) {
+                return DataRow(
+                  cells: [
+                    tableCell(item.catalogueNumber),
+                    tableCell(item.makes),
+                    tableCell(item.equipmentType),
+                    tableCell(item.models),
+                    tableCell(item.oemPartNumber),
+                    tableCell(item.sealType),
+                    tableCell(item.materialType),
                   ],
                 );
               }).toList(),
@@ -574,7 +713,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                             dropDowns(
                               hint: "Select a maker",
                               value: controller.selectedMake,
-                              items: controller.makeModel,
+                              items: controller.makeList,
                               labelBuilder: (item) => item?.name ?? '',
                               onChanged: (val) =>
                                   controller.setSelectedMake(val ?? ''),
@@ -597,7 +736,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                             dropDowns(
                               hint: "Select a model",
                               value: controller.selectedModel,
-                              items: controller.modelsModel,
+                              items: controller.modelList,
                               labelBuilder: (item) => item?.name ?? '',
                               onChanged: (val) =>
                                   controller.setSelectedModel(val ?? ''),
@@ -605,7 +744,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                             dropDowns(
                               hint: "Select an industry",
                               value: controller.selectedIndustry,
-                              items: controller.industryModel,
+                              items: controller.industryList,
                               labelBuilder: (item) => item?.name ?? '',
                               onChanged: (val) =>
                                   controller.setSelectedIndustry(val ?? ''),
@@ -648,7 +787,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
             ),
             searchPerData(
               browseTitle: 'BROWSE PER MAKES',
-              data: controller.makeModel,
+              data: controller.makeList,
             ),
             searchPerData(
               browseTitle: 'BROWSE PER PRODUCT TYPE',
@@ -666,9 +805,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
       );
     }
 
-    Widget catepillarTubeAndShellOilCoolerSearchPartWidget(
-      Searchproductcontroller controller,
-    ) {
+    Widget caterpillarTube(Searchproductcontroller controller) {
       return Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -772,7 +909,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                             dropDowns(
                               hint: "Select a makes",
                               value: controller.selectedMake,
-                              items: controller.makeModel,
+                              items: controller.makeList,
                               labelBuilder: (item) => item?.name ?? '',
                               onChanged: (val) =>
                                   controller.setSelectedMake(val ?? ''),
@@ -795,7 +932,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                             dropDowns(
                               hint: "Select a model",
                               value: controller.selectedModel,
-                              items: controller.modelsModel,
+                              items: controller.modelList,
                               labelBuilder: (item) => item?.name ?? '',
                               onChanged: (val) =>
                                   controller.setSelectedModel(val ?? ''),
@@ -803,7 +940,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                             dropDowns(
                               hint: "Select an industry",
                               value: controller.selectedIndustry,
-                              items: controller.industryModel,
+                              items: controller.industryList,
                               labelBuilder: (item) => item?.name ?? '',
                               onChanged: (val) =>
                                   controller.setSelectedIndustry(val ?? ''),
@@ -840,10 +977,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
               ),
             ),
 
-            Container(
-              key: controller.tableKey,
-              child: buildCaterpillarTubeAndShellOil(controller.productModel),
-            ),
+            buildCaterpillarTubeAndShellOil(controller.productModel),
 
             SizedBox(height: 15.h),
           ],
@@ -958,16 +1092,12 @@ class _SearchProductPageState extends State<SearchProductPage> {
 
                     const SizedBox(width: 30),
 
-                    // =========================
-                    // RIGHT - FILTER
-                    // =========================
                     Expanded(
                       child: Column(
                         children: [
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // SIZE
                               Expanded(
                                 child: dropDowns(
                                   hint: "Select a size",
@@ -1025,31 +1155,172 @@ class _SearchProductPageState extends State<SearchProductPage> {
       );
     }
 
+    Widget resetButton({required VoidCallback onPressed}) {
+      return ElevatedButton.icon(
+        onPressed: onPressed,
+        icon: const Icon(Icons.undo, size: 18, color: Colors.black),
+        label: const Text(
+          'RESET',
+          style: TextStyle(color: Colors.black, fontSize: 16),
+        ),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFFFFD600),
+          foregroundColor: Colors.black,
+          elevation: 0,
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+        ),
+      );
+    }
+
+    Widget caterPillarCoreReplacement(Searchproductcontroller controller) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            'CATERPILLAR® RADIATOR CORE REPLACEMENT',
+            style: blackTextStyle.copyWith(fontSize: 48, fontWeight: bold),
+          ),
+          SizedBox(height: 27),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              RadiatorCoreElement(
+                img: AppImages().foldedCore,
+                title: 'FOLDED CORE',
+              ),
+              SizedBox(width: 40),
+              RadiatorCoreElement(
+                img: AppImages().amocsCore,
+                title: 'AMOCS CORE',
+              ),
+            ],
+          ),
+          SizedBox(height: 47),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              RadiatorCoreElement(
+                img: AppImages().modularCore,
+                title: 'MODULAR CORE',
+              ),
+              SizedBox(width: 40),
+              RadiatorCoreElement(
+                img: AppImages().ngmrCore,
+                title: 'NGMR CORE',
+              ),
+            ],
+          ),
+          SizedBox(height: 50),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(
+                'CATERPILLAR® RADIATOR CORE CATALOG LIST',
+                style: blackTextStyle.copyWith(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                ),
+              ),
+              SizedBox(width: 100),
+              resetButton(
+                onPressed: () {
+                  searchController.getDataNewCaterpillarRadiatorCore();
+                },
+              ),
+            ],
+          ),
+          buildTableRadiatorCoreCatalogList(controller.productModel),
+          SizedBox(height: 50),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ProductRadiatorCore(
+                img: AppImages().foldedSealCore,
+                title: 'FOLDED CORE SEAL',
+              ),
+              ProductRadiatorCore(
+                img: AppImages().amocsSealCore,
+                title: 'AMOCS CORE SEAL',
+              ),
+              ProductRadiatorCore(
+                img: AppImages().modularSealCore,
+                title: 'MODULAR CORE SEAL',
+              ),
+              ProductRadiatorCore(
+                img: AppImages().ngmrSealCore,
+                title: 'NGMR CORE SEAL',
+              ),
+            ],
+          ),
+          SizedBox(height: 30),
+          Container(
+            margin: EdgeInsets.only(left: 40, right: 40),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  'CATERPILLAR® RADIATOR CORE SEAL CATALOG LIST',
+                  style: blackTextStyle.copyWith(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
+                  ),
+                ),
+                resetButton(
+                  onPressed: () {
+                    searchController.getDataNewCaterpillarRadiatorCore(
+                      isTableSeal: true,
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+          buildTableRadiatorSealCatalogList(controller.productModelSealSpecial),
+          SizedBox(height: 20),
+        ],
+      );
+    }
+
     return GetBuilder<Searchproductcontroller>(
       initState: (state) async {
         await Get.find<Searchproductcontroller>().getAllMake(
           category: argument.flow,
         );
-        await Get.find<Searchproductcontroller>().getAllProducts();
-        await Get.find<Searchproductcontroller>().getAllModel();
-        await Get.find<Searchproductcontroller>().getAllIndustry();
-        await Get.find<Searchproductcontroller>().getAllEquipmentType();
+        await Get.find<Searchproductcontroller>().getAllProducts(
+          category: argument.flow,
+        );
+        await Get.find<Searchproductcontroller>().getAllModel(
+          category: argument.flow,
+        );
+        await Get.find<Searchproductcontroller>().getAllIndustry(
+          category: argument.flow,
+        );
+        await Get.find<Searchproductcontroller>().getAllEquipmentType(
+          category: argument.flow,
+        );
         await Get.find<Searchproductcontroller>().getAllSize();
         await Get.find<Searchproductcontroller>().getAllPressureRating();
-        await Get.find<Searchproductcontroller>().getAllProductTypeDesign();
+        await Get.find<Searchproductcontroller>().getAllProductTypeDesign(
+          category: argument.flow,
+        );
       },
 
       builder: (controller) {
         return Globalappbar(
           backgroundColor: backgroundgrey,
           pageWidget: SingleChildScrollView(
-            child: (argument.flow == 'Radiators and Coolers')
+            child: (argument.flow == AppString().radiatorAndCoolers)
                 ? radiatorAndCoolersWidget(controller)
-                : (argument.flow == 'Radiator Cap and Adapter')
+                : (argument.flow == AppString().radiatorCapAndAdapters)
                 ? radiatorsCapAndAdapter(controller)
-                : (argument.flow ==
-                      'CATERPILLAR® TUBE AND SHELL OIL COOLER SEARCH PART')
-                ? catepillarTubeAndShellOilCoolerSearchPartWidget(controller)
+                : (argument.flow == AppString().caterpillarRadiatorCore)
+                ? caterPillarCoreReplacement(controller)
+                : (argument.flow == AppString().caterpilarTube)
+                ? caterpillarTube(controller)
                 : Container(),
           ),
         );
