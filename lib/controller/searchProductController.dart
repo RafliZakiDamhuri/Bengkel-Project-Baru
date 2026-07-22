@@ -238,18 +238,29 @@ class Searchproductcontroller extends GetxController {
     update();
   }
 
-  Future<void> getDatabyPartNumber(String? value) async {
+  Future<void> getDatabyPartNumber({
+    String? value,
+    String? catalogueType,
+  }) async {
     try {
       var query = supabase.from('products').select('*');
 
       if (value != null && value.trim().isNotEmpty) {
-        query = query.or(
-          'catalogue_number.ilike.%$value%,oem_part_number.ilike.%$value%',
-        );
+        if (catalogueType != AppString().radiatorCapAndAdapters) {
+          query = query
+              .eq('category_products', catalogueType ?? '')
+              .or(
+                'catalogue_number.ilike.%$value%,oem_part_number.ilike.%$value%',
+              );
+        } else {
+          query = query
+              .eq('category_products', catalogueType ?? '')
+              .or('part_number.ilike.%$value%');
+        }
       }
 
       final response = await query.order('makes', ascending: true);
-
+      print('response :: $response');
       productModel = (response as List)
           .map((e) => ProductModel.fromJson(e))
           .toList();

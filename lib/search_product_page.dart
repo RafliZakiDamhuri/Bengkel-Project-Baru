@@ -826,7 +826,8 @@ class _SearchProductPageState extends State<SearchProductPage> {
                               child: ElevatedButton.icon(
                                 onPressed: () async {
                                   await controller.getDatabyPartNumber(
-                                    controller.typedPlatNumber,
+                                    value: controller.typedPlatNumber,
+                                    catalogueType: argument.flow,
                                   );
                                   controller.scrollToTable();
                                 },
@@ -1022,7 +1023,8 @@ class _SearchProductPageState extends State<SearchProductPage> {
                               child: ElevatedButton.icon(
                                 onPressed: () async {
                                   await controller.getDatabyPartNumber(
-                                    controller.typedPlatNumber,
+                                    value: controller.typedPlatNumber,
+                                    catalogueType: argument.flow,
                                   );
                                   controller.scrollToTable();
                                 },
@@ -1206,7 +1208,8 @@ class _SearchProductPageState extends State<SearchProductPage> {
                             child: ElevatedButton.icon(
                               onPressed: () async {
                                 await controller.getDatabyPartNumber(
-                                  controller.typedPlatNumber,
+                                  value: controller.typedPlatNumber,
+                                  catalogueType: argument.flow,
                                 );
 
                                 controller.scrollToTable();
