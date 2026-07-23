@@ -436,6 +436,19 @@ class Searchproductcontroller extends GetxController {
     }
   }
 
+  Future<void> getProductsByCategory({required String category}) async {
+    final response = await supabase
+        .from('products')
+        .select()
+        .eq('category_products', category);
+
+    productModel = (response as List)
+        .map((e) => ProductModel.fromJson(e))
+        .toList();
+
+    update();
+  }
+
   Future<void> getAllProductsMakesSpecial({
     required String categoryProducts,
   }) async {
