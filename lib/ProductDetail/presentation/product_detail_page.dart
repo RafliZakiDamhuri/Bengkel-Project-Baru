@@ -327,7 +327,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 title1: 'Catalog Number',
                 title2: controller.productModelSingle?.catalogueNumber ?? '',
               ),
-              ProductDetailTitle(title1: 'Makes', title2: 'Komatsu'),
+              ProductDetailTitle(
+                title1: 'Makes',
+                title2: controller.productModelSingle?.makes ?? '',
+              ),
               ProductDetailTitle(
                 title1: 'Equipment Type',
                 title2: controller.productModelSingle?.equipmentType ?? '',

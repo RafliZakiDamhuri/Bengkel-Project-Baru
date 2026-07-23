@@ -137,6 +137,17 @@ class _SearchProductPageState extends State<SearchProductPage> {
       );
     }
 
+    Widget buttonShowAll(Searchproductcontroller controller) {
+      return ElevatedButton.icon(
+        onPressed: () async {
+          searchController.getProductsByCategory(category: argument.flow ?? '');
+          controller.scrollToTable();
+        },
+        label: Text("Show All", style: whiteTextStyle),
+        style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+      );
+    }
+
     Widget buildTableRadiatorAndCoolers(List<ProductModel> data) {
       return Card(
         elevation: 2,
@@ -925,7 +936,9 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 ],
               ),
             ),
-
+            SizedBox(height: 20),
+            buttonShowAll(controller),
+            SizedBox(height: 20),
             searchPerData(
               browseTitle: 'BROWSE PER EQUIPMENT TYPE',
               data: controller.equipmentTypeList,
@@ -1122,7 +1135,9 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 ],
               ),
             ),
-
+            SizedBox(height: 20),
+            buttonShowAll(controller),
+            SizedBox(height: 20),
             buildCaterpillarTubeAndShellOil(controller.productModel),
 
             SizedBox(height: 15.h),
@@ -1294,7 +1309,9 @@ class _SearchProductPageState extends State<SearchProductPage> {
               ],
             ),
           ),
-
+          SizedBox(height: 20),
+          buttonShowAll(controller),
+          SizedBox(height: 20),
           buildTableRadiatorAndCap(controller.productModel),
 
           SizedBox(height: 15.h),
