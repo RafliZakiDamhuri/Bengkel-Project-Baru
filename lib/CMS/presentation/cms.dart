@@ -15,9 +15,8 @@ class CmsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Globalappbar(
-      isNeedInquiryPage: false,
-      pageWidget: SizedBox(
+    return Scaffold(
+      body: SizedBox(
         height: MediaQuery.of(context).size.height,
         child: Row(
           children: [

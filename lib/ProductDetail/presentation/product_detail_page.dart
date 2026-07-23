@@ -714,19 +714,47 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     /// KANAN
                     Column(
                       children: [
-                        CachedNetworkImage(
-                          imageUrl:
-                              controller.productModelSingle?.drawing2d ?? '',
-                          width: 280,
-                          height: 280,
-                          fit: BoxFit.cover,
-                          placeholder: (_, __) => const SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: CircularProgressIndicator(strokeWidth: 2),
+                        GestureDetector(
+                          onTap: () {
+                            Get.dialog(
+                              Dialog(
+                                backgroundColor: Colors.transparent,
+                                insetPadding: const EdgeInsets.all(20),
+                                child: InteractiveViewer(
+                                  child: CachedNetworkImage(
+                                    imageUrl:
+                                        controller
+                                            .productModelSingle
+                                            ?.drawing2d ??
+                                        '',
+                                    fit: BoxFit.contain,
+                                    placeholder: (_, __) => const Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                    errorWidget: (_, __, ___) => const Icon(
+                                      Icons.broken_image,
+                                      size: 55,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                          child: CachedNetworkImage(
+                            imageUrl:
+                                controller.productModelSingle?.drawing2d ?? '',
+                            width: 280,
+                            height: 280,
+                            fit: BoxFit.cover,
+                            placeholder: (_, __) => const SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            ),
+                            errorWidget: (_, __, ___) =>
+                                const Icon(Icons.person, size: 55),
                           ),
-                          errorWidget: (_, __, ___) =>
-                              const Icon(Icons.person, size: 55),
                         ),
 
                         const SizedBox(height: 10),
