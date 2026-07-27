@@ -23,6 +23,7 @@ import 'package:project/global%20widget/personalData.dart';
 import 'package:project/logoChooseUS.dart';
 import 'package:project/model/allDataModel.dart';
 import 'package:project/model/featureCardModel.dart';
+import 'package:project/model/productModel.dart';
 import 'package:project/model/serviceModel.dart';
 import 'package:project/routes/routes_name.dart';
 import 'package:project/search_product_page.dart';
@@ -1893,70 +1894,6 @@ class _HomeState extends State<Home> {
           // ),
           SizedBox(height: 10.h),
         ],
-      );
-    }
-
-    Widget search() {
-      return GetBuilder<Homecontroller>(
-        builder: (controller) {
-          return TypeAheadField<AllDataModel>(
-            builder: (context, controller, focusNode) => Container(
-              height: 60,
-
-              child: Center(
-                child: TextFormField(
-                  controller: controller,
-                  focusNode: focusNode,
-
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: kGreyColor,
-                    suffixIcon: Icon(Icons.search),
-                    border: InputBorder.none,
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: kGreyColor),
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: kGreyColor),
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                    ),
-                    hint: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            'Cari berdasarkan plat number',
-                            style: blackTextStyle.copyWith(
-                              fontSize: 10.sp,
-                              fontWeight: light,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            debounceDuration: const Duration(milliseconds: 500),
-            itemBuilder: (context, value) {
-              return ListTile(
-                leading: const Icon(Icons.directions_car),
-                title: Text(value.platNumber?.platNumber ?? ''),
-                subtitle: Text(value.coreTypeModel?.coreType ?? ''),
-              );
-            },
-            onSelected: (value) {
-              Get.to(DetailProduct(allDataModel: value));
-            },
-            suggestionsCallback: (search) async {
-              if (search.isEmpty) return [];
-              await controller.getDatabyPlatNumber(search);
-
-              return controller.allDataModel;
-            },
-          );
-        },
       );
     }
 

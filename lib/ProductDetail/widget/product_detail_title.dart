@@ -20,7 +20,13 @@ class ProductDetailTitle extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(width: 300, child: Text(title1, style: blackTextStyle)),
+          SizedBox(
+            width: 300,
+            child: Text(
+              title1,
+              style: blackTextStyle.copyWith(fontWeight: FontWeight.bold),
+            ),
+          ),
           Text(
             title2,
             style: const TextStyle(color: Colors.black, fontSize: 14),

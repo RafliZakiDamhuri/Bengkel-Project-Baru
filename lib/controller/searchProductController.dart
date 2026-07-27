@@ -59,6 +59,10 @@ class Searchproductcontroller extends GetxController {
     return (response as List).map((e) => DropdownModel.fromJson(e)).toList();
   }
 
+  void clearText() {
+    selectedMake = null;
+  }
+
   Future<void> getDataByCore({required String coreType}) async {
     final response = await Supabase.instance.client
         .from('products')

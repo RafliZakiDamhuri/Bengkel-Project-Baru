@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project/model/allDataModel.dart';
+import 'package:project/model/productModel.dart';
 import 'package:project/model/serviceModel.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -13,24 +14,18 @@ class Homecontroller extends GetxController {
   bool isViewListHome6 = false;
   List<String> categoryType = [];
   final supabase = Supabase.instance.client;
-  List<AllDataModel> allDataModel = [];
-  Future<void> getDatabyPlatNumber(String? value) async {
-    var query = supabase.from('AllData').select('''
-      *,
-      Make (id,make_name),
-      Application (id,application_name),
-      Material (id,material_name),
-      PlatNumber!inner (id,plat_number),
-      Model (id,model_name),
-      EquipmentType (id,equipment_type),
-      CoreType (id,core_type),
-      Alternative (id,alternative)
-    ''');
-    if (value != null && value!.isNotEmpty) {
-      query = query.ilike('PlatNumber.plat_number', '%$value%');
-    }
-    final response = await query;
-    allDataModel = response.map((e) => AllDataModel.fromJson(e)).toList();
+
+  List<ProductModel> productModel = [];
+
+  Future<void> getDataByHeader(String? keyword) async {
+    final response = await supabase
+        .from('products')
+        .select()
+        .ilike('product_header', '%$keyword%');
+
+    productModel = (response as List)
+        .map((e) => ProductModel.fromJson(e))
+        .toList();
 
     update();
   }
@@ -46,9 +41,22 @@ class Homecontroller extends GetxController {
   Future<void> getCategoryType() async {
     final response = await supabase.rpc('get_distinct_category_products');
     print('Ini adalah response ;;; $response');
-    categoryType = (response as List)
-        .map((e) => e['category_products'] as String)
-        .toList();
+    const categoryOrder = [
+      'Radiators and Coolers',
+      'CATERPILLAR RADIATOR CORE',
+      'CATERPILLAR® TUBE AND SHELL OIL COOLER',
+      'Radiator Cap and Adapter',
+    ];
+
+    categoryType =
+        (response as List)
+            .map((e) => e['category_products'] as String)
+            .where((category) => categoryOrder.contains(category))
+            .toList()
+          ..sort(
+            (a, b) =>
+                categoryOrder.indexOf(a).compareTo(categoryOrder.indexOf(b)),
+          );
   }
 
   @override

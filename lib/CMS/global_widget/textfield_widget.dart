@@ -6,9 +6,9 @@ class TextFieldData extends StatelessWidget {
   final String hintName;
   final bool obsecureText;
   final TextEditingController controller;
+
   const TextFieldData({
     super.key,
-
     required this.hintName,
     required this.textName,
     required this.obsecureText,
@@ -18,33 +18,37 @@ class TextFieldData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 20, top: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      margin: const EdgeInsets.only(bottom: 20, top: 20),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(textName, style: blackTextStyle),
-          SizedBox(height: 6),
-          Container(
+          SizedBox(width: 150, child: Text(textName, style: blackTextStyle)),
+
+          const SizedBox(width: 16),
+
+          SizedBox(
             width: 500,
-            decoration: BoxDecoration(
-              color: lightGrey,
-              borderRadius: BorderRadius.circular(4),
-            ),
-            child: TextFormField(
-              controller: controller,
-              style: blackTextStyle.copyWith(fontSize: 14),
-              cursorColor: Colors.white,
-              obscureText: obsecureText,
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 18,
+            child: Container(
+              decoration: BoxDecoration(
+                color: lightGrey,
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: TextFormField(
+                controller: controller,
+                style: blackTextStyle.copyWith(fontSize: 14),
+                cursorColor: Colors.white,
+                obscureText: obsecureText,
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 18,
+                  ),
+                  hintText: hintName,
+                  hintStyle: blackTextStyle,
+                  border: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
                 ),
-                hintText: hintName,
-                hintStyle: blackTextStyle,
-                border: InputBorder.none,
-                enabledBorder: InputBorder.none,
-                focusedBorder: InputBorder.none,
               ),
             ),
           ),

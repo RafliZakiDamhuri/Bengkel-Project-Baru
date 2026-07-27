@@ -18,6 +18,7 @@ import 'package:project/global%20widget/footer.dart';
 import 'package:project/global%20widget/personalData.dart';
 import 'package:project/home.dart';
 import 'package:project/model/allDataModel.dart';
+import 'package:project/model/productModel.dart';
 import 'package:project/product_page.dart';
 import 'package:project/routes/routes_name.dart';
 import 'package:project/search_product_page.dart';
@@ -74,7 +75,7 @@ class _GlobalappbarState extends State<Globalappbar> {
     Widget search() {
       return GetBuilder<Homecontroller>(
         builder: (controller) {
-          return TypeAheadField<AllDataModel>(
+          return TypeAheadField<ProductModel>(
             builder: (context, controller, focusNode) => Container(
               height: 60,
 
@@ -100,7 +101,7 @@ class _GlobalappbarState extends State<Globalappbar> {
                       children: [
                         Expanded(
                           child: Text(
-                            'Cari berdasarkan plat number',
+                            'Search Here',
                             style: blackTextStyle.copyWith(
                               fontSize: 10.sp,
                               fontWeight: light,
@@ -117,18 +118,24 @@ class _GlobalappbarState extends State<Globalappbar> {
             itemBuilder: (context, value) {
               return ListTile(
                 leading: const Icon(Icons.directions_car),
-                title: Text(value.platNumber?.platNumber ?? ''),
-                subtitle: Text(value.coreTypeModel?.coreType ?? ''),
+
+                subtitle: Text(value.productHeader ?? ''),
               );
             },
             onSelected: (value) {
-              Get.to(DetailProduct(allDataModel: value));
+              Get.toNamed(
+                AppRouteName.productDetailPage,
+                parameters: {
+                  'id': value.id.toString(),
+                  'category': value.categoryProducts ?? '',
+                },
+              );
             },
             suggestionsCallback: (search) async {
               if (search.isEmpty) return [];
-              await controller.getDatabyPlatNumber(search);
+              await controller.getDataByHeader(search);
 
-              return controller.allDataModel;
+              return controller.productModel;
             },
           );
         },
@@ -313,6 +320,7 @@ class _GlobalappbarState extends State<Globalappbar> {
                                   var searchController =
                                       Get.find<Searchproductcontroller>();
                                   searchController.productModel.clear();
+                                  searchController.clearText();
                                   searchController.update();
                                   Get.offNamed(
                                     '${AppRouteName.searchProduct}?flow=${Uri.encodeComponent(homecontroller.categoryType[index])}',

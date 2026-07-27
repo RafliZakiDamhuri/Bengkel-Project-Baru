@@ -50,10 +50,22 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     });
   }
 
-  DataCell tableCell(String? value) {
+  DataCell tableCell(ProductModel item, String? value) {
     return DataCell(
-      Center(
-        child: Text(value ?? '-', softWrap: true, textAlign: TextAlign.center),
+      GestureDetector(
+        onTap: () {
+          Get.toNamed(
+            AppRouteName.productDetailPage,
+            parameters: {'id': item.id.toString(), 'category': titleCategory},
+          );
+        },
+        child: Center(
+          child: Text(
+            value ?? '-',
+            softWrap: true,
+            textAlign: TextAlign.center,
+          ),
+        ),
       ),
     );
   }
@@ -142,13 +154,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       rows: data.map((item) {
         return DataRow(
           cells: [
-            tableCell(item.catalogueNumber),
-            tableCell(item.makes),
-            tableCell(item.equipmentType),
-            tableCell(item.models),
-            tableCell(item.oemPartNumber),
-            tableCell(item.industry),
-            tableCell(item.productType),
+            tableCell(item, item.catalogueNumber),
+            tableCell(item, item.makes),
+            tableCell(item, item.equipmentType),
+            tableCell(item, item.models),
+            tableCell(item, item.oemPartNumber),
+            tableCell(item, item.industry),
+            tableCell(item, item.productType),
           ],
         );
       }).toList(),
@@ -219,13 +231,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       rows: data.map((item) {
         return DataRow(
           cells: [
-            tableCell(item.partNumber),
-            tableCell(item.makes),
-            tableCell(item.application),
-            tableCell(item.size),
-            tableCell(item.pressureRating),
-            tableCell(item.materialType),
-            tableCell(item.descriptionApplication),
+            tableCell(item, item.partNumber),
+            tableCell(item, item.makes),
+            tableCell(item, item.application),
+            tableCell(item, item.size),
+            tableCell(item, item.pressureRating),
+            tableCell(item, item.materialType),
+            tableCell(item, item.descriptionApplication),
           ],
         );
       }).toList(),
@@ -304,14 +316,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       rows: data.map((item) {
         return DataRow(
           cells: [
-            tableCell(item.catalogueNumber),
-            tableCell(item.makes),
-            tableCell(item.equipmentType),
-            tableCell(item.models),
-            tableCell(item.oemPartNumber),
-            tableCell(item.industry),
-            tableCell(item.productType),
-            tableCell(item.application),
+            tableCell(item, item.catalogueNumber),
+            tableCell(item, item.makes),
+            tableCell(item, item.equipmentType),
+            tableCell(item, item.models),
+            tableCell(item, item.oemPartNumber),
+            tableCell(item, item.industry),
+            tableCell(item, item.productType),
+            tableCell(item, item.application),
           ],
         );
       }).toList(),
@@ -368,9 +380,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               const SizedBox(height: 80),
 
               GestureDetector(
-                onTap: () {
-                  Get.toNamed(AppRouteName.searchProduct);
-                },
+                onTap: () {},
 
                 child: Container(
                   width: 280,
@@ -448,9 +458,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               const SizedBox(height: 80),
 
               GestureDetector(
-                onTap: () {
-                  Get.toNamed(AppRouteName.searchProduct);
-                },
+                onTap: () {},
 
                 child: Container(
                   width: 280,
@@ -538,9 +546,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               const SizedBox(height: 80),
 
               GestureDetector(
-                onTap: () {
-                  Get.toNamed(AppRouteName.searchProduct);
-                },
+                onTap: () {},
 
                 child: Container(
                   width: 280,
