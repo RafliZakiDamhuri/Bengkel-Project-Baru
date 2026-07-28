@@ -90,7 +90,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                     fontSize: 12,
                   ),
                 ),
-                Icon(Icons.arrow_drop_down_outlined, color: Colors.white),
+                Icon(Icons.swap_vert, color: Colors.white),
               ],
             ),
           ),
@@ -165,7 +165,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Catalogue Number',
                   onTap: () {
-                    searchController.getAllProductsV2CatalogueNumber(
+                    searchController.getAllProductsV2CatalogueNumberSort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -173,7 +173,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Makes',
                   onTap: () {
-                    searchController.getAllProductsMakes(
+                    searchController.getAllProductsMakesSort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -181,7 +181,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Equipment Type',
                   onTap: () {
-                    searchController.getAllProductsV2EquipmentType(
+                    searchController.getAllProductsV2EquipmentTypeSort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -189,7 +189,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Models',
                   onTap: () {
-                    searchController.getAllProductsV2Models(
+                    searchController.getAllProductsV2ModelsSort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -197,7 +197,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'OEM Part Number',
                   onTap: () {
-                    searchController.getAllProductsOEMPartNumber(
+                    searchController.getAllProductsOEMPartNumberSort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -205,7 +205,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Industry',
                   onTap: () {
-                    searchController.getAllProductsIndustry(
+                    searchController.getAllProductsIndustrySort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -213,7 +213,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Product Type',
                   onTap: () {
-                    searchController.getAllProductsProductType(
+                    searchController.getAllProductsProductTypeSort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -221,7 +221,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Description / Application',
                   onTap: () {
-                    searchController.getAllProductsDescriptionApplication(
+                    searchController.getAllProductsDescriptionApplicationSort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -264,7 +264,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Catalogue Number',
                   onTap: () {
-                    searchController.getAllProductsV2CatalogueNumber(
+                    searchController.getAllProductsV2CatalogueNumberSort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -272,7 +272,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Makes',
                   onTap: () {
-                    searchController.getAllProductsMakes(
+                    searchController.getAllProductsMakesSort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -280,7 +280,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Equipment Type',
                   onTap: () {
-                    searchController.getAllProductsV2EquipmentType(
+                    searchController.getAllProductsV2EquipmentTypeSort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -288,7 +288,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Models',
                   onTap: () {
-                    searchController.getAllProductsV2Models(
+                    searchController.getAllProductsV2ModelsSort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -296,7 +296,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'OEM Part Number',
                   onTap: () {
-                    searchController.getAllProductsOEMPartNumber(
+                    searchController.getAllProductsOEMPartNumberSort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -305,7 +305,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Industry',
                   onTap: () {
-                    searchController.getAllProductsIndustry(
+                    searchController.getAllProductsIndustrySort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -313,7 +313,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Product Type',
                   onTap: () {
-                    searchController.getAllProductsProductType(
+                    searchController.getAllProductsProductTypeSort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -321,7 +321,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Product Type Design',
                   onTap: () {
-                    searchController.getAllProductsProductTypeDesign(
+                    searchController.getAllProductsProductTypeDesignSort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -364,7 +364,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Part Number',
                   onTap: () {
-                    searchController.getAllProductsV2CatalogueNumber(
+                    searchController.getAllProductsV2CatalogueNumberSort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -372,7 +372,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Makes',
                   onTap: () {
-                    searchController.getAllProductsMakes(
+                    searchController.getAllProductsMakesSort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -380,7 +380,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Application',
                   onTap: () {
-                    searchController.getAllProductsV2EquipmentType(
+                    searchController.getAllProductsV2EquipmentTypeSort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -388,7 +388,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Size',
                   onTap: () {
-                    searchController.getAllProductsSize(
+                    searchController.getAllProductsSizeSort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -412,7 +412,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Description Application',
                   onTap: () {
-                    searchController.getAllProductsDescriptionApplication(
+                    searchController.getAllProductsDescriptionApplicationSort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -454,7 +454,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Catalogue Number',
                   onTap: () {
-                    searchController.getAllProductsV2CatalogueNumber(
+                    searchController.getAllProductsV2CatalogueNumberSort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -462,7 +462,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Makes',
                   onTap: () {
-                    searchController.getAllProductsMakes(
+                    searchController.getAllProductsMakesSort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -470,7 +470,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Equipment Type',
                   onTap: () {
-                    searchController.getAllProductsV2EquipmentType(
+                    searchController.getAllProductsV2EquipmentTypeSort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -478,7 +478,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Models',
                   onTap: () {
-                    searchController.getAllProductsV2Models(
+                    searchController.getAllProductsV2ModelsSort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -486,7 +486,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'OEM Part Number',
                   onTap: () {
-                    searchController.getAllProductsOEMPartNumber(
+                    searchController.getAllProductsOEMPartNumberSort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -494,7 +494,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Core Type',
                   onTap: () {
-                    searchController.getAllProductsIndustry(
+                    searchController.getAllProductsIndustrySort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -510,7 +510,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'OVER TANK DIMENSION "A"',
                   onTap: () {
-                    searchController.getAllProductsDescriptionApplication(
+                    searchController.getAllProductsDescriptionApplicationSort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -553,9 +553,10 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Catalogue Number',
                   onTap: () {
-                    searchController.getAllProductsV2CatalogueNumberSpecialSeal(
-                      categoryProducts: argument.flow ?? '',
-                    );
+                    searchController
+                        .getAllProductsV2CatalogueNumberSortSpecialSeal(
+                          categoryProducts: argument.flow ?? '',
+                        );
                   },
                 ),
                 tableHeader(
@@ -569,15 +570,16 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Equipment Type',
                   onTap: () {
-                    searchController.getAllProductsV2EquipmentTypeSpecialSeal(
-                      categoryProducts: argument.flow ?? '',
-                    );
+                    searchController
+                        .getAllProductsV2EquipmentTypeSortSpecialSeal(
+                          categoryProducts: argument.flow ?? '',
+                        );
                   },
                 ),
                 tableHeader(
                   title: 'Models',
                   onTap: () {
-                    searchController.getAllProductsV2ModelsSpecialSeal(
+                    searchController.getAllProductsV2ModelsSortSpecialSeal(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -585,7 +587,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'OEM Part Number',
                   onTap: () {
-                    searchController.getAllProductsOEMPartNumberSpecialSeal(
+                    searchController.getAllProductsOEMPartNumberSortSpecialSeal(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -593,7 +595,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Seal type',
                   onTap: () {
-                    searchController.getAllProductsIndustrySpecialSeal(
+                    searchController.getAllProductsIndustrySortSpecialSeal(
                       categoryProducts: argument.flow ?? '',
                     );
                   },

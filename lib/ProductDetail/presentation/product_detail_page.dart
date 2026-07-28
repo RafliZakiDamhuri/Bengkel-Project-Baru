@@ -380,7 +380,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               const SizedBox(height: 80),
 
               GestureDetector(
-                onTap: () {},
+                onTap: () async {
+                  await controller.sendEmail(controller.productModelSingle);
+                },
 
                 child: Container(
                   width: 280,
@@ -458,7 +460,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               const SizedBox(height: 80),
 
               GestureDetector(
-                onTap: () {},
+                onTap: () async {
+                  await controller.sendEmail(controller.productModelSingle);
+                },
 
                 child: Container(
                   width: 280,
@@ -546,7 +550,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               const SizedBox(height: 80),
 
               GestureDetector(
-                onTap: () {},
+                onTap: () async {
+                  await controller.sendEmail(controller.productModelSingle);
+                },
 
                 child: Container(
                   width: 280,
@@ -610,109 +616,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    /// KIRI
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        data(controller),
-                        // ProductDetailTitle(
-                        //   title1: 'Catalog Number',
-                        //   title2:
-                        //       controller.productModelSingle?.catalogueNumber ??
-                        //       '',
-                        // ),
-                        // ProductDetailTitle(title1: 'Makes', title2: 'Komatsu'),
-                        // ProductDetailTitle(
-                        //   title1: 'Equipment Type',
-                        //   title2:
-                        //       controller.productModelSingle?.equipmentType ??
-                        //       '',
-                        // ),
-                        // ProductDetailTitle(
-                        //   title1: 'Models',
-                        //   title2: controller.productModelSingle?.models ?? '',
-                        // ),
-                        // ProductDetailTitle(
-                        //   title1: 'Industry',
-                        //   title2: controller.productModelSingle?.industry ?? '',
-                        // ),
-                        // ProductDetailTitle(
-                        //   title1: 'OEM Part Number',
-                        //   title2:
-                        //       controller.productModelSingle?.oemPartNumber ??
-                        //       '',
-                        // ),
-                        // ProductDetailTitle(
-                        //   title1: 'Product Type',
-                        //   title2:
-                        //       controller.productModelSingle?.productType ?? '',
-                        // ),
-                        // ProductDetailTitle(
-                        //   title1: 'Product Type Design',
-                        //   title2:
-                        //       controller
-                        //           .productModelSingle
-                        //           ?.productTypeDesign ??
-                        //       '',
-                        // ),
-                        // ProductDetailTitle(
-                        //   title1: 'Material Type',
-                        //   title2:
-                        //       controller.productModelSingle?.materialType ?? '',
-                        // ),
-                        // ProductDetailTitle(
-                        //   title1: 'Description / Application',
-                        //   title2:
-                        //       controller
-                        //           .productModelSingle
-                        //           ?.descriptionApplication ??
-                        //       '',
-                        // ),
-
-                        // const SizedBox(height: 80),
-
-                        // GestureDetector(
-                        //   onTap: () {
-                        //     Get.toNamed(AppRouteName.searchProduct);
-                        //   },
-
-                        //   child: Container(
-                        //     width: 280,
-                        //     height: 67,
-                        //     decoration: BoxDecoration(
-                        //       image: DecorationImage(
-                        //         image: AssetImage(
-                        //           'assets/images/Rectangle 48_result.webp',
-                        //         ),
-                        //       ),
-                        //     ),
-                        //     child: Row(
-                        //       mainAxisAlignment: MainAxisAlignment.center,
-                        //       children: [
-                        //         Text(
-                        //           'REQUEST A QUOTE',
-                        //           style: whiteTextStyle.copyWith(
-                        //             fontSize: 14,
-                        //             fontWeight: bold,
-                        //           ),
-                        //         ),
-                        //         SizedBox(width: 8),
-                        //         Container(
-                        //           width: 20,
-                        //           height: 17,
-                        //           decoration: BoxDecoration(
-                        //             image: DecorationImage(
-                        //               image: AssetImage(
-                        //                 'assets/images/Logo-SHop 1_result.webp',
-                        //               ),
-                        //             ),
-                        //           ),
-                        //         ),
-                        //       ],
-                        //     ),
-                        //   ),
-                        // ),
-                      ],
+                      children: [data(controller)],
                     ),
 
                     const SizedBox(width: 120),
@@ -795,6 +701,16 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     ),
                   ],
                 ),
+                SizedBox(height: 40),
+
+                Text(
+                  'VARIATION RELATED TO $headerTitle',
+                  style: blackTextStyle.copyWith(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 10),
 
                 (titleCategory == 'Radiators and Coolers')
                     ? buildTableRadiatorAndCoolers(controller.productModel)

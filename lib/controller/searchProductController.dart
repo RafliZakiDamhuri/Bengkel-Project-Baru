@@ -440,6 +440,20 @@ class Searchproductcontroller extends GetxController {
     }
   }
 
+  Future<void> getAllProductsMakesSort({
+    required String categoryProducts,
+  }) async {
+    try {
+      productModel.sort((a, b) {
+        return (a.makes ?? '').compareTo(b.makes ?? '');
+      });
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
   Future<void> getProductsByCategory({required String category}) async {
     final response = await supabase
         .from('products')
@@ -524,6 +538,262 @@ class Searchproductcontroller extends GetxController {
       productModel = (response as List)
           .map((e) => ProductModel.fromJson(e))
           .toList();
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsV2CatalogueNumberSort({
+    required String categoryProducts,
+  }) async {
+    try {
+      productModel.sort((a, b) {
+        return (a.catalogueNumber ?? '').compareTo(b.catalogueNumber ?? '');
+      });
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsV2CatalogueNumberSortSpecialSeal({
+    required String categoryProducts,
+  }) async {
+    try {
+      productModelSealSpecial.sort((a, b) {
+        return (a.catalogueNumber ?? '').compareTo(b.catalogueNumber ?? '');
+      });
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsSizeSort({
+    required String categoryProducts,
+  }) async {
+    try {
+      productModel.sort((a, b) {
+        return (a.size ?? '').compareTo(b.size ?? '');
+      });
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsSizeSortSpecialSeal({
+    required String categoryProducts,
+  }) async {
+    try {
+      productModelSealSpecial.sort((a, b) {
+        return (a.size ?? '').compareTo(b.size ?? '');
+      });
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsV2EquipmentTypeSort({
+    required String categoryProducts,
+  }) async {
+    try {
+      productModel.sort((a, b) {
+        return (a.equipmentType ?? '').compareTo(b.equipmentType ?? '');
+      });
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsV2ModelsSort({
+    required String categoryProducts,
+  }) async {
+    try {
+      productModel.sort((a, b) {
+        return (a.models ?? '').compareTo(b.models ?? '');
+      });
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsOEMPartNumberSort({
+    required String categoryProducts,
+  }) async {
+    try {
+      productModel.sort((a, b) {
+        return (a.oemPartNumber ?? '').compareTo(b.oemPartNumber ?? '');
+      });
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsOEMPartNumberSortSpecialSeal({
+    required String categoryProducts,
+  }) async {
+    try {
+      productModelSealSpecial.sort((a, b) {
+        return (a.oemPartNumber ?? '').compareTo(b.oemPartNumber ?? '');
+      });
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsIndustrySort({
+    required String categoryProducts,
+  }) async {
+    try {
+      productModel.sort((a, b) {
+        return (a.industry ?? '').compareTo(b.industry ?? '');
+      });
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsIndustrySortSpecialSeal({
+    required String categoryProducts,
+  }) async {
+    try {
+      productModelSealSpecial.sort((a, b) {
+        return (a.industry ?? '').compareTo(b.industry ?? '');
+      });
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsProductTypeSort({
+    required String categoryProducts,
+  }) async {
+    try {
+      productModel.sort((a, b) {
+        return (a.productType ?? '').compareTo(b.productType ?? '');
+      });
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsProductTypeSortSpecialSeal({
+    required String categoryProducts,
+  }) async {
+    try {
+      productModelSealSpecial.sort((a, b) {
+        return (a.productType ?? '').compareTo(b.productType ?? '');
+      });
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsProductTypeDesignSort({
+    required String categoryProducts,
+  }) async {
+    try {
+      productModel.sort((a, b) {
+        return (a.productType ?? '').compareTo(b.productType ?? '');
+      });
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsProductTypeDesignSortSpecialSeal({
+    required String categoryProducts,
+  }) async {
+    try {
+      productModelSealSpecial.sort((a, b) {
+        return (a.productType ?? '').compareTo(b.productType ?? '');
+      });
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsDescriptionApplicationSort({
+    required String categoryProducts,
+  }) async {
+    try {
+      productModel.sort((a, b) {
+        return (a.descriptionApplication ?? '').compareTo(
+          b.descriptionApplication ?? '',
+        );
+      });
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsDescriptionApplicationSpecialSeal({
+    required String categoryProducts,
+  }) async {
+    try {
+      productModelSealSpecial.sort((a, b) {
+        return (a.descriptionApplication ?? '').compareTo(
+          b.descriptionApplication ?? '',
+        );
+      });
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsV2EquipmentTypeSortSpecialSeal({
+    required String categoryProducts,
+  }) async {
+    try {
+      productModelSealSpecial.sort((a, b) {
+        return (a.equipmentType ?? '').compareTo(b.equipmentType ?? '');
+      });
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsV2ModelsSortSpecialSeal({
+    required String categoryProducts,
+  }) async {
+    try {
+      productModelSealSpecial.sort((a, b) {
+        return (a.models ?? '').compareTo(b.models ?? '');
+      });
 
       update();
     } catch (e) {
