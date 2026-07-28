@@ -333,7 +333,7 @@ class _GlobalappbarState extends State<Globalappbar> {
 
                         GestureDetector(
                           onTap: () {
-                            Get.toNamed(AppRouteName.register);
+                            Get.toNamed(AppRouteName.aboutUs);
 
                             // Get.toNamed(AppRouteName.aboutUs);
                           },

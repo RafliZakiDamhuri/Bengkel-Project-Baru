@@ -33,7 +33,11 @@ class AppPages {
       page: () => const RegisterPage(),
       middlewares: [AuthMiddleware()],
     ),
-    GetPage(name: AppRouteName.cms, page: () => CmsPage()),
+    GetPage(
+      name: AppRouteName.cms,
+      page: () => CmsPage(),
+      middlewares: [AuthMiddleware()],
+    ),
     GetPage(name: AppRouteName.editData, page: () => EditData()),
     GetPage(
       name: AppRouteName.productDetailPage,
