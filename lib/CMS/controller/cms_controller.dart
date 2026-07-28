@@ -26,6 +26,7 @@ class CmsController extends GetxController {
   final applicationController = TextEditingController();
   final sizeController = TextEditingController();
   final pressureRatinController = TextEditingController();
+
   String? categoryTypeData;
   final sealTypeController = TextEditingController();
   final overTankController = TextEditingController();
@@ -34,6 +35,9 @@ class CmsController extends GetxController {
   String? imageName;
   String? imageUrl;
 
+  List<ProductModel> filteredProductModel = [];
+
+  final searchCatalogueController = TextEditingController();
   final supabase = Supabase.instance.client;
   List<ProductModel> productModel = [];
   ProductModel? productModelSingle;
@@ -201,6 +205,7 @@ class CmsController extends GetxController {
           .eq('id', id);
       Get.snackbar('Success', 'Product updated successfully');
       await getAllData(categoryTypeData: categoryTypeData);
+
       cleanTextEditingController();
       if (categoryTypeData == AppString().radiatorAndCoolers) {
         sidebarController.selectIndex(6);
@@ -352,6 +357,8 @@ class CmsController extends GetxController {
       productModel = (response as List)
           .map((e) => ProductModel.fromJson(e))
           .toList();
+      filteredProductModel = List.from(productModel);
+      searchCatalogueController.clear();
       await Future.delayed(Duration(seconds: 3));
       isLoading = false;
       update();
@@ -363,6 +370,32 @@ class CmsController extends GetxController {
     }
   }
 
+  void searchByCatalogue(String keyword) {
+    if (keyword.trim().isEmpty) {
+      filteredProductModel = List.from(productModel);
+    } else {
+      filteredProductModel = productModel.where((item) {
+        if (categoryTypeData == AppString().radiatorCapAndAdapters) {
+          return (item.partNumber ?? "").toLowerCase().contains(
+            keyword.toLowerCase(),
+          );
+        }
+
+        return (item.catalogueNumber ?? "").toLowerCase().contains(
+          keyword.toLowerCase(),
+        );
+      }).toList();
+    }
+
+    update();
+  }
+
+  void clearSearch() {
+    searchCatalogueController.clear();
+    filteredProductModel = List.from(productModel);
+    update();
+  }
+
   Future<void> deleteProduct(int id) async {
     try {
       print('id ; $id');
@@ -371,6 +404,7 @@ class CmsController extends GetxController {
       Get.snackbar('Success', 'Product deleted successfully');
 
       await getAllData(categoryTypeData: categoryTypeData);
+
       update();
     } catch (e) {
       Get.snackbar('Error', 'Failed to delete product: $e');

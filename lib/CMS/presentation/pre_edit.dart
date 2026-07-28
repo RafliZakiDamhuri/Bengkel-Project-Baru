@@ -410,6 +410,24 @@ class _PreEditState extends State<PreEdit> {
       );
     }
 
+    Widget searchField() {
+      return Container(
+        width: 400,
+        margin: const EdgeInsets.symmetric(vertical: 20),
+        child: TextField(
+          controller: cmsController.searchCatalogueController,
+          onChanged: (value) {
+            cmsController.searchByCatalogue(value);
+          },
+          decoration: InputDecoration(
+            hintText: 'Cari Data',
+            prefixIcon: const Icon(Icons.search),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+          ),
+        ),
+      );
+    }
+
     Widget buildTableRadiatorAndCap(List<ProductModel> data) {
       return CustomProductTable(
         columns: [
@@ -535,21 +553,30 @@ class _PreEditState extends State<PreEdit> {
                       widget.titleCategory,
                       style: blackTextStyle.copyWith(fontSize: 30),
                     ),
+                    searchField(),
+
+                    SizedBox(height: 20),
                     (controller.isLoading == true)
                         ? loading()
                         : (widget.titleCategory ==
                               AppString().radiatorAndCoolers)
-                        ? buildTableRadiatorAndCoolers(controller.productModel)
+                        ? buildTableRadiatorAndCoolers(
+                            controller.filteredProductModel,
+                          )
                         : (widget.titleCategory ==
                               AppString().radiatorCapAndAdapters)
-                        ? buildTableRadiatorAndCap(controller.productModel)
+                        ? buildTableRadiatorAndCap(
+                            controller.filteredProductModel,
+                          )
                         : (widget.titleCategory ==
                               AppString().caterpillarRadiatorCore)
                         ? buildTableCaterpillarRadiatorCore(
-                            controller.productModel,
+                            controller.filteredProductModel,
                           )
                         : (widget.titleCategory == AppString().caterpilarTube)
-                        ? buildTableCaterpillarTube(controller.productModel)
+                        ? buildTableCaterpillarTube(
+                            controller.filteredProductModel,
+                          )
                         : Container(),
                   ],
                 ),
