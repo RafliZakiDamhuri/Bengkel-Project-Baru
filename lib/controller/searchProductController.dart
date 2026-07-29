@@ -445,8 +445,17 @@ class Searchproductcontroller extends GetxController {
   }) async {
     try {
       productModel.sort((a, b) {
-        return (a.makes ?? '').compareTo(b.makes ?? '');
+        if (isSort) {
+          // Ascending (A-Z)
+          return (a.makes ?? '').compareTo(b.makes ?? '');
+        } else {
+          // Descending (Z-A)
+          return (b.makes ?? '').compareTo(a.makes ?? '');
+        }
       });
+
+      // Ubah mode sort untuk klik berikutnya
+      isSort = !isSort;
 
       update();
     } catch (e) {
@@ -465,6 +474,29 @@ class Searchproductcontroller extends GetxController {
         .toList();
 
     update();
+  }
+
+  Future<void> getAllProductsMakesSortSpecial({
+    required String categoryProducts,
+  }) async {
+    try {
+      productModel.sort((a, b) {
+        if (isSortSpesial) {
+          // Ascending (A-Z)
+          return (a.makes ?? '').compareTo(b.makes ?? '');
+        } else {
+          // Descending (Z-A)
+          return (b.makes ?? '').compareTo(a.makes ?? '');
+        }
+      });
+
+      // Ubah mode sort untuk klik berikutnya
+      isSortSpesial = !isSortSpesial;
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
   }
 
   Future<void> getAllProductsMakesSpecial({
@@ -498,6 +530,29 @@ class Searchproductcontroller extends GetxController {
       productModel = (response as List)
           .map((e) => ProductModel.fromJson(e))
           .toList();
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsPersureRatingSort({
+    required String categoryProducts,
+  }) async {
+    try {
+      productModel.sort((a, b) {
+        if (isSort) {
+          // Ascending (A-Z)
+          return (a.pressureRating ?? '').compareTo(b.pressureRating ?? '');
+        } else {
+          // Descending (Z-A)
+          return (b.pressureRating ?? '').compareTo(a.pressureRating ?? '');
+        }
+      });
+
+      // Ubah mode sort untuk klik berikutnya
+      isSort = !isSort;
 
       update();
     } catch (e) {
@@ -545,13 +600,47 @@ class Searchproductcontroller extends GetxController {
     }
   }
 
+  bool isSort = true;
+  bool isSortSpesial = true;
   Future<void> getAllProductsV2CatalogueNumberSort({
     required String categoryProducts,
   }) async {
     try {
       productModel.sort((a, b) {
-        return (a.catalogueNumber ?? '').compareTo(b.catalogueNumber ?? '');
+        if (isSort) {
+          // Ascending (A-Z)
+          return (a.catalogueNumber ?? '').compareTo(b.catalogueNumber ?? '');
+        } else {
+          // Descending (Z-A)
+          return (b.catalogueNumber ?? '').compareTo(a.catalogueNumber ?? '');
+        }
       });
+
+      // Ubah mode sort untuk klik berikutnya
+      isSort = !isSort;
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsV2PartNumberSort({
+    required String categoryProducts,
+  }) async {
+    try {
+      productModel.sort((a, b) {
+        if (isSort) {
+          // Ascending (A-Z)
+          return (a.partNumber ?? '').compareTo(b.partNumber ?? '');
+        } else {
+          // Descending (Z-A)
+          return (b.partNumber ?? '').compareTo(a.partNumber ?? '');
+        }
+      });
+
+      // Ubah mode sort untuk klik berikutnya
+      isSort = !isSort;
 
       update();
     } catch (e) {
@@ -563,9 +652,18 @@ class Searchproductcontroller extends GetxController {
     required String categoryProducts,
   }) async {
     try {
-      productModelSealSpecial.sort((a, b) {
-        return (a.catalogueNumber ?? '').compareTo(b.catalogueNumber ?? '');
+      productModel.sort((a, b) {
+        if (isSortSpesial) {
+          // Ascending (A-Z)
+          return (a.catalogueNumber ?? '').compareTo(b.catalogueNumber ?? '');
+        } else {
+          // Descending (Z-A)
+          return (b.catalogueNumber ?? '').compareTo(a.catalogueNumber ?? '');
+        }
       });
+
+      // Ubah mode sort untuk klik berikutnya
+      isSortSpesial = !isSortSpesial;
 
       update();
     } catch (e) {
@@ -578,8 +676,17 @@ class Searchproductcontroller extends GetxController {
   }) async {
     try {
       productModel.sort((a, b) {
-        return (a.size ?? '').compareTo(b.size ?? '');
+        if (isSort) {
+          // Ascending (A-Z)
+          return (a.size ?? '').compareTo(b.size ?? '');
+        } else {
+          // Descending (Z-A)
+          return (b.size ?? '').compareTo(a.size ?? '');
+        }
       });
+
+      // Ubah mode sort untuk klik berikutnya
+      isSort = !isSort;
 
       update();
     } catch (e) {
@@ -591,9 +698,18 @@ class Searchproductcontroller extends GetxController {
     required String categoryProducts,
   }) async {
     try {
-      productModelSealSpecial.sort((a, b) {
-        return (a.size ?? '').compareTo(b.size ?? '');
+      productModel.sort((a, b) {
+        if (isSortSpesial) {
+          // Ascending (A-Z)
+          return (a.size ?? '').compareTo(b.size ?? '');
+        } else {
+          // Descending (Z-A)
+          return (b.size ?? '').compareTo(a.size ?? '');
+        }
       });
+
+      // Ubah mode sort untuk klik berikutnya
+      isSortSpesial = !isSortSpesial;
 
       update();
     } catch (e) {
@@ -606,8 +722,17 @@ class Searchproductcontroller extends GetxController {
   }) async {
     try {
       productModel.sort((a, b) {
-        return (a.equipmentType ?? '').compareTo(b.equipmentType ?? '');
+        if (isSort) {
+          // Ascending (A-Z)
+          return (a.equipmentType ?? '').compareTo(b.equipmentType ?? '');
+        } else {
+          // Descending (Z-A)
+          return (b.equipmentType ?? '').compareTo(a.equipmentType ?? '');
+        }
       });
+
+      // Ubah mode sort untuk klik berikutnya
+      isSort = !isSort;
 
       update();
     } catch (e) {
@@ -620,8 +745,17 @@ class Searchproductcontroller extends GetxController {
   }) async {
     try {
       productModel.sort((a, b) {
-        return (a.models ?? '').compareTo(b.models ?? '');
+        if (isSort) {
+          // Ascending (A-Z)
+          return (a.models ?? '').compareTo(b.models ?? '');
+        } else {
+          // Descending (Z-A)
+          return (b.models ?? '').compareTo(a.models ?? '');
+        }
       });
+
+      // Ubah mode sort untuk klik berikutnya
+      isSort = !isSort;
 
       update();
     } catch (e) {
@@ -634,8 +768,17 @@ class Searchproductcontroller extends GetxController {
   }) async {
     try {
       productModel.sort((a, b) {
-        return (a.oemPartNumber ?? '').compareTo(b.oemPartNumber ?? '');
+        if (isSort) {
+          // Ascending (A-Z)
+          return (a.oemPartNumber ?? '').compareTo(b.oemPartNumber ?? '');
+        } else {
+          // Descending (Z-A)
+          return (b.oemPartNumber ?? '').compareTo(a.oemPartNumber ?? '');
+        }
       });
+
+      // Ubah mode sort untuk klik berikutnya
+      isSort = !isSort;
 
       update();
     } catch (e) {
@@ -647,9 +790,18 @@ class Searchproductcontroller extends GetxController {
     required String categoryProducts,
   }) async {
     try {
-      productModelSealSpecial.sort((a, b) {
-        return (a.oemPartNumber ?? '').compareTo(b.oemPartNumber ?? '');
+      productModel.sort((a, b) {
+        if (isSortSpesial) {
+          // Ascending (A-Z)
+          return (a.oemPartNumber ?? '').compareTo(b.oemPartNumber ?? '');
+        } else {
+          // Descending (Z-A)
+          return (b.oemPartNumber ?? '').compareTo(a.oemPartNumber ?? '');
+        }
       });
+
+      // Ubah mode sort untuk klik berikutnya
+      isSortSpesial = !isSortSpesial;
 
       update();
     } catch (e) {
@@ -662,8 +814,17 @@ class Searchproductcontroller extends GetxController {
   }) async {
     try {
       productModel.sort((a, b) {
-        return (a.industry ?? '').compareTo(b.industry ?? '');
+        if (isSort) {
+          // Ascending (A-Z)
+          return (a.industry ?? '').compareTo(b.industry ?? '');
+        } else {
+          // Descending (Z-A)
+          return (b.industry ?? '').compareTo(a.industry ?? '');
+        }
       });
+
+      // Ubah mode sort untuk klik berikutnya
+      isSort = !isSort;
 
       update();
     } catch (e) {
@@ -675,9 +836,18 @@ class Searchproductcontroller extends GetxController {
     required String categoryProducts,
   }) async {
     try {
-      productModelSealSpecial.sort((a, b) {
-        return (a.industry ?? '').compareTo(b.industry ?? '');
+      productModel.sort((a, b) {
+        if (isSortSpesial) {
+          // Ascending (A-Z)
+          return (a.industry ?? '').compareTo(b.industry ?? '');
+        } else {
+          // Descending (Z-A)
+          return (b.industry ?? '').compareTo(a.industry ?? '');
+        }
       });
+
+      // Ubah mode sort untuk klik berikutnya
+      isSortSpesial = !isSortSpesial;
 
       update();
     } catch (e) {
@@ -690,8 +860,17 @@ class Searchproductcontroller extends GetxController {
   }) async {
     try {
       productModel.sort((a, b) {
-        return (a.productType ?? '').compareTo(b.productType ?? '');
+        if (isSort) {
+          // Ascending (A-Z)
+          return (a.productType ?? '').compareTo(b.productType ?? '');
+        } else {
+          // Descending (Z-A)
+          return (b.productType ?? '').compareTo(a.productType ?? '');
+        }
       });
+
+      // Ubah mode sort untuk klik berikutnya
+      isSort = !isSort;
 
       update();
     } catch (e) {
@@ -703,9 +882,18 @@ class Searchproductcontroller extends GetxController {
     required String categoryProducts,
   }) async {
     try {
-      productModelSealSpecial.sort((a, b) {
-        return (a.productType ?? '').compareTo(b.productType ?? '');
+      productModel.sort((a, b) {
+        if (isSortSpesial) {
+          // Ascending (A-Z)
+          return (a.productType ?? '').compareTo(b.productType ?? '');
+        } else {
+          // Descending (Z-A)
+          return (b.productType ?? '').compareTo(a.productType ?? '');
+        }
       });
+
+      // Ubah mode sort untuk klik berikutnya
+      isSortSpesial = !isSortSpesial;
 
       update();
     } catch (e) {
@@ -718,8 +906,21 @@ class Searchproductcontroller extends GetxController {
   }) async {
     try {
       productModel.sort((a, b) {
-        return (a.productType ?? '').compareTo(b.productType ?? '');
+        if (isSort) {
+          // Ascending (A-Z)
+          return (a.productTypeDesign ?? '').compareTo(
+            b.productTypeDesign ?? '',
+          );
+        } else {
+          // Descending (Z-A)
+          return (b.productTypeDesign ?? '').compareTo(
+            a.productTypeDesign ?? '',
+          );
+        }
       });
+
+      // Ubah mode sort untuk klik berikutnya
+      isSort = !isSort;
 
       update();
     } catch (e) {
@@ -731,9 +932,18 @@ class Searchproductcontroller extends GetxController {
     required String categoryProducts,
   }) async {
     try {
-      productModelSealSpecial.sort((a, b) {
-        return (a.productType ?? '').compareTo(b.productType ?? '');
+      productModel.sort((a, b) {
+        if (isSortSpesial) {
+          // Ascending (A-Z)
+          return (a.productType ?? '').compareTo(b.productType ?? '');
+        } else {
+          // Descending (Z-A)
+          return (b.productType ?? '').compareTo(a.productType ?? '');
+        }
       });
+
+      // Ubah mode sort untuk klik berikutnya
+      isSortSpesial = !isSortSpesial;
 
       update();
     } catch (e) {
@@ -746,10 +956,21 @@ class Searchproductcontroller extends GetxController {
   }) async {
     try {
       productModel.sort((a, b) {
-        return (a.descriptionApplication ?? '').compareTo(
-          b.descriptionApplication ?? '',
-        );
+        if (isSort) {
+          // Ascending (A-Z)
+          return (a.descriptionApplication ?? '').compareTo(
+            b.descriptionApplication ?? '',
+          );
+        } else {
+          // Descending (Z-A)
+          return (b.descriptionApplication ?? '').compareTo(
+            a.descriptionApplication ?? '',
+          );
+        }
       });
+
+      // Ubah mode sort untuk klik berikutnya
+      isSort = !isSort;
 
       update();
     } catch (e) {
@@ -761,11 +982,22 @@ class Searchproductcontroller extends GetxController {
     required String categoryProducts,
   }) async {
     try {
-      productModelSealSpecial.sort((a, b) {
-        return (a.descriptionApplication ?? '').compareTo(
-          b.descriptionApplication ?? '',
-        );
+      productModel.sort((a, b) {
+        if (isSortSpesial) {
+          // Ascending (A-Z)
+          return (a.descriptionApplication ?? '').compareTo(
+            b.descriptionApplication ?? '',
+          );
+        } else {
+          // Descending (Z-A)
+          return (b.descriptionApplication ?? '').compareTo(
+            a.descriptionApplication ?? '',
+          );
+        }
       });
+
+      // Ubah mode sort untuk klik berikutnya
+      isSortSpesial = !isSortSpesial;
 
       update();
     } catch (e) {
@@ -777,9 +1009,18 @@ class Searchproductcontroller extends GetxController {
     required String categoryProducts,
   }) async {
     try {
-      productModelSealSpecial.sort((a, b) {
-        return (a.equipmentType ?? '').compareTo(b.equipmentType ?? '');
+      productModel.sort((a, b) {
+        if (isSortSpesial) {
+          // Ascending (A-Z)
+          return (a.equipmentType ?? '').compareTo(b.equipmentType ?? '');
+        } else {
+          // Descending (Z-A)
+          return (b.equipmentType ?? '').compareTo(a.equipmentType ?? '');
+        }
       });
+
+      // Ubah mode sort untuk klik berikutnya
+      isSort = !isSort;
 
       update();
     } catch (e) {
@@ -791,9 +1032,18 @@ class Searchproductcontroller extends GetxController {
     required String categoryProducts,
   }) async {
     try {
-      productModelSealSpecial.sort((a, b) {
-        return (a.models ?? '').compareTo(b.models ?? '');
+      productModel.sort((a, b) {
+        if (isSortSpesial) {
+          // Ascending (A-Z)
+          return (a.models ?? '').compareTo(b.models ?? '');
+        } else {
+          // Descending (Z-A)
+          return (b.models ?? '').compareTo(a.models ?? '');
+        }
       });
+
+      // Ubah mode sort untuk klik berikutnya
+      isSortSpesial = !isSortSpesial;
 
       update();
     } catch (e) {
@@ -805,15 +1055,18 @@ class Searchproductcontroller extends GetxController {
     required String categoryProducts,
   }) async {
     try {
-      final response = await Supabase.instance.client
-          .from('products')
-          .select('*')
-          .eq('category_products', categoryProducts)
-          .order('catalogue_number', ascending: true);
+      productModel.sort((a, b) {
+        if (isSortSpesial) {
+          // Ascending (A-Z)
+          return (a.catalogueNumber ?? '').compareTo(b.catalogueNumber ?? '');
+        } else {
+          // Descending (Z-A)
+          return (b.catalogueNumber ?? '').compareTo(a.catalogueNumber ?? '');
+        }
+      });
 
-      productModelSealSpecial = (response as List)
-          .map((e) => ProductModel.fromJson(e))
-          .toList();
+      // Ubah mode sort untuk klik berikutnya
+      isSortSpesial = !isSortSpesial;
 
       update();
     } catch (e) {
@@ -845,15 +1098,18 @@ class Searchproductcontroller extends GetxController {
     required String categoryProducts,
   }) async {
     try {
-      final response = await Supabase.instance.client
-          .from('products')
-          .select('*')
-          .eq('category_products', categoryProducts)
-          .order('equipment_type', ascending: true);
+      productModel.sort((a, b) {
+        if (isSortSpesial) {
+          // Ascending (A-Z)
+          return (a.equipmentType ?? '').compareTo(b.equipmentType ?? '');
+        } else {
+          // Descending (Z-A)
+          return (b.equipmentType ?? '').compareTo(a.equipmentType ?? '');
+        }
+      });
 
-      productModelSealSpecial = (response as List)
-          .map((e) => ProductModel.fromJson(e))
-          .toList();
+      // Ubah mode sort untuk klik berikutnya
+      isSortSpesial = !isSortSpesial;
 
       update();
     } catch (e) {
@@ -981,7 +1237,44 @@ class Searchproductcontroller extends GetxController {
     }
   }
 
-  Future<void> getAllProductsMaterialTypeSpesial({
+  Future<void> getAllProductsMaterialTypeSort({
+    required String categoryProducts,
+  }) async {
+    try {
+      productModel.sort((a, b) {
+        return (a.materialType ?? '').compareTo(b.materialType ?? '');
+      });
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsMaterialTypeSortSpecial({
+    required String categoryProducts,
+  }) async {
+    try {
+      productModel.sort((a, b) {
+        if (isSortSpesial) {
+          // Ascending (A-Z)
+          return (a.materialType ?? '').compareTo(b.materialType ?? '');
+        } else {
+          // Descending (Z-A)
+          return (b.materialType ?? '').compareTo(a.materialType ?? '');
+        }
+      });
+
+      // Ubah mode sort untuk klik berikutnya
+      isSortSpesial = !isSortSpesial;
+
+      update();
+    } catch (e) {
+      print('Error getAllProducts: $e');
+    }
+  }
+
+  Future<void> getAllProductsMaterialTypeSpecial({
     required String categoryProducts,
   }) async {
     try {

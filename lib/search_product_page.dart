@@ -364,7 +364,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Part Number',
                   onTap: () {
-                    searchController.getAllProductsV2CatalogueNumberSort(
+                    searchController.getAllProductsV2PartNumberSort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -396,7 +396,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Pressure Rating',
                   onTap: () {
-                    searchController.getAllProductsPersureRating(
+                    searchController.getAllProductsPersureRatingSort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -404,7 +404,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Material',
                   onTap: () {
-                    searchController.getAllProductsMaterialType(
+                    searchController.getAllProductsMaterialTypeSort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -502,7 +502,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Material Type',
                   onTap: () {
-                    searchController.getAllProductsMaterialType(
+                    searchController.getAllProductsMaterialTypeSort(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -562,7 +562,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Makes',
                   onTap: () {
-                    searchController.getAllProductsMakesSpecial(
+                    searchController.getAllProductsMakesSortSpecial(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
@@ -603,7 +603,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                 tableHeader(
                   title: 'Material Type',
                   onTap: () {
-                    searchController.getAllProductsMaterialTypeSpesial(
+                    searchController.getAllProductsMaterialTypeSortSpecial(
                       categoryProducts: argument.flow ?? '',
                     );
                   },
