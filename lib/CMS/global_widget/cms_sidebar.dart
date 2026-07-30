@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart' show Get, GetNavigation, Inst;
+import 'package:project/Auth/controller/auth_controller.dart';
+import 'package:project/routes/routes_name.dart';
 import 'package:sidebarx/sidebarx.dart';
 
 class CmsSidebar extends StatelessWidget {
@@ -82,10 +85,20 @@ class CmsSidebar extends StatelessWidget {
 
           title: Text("Logout"),
 
-          onTap: () {},
+          onTap: () {
+            Get.find<AuthController>().logout();
+          },
         );
       },
-      items: const [
+      items: [
+        SidebarXItem(
+          icon: Icons.supervised_user_circle_sharp,
+          label: "Register User",
+          onTap: () {
+            Get.toNamed(AppRouteName.register);
+          },
+        ),
+
         SidebarXItem(icon: Icons.inventory, label: "Add Data"),
 
         SidebarXItem(icon: Icons.arrow_right, label: "   Radiators & Coolers"),

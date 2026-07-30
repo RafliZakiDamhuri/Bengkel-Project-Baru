@@ -51,6 +51,18 @@ class AuthController extends GetxController {
       Get.snackbar("Error", e.toString());
     }
   }
+
+  Future<void> logout() async {
+    try {
+      await authService.logout();
+
+      Get.offAllNamed(AppRouteName.login);
+    } on AuthException catch (e) {
+      Get.snackbar("Register gagal", e.message, backgroundColor: Colors.red);
+    } catch (e) {
+      Get.snackbar("Error", e.toString());
+    }
+  }
 }
 
 class AuthMiddleware extends GetMiddleware {

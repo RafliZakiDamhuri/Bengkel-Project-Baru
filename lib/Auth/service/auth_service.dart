@@ -13,6 +13,10 @@ class AuthService {
     );
   }
 
+  Future<void> logout() async {
+    await supabase.auth.signOut();
+  }
+
   Future<AuthResponse> register({
     required String email,
     required String password,
