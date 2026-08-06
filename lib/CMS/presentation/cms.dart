@@ -31,24 +31,23 @@ class CmsPage extends StatelessWidget {
                     index: controller.sidebarController.selectedIndex,
 
                     children: [
-                      Container(),
-                      Container(),
+                      Container(), //0 Register
 
-                      AddData(titleCategory: "Radiators and Coolers"),
+                      Container(), //1 Add Data
 
-                      AddData(titleCategory: "Radiator Cap and Adapter"),
+                      AddData(titleCategory: "Radiators and Coolers"), //2
+                      AddData(titleCategory: "Radiator Cap and Adapter"), //3
+                      AddData(titleCategory: AppString().caterpilarTube), //4
+                      AddData(titleCategory: "CATERPILLAR RADIATOR CORE"), //5
 
-                      AddData(titleCategory: AppString().caterpilarTube),
+                      Container(), //6 Edit Data
 
-                      AddData(titleCategory: "CATERPILLAR RADIATOR CORE"),
-
-                      Container(),
-                      PreEdit(titleCategory: "Radiators and Coolers"),
-                      PreEdit(titleCategory: "Radiator Cap and Adapter"),
-                      PreEdit(titleCategory: AppString().caterpilarTube),
+                      PreEdit(titleCategory: "Radiators and Coolers"), //7
+                      PreEdit(titleCategory: "Radiator Cap and Adapter"), //8
+                      PreEdit(titleCategory: AppString().caterpilarTube), //9
                       PreEdit(
                         titleCategory: AppString().caterpillarRadiatorCore,
-                      ),
+                      ), //10
                     ],
                   );
                 },

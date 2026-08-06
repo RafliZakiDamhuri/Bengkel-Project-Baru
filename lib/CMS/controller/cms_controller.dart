@@ -53,18 +53,18 @@ class CmsController extends GetxController {
       cleanTextEditingController();
       productModel = [];
       productModel.clear();
-      if (index == 6) {
-        await getAllData(categoryTypeData: AppString().radiatorAndCoolers);
+      if (index == 7) {
         categoryTypeData = AppString().radiatorAndCoolers;
-      } else if (index == 7) {
-        await getAllData(categoryTypeData: AppString().radiatorCapAndAdapters);
-        categoryTypeData = AppString().radiatorCapAndAdapters;
+        await getAllData(categoryTypeData: categoryTypeData);
       } else if (index == 8) {
-        await getAllData(categoryTypeData: AppString().caterpilarTube);
-        categoryTypeData = AppString().caterpilarTube;
+        categoryTypeData = AppString().radiatorCapAndAdapters;
+        await getAllData(categoryTypeData: categoryTypeData);
       } else if (index == 9) {
-        await getAllData(categoryTypeData: AppString().caterpillarRadiatorCore);
+        categoryTypeData = AppString().caterpilarTube;
+        await getAllData(categoryTypeData: categoryTypeData);
+      } else if (index == 10) {
         categoryTypeData = AppString().caterpillarRadiatorCore;
+        await getAllData(categoryTypeData: categoryTypeData);
       }
     });
   }
