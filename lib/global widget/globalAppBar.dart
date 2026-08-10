@@ -309,26 +309,38 @@ class _GlobalappbarState extends State<Globalappbar> {
                         HoverDropdownMenu(
                           title: AppString().appBar3,
 
-                          items: List.generate(
-                            homecontroller.categoryType.length,
+                          items: List.generate(homecontroller.categoryType.length, (
+                            index,
+                          ) {
+                            return HoverDropdownItem(
+                              title:
+                                  (homecontroller
+                                              .categoryType[index]
+                                              .camelCase ??
+                                          '')
+                                      .replaceAllMapped(
+                                        RegExp(r'([a-z])([A-Z])'),
+                                        (m) => '${m[1]} ${m[2]}',
+                                      )
+                                      .split(' ')
+                                      .map(
+                                        (e) =>
+                                            '${e[0].toUpperCase()}${e.substring(1)}',
+                                      )
+                                      .join(' '),
 
-                            (index) {
-                              return HoverDropdownItem(
-                                title: homecontroller.categoryType[index],
-
-                                onTap: () {
-                                  var searchController =
-                                      Get.find<Searchproductcontroller>();
-                                  searchController.productModel.clear();
-                                  searchController.clearText();
-                                  searchController.update();
-                                  Get.offNamed(
-                                    '${AppRouteName.searchProduct}?flow=${Uri.encodeComponent(homecontroller.categoryType[index])}',
-                                  );
-                                },
-                              );
-                            },
-                          ),
+                              onTap: () {
+                                var searchController =
+                                    Get.find<Searchproductcontroller>();
+                                searchController.productModel.clear();
+                                searchController.clearText();
+                                searchController.update();
+                                Get.offNamed(
+                                  '${AppRouteName.searchProduct}?flow=${Uri.encodeComponent(homecontroller.categoryType[index])}',
+                                );
+                              },
+                            );
+                          }),
                         ),
 
                         GestureDetector(

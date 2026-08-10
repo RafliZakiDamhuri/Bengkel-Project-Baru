@@ -160,7 +160,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
             child: DataTable(
               headingRowColor: WidgetStateProperty.all(darkGrey),
               dividerThickness: 2,
-              columnSpacing: 90,
+              columnSpacing: 30,
               columns: [
                 tableHeader(
                   title: 'Catalogue Number',
@@ -259,7 +259,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
             child: DataTable(
               headingRowColor: WidgetStateProperty.all(darkGrey),
               dividerThickness: 2,
-              columnSpacing: 90,
+              columnSpacing: 30,
               columns: [
                 tableHeader(
                   title: 'Catalogue Number',
@@ -359,7 +359,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
             child: DataTable(
               headingRowColor: WidgetStateProperty.all(darkGrey),
               dividerThickness: 2,
-              columnSpacing: 90,
+              columnSpacing: 30,
               columns: [
                 tableHeader(
                   title: 'Part Number',
@@ -449,7 +449,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
             child: DataTable(
               headingRowColor: WidgetStateProperty.all(darkGrey),
               dividerThickness: 2,
-              columnSpacing: 90,
+              columnSpacing: 30,
               columns: [
                 tableHeader(
                   title: 'Catalogue Number',
@@ -548,7 +548,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
             child: DataTable(
               headingRowColor: WidgetStateProperty.all(darkGrey),
               dividerThickness: 2,
-              columnSpacing: 90,
+              columnSpacing: 30,
               columns: [
                 tableHeader(
                   title: 'Catalogue Number',
