@@ -30,7 +30,7 @@ class CustomProductTable extends StatelessWidget {
                   dividerThickness: 2,
 
                   // Jarak antar kolom diperkecil
-                  columnSpacing: 16,
+                  columnSpacing: 5,
 
                   // Margin kiri-kanan table diperkecil
                   horizontalMargin: 8,
