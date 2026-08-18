@@ -31,7 +31,9 @@ class ServicesPage extends StatelessWidget {
 
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/Hero-Service 1_result.webp'),
+          image: AssetImage(
+            'assets/images/Indocool-Radiator-Cooling-System-Service-Repair 1.png',
+          ),
           fit: BoxFit.cover,
         ),
       ),
@@ -57,7 +59,7 @@ class ServicesPage extends StatelessWidget {
                     Container(
                       margin: EdgeInsets.only(left: 140),
                       child: Text(
-                        'Indocool can carry out minor repairs or complete overhauls to most makes\nand models of industrial cooling system components. Radiators, oil\ncoolers,and heat exchangers, within the mining, oil & gas, marine,\nindustrial power generation, and general industries.',
+                        'Indocool can carry out minor repairs or complete overhauls to most makes and\nmodels of industrial cooling system components. Radiators, oil coolers, and\nheat exchangers, within the mining, oil & gas, marine, industrial power\ngeneration, and general industries, and locomotive industry.',
                         style: whiteTextStyle.copyWith(
                           fontSize: 20,
                           fontWeight: medium,
@@ -145,19 +147,19 @@ class ServicesPage extends StatelessWidget {
         SizedBox(height: 60),
 
         ServicesImages(
-          title: 'Minor Repair Radiator',
+          title: 'Minor Repair Radiator Radiators and Coolers',
           imag: 'assets/images/04-Minor-Repair 1_result.webp',
           htmlData: AppString().minorRepair,
         ),
         SizedBox(height: 60),
         ServicesImages(
-          title: 'Major Repair Radiator',
+          title: 'Major Repair Radiator Radiators and Coolers',
           imag: 'assets/images/05-Major-Repair 1_result.webp',
           htmlData: AppString().majorRepair,
         ),
         SizedBox(height: 60),
         ServicesImages(
-          title: 'Complete Overhaul Radiator',
+          title: 'Complete Overhaul Radiator Radiators and Coolers',
           imag: 'assets/images/06-Overhaul-Repair 1_result.webp',
           htmlData: AppString().completeOverhaul,
         ),

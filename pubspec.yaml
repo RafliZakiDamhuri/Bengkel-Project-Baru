@@ -52,6 +52,7 @@ dependencies:
   sidebarx: ^0.17.2
   file_picker: ^11.0.2
   image_picker: ^1.2.3
+  outlined_text: ^1.0.1
 
 
 dev_dependencies:

@@ -31,10 +31,17 @@ class Homecontroller extends GetxController {
   }
 
   List<ServiceModel>? serviceModel;
-  Future getService() async {
+
+  Future<void> getService() async {
     serviceModel = [];
-    final response = await supabase.from('Services').select();
+
+    final response = await supabase
+        .from('Services')
+        .select()
+        .order('id', ascending: true);
+
     serviceModel = response.map((e) => ServiceModel.fromJson(e)).toList();
+
     update();
   }
 

@@ -15,6 +15,7 @@ import 'package:project/model/productModel.dart';
 import 'package:project/routes/routes_name.dart';
 import 'package:project/theme/string.dart';
 import 'package:project/theme/theme.dart';
+import 'package:sizer/sizer.dart';
 
 class ProductDetailPage extends StatefulWidget {
   const ProductDetailPage({super.key});
@@ -92,241 +93,295 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   }
 
   Widget buildTableRadiatorAndCoolers(List<ProductModel> data) {
-    return CustomProductTable(
-      columns: [
-        tableHeader(
-          title: 'Catalogue Number',
-          onTap: () {
-            searchController.getAllProductsV2CatalogueNumber(
-              categoryProducts: titleCategory,
-            );
-          },
+    return Container(
+      width: 80.w,
+      color: Colors.black,
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+      child: Center(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: DataTable(
+              headingRowColor: WidgetStateProperty.all(const Color(0xFFFF5A00)),
+              dataRowColor: WidgetStateProperty.all(Colors.white),
+              dividerThickness: 1,
+              columnSpacing: 30,
+
+              columns: [
+                tableHeader(
+                  title: 'Catalogue Number',
+                  onTap: () {
+                    searchController.getAllProductsV2CatalogueNumber(
+                      categoryProducts: titleCategory,
+                    );
+                  },
+                ),
+
+                tableHeader(title: 'Makes', onTap: () {}),
+
+                tableHeader(
+                  title: 'Equipment Type',
+                  onTap: () {
+                    searchController.getAllProductsV2EquipmentType(
+                      categoryProducts: titleCategory,
+                    );
+                  },
+                ),
+
+                tableHeader(
+                  title: 'Models',
+                  onTap: () {
+                    searchController.getAllProductsV2Models(
+                      categoryProducts: titleCategory,
+                    );
+                  },
+                ),
+
+                tableHeader(
+                  title: 'OEM Part Number',
+                  onTap: () {
+                    searchController.getAllProductsOEMPartNumber(
+                      categoryProducts: titleCategory,
+                    );
+                  },
+                ),
+
+                tableHeader(
+                  title: 'Industry',
+                  onTap: () {
+                    searchController.getAllProductsIndustry(
+                      categoryProducts: titleCategory,
+                    );
+                  },
+                ),
+
+                tableHeader(
+                  title: 'Product Type',
+                  onTap: () {
+                    searchController.getAllProductsProductType(
+                      categoryProducts: titleCategory,
+                    );
+                  },
+                ),
+              ],
+
+              rows: data.map((item) {
+                return DataRow(
+                  cells: [
+                    tableCell(item, item.catalogueNumber),
+                    tableCell(item, item.makes),
+                    tableCell(item, item.equipmentType),
+                    tableCell(item, item.models),
+                    tableCell(item, item.oemPartNumber),
+                    tableCell(item, item.industry),
+                    tableCell(item, item.productType),
+                  ],
+                );
+              }).toList(),
+            ),
+          ),
         ),
-
-        tableHeader(title: 'Makes', onTap: () {}),
-
-        tableHeader(
-          title: 'Equipment Type',
-          onTap: () {
-            searchController.getAllProductsV2EquipmentType(
-              categoryProducts: titleCategory,
-            );
-          },
-        ),
-
-        tableHeader(
-          title: 'Models',
-          onTap: () {
-            searchController.getAllProductsV2Models(
-              categoryProducts: titleCategory,
-            );
-          },
-        ),
-
-        tableHeader(
-          title: 'OEM Part Number',
-          onTap: () {
-            searchController.getAllProductsOEMPartNumber(
-              categoryProducts: titleCategory,
-            );
-          },
-        ),
-
-        tableHeader(
-          title: 'Industry',
-          onTap: () {
-            searchController.getAllProductsIndustry(
-              categoryProducts: titleCategory,
-            );
-          },
-        ),
-
-        tableHeader(
-          title: 'Product Type',
-          onTap: () {
-            searchController.getAllProductsProductType(
-              categoryProducts: titleCategory,
-            );
-          },
-        ),
-      ],
-
-      rows: data.map((item) {
-        return DataRow(
-          cells: [
-            tableCell(item, item.catalogueNumber),
-            tableCell(item, item.makes),
-            tableCell(item, item.equipmentType),
-            tableCell(item, item.models),
-            tableCell(item, item.oemPartNumber),
-            tableCell(item, item.industry),
-            tableCell(item, item.productType),
-          ],
-        );
-      }).toList(),
+      ),
     );
   }
 
   Widget buildTableRadiatorAndCap(List<ProductModel> data) {
-    return CustomProductTable(
-      columns: [
-        tableHeader(
-          title: 'Part Number',
-          onTap: () {
-            searchController.getAllProductsV2CatalogueNumber(
-              categoryProducts: titleCategory,
-            );
-          },
-        ),
-        tableHeader(
-          title: 'Makes',
-          onTap: () {
-            searchController.getAllProductsMakes(
-              categoryProducts: titleCategory,
-            );
-          },
-        ),
-        tableHeader(
-          title: 'Application',
-          onTap: () {
-            searchController.getAllProductsV2EquipmentType(
-              categoryProducts: titleCategory,
-            );
-          },
-        ),
-        tableHeader(
-          title: 'Size',
-          onTap: () {
-            searchController.getAllProductsSize(
-              categoryProducts: titleCategory,
-            );
-          },
-        ),
-        tableHeader(
-          title: 'Pressure Rating',
-          onTap: () {
-            searchController.getAllProductsPersureRating(
-              categoryProducts: titleCategory,
-            );
-          },
-        ),
-        tableHeader(
-          title: 'Material',
-          onTap: () {
-            searchController.getAllProductsMaterialType(
-              categoryProducts: titleCategory,
-            );
-          },
-        ),
-        tableHeader(
-          title: 'Description Application',
-          onTap: () {
-            searchController.getAllProductsDescriptionApplication(
-              categoryProducts: titleCategory,
-            );
-          },
-        ),
-      ],
+    return Container(
+      width: 80.w,
+      color: Colors.black,
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+      child: Center(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: DataTable(
+              headingRowColor: WidgetStateProperty.all(const Color(0xFFFF5A00)),
+              dataRowColor: WidgetStateProperty.all(Colors.white),
+              dividerThickness: 1,
+              columnSpacing: 30,
 
-      rows: data.map((item) {
-        return DataRow(
-          cells: [
-            tableCell(item, item.partNumber),
-            tableCell(item, item.makes),
-            tableCell(item, item.application),
-            tableCell(item, item.size),
-            tableCell(item, item.pressureRating),
-            tableCell(item, item.materialType),
-            tableCell(item, item.descriptionApplication),
-          ],
-        );
-      }).toList(),
+              columns: [
+                tableHeader(
+                  title: 'Part Number',
+                  onTap: () {
+                    searchController.getAllProductsV2CatalogueNumber(
+                      categoryProducts: titleCategory,
+                    );
+                  },
+                ),
+                tableHeader(
+                  title: 'Makes',
+                  onTap: () {
+                    searchController.getAllProductsMakes(
+                      categoryProducts: titleCategory,
+                    );
+                  },
+                ),
+                tableHeader(
+                  title: 'Application',
+                  onTap: () {
+                    searchController.getAllProductsV2EquipmentType(
+                      categoryProducts: titleCategory,
+                    );
+                  },
+                ),
+                tableHeader(
+                  title: 'Size',
+                  onTap: () {
+                    searchController.getAllProductsSize(
+                      categoryProducts: titleCategory,
+                    );
+                  },
+                ),
+                tableHeader(
+                  title: 'Pressure Rating',
+                  onTap: () {
+                    searchController.getAllProductsPersureRating(
+                      categoryProducts: titleCategory,
+                    );
+                  },
+                ),
+                tableHeader(
+                  title: 'Material',
+                  onTap: () {
+                    searchController.getAllProductsMaterialType(
+                      categoryProducts: titleCategory,
+                    );
+                  },
+                ),
+                tableHeader(
+                  title: 'Description Application',
+                  onTap: () {
+                    searchController.getAllProductsDescriptionApplication(
+                      categoryProducts: titleCategory,
+                    );
+                  },
+                ),
+              ],
+
+              rows: data.map((item) {
+                return DataRow(
+                  cells: [
+                    tableCell(item, item.partNumber),
+                    tableCell(item, item.makes),
+                    tableCell(item, item.application),
+                    tableCell(item, item.size),
+                    tableCell(item, item.pressureRating),
+                    tableCell(item, item.materialType),
+                    tableCell(item, item.descriptionApplication),
+                  ],
+                );
+              }).toList(),
+            ),
+          ),
+        ),
+      ),
     );
   }
 
   Widget buildTableCaterpillarTube(List<ProductModel> data) {
     // return Container();
-    return CustomProductTable(
-      columns: [
-        tableHeader(
-          title: 'Catalogue Number',
-          onTap: () {
-            searchController.getAllProductsV2CatalogueNumber(
-              categoryProducts: titleCategory,
-            );
-          },
-        ),
+    return Container(
+      width: 80.w,
+      color: Colors.black,
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+      child: Center(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: DataTable(
+              headingRowColor: WidgetStateProperty.all(const Color(0xFFFF5A00)),
+              dataRowColor: WidgetStateProperty.all(Colors.white),
+              dividerThickness: 1,
+              columnSpacing: 30,
 
-        tableHeader(title: 'Makes', onTap: () {}),
+              columns: [
+                tableHeader(
+                  title: 'Catalogue Number',
+                  onTap: () {
+                    searchController.getAllProductsV2CatalogueNumber(
+                      categoryProducts: titleCategory,
+                    );
+                  },
+                ),
 
-        tableHeader(
-          title: 'Equipment Type',
-          onTap: () {
-            searchController.getAllProductsV2EquipmentType(
-              categoryProducts: titleCategory,
-            );
-          },
-        ),
+                tableHeader(title: 'Makes', onTap: () {}),
 
-        tableHeader(
-          title: 'Models',
-          onTap: () {
-            searchController.getAllProductsV2Models(
-              categoryProducts: titleCategory,
-            );
-          },
-        ),
+                tableHeader(
+                  title: 'Equipment Type',
+                  onTap: () {
+                    searchController.getAllProductsV2EquipmentType(
+                      categoryProducts: titleCategory,
+                    );
+                  },
+                ),
 
-        tableHeader(
-          title: 'OEM Part Number',
-          onTap: () {
-            searchController.getAllProductsOEMPartNumber(
-              categoryProducts: titleCategory,
-            );
-          },
-        ),
+                tableHeader(
+                  title: 'Models',
+                  onTap: () {
+                    searchController.getAllProductsV2Models(
+                      categoryProducts: titleCategory,
+                    );
+                  },
+                ),
 
-        tableHeader(
-          title: 'Industry',
-          onTap: () {
-            searchController.getAllProductsIndustry(
-              categoryProducts: titleCategory,
-            );
-          },
-        ),
+                tableHeader(
+                  title: 'OEM Part Number',
+                  onTap: () {
+                    searchController.getAllProductsOEMPartNumber(
+                      categoryProducts: titleCategory,
+                    );
+                  },
+                ),
 
-        tableHeader(
-          title: 'Product Type',
-          onTap: () {
-            searchController.getAllProductsProductType(
-              categoryProducts: titleCategory,
-            );
-          },
-        ),
-        tableHeader(
-          title: 'Application',
-          onTap: () {
-            searchController.getAllProductsDescriptionApplication(
-              categoryProducts: titleCategory,
-            );
-          },
-        ),
-      ],
+                tableHeader(
+                  title: 'Industry',
+                  onTap: () {
+                    searchController.getAllProductsIndustry(
+                      categoryProducts: titleCategory,
+                    );
+                  },
+                ),
 
-      rows: data.map((item) {
-        return DataRow(
-          cells: [
-            tableCell(item, item.catalogueNumber),
-            tableCell(item, item.makes),
-            tableCell(item, item.equipmentType),
-            tableCell(item, item.models),
-            tableCell(item, item.oemPartNumber),
-            tableCell(item, item.industry),
-            tableCell(item, item.productType),
-            tableCell(item, item.application),
-          ],
-        );
-      }).toList(),
+                tableHeader(
+                  title: 'Product Type',
+                  onTap: () {
+                    searchController.getAllProductsProductType(
+                      categoryProducts: titleCategory,
+                    );
+                  },
+                ),
+                tableHeader(
+                  title: 'Application',
+                  onTap: () {
+                    searchController.getAllProductsDescriptionApplication(
+                      categoryProducts: titleCategory,
+                    );
+                  },
+                ),
+              ],
+
+              rows: data.map((item) {
+                return DataRow(
+                  cells: [
+                    tableCell(item, item.catalogueNumber),
+                    tableCell(item, item.makes),
+                    tableCell(item, item.equipmentType),
+                    tableCell(item, item.models),
+                    tableCell(item, item.oemPartNumber),
+                    tableCell(item, item.industry),
+                    tableCell(item, item.productType),
+                    tableCell(item, item.application),
+                  ],
+                );
+              }).toList(),
+            ),
+          ),
+        ),
+      ),
     );
   }
 

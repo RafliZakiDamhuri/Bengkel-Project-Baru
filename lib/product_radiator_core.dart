@@ -58,7 +58,10 @@ class ProductRadiatorCore extends StatelessWidget {
             ),
           ),
           SizedBox(height: 16),
-          Text('click the picture to sort related product list'),
+          Text(
+            'click the picture to sort related product list',
+            style: whiteTextStyle.copyWith(fontWeight: medium),
+          ),
         ],
       ),
     );

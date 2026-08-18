@@ -9,10 +9,10 @@ class AppImages {
   String instagram = 'assets/images/Screenshot 2025-12-18 203024_result.webp';
   String il_whastapp = 'assets/images/il_whatsapp_result.webp';
   String imgHeaderProduct1 = 'assets/images/product-header-image-1_result.webp';
-  String imgHeaderProduct2 = 'assets/images/product-header-image-2_result.webp';
-  String imgHeaderProduct3 = 'assets/images/product-header-image-3_result.webp';
+  String imgHeaderProduct2 = 'assets/images/Offshore-Picture 1.png';
+  String imgHeaderProduct3 = 'assets/images/Power-Picture 1.png';
   String imgHeaderProduct4 = 'assets/images/product-header-image-4_result.webp';
-  String imgHeaderProduct5 = 'assets/images/product-header-image-5_result.webp';
+  String imgHeaderProduct5 = 'assets/images/Industrial-Picture 3.png';
   String imgHeaderProduct6 = 'assets/images/product-header-image-6_result.webp';
 
   String imgIntroductionProductImage =
@@ -24,8 +24,7 @@ class AppImages {
   String indoCoolCarrer = 'assets/images/Indocool-Career_result.webp';
   String contactUs = 'assets/images/contact-us_result.webp';
   String scroll = 'assets/images/scroll_result.webp';
-  String incoCoolProductList =
-      'assets/images/indocool-product-list_result.webp';
+  String incoCoolProductList = 'assets/images/Indocool-All-Product 1.png';
   String facebookNewLogo = 'assets/images/Facebook.png';
   String instagramNewLogo = 'assets/images/Instagram.png';
   String youtubeNewLogo = 'assets/images/YouTube.png';
@@ -39,4 +38,10 @@ class AppImages {
   String amocsSealCore = 'assets/images/Indocool-Amocs-Core-Seal-1.webp';
   String modularSealCore = 'assets/images/Indocool-Modular-Core-Seal-1.webp';
   String ngmrSealCore = 'assets/images/Indocool-NGMR-Core-Seal-1.webp';
+  String homeimg =
+      'assets/images/Indocool-Provide-Radiator-for-Multi-Sector-4 1.png';
+  String isoCertification = 'assets/images/Rectangle 33.png';
+  String komatsuD85 = 'assets/images/Rectangle 32.png';
+  String medicalCheckup = 'assets/images/Rectangle 31.png';
+  String contactPage = 'assets/images/Indocool-All-Contact-List 1.png';
 }

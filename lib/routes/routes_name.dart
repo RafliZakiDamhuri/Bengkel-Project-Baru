@@ -11,4 +11,7 @@ class AppRouteName {
   static const radiator = '/radiator';
   static const editData = '/edit-data';
   static const productDetailPage = '/product-detail';
+  static const inquaryPage = '/inquary';
+  static const certificationPage = '/certification';
+  static const contactPage = '/contact';
 }
