@@ -63,7 +63,10 @@ class RadiatorCoreElement extends StatelessWidget {
             ],
           ),
         ),
-        Text('click the picture to sort related product list'),
+        Text(
+          'click the picture to sort related product list',
+          style: whiteTextStyle.copyWith(fontWeight: medium),
+        ),
       ],
     );
   }

@@ -18,20 +18,21 @@ class AppString {
   String listHomeNumber4 = '04';
   String listHomeNumber5 = '05';
   String listHomeNumber6 = '06';
-  String listHomeTitle1 = 'RADMAX Removable Tube Radiator';
-  String listHomeTitle2 = 'Heavy-Duty Equipment Radiator and Cooling System';
-  String listHomeTitle3 = 'Industrial Radiator and Cooling System ';
-  String listHomeTitle4 = 'Service and Repair';
+  String listHomeTitle1 =
+      'MANUFACTURING, FABRICATION, & INTERNATIONAL SOURCING';
+  String listHomeTitle2 = 'SERVICE, REPAIR, & REFURBISHMENT';
+  String listHomeTitle3 = 'THERMAL & MECHANICAL ENGINEERING';
+  String listHomeTitle4 = 'RADMAX® COOLANT & COOLING SYSTEM PARTS ';
   String listHomeTitle5 = 'RADMAX Engine Coolant';
   String listHomeTitle6 = 'Fans and Component';
   String listHomeSubtitle1 =
-      'Design, manufacture, fabricate, and source high-quality radiators,\nheat exchangers, oil coolers, air coolers, and cooling system\ncomponents from trusted global partners. We provide complete\ncooling solutions tailored to meet diverse industrial and heavy-\nduty equipment requirements.';
+      'Design, manufacture, fabricate, and source high-quality radiators, heat\nexchangers, oil coolers, air coolers, and cooling system components from trusted\nglobal partners. We provide complete cooling solutions tailored to meet diverse\nindustrial and heavy-duty equipment requirements.';
   String listHomeSubtitle2 =
-      'Restore the performance of radiators, heat exchangers, and\ncooling systems through inspection, repair, re-core,\nrefurbishment, and field service, helping customers reduce\ndowntime and maintenance costs.';
+      'Restore the performance of radiators, heat exchangers, and cooling systems\nthrough inspection, repair, re-core, refurbishment, and field service, helping\ncustomers reduce downtime and maintenance costs.';
   String listHomeSubtitle3 =
-      'Deliver thermal analysis, cooling system design, reverse\nengineering, and performance optimization to improve equipment\nefficiency, extend service life, and solve complex cooling\nchallenges.';
+      'Deliver thermal analysis, cooling system design, reverse engineering, and\nperformance optimization to improve equipment efficiency, extend service life,\nand solve complex cooling challenges.';
   String listHomeSubtitle4 =
-      'Supply RADMAX engine coolant, replacement radiator cores,\nspare parts, cooling fans, radiator accessories, and aftermarket\ncomponents to ensure reliable cooling system performance\nthroughout the equipment lifecycle.';
+      'Supply RADMAX engine coolant, replacement radiator cores, spare parts, cooling\nfans, radiator accessories, and aftermarket components to ensure reliable cooling\nsystem performance throughout the equipment lifecycle.';
   String listHomeSubtitle5 =
       'Advanced OAT coolant technology designed to provide superior corrosion protection,\nlonger service life, and efficient heat transfer for heavy-duty applications.';
   String listHomeSubtitle6 =
@@ -137,7 +138,7 @@ We currently have job openings throughout Indonesia. If you’re interested and 
 
   String minorRepair = '''
 <p>
-  At Indocool, we provide fast and reliable minor radiator repair services to keep your cooling system performing at its best and prevent small issues from becoming major failures.
+ We provide fast and reliable minor radiator repair services to keep your cooling system performing at its best and prevent small issues from becoming major failures.
 </p>
 
 <p>
@@ -185,7 +186,7 @@ We currently have job openings throughout Indonesia. If you’re interested and 
 
   String majorRepair = '''
 <p>
- At Indocool, we provide detailed and reliable major radiator repair services to keep your cooling system performing at its best and prevent serious failures that will halt your operation.
+We provide fast and reliable minor radiator repair services to keep your cooling system performing at its best and prevent small issues from becoming major failures.
 </p>
 
 <p>
@@ -230,7 +231,7 @@ We currently have job openings throughout Indonesia. If you’re interested and 
 
   String completeOverhaul = '''
 <p>
- At Indocool, we provide fast and complete overhauls radiator repair to bring it back to top working performance or to significantly improve its efficiency and to prevent caused damage to another component.
+ We provide fast and reliable minor radiator repair services to keep your cooling system performing at its best and prevent small issues from becoming major failures.
 </p>
 
 <p>

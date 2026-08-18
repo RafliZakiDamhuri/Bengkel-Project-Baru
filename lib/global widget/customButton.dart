@@ -31,9 +31,16 @@ Widget bookServiceSchedule() {
         borderRadius: BorderRadius.circular(10),
       ),
       child: Center(
-        child: Text(
-          'Book Service Schedule',
-          style: whiteTextStyle.copyWith(fontSize: 14, fontWeight: bold),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'CALL US NOW!',
+              style: whiteTextStyle.copyWith(fontSize: 14, fontWeight: bold),
+            ),
+            SizedBox(width: 16),
+            Icon(Icons.phone, size: 24, color: Colors.white),
+          ],
         ),
       ),
     ),

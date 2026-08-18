@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project/controller/mainProductController.dart';
 import 'package:project/global%20widget/baseLayoutWrapper.dart';
 import 'package:project/global%20widget/customButton.dart';
@@ -39,6 +40,7 @@ class ProductPage extends StatelessWidget {
             AppImages().incoCoolProductList,
             width: double.infinity,
             fit: BoxFit.fitWidth,
+            height: 700,
           ),
 
           Padding(
@@ -50,10 +52,12 @@ class ProductPage extends StatelessWidget {
                 children: [
                   Text(
                     'INDOCOOL PRODUCT\nPORTFOLIO',
-                    style: TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                    style: GoogleFonts.montserrat(
+                      fontSize: 64,
+                      fontWeight: FontWeight.w700,
+                      height: 1.0,
+                      letterSpacing: 0,
+                      color: Colors.black,
                     ),
                   ),
                   const SizedBox(height: 40),
@@ -64,7 +68,7 @@ class ProductPage extends StatelessWidget {
                           data: AppString().productListDescription,
                           style: {
                             "body": Style(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: FontSize(24),
                               margin: Margins.zero,
                               padding: HtmlPaddings.zero,
@@ -90,7 +94,7 @@ class ProductPage extends StatelessWidget {
                         pdfName: "All Products Line Up Catalogue.pdf",
                       );
                     },
-                    title: 'Request Catalogue',
+                    title: 'DOWNLOAD BROCHURE',
                   ),
                 ],
               ),

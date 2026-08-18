@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
-import 'package:get/route_manager.dart';
 import 'package:get/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project/controller/globalController.dart';
-import 'package:project/global%20widget/customButton.dart';
-import 'package:project/theme/string.dart';
 import 'package:project/theme/theme.dart';
 
 class ServicesImages extends StatelessWidget {
   final String imag;
   final String title;
   final String htmlData;
+
   const ServicesImages({
     super.key,
     required this.imag,
@@ -22,10 +20,10 @@ class ServicesImages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var globalController = Get.find<GlobalController>();
+    Get.find<GlobalController>();
 
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 140),
+      margin: const EdgeInsets.symmetric(horizontal: 140),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -41,22 +39,23 @@ class ServicesImages extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
             ),
           ),
+
           Expanded(
             child: Container(
-              margin: EdgeInsets.only(left: 40),
+              margin: const EdgeInsets.only(left: 40),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    child: Text(
-                      title,
-                      style: blackTextStyle.copyWith(
-                        fontSize: 32,
-                        fontWeight: bold,
-                      ),
+                  Text(
+                    title,
+                    style: blackTextStyle.copyWith(
+                      fontSize: 32,
+                      fontWeight: bold,
                     ),
                   ),
-                  SizedBox(height: 25),
+
+                  const SizedBox(height: 25),
+
                   Html(
                     data: htmlData,
                     style: {
@@ -65,12 +64,12 @@ class ServicesImages extends StatelessWidget {
                         fontSize: FontSize(16),
                         fontWeight: FontWeight.w400,
                         lineHeight: const LineHeight(1.45),
-                        margin: Margins.zero,
+                        margin: Margins.only(top: 1),
                         padding: HtmlPaddings.zero,
                         fontFamily: GoogleFonts.inter().fontFamily,
                       ),
 
-                      "p": Style(margin: Margins.only(bottom: 14)),
+                      "p": Style(margin: Margins.only(top: 10)),
 
                       "ul": Style(
                         margin: Margins.only(left: 24, bottom: 14),
@@ -90,32 +89,8 @@ class ServicesImages extends StatelessWidget {
                     },
                   ),
 
-                  GestureDetector(
-                    onTap: () {
-                      globalController.openWhatsApp(
-                        AppString().indocoolWhatsappNumber,
-                        'I opened the Indocool website, I want a booking service!',
-                      );
-                    },
-                    child: Container(
-                      width: 200,
-                      height: 40,
-                      margin: EdgeInsets.only(top: 56),
-                      decoration: BoxDecoration(
-                        color: kBlueColor,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Book Service Schedule',
-                          style: whiteTextStyle.copyWith(
-                            fontSize: 14,
-                            fontWeight: bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Pengganti tombol agar spacing tetap ada
+                  const SizedBox(height: 96),
                 ],
               ),
             ),
