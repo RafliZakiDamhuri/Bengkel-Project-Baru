@@ -14,4 +14,5 @@ class AppRouteName {
   static const inquaryPage = '/inquary';
   static const certificationPage = '/certification';
   static const contactPage = '/contact';
+  static const careers = '/careers';
 }

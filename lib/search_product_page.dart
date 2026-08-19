@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project/codeExperiment/widgetForUse.dart';
 import 'package:project/controller/globalController.dart';
 
 import 'package:project/controller/searchProductController.dart';
 import 'package:project/global%20widget/footer.dart';
 import 'package:project/global%20widget/globalAppBar.dart';
 import 'package:project/global%20widget/personalData.dart';
+import 'package:project/global%20widget/radiatorAndCoolers/buildTableRadiatorAndCoolers.dart';
+import 'package:project/global%20widget/radiatorAndCoolers/radiatorAndCoolersWidget.dart';
 import 'package:project/model/allDataModel.dart';
 import 'package:project/model/dropDownModel.dart';
 import 'package:project/model/productModel.dart';
@@ -148,107 +151,22 @@ class _SearchProductPageState extends State<SearchProductPage> {
       );
     }
 
-    Widget buildTableRadiatorAndCoolers(List<ProductModel> data) {
+    Widget tableTitle() {
       return Container(
-        width: 80.w,
-        color: Colors.black,
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-        child: Center(
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: DataTable(
-                headingRowColor: WidgetStateProperty.all(
-                  const Color(0xFFFF5A00),
-                ),
-                dataRowColor: WidgetStateProperty.all(Colors.white),
-                dividerThickness: 1,
-                columnSpacing: 30,
-
-                columns: [
-                  tableHeader(
-                    title: 'Catalogue Number',
-                    onTap: () {
-                      searchController.getAllProductsV2CatalogueNumberSort(
-                        categoryProducts: argument.flow ?? '',
-                      );
-                    },
-                  ),
-                  tableHeader(
-                    title: 'Makes',
-                    onTap: () {
-                      searchController.getAllProductsMakesSort(
-                        categoryProducts: argument.flow ?? '',
-                      );
-                    },
-                  ),
-                  tableHeader(
-                    title: 'Equipment Type',
-                    onTap: () {
-                      searchController.getAllProductsV2EquipmentTypeSort(
-                        categoryProducts: argument.flow ?? '',
-                      );
-                    },
-                  ),
-                  tableHeader(
-                    title: 'Models',
-                    onTap: () {
-                      searchController.getAllProductsV2ModelsSort(
-                        categoryProducts: argument.flow ?? '',
-                      );
-                    },
-                  ),
-                  tableHeader(
-                    title: 'OEM Part Number',
-                    onTap: () {
-                      searchController.getAllProductsOEMPartNumberSort(
-                        categoryProducts: argument.flow ?? '',
-                      );
-                    },
-                  ),
-                  tableHeader(
-                    title: 'Industry',
-                    onTap: () {
-                      searchController.getAllProductsIndustrySort(
-                        categoryProducts: argument.flow ?? '',
-                      );
-                    },
-                  ),
-                  tableHeader(
-                    title: 'Product Type',
-                    onTap: () {
-                      searchController.getAllProductsProductTypeSort(
-                        categoryProducts: argument.flow ?? '',
-                      );
-                    },
-                  ),
-                  tableHeader(
-                    title: 'Description / Application',
-                    onTap: () {
-                      searchController.getAllProductsDescriptionApplicationSort(
-                        categoryProducts: argument.flow ?? '',
-                      );
-                    },
-                  ),
-                ],
-
-                rows: data.map((item) {
-                  return DataRow(
-                    cells: [
-                      tableCell(item, item.catalogueNumber),
-                      tableCell(item, item.makes),
-                      tableCell(item, item.equipmentType),
-                      tableCell(item, item.models),
-                      tableCell(item, item.oemPartNumber),
-                      tableCell(item, item.industry),
-                      tableCell(item, item.productType),
-                      tableCell(item, item.descriptionApplication),
-                    ],
-                  );
-                }).toList(),
-              ),
-            ),
+        width: 319,
+        height: 31,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: Colors.black,
+          border: Border.all(color: const Color(0xFFFF7800), width: 1),
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: const Text(
+          'RADIATORS AND COOLERS CATALOG LIST',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
           ),
         ),
       );
@@ -698,301 +616,6 @@ class _SearchProductPageState extends State<SearchProductPage> {
             }).toList(),
             onChanged: onChanged,
           ),
-        ),
-      );
-    }
-
-    Widget searchPerdataTile({String? title}) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(title ?? '-', style: blackTextStyle),
-          SizedBox(height: 5),
-          Container(
-            height: 2,
-            width: 300,
-            decoration: BoxDecoration(
-              color: kBlackColor,
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-        ],
-      );
-    }
-
-    Widget searchPerData({
-      String? browseTitle,
-      required List<DropdownModel?> data,
-      String? type,
-    }) {
-      return Container(
-        margin: EdgeInsets.symmetric(horizontal: 80, vertical: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 20),
-
-            Text(
-              browseTitle ?? '-',
-              style: blackTextStyle.copyWith(fontWeight: FontWeight.w700),
-            ),
-            SizedBox(height: 20),
-
-            Container(
-              padding: EdgeInsets.only(top: 40, left: 20, bottom: 20),
-              width: MediaQuery.sizeOf(context).width - 120,
-
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: kWhiteColor,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Wrap(
-                    runSpacing: 40,
-                    spacing: 20,
-                    children: data
-                        .map(
-                          (e) => GestureDetector(
-                            onTap: () async {
-                              await searchController.getDatabyType(
-                                e?.name,
-                                browseTitle,
-                              );
-                              searchController.scrollToTable();
-                            },
-                            child: searchPerdataTile(title: e?.name),
-                          ),
-                        )
-                        .toList(),
-                  ),
-                  SizedBox(height: 20),
-
-                  GestureDetector(
-                    onTap: () {
-                      searchController.getAllProductsMakes(
-                        categoryProducts: argument.flow ?? '',
-                      );
-                      searchController.scrollToTable();
-                    },
-                    child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: Container(
-                        margin: EdgeInsets.only(right: 20),
-                        child: Text(
-                          'Shows All',
-                          style: blackTextStyle.copyWith(
-                            decoration: TextDecoration.underline,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
-    Widget radiatorAndCoolersWidget(Searchproductcontroller controller) {
-      return Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              margin: EdgeInsets.only(top: 80, left: 60, right: 60),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: kBlackColor,
-              ),
-              padding: EdgeInsets.all(24),
-              child: Column(
-                children: [
-                  Text(
-                    '${argument.flow} SEARCH PART',
-                    style: whiteTextStyle.copyWith(fontSize: 48),
-                  ),
-                  SizedBox(height: 30),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.symmetric(horizontal: 40),
-                              padding: EdgeInsets.all(10),
-                              child: TextFormField(
-                                onChanged: (value) {
-                                  Get.find<Searchproductcontroller>()
-                                      .setTypedPlatNumber(value);
-                                },
-                                decoration: InputDecoration(
-                                  fillColor: Colors.white,
-                                  filled: true,
-                                  suffixIcon: Icon(Icons.search),
-                                  border: InputBorder.none,
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Colors.blueGrey,
-                                    ),
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(8),
-                                    ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.blue),
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(8),
-                                    ),
-                                  ),
-                                  hint: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          'Part Number Search',
-                                          style: blackTextStyle.copyWith(
-                                            fontSize: 10.sp,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 16),
-                            Container(
-                              margin: EdgeInsets.symmetric(horizontal: 40),
-                              child: ElevatedButton.icon(
-                                onPressed: () async {
-                                  await controller.getDatabyPartNumber(
-                                    value: controller.typedPlatNumber,
-                                    catalogueType: argument.flow,
-                                  );
-                                  controller.scrollToTable();
-                                },
-                                // icon: const Icon(Icons.search),
-                                label: Text(
-                                  "SEARCH P/N",
-                                  style: whiteTextStyle,
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color(0xffF15E00),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        height: 120,
-                        width: 2,
-                        decoration: BoxDecoration(
-                          color: kWhiteColor,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          children: [
-                            dropDowns(
-                              hint: "Select a maker",
-                              value: controller.selectedMake,
-                              items: controller.makeList,
-                              labelBuilder: (item) => item?.name ?? '',
-                              onChanged: (val) =>
-                                  controller.setSelectedMake(val ?? ''),
-                            ),
-                            dropDowns(
-                              hint: "Select a produt type",
-                              value: controller.selectedProduct,
-                              items: controller.productList,
-                              labelBuilder: (item) => item?.name ?? '',
-                              onChanged: (val) =>
-                                  controller.setSelectedProduct(val ?? ''),
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      Expanded(
-                        child: Column(
-                          children: [
-                            dropDowns(
-                              hint: "Select a model",
-                              value: controller.selectedModel,
-                              items: controller.modelList,
-                              labelBuilder: (item) => item?.name ?? '',
-                              onChanged: (val) =>
-                                  controller.setSelectedModel(val ?? ''),
-                            ),
-                            dropDowns(
-                              hint: "Select an industry",
-                              value: controller.selectedIndustry,
-                              items: controller.industryList,
-                              labelBuilder: (item) => item?.name ?? '',
-                              onChanged: (val) =>
-                                  controller.setSelectedIndustry(val ?? ''),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          children: [
-                            dropDowns(
-                              hint: "Select an equipment",
-                              value: controller.selectedEquipmentType,
-                              items: controller.equipmentTypeList,
-                              labelBuilder: (item) => item?.name ?? '',
-                              onChanged: (val) => controller
-                                  .setSelectedEquipmentType(val ?? ''),
-                            ),
-                            SizedBox(height: 16),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                buttonSort(controller),
-
-                                const SizedBox(width: 12),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 20),
-            buttonShowAll(controller),
-            SizedBox(height: 20),
-            searchPerData(
-              browseTitle: 'BROWSE PER EQUIPMENT TYPE',
-              data: controller.equipmentTypeList,
-            ),
-            searchPerData(
-              browseTitle: 'BROWSE PER MAKES',
-              data: controller.makeList,
-            ),
-            searchPerData(
-              browseTitle: 'BROWSE PER PRODUCT TYPE',
-              data: controller.productList,
-            ),
-
-            Container(
-              key: controller.tableKey,
-              child: buildTableRadiatorAndCoolers(controller.productModel),
-            ),
-
-            SizedBox(height: 15.h),
-          ],
         ),
       );
     }
@@ -1535,6 +1158,11 @@ class _SearchProductPageState extends State<SearchProductPage> {
 
     return GetBuilder<Searchproductcontroller>(
       initState: (state) async {
+        if (argument.flow == AppString().radiatorAndCoolers) {
+          await searchController.getProductsByCategoryForListFilter(
+            category: argument.flow ?? '',
+          );
+        }
         await Get.find<Searchproductcontroller>().getAllMake(
           category: argument.flow,
         );
@@ -1562,7 +1190,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
           backgroundColor: backgroundgrey,
           pageWidget: SingleChildScrollView(
             child: (argument.flow == AppString().radiatorAndCoolers)
-                ? radiatorAndCoolersWidget(controller)
+                ? Radiatorandcoolerswidget(controller: controller)
                 : (argument.flow == AppString().radiatorCapAndAdapters)
                 ? radiatorsCapAndAdapter(controller)
                 : (argument.flow == AppString().caterpillarRadiatorCore)

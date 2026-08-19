@@ -3,6 +3,7 @@ import 'package:project/Auth/controller/auth_controller.dart';
 import 'package:project/CMS/presentation/cms.dart';
 import 'package:project/CMS/presentation/edit_data.dart';
 import 'package:project/about_us_page.dart';
+import 'package:project/careers_page.dart';
 import 'package:project/certification_page.dart';
 import 'package:project/contact.dart';
 import 'package:project/contact_us_page.dart';
@@ -52,5 +53,6 @@ class AppPages {
       name: AppRouteName.productDetailPage,
       page: () => const ProductDetailPage(),
     ),
+    GetPage(name: AppRouteName.careers, page: () => const CareersPage()),
   ];
 }

@@ -30,6 +30,8 @@ class Searchproductcontroller extends GetxController {
 
   List<AllDataModel> allDataModel = [];
   List<ProductModel> productModel = [];
+  List<ProductModel> productModelForListFilter = [];
+
   List<ProductModel> productModelSealSpecial = [];
 
   String? selectedMake;
@@ -397,6 +399,33 @@ class Searchproductcontroller extends GetxController {
     update();
   }
 
+  Future<void> getDataByFilter(String? queryData, String? type) async {
+    final Map<String, String> columnMap = {
+      'Makes': 'makes',
+      'Catalogue Number': 'catalogue_number',
+      'Equipment Type': 'equipment_type',
+      'Models': 'models',
+      'OEM Part Number': 'oem_part_number',
+      'Industry': 'industry',
+      'Product Type': 'product_type',
+      'Description': 'description_application',
+    };
+    final column = columnMap[type];
+    var query = supabase.from('products').select('*');
+    if (column != null && queryData != null) {
+      query = query.eq(column, queryData);
+    }
+    final response = await query
+        .eq('category_products', AppString().radiatorAndCoolers)
+        .order('makes', ascending: true);
+
+    productModel = (response as List)
+        .map((e) => ProductModel.fromJson(e))
+        .toList();
+
+    update();
+  }
+
   Future<void> getDatabyType(String? queryData, String? type) async {
     final Map<String, String> columnMap = {
       'BROWSE PER EQUIPMENT TYPE': 'equipment_type',
@@ -470,6 +499,21 @@ class Searchproductcontroller extends GetxController {
         .eq('category_products', category);
 
     productModel = (response as List)
+        .map((e) => ProductModel.fromJson(e))
+        .toList();
+
+    update();
+  }
+
+  Future<void> getProductsByCategoryForListFilter({
+    required String category,
+  }) async {
+    final response = await supabase
+        .from('products')
+        .select()
+        .eq('category_products', category);
+
+    productModelForListFilter = (response as List)
         .map((e) => ProductModel.fromJson(e))
         .toList();
 
