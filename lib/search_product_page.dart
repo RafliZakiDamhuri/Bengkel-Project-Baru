@@ -7,8 +7,10 @@ import 'package:project/controller/searchProductController.dart';
 import 'package:project/global%20widget/footer.dart';
 import 'package:project/global%20widget/globalAppBar.dart';
 import 'package:project/global%20widget/personalData.dart';
+import 'package:project/global%20widget/radiatorAndCapAdapter/listOfButtonRadiatorAndCap.dart';
 import 'package:project/global%20widget/radiatorAndCoolers/buildTableRadiatorAndCoolers.dart';
 import 'package:project/global%20widget/radiatorAndCoolers/radiatorAndCoolersWidget.dart';
+import 'package:project/global%20widget/radiatotAndCatapillar/listOfButtonRadiatorAndCatapillar.dart';
 import 'package:project/model/allDataModel.dart';
 import 'package:project/model/dropDownModel.dart';
 import 'package:project/model/productModel.dart';
@@ -177,103 +179,114 @@ class _SearchProductPageState extends State<SearchProductPage> {
         width: 80.w,
         color: Colors.black,
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-        child: Center(
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: DataTable(
-                headingRowColor: WidgetStateProperty.all(
-                  const Color(0xFFFF5A00),
-                ),
-                dataRowColor: WidgetStateProperty.all(Colors.white),
-                dividerThickness: 1,
-                columnSpacing: 30,
+        child: Column(
+          children: [
+            tableTitle(),
+            SizedBox(height: 16),
 
-                columns: [
-                  tableHeader(
-                    title: 'Catalogue Number',
-                    onTap: () {
-                      searchController.getAllProductsV2CatalogueNumberSort(
-                        categoryProducts: argument.flow ?? '',
-                      );
-                    },
-                  ),
-                  tableHeader(
-                    title: 'Makes',
-                    onTap: () {
-                      searchController.getAllProductsMakesSort(
-                        categoryProducts: argument.flow ?? '',
-                      );
-                    },
-                  ),
-                  tableHeader(
-                    title: 'Equipment Type',
-                    onTap: () {
-                      searchController.getAllProductsV2EquipmentTypeSort(
-                        categoryProducts: argument.flow ?? '',
-                      );
-                    },
-                  ),
-                  tableHeader(
-                    title: 'Models',
-                    onTap: () {
-                      searchController.getAllProductsV2ModelsSort(
-                        categoryProducts: argument.flow ?? '',
-                      );
-                    },
-                  ),
-                  tableHeader(
-                    title: 'OEM Part Number',
-                    onTap: () {
-                      searchController.getAllProductsOEMPartNumberSort(
-                        categoryProducts: argument.flow ?? '',
-                      );
-                    },
-                  ),
+            Listofbuttonradiatorandcatapillar(
+              searchController: searchController,
+            ),
+            SizedBox(height: 16),
+            Center(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: DataTable(
+                    headingRowColor: WidgetStateProperty.all(
+                      const Color(0xFFFF5A00),
+                    ),
+                    dataRowColor: WidgetStateProperty.all(Colors.white),
+                    dividerThickness: 1,
+                    columnSpacing: 30,
 
-                  tableHeader(
-                    title: 'Industry',
-                    onTap: () {
-                      searchController.getAllProductsIndustrySort(
-                        categoryProducts: argument.flow ?? '',
-                      );
-                    },
-                  ),
-                  tableHeader(
-                    title: 'Product Type',
-                    onTap: () {
-                      searchController.getAllProductsProductTypeSort(
-                        categoryProducts: argument.flow ?? '',
-                      );
-                    },
-                  ),
-                  tableHeader(
-                    title: 'Product Type Design',
-                    onTap: () {
-                      searchController.getAllProductsProductTypeDesignSort(
-                        categoryProducts: argument.flow ?? '',
-                      );
-                    },
-                  ),
-                ],
-                rows: data.map((item) {
-                  return DataRow(
-                    cells: [
-                      tableCell(item, item.catalogueNumber),
-                      tableCell(item, item.makes),
-                      tableCell(item, item.equipmentType),
-                      tableCell(item, item.models),
-                      tableCell(item, item.oemPartNumber),
-                      tableCell(item, item.industry),
-                      tableCell(item, item.productType),
-                      tableCell(item, item.productTypeDesign),
+                    columns: [
+                      tableHeader(
+                        title: 'Catalogue Number',
+                        onTap: () {
+                          searchController.getAllProductsV2CatalogueNumberSort(
+                            categoryProducts: argument.flow ?? '',
+                          );
+                        },
+                      ),
+                      tableHeader(
+                        title: 'Makes',
+                        onTap: () {
+                          searchController.getAllProductsMakesSort(
+                            categoryProducts: argument.flow ?? '',
+                          );
+                        },
+                      ),
+                      tableHeader(
+                        title: 'Equipment Type',
+                        onTap: () {
+                          searchController.getAllProductsV2EquipmentTypeSort(
+                            categoryProducts: argument.flow ?? '',
+                          );
+                        },
+                      ),
+                      tableHeader(
+                        title: 'Models',
+                        onTap: () {
+                          searchController.getAllProductsV2ModelsSort(
+                            categoryProducts: argument.flow ?? '',
+                          );
+                        },
+                      ),
+                      tableHeader(
+                        title: 'OEM Part Number',
+                        onTap: () {
+                          searchController.getAllProductsOEMPartNumberSort(
+                            categoryProducts: argument.flow ?? '',
+                          );
+                        },
+                      ),
+
+                      tableHeader(
+                        title: 'Industry',
+                        onTap: () {
+                          searchController.getAllProductsIndustrySort(
+                            categoryProducts: argument.flow ?? '',
+                          );
+                        },
+                      ),
+                      tableHeader(
+                        title: 'Product Type',
+                        onTap: () {
+                          searchController.getAllProductsProductTypeSort(
+                            categoryProducts: argument.flow ?? '',
+                          );
+                        },
+                      ),
+                      tableHeader(
+                        title: 'Product Type Design',
+                        onTap: () {
+                          searchController.getAllProductsProductTypeDesignSort(
+                            categoryProducts: argument.flow ?? '',
+                          );
+                        },
+                      ),
                     ],
-                  );
-                }).toList(),
+                    rows: data.map((item) {
+                      return DataRow(
+                        cells: [
+                          tableCell(item, item.catalogueNumber),
+                          tableCell(item, item.makes),
+                          tableCell(item, item.equipmentType),
+                          tableCell(item, item.models),
+                          tableCell(item, item.oemPartNumber),
+                          tableCell(item, item.industry),
+                          tableCell(item, item.productType),
+                          tableCell(item, item.productTypeDesign),
+                        ],
+                      );
+                    }).toList(),
+                  ),
+                ),
               ),
             ),
-          ),
+          ],
         ),
       );
     }
@@ -283,93 +296,103 @@ class _SearchProductPageState extends State<SearchProductPage> {
         width: 60.w,
         color: Colors.black,
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-        child: Center(
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: DataTable(
-                headingRowColor: WidgetStateProperty.all(
-                  const Color(0xFFFF5A00),
-                ),
-                dataRowColor: WidgetStateProperty.all(Colors.white),
-                dividerThickness: 1,
-                columnSpacing: 30,
+        child: Column(
+          children: [
+            tableTitle(),
+            SizedBox(height: 16),
 
-                columns: [
-                  tableHeader(
-                    title: 'Part Number',
-                    onTap: () {
-                      searchController.getAllProductsV2PartNumberSort(
-                        categoryProducts: argument.flow ?? '',
-                      );
-                    },
-                  ),
-                  tableHeader(
-                    title: 'Makes',
-                    onTap: () {
-                      searchController.getAllProductsMakesSort(
-                        categoryProducts: argument.flow ?? '',
-                      );
-                    },
-                  ),
-                  tableHeader(
-                    title: 'Application',
-                    onTap: () {
-                      searchController.getAllProductsV2EquipmentTypeSort(
-                        categoryProducts: argument.flow ?? '',
-                      );
-                    },
-                  ),
-                  tableHeader(
-                    title: 'Size',
-                    onTap: () {
-                      searchController.getAllProductsSizeSort(
-                        categoryProducts: argument.flow ?? '',
-                      );
-                    },
-                  ),
-                  tableHeader(
-                    title: 'Pressure Rating',
-                    onTap: () {
-                      searchController.getAllProductsPersureRatingSort(
-                        categoryProducts: argument.flow ?? '',
-                      );
-                    },
-                  ),
-                  tableHeader(
-                    title: 'Material',
-                    onTap: () {
-                      searchController.getAllProductsMaterialTypeSort(
-                        categoryProducts: argument.flow ?? '',
-                      );
-                    },
-                  ),
-                  tableHeader(
-                    title: 'Description Application',
-                    onTap: () {
-                      searchController.getAllProductsDescriptionApplicationSort(
-                        categoryProducts: argument.flow ?? '',
-                      );
-                    },
-                  ),
-                ],
-                rows: data.map((item) {
-                  return DataRow(
-                    cells: [
-                      tableCell(item, item.partNumber),
-                      tableCell(item, item.makes),
-                      tableCell(item, item.application),
-                      tableCell(item, item.size),
-                      tableCell(item, item.pressureRating),
-                      tableCell(item, item.materialType),
-                      tableCell(item, item.descriptionApplication),
+            ListOfButtonRadiatorAndCap(searchController: searchController),
+            SizedBox(height: 16),
+            Center(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: DataTable(
+                    headingRowColor: WidgetStateProperty.all(
+                      const Color(0xFFFF5A00),
+                    ),
+                    dataRowColor: WidgetStateProperty.all(Colors.white),
+                    dividerThickness: 1,
+                    columnSpacing: 30,
+
+                    columns: [
+                      tableHeader(
+                        title: 'Part Number',
+                        onTap: () {
+                          searchController.getAllProductsV2PartNumberSort(
+                            categoryProducts: argument.flow ?? '',
+                          );
+                        },
+                      ),
+                      tableHeader(
+                        title: 'Makes',
+                        onTap: () {
+                          searchController.getAllProductsMakesSort(
+                            categoryProducts: argument.flow ?? '',
+                          );
+                        },
+                      ),
+                      tableHeader(
+                        title: 'Application',
+                        onTap: () {
+                          searchController.getAllProductsV2EquipmentTypeSort(
+                            categoryProducts: argument.flow ?? '',
+                          );
+                        },
+                      ),
+                      tableHeader(
+                        title: 'Size',
+                        onTap: () {
+                          searchController.getAllProductsSizeSort(
+                            categoryProducts: argument.flow ?? '',
+                          );
+                        },
+                      ),
+                      tableHeader(
+                        title: 'Pressure Rating',
+                        onTap: () {
+                          searchController.getAllProductsPersureRatingSort(
+                            categoryProducts: argument.flow ?? '',
+                          );
+                        },
+                      ),
+                      tableHeader(
+                        title: 'Material',
+                        onTap: () {
+                          searchController.getAllProductsMaterialTypeSort(
+                            categoryProducts: argument.flow ?? '',
+                          );
+                        },
+                      ),
+                      tableHeader(
+                        title: 'Description Application',
+                        onTap: () {
+                          searchController
+                              .getAllProductsDescriptionApplicationSort(
+                                categoryProducts: argument.flow ?? '',
+                              );
+                        },
+                      ),
                     ],
-                  );
-                }).toList(),
+                    rows: data.map((item) {
+                      return DataRow(
+                        cells: [
+                          tableCell(item, item.partNumber),
+                          tableCell(item, item.makes),
+                          tableCell(item, item.application),
+                          tableCell(item, item.size),
+                          tableCell(item, item.pressureRating),
+                          tableCell(item, item.materialType),
+                          tableCell(item, item.descriptionApplication),
+                        ],
+                      );
+                    }).toList(),
+                  ),
+                ),
               ),
             ),
-          ),
+          ],
         ),
       );
     }
@@ -969,6 +992,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
           SizedBox(height: 20),
           buttonShowAll(controller),
           SizedBox(height: 20),
+
           buildTableRadiatorAndCap(controller.productModel),
 
           SizedBox(height: 15.h),
@@ -1158,11 +1182,51 @@ class _SearchProductPageState extends State<SearchProductPage> {
 
     return GetBuilder<Searchproductcontroller>(
       initState: (state) async {
-        if (argument.flow == AppString().radiatorAndCoolers) {
-          await searchController.getProductsByCategoryForListFilter(
-            category: argument.flow ?? '',
-          );
-        }
+        await searchController.getProductsByCategoryForListFilterCatalog(
+          category: argument.flow ?? '',
+        );
+        await searchController.getProductsByCategoryForListFilterEquipmentType(
+          category: argument.flow ?? '',
+        );
+        await searchController.getProductsByCategoryForListFilterAeomPartNumber(
+          category: argument.flow ?? '',
+        );
+        await searchController.getProductsByCategoryForListFilterIndustry(
+          category: argument.flow ?? '',
+        );
+        await searchController.getProductsByCategoryForListFilterProductType(
+          category: argument.flow ?? '',
+        );
+        await searchController
+            .getProductsByCategoryForListFilterProductTypeDesign(
+              category: argument.flow ?? '',
+            );
+        await searchController.getProductsByCategoryForListFilterPartNumber(
+          category: argument.flow ?? '',
+        );
+        await searchController.getProductsByCategoryForListFilterPartNumber(
+          category: argument.flow ?? '',
+        );
+        await searchController.getProductsByCategoryForListFilterMakes(
+          category: argument.flow ?? '',
+        );
+        await searchController.getProductsByCategoryForListFilterPressureRating(
+          category: argument.flow ?? '',
+        );
+        await searchController.getProductsByCategoryForListFilterApplication(
+          category: argument.flow ?? '',
+        );
+        await searchController.getProductsByCategoryForListFilterSize(
+          category: argument.flow ?? '',
+        );
+        await searchController.getProductsByCategoryForListFilterMaterial(
+          category: argument.flow ?? '',
+        );
+        await searchController
+            .getProductsByCategoryForListFilterDescriptionApplication(
+              category: argument.flow ?? '',
+            );
+
         await Get.find<Searchproductcontroller>().getAllMake(
           category: argument.flow,
         );
