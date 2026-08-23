@@ -31,6 +31,22 @@ class Searchproductcontroller extends GetxController {
   List<AllDataModel> allDataModel = [];
   List<ProductModel> productModel = [];
   List<ProductModel> productModelForListFilter = [];
+  List<ProductModel> productModelForListFilterCatalogNumber = [];
+  List<ProductModel> productModelForListFilterCatalogEquipmenType = [];
+  List<ProductModel> productModelForListFilterCatalogModels = [];
+  List<ProductModel> productModelForListFilterCatalogOemPartNumber = [];
+  List<ProductModel> productModelForListFilterCatalogIndystry = [];
+  List<ProductModel> productModelForListFilterCatalogProductType = [];
+  List<ProductModel> productModelForListFilterCatalogProductTypeDesign = [];
+
+  List<ProductModel> productModelForListFilterPartNumber = [];
+  List<ProductModel> productModelForListFilterMakes = [];
+  List<ProductModel> productModelForListFilterSize = [];
+
+  List<ProductModel> productModelForListFilterApplication = [];
+  List<ProductModel> productModelForListFilterPartPressure = [];
+  List<ProductModel> productModelForListFilterPartMaterial = [];
+  List<ProductModel> productModelForListFilterPartDescriptionApplication = [];
 
   List<ProductModel> productModelSealSpecial = [];
 
@@ -409,6 +425,12 @@ class Searchproductcontroller extends GetxController {
       'Industry': 'industry',
       'Product Type': 'product_type',
       'Description': 'description_application',
+      'Presure Ratting': 'pressure_rating',
+      'Size': 'size',
+      'Application': 'application',
+      'Material': 'material_type',
+      'Part Number': 'part_number',
+      'Product Type Design': 'product_type_design',
     };
     final column = columnMap[type];
     var query = supabase.from('products').select('*');
@@ -505,7 +527,7 @@ class Searchproductcontroller extends GetxController {
     update();
   }
 
-  Future<void> getProductsByCategoryForListFilter({
+  Future<void> getProductsByCategoryForListFilterCatalog({
     required String category,
   }) async {
     final response = await supabase
@@ -513,8 +535,372 @@ class Searchproductcontroller extends GetxController {
         .select()
         .eq('category_products', category);
 
-    productModelForListFilter = (response as List)
+    final products = (response as List)
         .map((e) => ProductModel.fromJson(e))
+        .toList();
+
+    final unique = <String, ProductModel>{};
+
+    for (final product in products) {
+      final key = product.catalogueNumber ?? '';
+
+      if (key.isNotEmpty) {
+        unique[key] = product;
+      }
+    }
+
+    productModelForListFilterCatalogNumber = unique.values.toList();
+
+    update();
+  }
+
+  Future<void> getProductsByCategoryForListFilterEquipmentType({
+    required String category,
+  }) async {
+    final response = await supabase
+        .from('products')
+        .select()
+        .eq('category_products', category);
+
+    final products = (response as List)
+        .map((e) => ProductModel.fromJson(e))
+        .toList();
+
+    final unique = <String, ProductModel>{};
+
+    for (final product in products) {
+      final key = product.equipmentType ?? '';
+
+      if (key.isNotEmpty) {
+        unique[key] = product;
+      }
+    }
+
+    productModelForListFilterCatalogEquipmenType = unique.values.toList();
+
+    update();
+  }
+
+  Future<void> getProductsByCategoryForListFilterModels({
+    required String category,
+  }) async {
+    final response = await supabase
+        .from('products')
+        .select()
+        .eq('category_products', category);
+
+    final products = (response as List)
+        .map((e) => ProductModel.fromJson(e))
+        .toList();
+
+    final unique = <String, ProductModel>{};
+
+    for (final product in products) {
+      final key = product.models ?? '';
+
+      if (key.isNotEmpty) {
+        unique[key] = product;
+      }
+    }
+
+    productModelForListFilterCatalogModels = unique.values.toList();
+
+    update();
+  }
+
+  Future<void> getProductsByCategoryForListFilterAeomPartNumber({
+    required String category,
+  }) async {
+    final response = await supabase
+        .from('products')
+        .select()
+        .eq('category_products', category);
+
+    final products = (response as List)
+        .map((e) => ProductModel.fromJson(e))
+        .toList();
+
+    final unique = <String, ProductModel>{};
+
+    for (final product in products) {
+      final key = product.oemPartNumber ?? '';
+
+      if (key.isNotEmpty) {
+        unique[key] = product;
+      }
+    }
+
+    productModelForListFilterCatalogOemPartNumber = unique.values.toList();
+
+    update();
+  }
+
+  Future<void> getProductsByCategoryForListFilterIndustry({
+    required String category,
+  }) async {
+    final response = await supabase
+        .from('products')
+        .select()
+        .eq('category_products', category);
+
+    final products = (response as List)
+        .map((e) => ProductModel.fromJson(e))
+        .toList();
+
+    final unique = <String, ProductModel>{};
+
+    for (final product in products) {
+      final key = product.industry ?? '';
+
+      if (key.isNotEmpty) {
+        unique[key] = product;
+      }
+    }
+
+    productModelForListFilterCatalogIndystry = unique.values.toList();
+
+    update();
+  }
+
+  Future<void> getProductsByCategoryForListFilterProductType({
+    required String category,
+  }) async {
+    final response = await supabase
+        .from('products')
+        .select()
+        .eq('category_products', category);
+
+    final products = (response as List)
+        .map((e) => ProductModel.fromJson(e))
+        .toList();
+
+    final unique = <String, ProductModel>{};
+
+    for (final product in products) {
+      final key = product.productType ?? '';
+
+      if (key.isNotEmpty) {
+        unique[key] = product;
+      }
+    }
+
+    productModelForListFilterCatalogProductType = unique.values.toList();
+
+    update();
+  }
+
+  Future<void> getProductsByCategoryForListFilterProductTypeDesign({
+    required String category,
+  }) async {
+    final response = await supabase
+        .from('products')
+        .select()
+        .eq('category_products', category);
+
+    final products = (response as List)
+        .map((e) => ProductModel.fromJson(e))
+        .toList();
+
+    final unique = <String, ProductModel>{};
+
+    for (final product in products) {
+      final key = product.productTypeDesign ?? '';
+
+      if (key.isNotEmpty) {
+        unique[key] = product;
+      }
+    }
+
+    productModelForListFilterCatalogProductTypeDesign = unique.values.toList();
+
+    update();
+  }
+
+  Future<void> getProductsByCategoryForListFilterPartNumber({
+    required String category,
+  }) async {
+    final response = await supabase
+        .from('products')
+        .select()
+        .eq('category_products', category);
+
+    final products = (response as List)
+        .map((e) => ProductModel.fromJson(e))
+        .toList();
+
+    final unique = <String, ProductModel>{};
+
+    for (final product in products) {
+      final key = product.partNumber ?? '';
+
+      if (key.isNotEmpty) {
+        unique[key] = product;
+      }
+    }
+
+    productModelForListFilterPartNumber = unique.values.toList();
+
+    update();
+  }
+
+  Future<void> getProductsByCategoryForListFilterMakes({
+    required String category,
+  }) async {
+    final response = await supabase
+        .from('products')
+        .select()
+        .eq('category_products', category);
+
+    final products = (response as List)
+        .map((e) => ProductModel.fromJson(e))
+        .toList();
+
+    final unique = <String, ProductModel>{};
+
+    for (final product in products) {
+      final key = product.makes ?? '';
+
+      if (key.isNotEmpty) {
+        unique[key] = product;
+      }
+    }
+
+    productModelForListFilterMakes = unique.values.toList();
+
+    update();
+  }
+
+  Future<void> getProductsByCategoryForListFilterApplication({
+    required String category,
+  }) async {
+    final response = await supabase
+        .from('products')
+        .select()
+        .eq('category_products', category);
+
+    final products = (response as List)
+        .map((e) => ProductModel.fromJson(e))
+        .toList();
+
+    final unique = <String, ProductModel>{};
+
+    for (final product in products) {
+      final key = product.application ?? '';
+
+      if (key.isNotEmpty) {
+        unique[key] = product;
+      }
+    }
+
+    productModelForListFilterApplication = unique.values.toList();
+
+    update();
+  }
+
+  Future<void> getProductsByCategoryForListFilterSize({
+    required String category,
+  }) async {
+    final response = await supabase
+        .from('products')
+        .select()
+        .eq('category_products', category);
+
+    final products = (response as List)
+        .map((e) => ProductModel.fromJson(e))
+        .toList();
+
+    final unique = <String, ProductModel>{};
+
+    for (final product in products) {
+      final key = product.size ?? '';
+
+      if (key.isNotEmpty) {
+        unique[key] = product;
+      }
+    }
+
+    productModelForListFilterSize = unique.values.toList();
+
+    update();
+  }
+
+  Future<void> getProductsByCategoryForListFilterPressureRating({
+    required String category,
+  }) async {
+    final response = await supabase
+        .from('products')
+        .select()
+        .eq('category_products', category);
+
+    final products = (response as List)
+        .map((e) => ProductModel.fromJson(e))
+        .toList();
+
+    final unique = <String, ProductModel>{};
+
+    for (final product in products) {
+      final key = product.pressureRating ?? '';
+
+      if (key.isNotEmpty) {
+        unique[key] = product;
+      }
+    }
+
+    productModelForListFilterPartPressure = unique.values.toList();
+
+    update();
+  }
+
+  Future<void> getProductsByCategoryForListFilterMaterial({
+    required String category,
+  }) async {
+    final response = await supabase
+        .from('products')
+        .select()
+        .eq('category_products', category);
+
+    final products = (response as List)
+        .map((e) => ProductModel.fromJson(e))
+        .toList();
+
+    final unique = <String, ProductModel>{};
+
+    for (final product in products) {
+      final key = product.materialType ?? '';
+
+      if (key.isNotEmpty) {
+        unique[key] = product;
+      }
+    }
+
+    productModelForListFilterPartMaterial = unique.values.toList();
+
+    update();
+  }
+
+  Future<void> getProductsByCategoryForListFilterDescriptionApplication({
+    required String category,
+  }) async {
+    final response = await supabase
+        .from('products')
+        .select()
+        .eq('category_products', category);
+
+    final products = (response as List)
+        .map((e) => ProductModel.fromJson(e))
+        .toList();
+
+    final unique = <String, ProductModel>{};
+
+    for (final product in products) {
+      final key = product.descriptionApplication ?? '';
+
+      if (key.isNotEmpty) {
+        unique[key] = product;
+      }
+    }
+
+    productModelForListFilterPartDescriptionApplication = unique.values
         .toList();
 
     update();
