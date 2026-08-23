@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:project/theme/theme.dart';
 
-class TextFieldData extends StatelessWidget {
+class DropdownFieldData extends StatelessWidget {
   final String textName;
   final String hintName;
-  final bool obsecureText;
-  final TextEditingController controller;
+  final String? value;
+  final List<String> items;
+  final ValueChanged<String?> onChanged;
 
-  const TextFieldData({
+  const DropdownFieldData({
     super.key,
-    required this.hintName,
     required this.textName,
-    required this.obsecureText,
-    required this.controller,
+    required this.hintName,
+    required this.value,
+    required this.items,
+    required this.onChanged,
   });
 
   @override
@@ -30,14 +32,14 @@ class TextFieldData extends StatelessWidget {
             width: 500,
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.grey,
+                color: lightGrey,
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: TextFormField(
-                controller: controller,
+              child: DropdownButtonFormField<String>(
+                value: value,
+                isExpanded: true,
+                icon: const Icon(Icons.keyboard_arrow_down),
                 style: blackTextStyle.copyWith(fontSize: 14),
-                cursorColor: Colors.white,
-                obscureText: obsecureText,
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(
                     horizontal: 16,
@@ -49,6 +51,13 @@ class TextFieldData extends StatelessWidget {
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
                 ),
+                items: items.map((item) {
+                  return DropdownMenuItem<String>(
+                    value: item,
+                    child: Text(item),
+                  );
+                }).toList(),
+                onChanged: onChanged,
               ),
             ),
           ),

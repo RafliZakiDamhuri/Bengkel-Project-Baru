@@ -151,18 +151,45 @@ class _GlobalappbarState extends State<Globalappbar> {
         children: [
           Visibility(
             visible: widget.isNeedScrollButton,
-            child: Container(
-              margin: EdgeInsets.only(bottom: 400, top: 400),
-              child: GestureDetector(
-                onTap: () {
-                  scrollController.animateTo(
-                    scrollController.offset + 500,
-                    duration: const Duration(milliseconds: 500),
-                    curve: Curves.easeInOut,
-                  );
-                },
-                child: Image.asset(AppImages().scroll, width: 5.w, height: 5.h),
-              ),
+            child: Column(
+              children: [
+                Container(
+                  margin: EdgeInsets.only(bottom: 400, top: 400),
+                  child: Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          scrollController.animateTo(
+                            scrollController.offset - 500,
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.easeInOut,
+                          );
+                        },
+                        child: Image.asset(
+                          AppImages().buttonUp,
+                          width: 5.w,
+                          height: 5.h,
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      GestureDetector(
+                        onTap: () {
+                          scrollController.animateTo(
+                            scrollController.offset + 500,
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.easeInOut,
+                          );
+                        },
+                        child: Image.asset(
+                          AppImages().buttonDown,
+                          width: 5.w,
+                          height: 5.h,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
 

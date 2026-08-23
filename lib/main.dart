@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:project/Auth/controller/auth_controller.dart';
+import 'package:project/CMS/controller/blog_controller.dart';
 import 'package:project/CMS/controller/cms_controller.dart';
 import 'package:project/ProductDetail/controller/product_detail_controller.dart';
 import 'package:project/controller/aboutUsController.dart';
@@ -10,10 +12,9 @@ import 'package:project/controller/globalController.dart';
 import 'package:project/controller/homeController.dart';
 import 'package:project/controller/mainProductController.dart';
 import 'package:project/controller/searchProductController.dart';
-import 'package:project/home.dart';
 import 'package:project/routes/routes_name.dart';
 import 'package:project/routes/routes_navigator.dart';
-import 'package:project/search_product_page.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:sizer/sizer.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -35,6 +36,7 @@ void main() async {
   Get.put(Searchproductcontroller());
   Get.put(CmsController());
   Get.put(ProductDetailController());
+  Get.put(BlogController());
 
   runApp(const MyApp());
 }
@@ -47,6 +49,13 @@ class MyApp extends StatelessWidget {
     return Sizer(
       builder: (context, orientation, deviceType) {
         return GetMaterialApp(
+          localizationsDelegates: [
+            GlobalMaterialLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            FlutterQuillLocalizations.delegate,
+          ],
+          supportedLocales: const [Locale('en'), Locale('id')],
           debugShowCheckedModeBanner: false,
           initialRoute: AppRouteName.home,
           getPages: AppPages.pages,

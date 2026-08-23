@@ -44,4 +44,7 @@ class AppImages {
   String komatsuD85 = 'assets/images/Rectangle 32.png';
   String medicalCheckup = 'assets/images/Rectangle 31.png';
   String contactPage = 'assets/images/Indocool-All-Contact-List 1.png';
+  String blogHeader = 'assets/images/blog-header.webp';
+  String buttonUp = 'assets/images/button_up.webp';
+  String buttonDown = 'assets/images/button_down.webp';
 }

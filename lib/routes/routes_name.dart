@@ -12,7 +12,8 @@ class AppRouteName {
   static const editData = '/edit-data';
   static const productDetailPage = '/product-detail';
   static const inquaryPage = '/inquary';
-  static const certificationPage = '/certification';
+  static const blogDetail = '/blog-detail';
   static const contactPage = '/contact';
   static const careers = '/careers';
+  static const blogList = '/blog-list';
 }

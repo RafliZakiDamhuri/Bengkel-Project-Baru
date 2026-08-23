@@ -3,8 +3,9 @@ import 'package:project/Auth/controller/auth_controller.dart';
 import 'package:project/CMS/presentation/cms.dart';
 import 'package:project/CMS/presentation/edit_data.dart';
 import 'package:project/about_us_page.dart';
+import 'package:project/blog/presentation/blog_list.dart';
 import 'package:project/careers_page.dart';
-import 'package:project/certification_page.dart';
+import 'package:project/blog/presentation/blog_detail.dart';
 import 'package:project/contact.dart';
 import 'package:project/contact_us_page.dart';
 import 'package:project/home.dart';
@@ -34,10 +35,7 @@ class AppPages {
     GetPage(name: AppRouteName.inquaryPage, page: () => const InquaryPage()),
     GetPage(name: AppRouteName.contactPage, page: () => const Contact()),
 
-    GetPage(
-      name: AppRouteName.certificationPage,
-      page: () => const CertificationPage(),
-    ),
+    GetPage(name: AppRouteName.blogDetail, page: () => const BlogDetail()),
     GetPage(
       name: AppRouteName.register,
       page: () => const RegisterPage(),
@@ -54,5 +52,7 @@ class AppPages {
       page: () => const ProductDetailPage(),
     ),
     GetPage(name: AppRouteName.careers, page: () => const CareersPage()),
+
+    GetPage(name: AppRouteName.blogList, page: () => const BlogListPage()),
   ];
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project/CMS/controller/cms_controller.dart';
 import 'package:project/CMS/global_widget/cms_sidebar.dart';
+import 'package:project/CMS/presentation/add_blog.dart';
 import 'package:project/CMS/presentation/add_data.dart';
 import 'package:project/CMS/presentation/edit_data.dart';
 import 'package:project/CMS/presentation/pre_edit.dart';
@@ -47,7 +48,8 @@ class CmsPage extends StatelessWidget {
                       PreEdit(titleCategory: AppString().caterpilarTube), //9
                       PreEdit(
                         titleCategory: AppString().caterpillarRadiatorCore,
-                      ), //10
+                      ),
+                      AddBlog(),
                     ],
                   );
                 },
