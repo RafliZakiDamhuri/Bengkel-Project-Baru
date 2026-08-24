@@ -186,6 +186,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
 
             Listofbuttonradiatorandcatapillar(
               searchController: searchController,
+              categoryProducts: AppString().caterpilarTube,
             ),
             SizedBox(height: 16),
             Center(
@@ -301,7 +302,10 @@ class _SearchProductPageState extends State<SearchProductPage> {
             tableTitle(),
             SizedBox(height: 16),
 
-            ListOfButtonRadiatorAndCap(searchController: searchController),
+            ListOfButtonRadiatorAndCap(
+              searchController: searchController,
+              categoryProducts: AppString().radiatorCapAndAdapters,
+            ),
             SizedBox(height: 16),
             Center(
               child: SingleChildScrollView(
@@ -1183,6 +1187,20 @@ class _SearchProductPageState extends State<SearchProductPage> {
     return GetBuilder<Searchproductcontroller>(
       initState: (state) async {
         await searchController.getProductsByCategoryForListFilterCatalog(
+          category: argument.flow ?? '',
+        );
+        await searchController
+            .getProductsByCategoryForListFilterProductTypeDescription(
+              category: argument.flow ?? '',
+            );
+        await searchController
+            .getProductsByCategoryForListFilterDescriptionApplication(
+              category: argument.flow ?? '',
+            );
+        await searchController.getProductsByCategoryForListFilterAeomPartNumber(
+          category: argument.flow ?? '',
+        );
+        await searchController.getProductsByCategoryForListFilterModels(
           category: argument.flow ?? '',
         );
         await searchController.getProductsByCategoryForListFilterEquipmentType(

@@ -215,7 +215,7 @@ class _GlobalappbarState extends State<Globalappbar> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              Get.toNamed(AppRouteName.contactPage);
+                              Get.toNamed(AppRouteName.home);
                             },
                             child: Container(
                               width: 264,
