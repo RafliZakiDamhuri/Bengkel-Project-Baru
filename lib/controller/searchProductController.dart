@@ -38,6 +38,7 @@ class Searchproductcontroller extends GetxController {
   List<ProductModel> productModelForListFilterCatalogIndystry = [];
   List<ProductModel> productModelForListFilterCatalogProductType = [];
   List<ProductModel> productModelForListFilterCatalogProductTypeDesign = [];
+  List<ProductModel> productModelForListFilterCatalogDescription = [];
 
   List<ProductModel> productModelForListFilterPartNumber = [];
   List<ProductModel> productModelForListFilterMakes = [];
@@ -415,7 +416,11 @@ class Searchproductcontroller extends GetxController {
     update();
   }
 
-  Future<void> getDataByFilter(String? queryData, String? type) async {
+  Future<void> getDataByFilter(
+    String? queryData,
+    String? type, {
+    required String categoryProducts,
+  }) async {
     final Map<String, String> columnMap = {
       'Makes': 'makes',
       'Catalogue Number': 'catalogue_number',
@@ -432,13 +437,17 @@ class Searchproductcontroller extends GetxController {
       'Part Number': 'part_number',
       'Product Type Design': 'product_type_design',
     };
+
     final column = columnMap[type];
+
     var query = supabase.from('products').select('*');
+
     if (column != null && queryData != null) {
       query = query.eq(column, queryData);
     }
+
     final response = await query
-        .eq('category_products', AppString().radiatorAndCoolers)
+        .eq('category_products', categoryProducts)
         .order('makes', ascending: true);
 
     productModel = (response as List)
@@ -712,6 +721,33 @@ class Searchproductcontroller extends GetxController {
     }
 
     productModelForListFilterCatalogProductTypeDesign = unique.values.toList();
+
+    update();
+  }
+
+  Future<void> getProductsByCategoryForListFilterProductTypeDescription({
+    required String category,
+  }) async {
+    final response = await supabase
+        .from('products')
+        .select()
+        .eq('category_products', category);
+
+    final products = (response as List)
+        .map((e) => ProductModel.fromJson(e))
+        .toList();
+
+    final unique = <String, ProductModel>{};
+
+    for (final product in products) {
+      final key = product.descriptionApplication ?? '';
+
+      if (key.isNotEmpty) {
+        unique[key] = product;
+      }
+    }
+
+    productModelForListFilterCatalogDescription = unique.values.toList();
 
     update();
   }

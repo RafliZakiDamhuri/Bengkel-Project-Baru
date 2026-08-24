@@ -4,8 +4,13 @@ import 'package:project/theme/theme.dart';
 
 class ListOfButtonRadiatorAndCap extends StatelessWidget {
   final Searchproductcontroller searchController;
+  final String categoryProducts;
 
-  const ListOfButtonRadiatorAndCap({super.key, required this.searchController});
+  const ListOfButtonRadiatorAndCap({
+    super.key,
+    required this.searchController,
+    required this.categoryProducts,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +24,15 @@ class ListOfButtonRadiatorAndCap extends StatelessWidget {
           child: PopupMenuButton<String>(
             offset: const Offset(0, 25),
             padding: EdgeInsets.zero,
+
             onSelected: (value) {
-              searchController.getDataByFilter(value, 'Part Number');
+              searchController.getDataByFilter(
+                value,
+                'Part Number',
+                categoryProducts: categoryProducts,
+              );
             },
+
             itemBuilder: (context) {
               return List.generate(
                 searchController.productModelForListFilterPartNumber.length,
@@ -36,6 +47,7 @@ class ListOfButtonRadiatorAndCap extends StatelessWidget {
                 },
               );
             },
+
             child: Container(
               height: 22,
               alignment: Alignment.center,
@@ -54,13 +66,19 @@ class ListOfButtonRadiatorAndCap extends StatelessWidget {
         // MAKES
         // =========================
         Expanded(
-          flex: 7,
+          flex: 9,
           child: PopupMenuButton<String>(
             offset: const Offset(0, 25),
             padding: EdgeInsets.zero,
+
             onSelected: (value) {
-              searchController.getDataByFilter(value, 'Makes');
+              searchController.getDataByFilter(
+                value,
+                'Makes',
+                categoryProducts: categoryProducts,
+              );
             },
+
             itemBuilder: (context) {
               return List.generate(
                 searchController.productModelForListFilterMakes.length,
@@ -75,6 +93,7 @@ class ListOfButtonRadiatorAndCap extends StatelessWidget {
                 },
               );
             },
+
             child: Container(
               height: 22,
               alignment: Alignment.center,
@@ -86,7 +105,6 @@ class ListOfButtonRadiatorAndCap extends StatelessWidget {
             ),
           ),
         ),
-
         const SizedBox(width: 15),
 
         // =========================
@@ -97,9 +115,15 @@ class ListOfButtonRadiatorAndCap extends StatelessWidget {
           child: PopupMenuButton<String>(
             offset: const Offset(0, 25),
             padding: EdgeInsets.zero,
+
             onSelected: (value) {
-              searchController.getDataByFilter(value, 'Application');
+              searchController.getDataByFilter(
+                value,
+                'Application',
+                categoryProducts: categoryProducts,
+              );
             },
+
             itemBuilder: (context) {
               return List.generate(
                 searchController.productModelForListFilterApplication.length,
@@ -114,6 +138,7 @@ class ListOfButtonRadiatorAndCap extends StatelessWidget {
                 },
               );
             },
+
             child: Container(
               height: 22,
               alignment: Alignment.center,
@@ -125,20 +150,25 @@ class ListOfButtonRadiatorAndCap extends StatelessWidget {
             ),
           ),
         ),
-
         const SizedBox(width: 15),
 
         // =========================
         // SIZE
         // =========================
         Expanded(
-          flex: 7,
+          flex: 9,
           child: PopupMenuButton<String>(
             offset: const Offset(0, 25),
             padding: EdgeInsets.zero,
+
             onSelected: (value) {
-              searchController.getDataByFilter(value, 'Size');
+              searchController.getDataByFilter(
+                value,
+                'Size',
+                categoryProducts: categoryProducts,
+              );
             },
+
             itemBuilder: (context) {
               return List.generate(
                 searchController.productModelForListFilterSize.length,
@@ -153,6 +183,7 @@ class ListOfButtonRadiatorAndCap extends StatelessWidget {
                 },
               );
             },
+
             child: Container(
               height: 22,
               alignment: Alignment.center,
@@ -171,13 +202,19 @@ class ListOfButtonRadiatorAndCap extends StatelessWidget {
         // PRESSURE
         // =========================
         Expanded(
-          flex: 7,
+          flex: 9,
           child: PopupMenuButton<String>(
             offset: const Offset(0, 25),
             padding: EdgeInsets.zero,
+
             onSelected: (value) {
-              searchController.getDataByFilter(value, 'Presure Ratting');
+              searchController.getDataByFilter(
+                value,
+                'Presure Ratting',
+                categoryProducts: categoryProducts,
+              );
             },
+
             itemBuilder: (context) {
               return List.generate(
                 searchController.productModelForListFilterPartPressure.length,
@@ -192,6 +229,7 @@ class ListOfButtonRadiatorAndCap extends StatelessWidget {
                 },
               );
             },
+
             child: Container(
               height: 22,
               alignment: Alignment.center,
@@ -199,11 +237,10 @@ class ListOfButtonRadiatorAndCap extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(2),
               ),
-              child: Text('Pressure', style: blackTextStyle),
+              child: Text('Presure Ratting', style: blackTextStyle),
             ),
           ),
         ),
-
         const SizedBox(width: 15),
 
         // =========================
@@ -214,9 +251,15 @@ class ListOfButtonRadiatorAndCap extends StatelessWidget {
           child: PopupMenuButton<String>(
             offset: const Offset(0, 25),
             padding: EdgeInsets.zero,
+
             onSelected: (value) {
-              searchController.getDataByFilter(value, 'Material');
+              searchController.getDataByFilter(
+                value,
+                'Material',
+                categoryProducts: categoryProducts,
+              );
             },
+
             itemBuilder: (context) {
               return List.generate(
                 searchController.productModelForListFilterPartMaterial.length,
@@ -231,6 +274,7 @@ class ListOfButtonRadiatorAndCap extends StatelessWidget {
                 },
               );
             },
+
             child: Container(
               height: 22,
               alignment: Alignment.center,
@@ -249,13 +293,19 @@ class ListOfButtonRadiatorAndCap extends StatelessWidget {
         // DESCRIPTION
         // =========================
         Expanded(
-          flex: 20,
+          flex: 9,
           child: PopupMenuButton<String>(
             offset: const Offset(0, 25),
             padding: EdgeInsets.zero,
+
             onSelected: (value) {
-              searchController.getDataByFilter(value, 'Description');
+              searchController.getDataByFilter(
+                value,
+                'Description',
+                categoryProducts: categoryProducts,
+              );
             },
+
             itemBuilder: (context) {
               return List.generate(
                 searchController
@@ -272,6 +322,7 @@ class ListOfButtonRadiatorAndCap extends StatelessWidget {
                 },
               );
             },
+
             child: Container(
               height: 22,
               alignment: Alignment.center,
@@ -279,7 +330,7 @@ class ListOfButtonRadiatorAndCap extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(2),
               ),
-              child: Text('Description / Application', style: blackTextStyle),
+              child: Text('Description', style: blackTextStyle),
             ),
           ),
         ),

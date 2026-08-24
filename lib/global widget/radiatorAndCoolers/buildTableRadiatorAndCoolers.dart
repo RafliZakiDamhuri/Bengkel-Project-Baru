@@ -98,7 +98,10 @@ class BuildTableRadiatorAndCoolers extends StatelessWidget {
           tableTitle(),
           SizedBox(height: 16),
 
-          ListOfButtonRadiatorAndCoolers(searchController: searchController),
+          ListOfButtonRadiatorAndCoolers(
+            searchController: searchController,
+            categoryProducts: AppString().radiatorAndCoolers,
+          ),
           SizedBox(height: 16),
           Center(
             child: SingleChildScrollView(

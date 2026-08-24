@@ -6,9 +6,11 @@ import 'package:project/theme/theme.dart';
 
 class Listofbuttonradiatorandcatapillar extends StatelessWidget {
   final Searchproductcontroller searchController;
+  final String categoryProducts;
   const Listofbuttonradiatorandcatapillar({
     super.key,
     required this.searchController,
+    required this.categoryProducts,
   });
 
   @override
@@ -19,25 +21,33 @@ class Listofbuttonradiatorandcatapillar extends StatelessWidget {
       children: [
         Expanded(
           flex: 9,
-          child: PopupMenuButton(
+          child: PopupMenuButton<String>(
             offset: const Offset(0, 25),
             padding: EdgeInsets.zero,
+
             onSelected: (value) {
-              searchController.getDataByFilter(value, 'Catalogue Number');
+              searchController.getDataByFilter(
+                value,
+                'Catalogue Number',
+                categoryProducts: categoryProducts,
+              );
             },
+
             itemBuilder: (context) {
               return List.generate(
                 searchController.productModelForListFilterCatalogNumber.length,
                 (index) {
-                  var data = searchController
+                  final data = searchController
                       .productModelForListFilterCatalogNumber[index];
-                  return PopupMenuItem(
+
+                  return PopupMenuItem<String>(
                     value: data.catalogueNumber,
                     child: Text(data.catalogueNumber ?? '-'),
                   );
                 },
               );
             },
+
             child: Container(
               height: 22,
               alignment: Alignment.center,
@@ -53,26 +63,34 @@ class Listofbuttonradiatorandcatapillar extends StatelessWidget {
         const SizedBox(width: 15),
 
         Expanded(
-          flex: 7,
-          child: PopupMenuButton(
+          flex: 9,
+          child: PopupMenuButton<String>(
             offset: const Offset(0, 25),
             padding: EdgeInsets.zero,
+
             onSelected: (value) {
-              searchController.getDataByFilter(value, 'Makes');
+              searchController.getDataByFilter(
+                value,
+                'Makes',
+                categoryProducts: categoryProducts,
+              );
             },
+
             itemBuilder: (context) {
               return List.generate(
                 searchController.productModelForListFilterMakes.length,
                 (index) {
-                  var data =
+                  final data =
                       searchController.productModelForListFilterMakes[index];
-                  return PopupMenuItem(
+
+                  return PopupMenuItem<String>(
                     value: data.makes,
                     child: Text(data.makes ?? '-'),
                   );
                 },
               );
             },
+
             child: Container(
               height: 22,
               alignment: Alignment.center,
@@ -88,28 +106,36 @@ class Listofbuttonradiatorandcatapillar extends StatelessWidget {
         const SizedBox(width: 15),
 
         Expanded(
-          flex: 7,
-          child: PopupMenuButton(
+          flex: 9,
+          child: PopupMenuButton<String>(
             offset: const Offset(0, 25),
             padding: EdgeInsets.zero,
+
             onSelected: (value) {
-              searchController.getDataByFilter(value, 'Equipment Type');
+              searchController.getDataByFilter(
+                value,
+                'Equipment Type',
+                categoryProducts: categoryProducts,
+              );
             },
+
             itemBuilder: (context) {
               return List.generate(
                 searchController
                     .productModelForListFilterCatalogEquipmenType
                     .length,
                 (index) {
-                  var data = searchController
+                  final data = searchController
                       .productModelForListFilterCatalogEquipmenType[index];
-                  return PopupMenuItem(
+
+                  return PopupMenuItem<String>(
                     value: data.equipmentType,
                     child: Text(data.equipmentType ?? '-'),
                   );
                 },
               );
             },
+
             child: Container(
               height: 22,
               alignment: Alignment.center,
@@ -125,26 +151,34 @@ class Listofbuttonradiatorandcatapillar extends StatelessWidget {
         const SizedBox(width: 15),
 
         Expanded(
-          flex: 7,
-          child: PopupMenuButton(
+          flex: 9,
+          child: PopupMenuButton<String>(
             offset: const Offset(0, 25),
             padding: EdgeInsets.zero,
+
             onSelected: (value) {
-              searchController.getDataByFilter(value, 'Models');
+              searchController.getDataByFilter(
+                value,
+                'Models',
+                categoryProducts: categoryProducts,
+              );
             },
+
             itemBuilder: (context) {
               return List.generate(
                 searchController.productModelForListFilterCatalogModels.length,
                 (index) {
-                  var data = searchController
+                  final data = searchController
                       .productModelForListFilterCatalogModels[index];
-                  return PopupMenuItem(
+
+                  return PopupMenuItem<String>(
                     value: data.models,
                     child: Text(data.models ?? '-'),
                   );
                 },
               );
             },
+
             child: Container(
               height: 22,
               alignment: Alignment.center,
@@ -158,30 +192,37 @@ class Listofbuttonradiatorandcatapillar extends StatelessWidget {
         ),
 
         const SizedBox(width: 15),
-
         Expanded(
           flex: 9,
-          child: PopupMenuButton(
+          child: PopupMenuButton<String>(
             offset: const Offset(0, 25),
             padding: EdgeInsets.zero,
+
             onSelected: (value) {
-              searchController.getDataByFilter(value, 'OEM Part Number');
+              searchController.getDataByFilter(
+                value,
+                'OEM Part Number',
+                categoryProducts: categoryProducts,
+              );
             },
+
             itemBuilder: (context) {
               return List.generate(
                 searchController
                     .productModelForListFilterCatalogOemPartNumber
                     .length,
                 (index) {
-                  var data = searchController
+                  final data = searchController
                       .productModelForListFilterCatalogOemPartNumber[index];
-                  return PopupMenuItem(
+
+                  return PopupMenuItem<String>(
                     value: data.oemPartNumber,
                     child: Text(data.oemPartNumber ?? '-'),
                   );
                 },
               );
             },
+
             child: Container(
               height: 22,
               alignment: Alignment.center,
@@ -193,31 +234,38 @@ class Listofbuttonradiatorandcatapillar extends StatelessWidget {
             ),
           ),
         ),
-
         const SizedBox(width: 15),
         Expanded(
-          flex: 7,
-          child: PopupMenuButton(
+          flex: 9,
+          child: PopupMenuButton<String>(
             offset: const Offset(0, 25),
             padding: EdgeInsets.zero,
+
             onSelected: (value) {
-              searchController.getDataByFilter(value, 'Industry');
+              searchController.getDataByFilter(
+                value,
+                'Industry',
+                categoryProducts: categoryProducts,
+              );
             },
+
             itemBuilder: (context) {
               return List.generate(
                 searchController
                     .productModelForListFilterCatalogIndystry
                     .length,
                 (index) {
-                  var data = searchController
+                  final data = searchController
                       .productModelForListFilterCatalogIndystry[index];
-                  return PopupMenuItem(
+
+                  return PopupMenuItem<String>(
                     value: data.industry,
                     child: Text(data.industry ?? '-'),
                   );
                 },
               );
             },
+
             child: Container(
               height: 22,
               alignment: Alignment.center,
@@ -234,26 +282,35 @@ class Listofbuttonradiatorandcatapillar extends StatelessWidget {
 
         Expanded(
           flex: 9,
-          child: PopupMenuButton(
+          child: PopupMenuButton<String>(
             offset: const Offset(0, 25),
             padding: EdgeInsets.zero,
+
             onSelected: (value) {
-              searchController.getDataByFilter(value, 'Product Type');
+              searchController.getDataByFilter(
+                value,
+                'Product Type',
+                categoryProducts: categoryProducts,
+              );
             },
+
             itemBuilder: (context) {
               return List.generate(
                 searchController
                     .productModelForListFilterCatalogProductType
                     .length,
                 (index) {
-                  var data = searchController.productModelForListFilter[index];
-                  return PopupMenuItem(
+                  final data = searchController
+                      .productModelForListFilterCatalogProductType[index];
+
+                  return PopupMenuItem<String>(
                     value: data.productType,
                     child: Text(data.productType ?? '-'),
                   );
                 },
               );
             },
+
             child: Container(
               height: 22,
               alignment: Alignment.center,
@@ -266,30 +323,37 @@ class Listofbuttonradiatorandcatapillar extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 15),
-
         Expanded(
-          flex: 20,
-          child: PopupMenuButton(
+          flex: 9,
+          child: PopupMenuButton<String>(
             offset: const Offset(0, 25),
             padding: EdgeInsets.zero,
+
             onSelected: (value) {
-              searchController.getDataByFilter(value, 'Product Type Design');
+              searchController.getDataByFilter(
+                value,
+                'Product Type Design',
+                categoryProducts: categoryProducts,
+              );
             },
+
             itemBuilder: (context) {
               return List.generate(
                 searchController
                     .productModelForListFilterCatalogProductTypeDesign
                     .length,
                 (index) {
-                  var data = searchController
+                  final data = searchController
                       .productModelForListFilterCatalogProductTypeDesign[index];
-                  return PopupMenuItem(
-                    value: data.descriptionApplication,
-                    child: Text(data.descriptionApplication ?? '-'),
+
+                  return PopupMenuItem<String>(
+                    value: data.productTypeDesign,
+                    child: Text(data.productTypeDesign ?? '-'),
                   );
                 },
               );
             },
+
             child: Container(
               height: 22,
               alignment: Alignment.center,
