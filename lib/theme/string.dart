@@ -42,7 +42,7 @@ class AppString {
   String appBar0 = 'HOME';
   String appBar1 = 'PRODUCTS';
   String appBar2 = 'SERVICES';
-  String appBar3 = 'SEARCH PART';
+  String appBar3 = 'CATALOGUE';
   String appBar4 = 'INSIGHT';
   String appBar5 = 'ABOUT US';
   String appBar6 = 'CONTACT';

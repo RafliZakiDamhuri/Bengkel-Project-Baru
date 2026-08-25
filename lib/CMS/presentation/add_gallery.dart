@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:project/CMS/controller/blog_controller.dart';
-import 'package:project/CMS/controller/cms_controller.dart';
 import 'package:project/CMS/controller/gallery_controller.dart';
 import 'package:project/CMS/global_widget/dropdown_global_widget.dart';
 import 'package:project/CMS/global_widget/quill_field_data.dart';
@@ -10,15 +9,15 @@ import 'package:project/CMS/global_widget/textfield_widget.dart';
 import 'package:project/global%20widget/customButton.dart';
 import 'package:project/routes/routes_name.dart';
 
-class AddBlog extends StatefulWidget {
-  const AddBlog({super.key});
+class AddGallery extends StatefulWidget {
+  const AddGallery({super.key});
 
   @override
-  State<AddBlog> createState() => _AddBlogState();
+  State<AddGallery> createState() => _AddGalleryState();
 }
 
-class _AddBlogState extends State<AddBlog> {
-  final BlogController _controller = Get.find<BlogController>();
+class _AddGalleryState extends State<AddGallery> {
+  final CMSGalleryController _controller = Get.find<CMSGalleryController>();
   @override
   void initState() {
     super.initState();
@@ -30,12 +29,12 @@ class _AddBlogState extends State<AddBlog> {
     super.dispose();
   }
 
-  TextEditingController blogTitleController = TextEditingController();
-  TextEditingController blogWriterController = TextEditingController();
+  TextEditingController titleController = TextEditingController();
+  TextEditingController subTitleController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<BlogController>(
+    return GetBuilder<CMSGalleryController>(
       builder: (controller) {
         return SingleChildScrollView(
           child: Container(
@@ -43,32 +42,17 @@ class _AddBlogState extends State<AddBlog> {
             child: Column(
               children: [
                 TextFieldData(
-                  hintName: 'Blog Title',
+                  hintName: 'Title',
                   obsecureText: false,
-                  textName: 'Blog Title',
-                  controller: blogTitleController,
+                  textName: 'Title',
+                  controller: titleController,
                 ),
                 TextFieldData(
-                  hintName: 'Blog Writer',
+                  hintName: 'Subtitle',
                   obsecureText: false,
-                  textName: 'Blog Writer',
-                  controller: blogWriterController,
+                  textName: 'Subtitle',
+                  controller: subTitleController,
                 ),
-                DropdownFieldData(
-                  hintName: 'Select Blog Type',
-                  textName: 'Blog Type',
-                  value: controller.type,
-                  items: const ['Company News', 'Product Insight'],
-                  onChanged: (value) {
-                    controller.type = value ?? '-';
-                    controller.update();
-                  },
-                ),
-                QuillFieldData(
-                  textName: 'Content',
-                  controller: _controller.quillController,
-                ),
-                SizedBox(height: 20),
                 customBlueAppBarButton(
                   onTap: () async {
                     await controller.pickAndUploadImage();
@@ -90,14 +74,19 @@ class _AddBlogState extends State<AddBlog> {
                 SizedBox(height: 20),
 
                 customBlueAppBarButton(
-                  onTap: () async {},
-                  title: 'Submit Blog',
+                  onTap: () async {
+                    _controller.uploadImageToSupabase(
+                      title: titleController.text,
+                      subtitle: subTitleController.text,
+                    );
+                  },
+                  title: 'Submit Gambar',
                 ),
                 SizedBox(height: 20),
 
                 customBlueAppBarButton(
                   onTap: () async {
-                    Get.toNamed(AppRouteName.blogList);
+                    Get.toNamed(AppRouteName.gallery);
                   },
                   title: 'Preview',
                 ),

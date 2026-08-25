@@ -9,6 +9,7 @@ class ProductDetailController extends GetxController {
   final supabase = Supabase.instance.client;
   ProductModel? productModelSingle;
   List<ProductModel> productModel = [];
+  List<ProductModel> productModelFilter = [];
 
   Future<void> getProductById(int id) async {
     try {
@@ -84,30 +85,179 @@ Best Regards
     }
   }
 
+  String? selectedCategory;
+  String? selectedMakes;
+  String? selectedModels;
+
   Future<void> getSimilarData({
     required String? categoryData,
     ProductModel? productModelData,
   }) async {
-    var response;
-    if (categoryData == AppString().radiatorAndCoolers) {
-      response = await supabase
+    try {
+      selectedCategory = categoryData;
+      selectedMakes = productModelData?.makes;
+      selectedModels = productModelData?.models;
+
+      var query = supabase
           .from('products')
           .select()
-          .eq('category_products', categoryData ?? '')
-          .eq('makes', productModelData?.makes ?? '')
-          .eq('models', productModelData?.models ?? '');
-    } else {
-      response = await supabase
-          .from('products')
-          .select()
-          .eq('category_products', categoryData ?? '')
-          .eq('makes', productModelData?.makes ?? '');
+          .eq('category_products', categoryData ?? '');
+
+      if (categoryData == AppString().radiatorAndCoolers) {
+        query = query
+            .eq('makes', productModelData?.makes ?? '')
+            .eq('models', productModelData?.models ?? '');
+      } else {
+        query = query.eq('makes', productModelData?.makes ?? '');
+      }
+
+      final response = await query;
+
+      final products = (response as List)
+          .map((e) => ProductModel.fromJson(e))
+          .toList();
+
+      // MASTER
+      productModel = products;
+
+      // DISPLAY
+      productModelFilter = List<ProductModel>.from(products);
+
+      update();
+    } catch (e) {
+      print('Error getSimilarData: $e');
     }
+  }
 
-    productModel = (response as List)
-        .map((e) => ProductModel.fromJson(e))
-        .toList();
+  Future<void> filterByCatalogueNumber(String? catalogueNumber) async {
+    try {
+      var query = supabase
+          .from('products')
+          .select()
+          .eq('category_products', selectedCategory ?? '');
 
-    update();
+      if (selectedMakes != null && selectedMakes!.isNotEmpty) {
+        query = query.eq('makes', selectedMakes!);
+      }
+
+      if (selectedModels != null &&
+          selectedModels!.isNotEmpty &&
+          selectedCategory == AppString().radiatorAndCoolers) {
+        query = query.eq('models', selectedModels!);
+      }
+
+      if (catalogueNumber != null && catalogueNumber.isNotEmpty) {
+        query = query.eq('catalogue_number', catalogueNumber);
+      }
+
+      final response = await query;
+
+      productModelFilter = (response as List)
+          .map((e) => ProductModel.fromJson(e))
+          .toList();
+
+      update();
+    } catch (e) {
+      print('Error filter catalogue number: $e');
+    }
+  }
+
+  Future<void> filterByOEMPartNumber(String? oemPartNumber) async {
+    try {
+      var query = supabase
+          .from('products')
+          .select()
+          .eq('category_products', selectedCategory ?? '');
+
+      if (selectedMakes != null && selectedMakes!.isNotEmpty) {
+        query = query.eq('makes', selectedMakes!);
+      }
+
+      if (selectedModels != null &&
+          selectedModels!.isNotEmpty &&
+          selectedCategory == AppString().radiatorAndCoolers) {
+        query = query.eq('models', selectedModels!);
+      }
+
+      if (oemPartNumber != null && oemPartNumber.isNotEmpty) {
+        query = query.eq('oem_part_number', oemPartNumber);
+      }
+
+      final response = await query;
+
+      productModelFilter = (response as List)
+          .map((e) => ProductModel.fromJson(e))
+          .toList();
+
+      update();
+    } catch (e) {
+      print('Error filter oem number: $e');
+    }
+  }
+
+  Future<void> filterByProductType(String? productType) async {
+    try {
+      var query = supabase
+          .from('products')
+          .select()
+          .eq('category_products', selectedCategory ?? '');
+
+      if (selectedMakes != null && selectedMakes!.isNotEmpty) {
+        query = query.eq('makes', selectedMakes!);
+      }
+
+      if (selectedModels != null &&
+          selectedModels!.isNotEmpty &&
+          selectedCategory == AppString().radiatorAndCoolers) {
+        query = query.eq('models', selectedModels!);
+      }
+
+      if (productType != null && productType.isNotEmpty) {
+        query = query.eq('product_type', productType);
+      }
+
+      final response = await query;
+
+      productModelFilter = (response as List)
+          .map((e) => ProductModel.fromJson(e))
+          .toList();
+
+      update();
+    } catch (e) {
+      print('Error filter oem number: $e');
+    }
+  }
+
+  Future<void> filterByProductDescription(String? description) async {
+    try {
+      var query = supabase
+          .from('products')
+          .select()
+          .eq('category_products', selectedCategory ?? '');
+
+      if (selectedMakes != null && selectedMakes!.isNotEmpty) {
+        query = query.eq('makes', selectedMakes!);
+      }
+
+      if (selectedModels != null &&
+          selectedModels!.isNotEmpty &&
+          selectedCategory == AppString().radiatorAndCoolers) {
+        query = query.eq('models', selectedModels!);
+      }
+
+      if (description != null && description.isNotEmpty) {
+        query = query.eq('description_application', description);
+      }
+
+      final response = await query;
+
+      productModelFilter = (response as List)
+          .map((e) => ProductModel.fromJson(e))
+          .toList();
+
+      update();
+    } catch (e) {
+      print('Error filter oem number: $e');
+    }
   }
 }

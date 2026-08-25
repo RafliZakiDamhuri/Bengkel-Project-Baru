@@ -133,6 +133,11 @@ class CmsSidebar extends StatelessWidget {
           label: "   CATERPILLAR® Core Replacement",
         ),
         SidebarXItem(icon: Icons.newspaper, label: "Add Blog"),
+        SidebarXItem(icon: Icons.camera_alt_rounded, label: "Add Galery"),
+        SidebarXItem(
+          icon: Icons.file_download_outlined,
+          label: "Add Resources",
+        ),
       ],
     );
   }

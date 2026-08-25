@@ -5,6 +5,8 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:project/Auth/controller/auth_controller.dart';
 import 'package:project/CMS/controller/blog_controller.dart';
 import 'package:project/CMS/controller/cms_controller.dart';
+import 'package:project/CMS/controller/gallery_controller.dart';
+import 'package:project/CMS/controller/resources_controller.dart';
 import 'package:project/ProductDetail/controller/product_detail_controller.dart';
 import 'package:project/controller/aboutUsController.dart';
 import 'package:project/controller/contactUsController.dart';
@@ -12,6 +14,7 @@ import 'package:project/controller/globalController.dart';
 import 'package:project/controller/homeController.dart';
 import 'package:project/controller/mainProductController.dart';
 import 'package:project/controller/searchProductController.dart';
+import 'package:project/galery/controller/galerry_controller.dart';
 import 'package:project/routes/routes_name.dart';
 import 'package:project/routes/routes_navigator.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -37,6 +40,9 @@ void main() async {
   Get.put(CmsController());
   Get.put(ProductDetailController());
   Get.put(BlogController());
+  Get.put(CMSGalleryController());
+  Get.put(GalleryController());
+  Get.put(ResoucesController());
 
   runApp(const MyApp());
 }

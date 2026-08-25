@@ -8,6 +8,7 @@ import 'package:project/careers_page.dart';
 import 'package:project/blog/presentation/blog_detail.dart';
 import 'package:project/contact.dart';
 import 'package:project/contact_us_page.dart';
+import 'package:project/galery/presentation/gallery.dart';
 import 'package:project/home.dart';
 import 'package:project/Auth/presentation/login_page.dart';
 import 'package:project/ProductDetail/presentation/product_detail_page.dart';
@@ -15,6 +16,7 @@ import 'package:project/inquary_page.dart';
 import 'package:project/product_page.dart';
 import 'package:project/Auth/presentation/register_page.dart';
 import 'package:project/radiator_core.dart';
+import 'package:project/resources/presentation/resouces.dart';
 import 'package:project/routes/routes_name.dart';
 import 'package:project/search_product_page.dart';
 import 'package:project/theme/services_page.dart';
@@ -54,5 +56,10 @@ class AppPages {
     GetPage(name: AppRouteName.careers, page: () => const CareersPage()),
 
     GetPage(name: AppRouteName.blogList, page: () => const BlogListPage()),
+    GetPage(name: AppRouteName.gallery, page: () => IndocoolGalleryScreen()),
+    GetPage(
+      name: AppRouteName.resources,
+      page: () => DownloadableResourcesPage(),
+    ),
   ];
 }
