@@ -162,6 +162,39 @@ Best Regards
     }
   }
 
+  Future<void> filterByPartNumber(String? partNumber) async {
+    try {
+      var query = supabase
+          .from('products')
+          .select()
+          .eq('category_products', selectedCategory ?? '');
+
+      if (selectedMakes != null && selectedMakes!.isNotEmpty) {
+        query = query.eq('makes', selectedMakes!);
+      }
+
+      if (selectedModels != null &&
+          selectedModels!.isNotEmpty &&
+          selectedCategory == AppString().radiatorAndCoolers) {
+        query = query.eq('models', selectedModels!);
+      }
+
+      if (partNumber != null && partNumber.isNotEmpty) {
+        query = query.eq('part_number', partNumber);
+      }
+
+      final response = await query;
+
+      productModelFilter = (response as List)
+          .map((e) => ProductModel.fromJson(e))
+          .toList();
+
+      update();
+    } catch (e) {
+      print('Error filter catalogue number: $e');
+    }
+  }
+
   Future<void> filterByOEMPartNumber(String? oemPartNumber) async {
     try {
       var query = supabase
