@@ -4,6 +4,8 @@ import 'package:project/CMS/controller/cms_controller.dart';
 import 'package:project/CMS/global_widget/cms_sidebar.dart';
 import 'package:project/CMS/presentation/add_blog.dart';
 import 'package:project/CMS/presentation/add_data.dart';
+import 'package:project/CMS/presentation/add_gallery.dart';
+import 'package:project/CMS/presentation/add_resources.dart';
 import 'package:project/CMS/presentation/edit_data.dart';
 import 'package:project/CMS/presentation/pre_edit.dart';
 import 'package:project/global%20widget/globalAppBar.dart';
@@ -50,6 +52,8 @@ class CmsPage extends StatelessWidget {
                         titleCategory: AppString().caterpillarRadiatorCore,
                       ),
                       AddBlog(),
+                      AddGallery(),
+                      AddResources(),
                     ],
                   );
                 },

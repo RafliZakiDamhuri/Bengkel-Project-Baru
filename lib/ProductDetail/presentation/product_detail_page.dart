@@ -92,96 +92,342 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     );
   }
 
+  Widget _tableFilterButton({
+    required String title,
+    required double width,
+    VoidCallback? onTap,
+  }) {
+    return SizedBox(
+      width: width,
+      height: 22,
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(2),
+          child: Container(
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(2),
+            ),
+            child: Text(
+              title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 8,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  DataColumn _tableColumn(String title, double width) {
+    return DataColumn(
+      label: SizedBox(
+        width: width,
+        child: Text(
+          title,
+          textAlign: TextAlign.center,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
+    );
+  }
+
+  DataCell _tableDataCell(String? value, double width) {
+    return DataCell(
+      SizedBox(
+        width: width,
+        child: Text(
+          value ?? '-',
+          textAlign: TextAlign.center,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
+    );
+  }
+
   Widget buildTableRadiatorAndCoolers(List<ProductModel> data) {
+    print('Ini adalah data :${data[0].catalogueNumber} ');
+    final tableWidth = 80.w - 48; // 24 kiri + 24 kanan
+
+    // Total flex kolom
+    const totalFlex = 11;
+
+    final catalogueWidth = tableWidth * 1.5 / totalFlex;
+    final makesWidth = tableWidth * 1.0 / totalFlex;
+    final equipmentWidth = tableWidth * 1.5 / totalFlex;
+    final modelsWidth = tableWidth * 1.2 / totalFlex;
+    final oemWidth = tableWidth * 1.5 / totalFlex;
+    final industryWidth = tableWidth * 1.0 / totalFlex;
+    final productTypeWidth = tableWidth * 1.3 / totalFlex;
+
     return Container(
       width: 80.w,
       color: Colors.black,
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-      child: Center(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
+      padding: const EdgeInsets.fromLTRB(24, 14, 24, 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Text(
+                  'VARIATION RELATED TO $headerTitle',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const Text(
+                '*the data that is shown in the column below is clickable*',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 8,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 10),
+
+          Row(
+            children: [
+              PopupMenuButton<String>(
+                offset: const Offset(0, 25),
+                padding: EdgeInsets.zero,
+
+                onSelected: (value) {
+                  productDetailController.filterByCatalogueNumber(
+                    value == 'ALL' ? null : value,
+                  );
+                },
+
+                itemBuilder: (context) {
+                  final catalogueList =
+                      productDetailController.productModel
+                          .map((e) => e.catalogueNumber)
+                          .whereType<String>()
+                          .where((e) => e.isNotEmpty)
+                          .toSet()
+                          .toList()
+                        ..sort();
+
+                  return [
+                    const PopupMenuItem<String>(
+                      value: 'ALL',
+                      child: Text('All'),
+                    ),
+                    ...catalogueList.map(
+                      (catalogue) => PopupMenuItem<String>(
+                        value: catalogue,
+                        child: Text(catalogue),
+                      ),
+                    ),
+                  ];
+                },
+
+                child: _tableFilterButton(
+                  title: 'Catalogue Number',
+                  width: catalogueWidth,
+                ),
+              ),
+
+              const Spacer(),
+
+              PopupMenuButton<String>(
+                offset: const Offset(0, 25),
+                padding: EdgeInsets.zero,
+
+                onSelected: (value) {
+                  productDetailController.filterByOEMPartNumber(
+                    value == 'ALL' ? null : value,
+                  );
+                },
+
+                itemBuilder: (context) {
+                  final oemPartNumberList =
+                      productDetailController.productModel
+                          .map((e) => e.oemPartNumber)
+                          .whereType<String>()
+                          .where((e) => e.isNotEmpty)
+                          .toSet()
+                          .toList()
+                        ..sort();
+
+                  return [
+                    const PopupMenuItem<String>(
+                      value: 'ALL',
+                      child: Text('All'),
+                    ),
+                    ...oemPartNumberList.map(
+                      (catalogue) => PopupMenuItem<String>(
+                        value: catalogue,
+                        child: Text(catalogue),
+                      ),
+                    ),
+                  ];
+                },
+
+                child: _tableFilterButton(
+                  title: 'OEM Part Number',
+                  width: makesWidth,
+                ),
+              ),
+
+              const Spacer(),
+
+              PopupMenuButton<String>(
+                offset: const Offset(0, 25),
+                padding: EdgeInsets.zero,
+
+                onSelected: (value) {
+                  productDetailController.filterByProductType(
+                    value == 'ALL' ? null : value,
+                  );
+                },
+
+                itemBuilder: (context) {
+                  final productTypeList =
+                      productDetailController.productModel
+                          .map((e) => e.productType)
+                          .whereType<String>()
+                          .where((e) => e.isNotEmpty)
+                          .toSet()
+                          .toList()
+                        ..sort();
+
+                  return [
+                    const PopupMenuItem<String>(
+                      value: 'ALL',
+                      child: Text('All'),
+                    ),
+                    ...productTypeList.map(
+                      (catalogue) => PopupMenuItem<String>(
+                        value: catalogue,
+                        child: Text(catalogue),
+                      ),
+                    ),
+                  ];
+                },
+
+                child: _tableFilterButton(
+                  title: 'Product Type',
+                  width: productTypeWidth,
+                ),
+              ),
+
+              const Spacer(),
+              PopupMenuButton<String>(
+                offset: const Offset(0, 25),
+                padding: EdgeInsets.zero,
+
+                onSelected: (value) {
+                  productDetailController.filterByProductDescription(
+                    value == 'ALL' ? null : value,
+                  );
+                },
+
+                itemBuilder: (context) {
+                  final description =
+                      productDetailController.productModel
+                          .map((e) => e.descriptionApplication)
+                          .whereType<String>()
+                          .where((e) => e.isNotEmpty)
+                          .toSet()
+                          .toList()
+                        ..sort();
+
+                  return [
+                    const PopupMenuItem<String>(
+                      value: 'ALL',
+                      child: Text('All'),
+                    ),
+                    ...description.map(
+                      (catalogue) => PopupMenuItem<String>(
+                        value: catalogue,
+                        child: Text(catalogue),
+                      ),
+                    ),
+                  ];
+                },
+
+                child: _tableFilterButton(
+                  title: 'Description / Application',
+                  width: tableWidth * 3 / totalFlex,
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 8),
+
+          // ============================================================
+          // TABLE
+          // ============================================================
+          ClipRRect(
+            borderRadius: BorderRadius.circular(3),
             child: DataTable(
               headingRowColor: WidgetStateProperty.all(const Color(0xFFFF5A00)),
               dataRowColor: WidgetStateProperty.all(Colors.white),
               dividerThickness: 1,
-              columnSpacing: 30,
+
+              // Hilangkan spacing bawaan DataTable
+              horizontalMargin: 0,
+              columnSpacing: 0,
+
+              headingTextStyle: const TextStyle(
+                color: Colors.white,
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+              ),
+
+              dataTextStyle: const TextStyle(color: Colors.black, fontSize: 9),
 
               columns: [
-                tableHeader(
-                  title: 'Catalogue Number',
-                  onTap: () {
-                    searchController.getAllProductsV2CatalogueNumber(
-                      categoryProducts: titleCategory,
-                    );
-                  },
-                ),
-
-                tableHeader(title: 'Makes', onTap: () {}),
-
-                tableHeader(
-                  title: 'Equipment Type',
-                  onTap: () {
-                    searchController.getAllProductsV2EquipmentType(
-                      categoryProducts: titleCategory,
-                    );
-                  },
-                ),
-
-                tableHeader(
-                  title: 'Models',
-                  onTap: () {
-                    searchController.getAllProductsV2Models(
-                      categoryProducts: titleCategory,
-                    );
-                  },
-                ),
-
-                tableHeader(
-                  title: 'OEM Part Number',
-                  onTap: () {
-                    searchController.getAllProductsOEMPartNumber(
-                      categoryProducts: titleCategory,
-                    );
-                  },
-                ),
-
-                tableHeader(
-                  title: 'Industry',
-                  onTap: () {
-                    searchController.getAllProductsIndustry(
-                      categoryProducts: titleCategory,
-                    );
-                  },
-                ),
-
-                tableHeader(
-                  title: 'Product Type',
-                  onTap: () {
-                    searchController.getAllProductsProductType(
-                      categoryProducts: titleCategory,
-                    );
-                  },
-                ),
+                _tableColumn('Catalogue Number', catalogueWidth),
+                _tableColumn('Makes', makesWidth),
+                _tableColumn('Equipment Type', equipmentWidth),
+                _tableColumn('Models', modelsWidth),
+                _tableColumn('OEM Part Number', oemWidth),
+                _tableColumn('Industry', industryWidth),
+                _tableColumn('Product Type', productTypeWidth),
+                _tableColumn('Description / Application', catalogueWidth),
               ],
 
               rows: data.map((item) {
                 return DataRow(
                   cells: [
-                    tableCell(item, item.catalogueNumber),
-                    tableCell(item, item.makes),
-                    tableCell(item, item.equipmentType),
-                    tableCell(item, item.models),
-                    tableCell(item, item.oemPartNumber),
-                    tableCell(item, item.industry),
-                    tableCell(item, item.productType),
+                    _tableDataCell(item.catalogueNumber, catalogueWidth),
+                    _tableDataCell(item.makes, makesWidth),
+                    _tableDataCell(item.equipmentType, equipmentWidth),
+                    _tableDataCell(item.models, modelsWidth),
+                    _tableDataCell(item.oemPartNumber, oemWidth),
+                    _tableDataCell(item.industry, industryWidth),
+                    _tableDataCell(item.productType, productTypeWidth),
+                    _tableDataCell(
+                      item.descriptionApplication,
+                      productTypeWidth,
+                    ),
                   ],
                 );
               }).toList(),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -768,7 +1014,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 SizedBox(height: 10),
 
                 (titleCategory == 'Radiators and Coolers')
-                    ? buildTableRadiatorAndCoolers(controller.productModel)
+                    ? buildTableRadiatorAndCoolers(
+                        controller.productModelFilter,
+                      )
                     : (titleCategory == 'Radiator Cap and Adapter')
                     ? buildTableRadiatorAndCap(controller.productModel)
                     : (titleCategory ==

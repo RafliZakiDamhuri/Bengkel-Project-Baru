@@ -155,16 +155,17 @@ class _SearchProductPageState extends State<SearchProductPage> {
 
     Widget tableTitle() {
       return Container(
-        width: 319,
-        height: 31,
+        width: 500,
+        height: 50,
+        padding: EdgeInsets.all(10),
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: Colors.black,
           border: Border.all(color: const Color(0xFFFF7800), width: 1),
           borderRadius: BorderRadius.circular(5),
         ),
-        child: const Text(
-          'RADIATORS AND COOLERS CATALOG LIST',
+        child: Text(
+          '${argument.flow} CATALOG LIST',
           style: TextStyle(
             color: Colors.white,
             fontSize: 12,
@@ -180,6 +181,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
         color: Colors.black,
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             tableTitle(),
             SizedBox(height: 16),
@@ -662,7 +664,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
               child: Column(
                 children: [
                   Text(
-                    '${argument.flow} SEARCH PART',
+                    '${argument.flow} CATALOGUE',
                     style: whiteTextStyle.copyWith(fontSize: 48),
                   ),
                   SizedBox(height: 30),
@@ -844,7 +846,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
             child: Column(
               children: [
                 Text(
-                  '${argument.flow} SEARCH PART',
+                  '${argument.flow} CATALOGUE',
                   style: whiteTextStyle.copyWith(fontSize: 48),
                 ),
 
@@ -1270,6 +1272,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
       builder: (controller) {
         return Globalappbar(
           backgroundColor: backgroundgrey,
+
           pageWidget: SingleChildScrollView(
             child: (argument.flow == AppString().radiatorAndCoolers)
                 ? Radiatorandcoolerswidget(controller: controller)
