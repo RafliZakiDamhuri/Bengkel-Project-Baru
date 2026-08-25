@@ -1,29 +1,19 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
-import 'package:project/Auth/presentation/login_page.dart';
 import 'package:project/about_us_page.dart';
 import 'package:project/appbar/appbar_element.dart';
 import 'package:project/contact_us_page.dart';
 import 'package:project/controller/homeController.dart';
 import 'package:project/controller/mainProductController.dart';
 import 'package:project/controller/searchProductController.dart';
-import 'package:project/detail_product.dart';
 import 'package:project/global%20widget/footer.dart';
 import 'package:project/global%20widget/personalData.dart';
-import 'package:project/home.dart';
-import 'package:project/model/allDataModel.dart';
 import 'package:project/model/productModel.dart';
 import 'package:project/product_page.dart';
 import 'package:project/routes/routes_name.dart';
 import 'package:project/search_product_page.dart';
 import 'package:project/theme/app_images.dart';
-import 'package:project/theme/services_page.dart';
 import 'package:project/theme/string.dart';
 import 'package:project/theme/theme.dart';
 import 'package:sizer/sizer.dart';
@@ -34,6 +24,7 @@ class Globalappbar extends StatefulWidget {
   bool isNeedInquiryPage;
   bool isNeedScrollButton;
   Color backgroundColor;
+
   Globalappbar({
     super.key,
     required this.pageWidget,
@@ -47,11 +38,23 @@ class Globalappbar extends StatefulWidget {
 }
 
 class _GlobalappbarState extends State<Globalappbar> {
-  bool isDesktop(double width) => width >= 900;
   final ScrollController scrollController = ScrollController();
+
+  bool isDesktop(double width) => width >= 900;
+
   bool isTablet(double width) => width >= 600 && width < 900;
 
   bool isMobile(double width) => width < 600;
+
+  final Homecontroller homecontroller = Get.find<Homecontroller>();
+
+  final MainProductController mainProductController =
+      Get.find<MainProductController>();
+
+  // =========================================================
+  // WHATSAPP
+  // =========================================================
+
   Future<void> openWhatsApp(String phone, String message) async {
     final url = Uri.parse(
       "https://wa.me/$phone?text=${Uri.encodeComponent(message)}",
@@ -64,39 +67,94 @@ class _GlobalappbarState extends State<Globalappbar> {
     }
   }
 
-  var homecontroller = Get.find<Homecontroller>();
-  var mainProductController = Get.find<MainProductController>();
-  // var globalController = Get.find<GlobalController>();
+  // =========================================================
+  // CEK ROUTE AKTIF
+  // =========================================================
 
-  @override
-  Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
+  bool isActiveRoute(String route) {
+    return Get.currentRoute == route;
+  }
 
-    Widget search() {
-      return GetBuilder<Homecontroller>(
-        builder: (controller) {
-          return TypeAheadField<ProductModel>(
-            builder: (context, controller, focusNode) => Container(
+  // =========================================================
+  // SEARCH PRODUCT AKTIF
+  // =========================================================
+
+  bool isSearchProductActive() {
+    return Get.currentRoute.startsWith(AppRouteName.searchProduct);
+  }
+
+  // =========================================================
+  // PRODUCT AKTIF
+  // =========================================================
+
+  bool isProductActive() {
+    return Get.currentRoute == AppRouteName.product ||
+        Get.currentRoute == AppRouteName.productDetailPage;
+  }
+
+  // =========================================================
+  // NAVBAR ELEMENT
+  //
+  // TIDAK MENGUBAH UKURAN APPBAR ELEMENT
+  // HANYA MENAMBAHKAN GARIS DI BAWAH
+  // =========================================================
+
+  Widget activeAppbarElement({required String title, required bool isActive}) {
+    return Stack(
+      alignment: Alignment.bottomCenter,
+      clipBehavior: Clip.none,
+      children: [
+        AppbarElement(title: title),
+
+        Positioned(
+          bottom: -5,
+          child: Container(
+            margin: EdgeInsets.only(right: 20),
+            width: 60,
+            height: 2,
+            decoration: BoxDecoration(
+              color: isActive ? Colors.blue : Colors.transparent,
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  // =========================================================
+  // SEARCH
+  // =========================================================
+
+  Widget search() {
+    return GetBuilder<Homecontroller>(
+      builder: (controller) {
+        return TypeAheadField<ProductModel>(
+          builder: (context, textController, focusNode) {
+            return Container(
               height: 60,
-
               child: Center(
                 child: TextFormField(
-                  controller: controller,
+                  controller: textController,
                   focusNode: focusNode,
-
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: kGreyColor,
-                    suffixIcon: Icon(Icons.search),
+
+                    suffixIcon: const Icon(Icons.search),
+
                     border: InputBorder.none,
+
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: kGreyColor),
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
                     ),
+
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: kGreyColor),
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
                     ),
+
                     hint: Row(
                       children: [
                         Expanded(
@@ -113,37 +171,54 @@ class _GlobalappbarState extends State<Globalappbar> {
                   ),
                 ),
               ),
-            ),
-            debounceDuration: const Duration(milliseconds: 500),
-            itemBuilder: (context, value) {
-              return ListTile(
-                leading: const Icon(Icons.directions_car),
+            );
+          },
 
-                subtitle: Text(value.productHeader ?? ''),
-              );
-            },
-            onSelected: (value) {
-              Get.toNamed(
-                AppRouteName.productDetailPage,
-                parameters: {
-                  'id': value.id.toString(),
-                  'category': value.categoryProducts ?? '',
-                },
-              );
-            },
-            suggestionsCallback: (search) async {
-              if (search.isEmpty) return [];
-              await controller.getDataByHeader(search);
+          debounceDuration: const Duration(milliseconds: 500),
 
-              return controller.productModel;
-            },
-          );
-        },
-      );
-    }
+          itemBuilder: (context, value) {
+            return ListTile(
+              leading: const Icon(Icons.directions_car),
+              subtitle: Text(value.productHeader ?? ''),
+            );
+          },
 
+          onSelected: (value) {
+            Get.toNamed(
+              AppRouteName.productDetailPage,
+              parameters: {
+                'id': value.id.toString(),
+                'category': value.categoryProducts ?? '',
+              },
+            );
+          },
+
+          suggestionsCallback: (search) async {
+            if (search.isEmpty) {
+              return [];
+            }
+
+            await controller.getDataByHeader(search);
+
+            return controller.productModel;
+          },
+        );
+      },
+    );
+  }
+
+  // =========================================================
+  // BUILD
+  // =========================================================
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: widget.backgroundColor,
+
+      // =====================================================
+      // FLOATING BUTTON
+      // =====================================================
       floatingActionButton: Column(
         mainAxisAlignment: widget.isNeedScrollButton
             ? MainAxisAlignment.center
@@ -151,45 +226,18 @@ class _GlobalappbarState extends State<Globalappbar> {
         children: [
           Visibility(
             visible: widget.isNeedScrollButton,
-            child: Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(bottom: 400, top: 400),
-                  child: Column(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          scrollController.animateTo(
-                            scrollController.offset - 500,
-                            duration: const Duration(milliseconds: 500),
-                            curve: Curves.easeInOut,
-                          );
-                        },
-                        child: Image.asset(
-                          AppImages().buttonUp,
-                          width: 5.w,
-                          height: 5.h,
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      GestureDetector(
-                        onTap: () {
-                          scrollController.animateTo(
-                            scrollController.offset + 500,
-                            duration: const Duration(milliseconds: 500),
-                            curve: Curves.easeInOut,
-                          );
-                        },
-                        child: Image.asset(
-                          AppImages().buttonDown,
-                          width: 5.w,
-                          height: 5.h,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+            child: Container(
+              margin: const EdgeInsets.only(bottom: 400, top: 400),
+              child: GestureDetector(
+                onTap: () {
+                  scrollController.animateTo(
+                    scrollController.offset + 500,
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.easeInOut,
+                  );
+                },
+                child: Image.asset(AppImages().scroll, width: 5.w, height: 5.h),
+              ),
             ),
           ),
 
@@ -208,12 +256,20 @@ class _GlobalappbarState extends State<Globalappbar> {
           ),
         ],
       ),
+
+      // =====================================================
+      // APP BAR
+      // =====================================================
       appBar: AppBar(
-        toolbarHeight: 90,
+        toolbarHeight: 100,
         backgroundColor: kWhiteColor,
 
         title: LayoutBuilder(
           builder: (context, constraints) {
+            // =================================================
+            // MOBILE
+            // =================================================
+
             if (isMobile(constraints.maxWidth)) {
               return Row(
                 children: [
@@ -226,195 +282,335 @@ class _GlobalappbarState extends State<Globalappbar> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 10),
-                ],
-              );
-            } else {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      // Logo dan Judul
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              Get.toNamed(AppRouteName.home);
-                            },
-                            child: Container(
-                              width: 264,
-                              height: 64,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage(AppImages().imageHomePage2),
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                        ],
-                      ),
-
-                      const SizedBox(width: 20),
-                    ],
-                  ),
-
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      GestureDetector(
-                        onTap: () => Get.toNamed(AppRouteName.home),
-                        child: AppbarElement(title: AppString().appBar0),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Get.toNamed(AppRouteName.product);
-                        },
-                        child: GetBuilder<MainProductController>(
-                          builder: (controller) {
-                            return HoverDropdownMenu(
-                              title: AppString().appBar1,
-
-                              items: List.generate(
-                                controller.mainProductModel?.length ?? 0,
-
-                                (index) {
-                                  return HoverDropdownItem(
-                                    title:
-                                        controller
-                                            .mainProductModel?[index]
-                                            .productName ??
-                                        '',
-
-                                    onTap: () {
-                                      Get.toNamed(AppRouteName.product);
-                                    },
-                                  );
-                                },
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Get.toNamed(AppRouteName.services);
-                        },
-                        child: HoverDropdownMenu(
-                          title: AppString().appBar2,
-
-                          items: List.generate(
-                            homecontroller.serviceModel?.length ?? 0,
-
-                            (index) {
-                              return HoverDropdownItem(
-                                title:
-                                    homecontroller
-                                        .serviceModel?[index]
-                                        .serviceName ??
-                                    '',
-
-                                onTap: () {
-                                  Get.toNamed(AppRouteName.services);
-                                },
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-
-                      HoverDropdownMenu(
-                        title: AppString().appBar3,
-
-                        items: List.generate(homecontroller.categoryType.length, (
-                          index,
-                        ) {
-                          return HoverDropdownItem(
-                            title:
-                                (homecontroller.categoryType[index].camelCase ??
-                                        '')
-                                    .replaceAllMapped(
-                                      RegExp(r'([a-z])([A-Z])'),
-                                      (m) => '${m[1]} ${m[2]}',
-                                    )
-                                    .split(' ')
-                                    .map(
-                                      (e) =>
-                                          '${e[0].toUpperCase()}${e.substring(1)}',
-                                    )
-                                    .join(' '),
-
-                            onTap: () {
-                              var searchController =
-                                  Get.find<Searchproductcontroller>();
-                              searchController.productModel.clear();
-                              searchController.clearText();
-                              searchController.update();
-                              Get.offNamed(
-                                '${AppRouteName.searchProduct}?flow=${Uri.encodeComponent(homecontroller.categoryType[index])}',
-                              );
-                            },
-                          );
-                        }),
-                      ),
-
-                      GestureDetector(
-                        onTap: () {
-                          Get.toNamed(AppRouteName.aboutUs);
-
-                          // Get.toNamed(AppRouteName.aboutUs);
-                        },
-                        child: AppbarElement(title: AppString().appBar5),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Get.toNamed(AppRouteName.contactUs);
-                        },
-                        child: AppbarElement(title: AppString().appBar6),
-                      ),
-
-                      SizedBox(width: screenWidth * 0.1, child: search()),
-                    ],
-                  ),
+                  const SizedBox(width: 10),
                 ],
               );
             }
+
+            // =================================================
+            // DESKTOP / TABLET
+            // =================================================
+
+            return Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // =================================================
+                // LOGO
+                // =================================================
+                GestureDetector(
+                  onTap: () {
+                    Get.toNamed(AppRouteName.home);
+                  },
+                  child: Container(
+                    width: 180,
+                    height: 55,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(AppImages().imageHomePage2),
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                ),
+
+                const Spacer(),
+
+                // =================================================
+                // BAGIAN KANAN
+                // =================================================
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    // =================================================
+                    // TOP MENU
+                    // =================================================
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // =================================================
+                        // ABOUT US
+                        // =================================================
+                        GestureDetector(
+                          onTap: () {
+                            Get.toNamed(AppRouteName.aboutUs);
+                          },
+                          child: activeAppbarElement(
+                            title: 'ABOUT US',
+                            isActive: isActiveRoute(AppRouteName.aboutUs),
+                          ),
+                        ),
+
+                        // =================================================
+                        // INSIGHT
+                        // =================================================
+                        GestureDetector(
+                          onTap: () {},
+                          child: activeAppbarElement(
+                            title: 'INSIGHT',
+                            isActive: false,
+                          ),
+                        ),
+
+                        // =================================================
+                        // GALLERY
+                        // =================================================
+                        GestureDetector(
+                          onTap: () {},
+                          child: activeAppbarElement(
+                            title: 'GALLERY',
+                            isActive: false,
+                          ),
+                        ),
+
+                        // =================================================
+                        // RESOURCES
+                        // =================================================
+                        GestureDetector(
+                          onTap: () {},
+                          child: activeAppbarElement(
+                            title: 'RESOURCES',
+                            isActive: false,
+                          ),
+                        ),
+
+                        // =================================================
+                        // CAREERS
+                        // =================================================
+                        GestureDetector(
+                          onTap: () {},
+                          child: activeAppbarElement(
+                            title: 'CAREERS',
+                            isActive: false,
+                          ),
+                        ),
+
+                        // =================================================
+                        // PEMBATAS
+                        // =================================================
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 14),
+                          child: Text(
+                            '|',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+
+                        // =================================================
+                        // LANGUAGE
+                        // =================================================
+                        const Text(
+                          'LANGUAGE: ID',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 3),
+
+                    // =================================================
+                    // BOTTOM MENU
+                    // =================================================
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // =================================================
+                        // HOME
+                        // =================================================
+                        GestureDetector(
+                          onTap: () {
+                            Get.toNamed(AppRouteName.home);
+                          },
+                          child: activeAppbarElement(
+                            title: AppString().appBar0,
+                            isActive: isActiveRoute(AppRouteName.home),
+                          ),
+                        ),
+
+                        // =================================================
+                        // PRODUCTS
+                        // =================================================
+                        GestureDetector(
+                          onTap: () {
+                            Get.toNamed(AppRouteName.product);
+                          },
+                          child: GetBuilder<MainProductController>(
+                            builder: (controller) {
+                              return HoverDropdownMenu(
+                                title: AppString().appBar1,
+
+                                isActive: isProductActive(),
+
+                                items: List.generate(
+                                  controller.mainProductModel?.length ?? 0,
+                                  (index) {
+                                    return HoverDropdownItem(
+                                      title:
+                                          controller
+                                              .mainProductModel?[index]
+                                              .productName ??
+                                          '',
+                                      onTap: () {
+                                        Get.toNamed(AppRouteName.product);
+                                      },
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+
+                        // =================================================
+                        // SERVICES
+                        // =================================================
+                        GestureDetector(
+                          onTap: () {
+                            Get.toNamed(AppRouteName.services);
+                          },
+                          child: HoverDropdownMenu(
+                            title: AppString().appBar2,
+
+                            isActive: isActiveRoute(AppRouteName.services),
+
+                            items: List.generate(
+                              homecontroller.serviceModel?.length ?? 0,
+                              (index) {
+                                return HoverDropdownItem(
+                                  title:
+                                      homecontroller
+                                          .serviceModel?[index]
+                                          .serviceName ??
+                                      '',
+                                  onTap: () {
+                                    Get.toNamed(AppRouteName.services);
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+
+                        // =================================================
+                        // CATALOGUE
+                        // =================================================
+                        HoverDropdownMenu(
+                          title: AppString().appBar3,
+
+                          isActive: isSearchProductActive(),
+
+                          items: List.generate(
+                            homecontroller.categoryType.length,
+                            (index) {
+                              return HoverDropdownItem(
+                                title: _formatCategoryName(
+                                  homecontroller.categoryType[index].camelCase,
+                                ),
+                                onTap: () {
+                                  final searchController =
+                                      Get.find<Searchproductcontroller>();
+
+                                  searchController.productModel.clear();
+
+                                  searchController.clearText();
+
+                                  searchController.update();
+
+                                  Get.offNamed(
+                                    '${AppRouteName.searchProduct}?flow=${Uri.encodeComponent(homecontroller.categoryType[index].toString())}',
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ),
+
+                        // =================================================
+                        // INQUIRY
+                        // =================================================
+                        GestureDetector(
+                          onTap: () {},
+                          child: activeAppbarElement(
+                            title: 'INQUIRY',
+                            isActive: false,
+                          ),
+                        ),
+
+                        // =================================================
+                        // CONTACTS
+                        // =================================================
+                        GestureDetector(
+                          onTap: () {
+                            Get.toNamed(AppRouteName.contactUs);
+                          },
+                          child: activeAppbarElement(
+                            title: AppString().appBar6,
+                            isActive: isActiveRoute(AppRouteName.contactUs),
+                          ),
+                        ),
+
+                        // =================================================
+                        // SEARCH
+                        // =================================================
+                        const SizedBox(width: 25),
+
+                        SizedBox(width: 195, child: search()),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            );
           },
         ),
 
         automaticallyImplyLeading: isMobile(MediaQuery.of(context).size.width),
       ),
+
+      // =====================================================
+      // DRAWER MOBILE
+      // =====================================================
       drawer: isMobile(MediaQuery.of(context).size.width)
           ? Drawer(
               child: ListView(
                 padding: EdgeInsets.zero,
                 children: [
                   DrawerHeader(child: Text(AppString().drawerTitle)),
+
                   ListTile(
                     title: Text(AppString().appBar1),
-                    onTap: () => Get.to(() => ProductPage()),
+                    onTap: () {
+                      Get.to(() => ProductPage());
+                    },
                   ),
+
                   ListTile(
                     title: Text(AppString().appBar2),
                     onTap: () {
                       Get.to(SearchProductPage());
                     },
                   ),
+
                   ListTile(
                     title: Text(AppString().appBar3),
                     onTap: () {
                       Get.to(SearchProductPage());
                     },
                   ),
+
                   ListTile(
                     title: Text(AppString().appBar5),
                     onTap: () {
                       Get.to(AboutUsPage());
                     },
                   ),
+
                   ListTile(
                     title: Text(AppString().appBar6),
                     onTap: () {
@@ -425,19 +621,45 @@ class _GlobalappbarState extends State<Globalappbar> {
               ),
             )
           : null,
+
+      // =====================================================
+      // BODY
+      // =====================================================
       body: SingleChildScrollView(
         controller: scrollController,
         child: Column(
           children: [
             widget.pageWidget,
-            (widget.isNeedInquiryPage == false) ? Container() : personaldata(),
+
+            widget.isNeedInquiryPage ? personaldata() : Container(),
+
             footer(),
           ],
         ),
       ),
     );
   }
+
+  // =========================================================
+  // FORMAT CATEGORY
+  // =========================================================
+
+  String _formatCategoryName(String? value) {
+    if (value == null || value.isEmpty) {
+      return '';
+    }
+
+    return value
+        .replaceAllMapped(RegExp(r'([a-z])([A-Z])'), (m) => '${m[1]} ${m[2]}')
+        .split(' ')
+        .map((e) => '${e[0].toUpperCase()}${e.substring(1)}')
+        .join(' ');
+  }
 }
+
+// =============================================================
+// HOVER DROPDOWN ITEM
+// =============================================================
 
 class HoverDropdownItem {
   final String title;
@@ -446,14 +668,21 @@ class HoverDropdownItem {
   HoverDropdownItem({required this.title, required this.onTap});
 }
 
+// =============================================================
+// HOVER DROPDOWN MENU
+// =============================================================
+
 class HoverDropdownMenu extends StatefulWidget {
   final String title;
   final List<HoverDropdownItem> items;
+
+  final bool isActive;
 
   const HoverDropdownMenu({
     super.key,
     required this.title,
     required this.items,
+    this.isActive = false,
   });
 
   @override
@@ -466,6 +695,10 @@ class _HoverDropdownMenuState extends State<HoverDropdownMenu> {
   bool _isHoverAnchor = false;
   bool _isHoverMenu = false;
 
+  // =========================================================
+  // CLOSE DROPDOWN
+  // =========================================================
+
   void _checkClose() {
     Future.delayed(const Duration(milliseconds: 300), () {
       if (!_isHoverAnchor && !_isHoverMenu) {
@@ -473,6 +706,10 @@ class _HoverDropdownMenuState extends State<HoverDropdownMenu> {
       }
     });
   }
+
+  // =========================================================
+  // BUILD
+  // =========================================================
 
   @override
   Widget build(BuildContext context) {
@@ -493,6 +730,9 @@ class _HoverDropdownMenuState extends State<HoverDropdownMenu> {
         ),
       ),
 
+      // =======================================================
+      // DROPDOWN ITEMS
+      // =======================================================
       menuChildren: [
         MouseRegion(
           onEnter: (_) {
@@ -519,6 +759,9 @@ class _HoverDropdownMenuState extends State<HoverDropdownMenu> {
         ),
       ],
 
+      // =======================================================
+      // ANCHOR
+      // =======================================================
       builder: (context, controller, child) {
         return MouseRegion(
           onEnter: (_) {
@@ -531,7 +774,28 @@ class _HoverDropdownMenuState extends State<HoverDropdownMenu> {
             _checkClose();
           },
 
-          child: AppbarElement(title: widget.title),
+          child: Stack(
+            alignment: Alignment.bottomCenter,
+            clipBehavior: Clip.none,
+            children: [
+              // TEXT
+              AppbarElement(title: widget.title),
+
+              // GARIS
+              Positioned(
+                bottom: -5,
+                child: Container(
+                  margin: EdgeInsets.only(right: 20),
+                  width: 90,
+                  height: 2,
+                  decoration: BoxDecoration(
+                    color: widget.isActive ? Colors.blue : Colors.transparent,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+            ],
+          ),
         );
       },
     );
