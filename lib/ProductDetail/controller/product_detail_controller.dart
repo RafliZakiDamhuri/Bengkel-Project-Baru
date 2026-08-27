@@ -228,6 +228,138 @@ Best Regards
     }
   }
 
+  Future<void> filterByApplication(String? application) async {
+    try {
+      var query = supabase
+          .from('products')
+          .select()
+          .eq('category_products', selectedCategory ?? '');
+
+      if (selectedMakes != null && selectedMakes!.isNotEmpty) {
+        query = query.eq('makes', selectedMakes!);
+      }
+
+      if (selectedModels != null &&
+          selectedModels!.isNotEmpty &&
+          selectedCategory == AppString().radiatorAndCoolers) {
+        query = query.eq('models', selectedModels!);
+      }
+
+      if (application != null && application.isNotEmpty) {
+        query = query.eq('application', application);
+      }
+
+      final response = await query;
+
+      productModelFilter = (response as List)
+          .map((e) => ProductModel.fromJson(e))
+          .toList();
+
+      update();
+    } catch (e) {
+      print('Error filter oem number: $e');
+    }
+  }
+
+  Future<void> filterByPressureRating(String? pressureRating) async {
+    try {
+      var query = supabase
+          .from('products')
+          .select()
+          .eq('category_products', selectedCategory ?? '');
+
+      if (selectedMakes != null && selectedMakes!.isNotEmpty) {
+        query = query.eq('makes', selectedMakes!);
+      }
+
+      if (selectedModels != null &&
+          selectedModels!.isNotEmpty &&
+          selectedCategory == AppString().radiatorAndCoolers) {
+        query = query.eq('models', selectedModels!);
+      }
+
+      if (pressureRating != null && pressureRating.isNotEmpty) {
+        query = query.eq('pressure_rating', pressureRating);
+      }
+
+      final response = await query;
+
+      productModelFilter = (response as List)
+          .map((e) => ProductModel.fromJson(e))
+          .toList();
+
+      update();
+    } catch (e) {
+      print('Error filter oem number: $e');
+    }
+  }
+
+  Future<void> filterByMakes(String? makes) async {
+    try {
+      var query = supabase
+          .from('products')
+          .select()
+          .eq('category_products', selectedCategory ?? '');
+
+      if (selectedMakes != null && selectedMakes!.isNotEmpty) {
+        query = query.eq('makes', selectedMakes!);
+      }
+
+      if (selectedModels != null &&
+          selectedModels!.isNotEmpty &&
+          selectedCategory == AppString().radiatorAndCoolers) {
+        query = query.eq('models', selectedModels!);
+      }
+
+      if (makes != null && makes.isNotEmpty) {
+        query = query.eq('makes', makes);
+      }
+
+      final response = await query;
+
+      productModelFilter = (response as List)
+          .map((e) => ProductModel.fromJson(e))
+          .toList();
+
+      update();
+    } catch (e) {
+      print('Error filter oem number: $e');
+    }
+  }
+
+  Future<void> filterByMaterial(String? material) async {
+    try {
+      var query = supabase
+          .from('products')
+          .select()
+          .eq('category_products', selectedCategory ?? '');
+
+      if (selectedMakes != null && selectedMakes!.isNotEmpty) {
+        query = query.eq('makes', selectedMakes!);
+      }
+
+      if (selectedModels != null &&
+          selectedModels!.isNotEmpty &&
+          selectedCategory == AppString().radiatorAndCoolers) {
+        query = query.eq('models', selectedModels!);
+      }
+
+      if (material != null && material.isNotEmpty) {
+        query = query.eq('material_type', material);
+      }
+
+      final response = await query;
+
+      productModelFilter = (response as List)
+          .map((e) => ProductModel.fromJson(e))
+          .toList();
+
+      update();
+    } catch (e) {
+      print('Error filter oem number: $e');
+    }
+  }
+
   Future<void> filterByProductType(String? productType) async {
     try {
       var query = supabase
@@ -247,6 +379,39 @@ Best Regards
 
       if (productType != null && productType.isNotEmpty) {
         query = query.eq('product_type', productType);
+      }
+
+      final response = await query;
+
+      productModelFilter = (response as List)
+          .map((e) => ProductModel.fromJson(e))
+          .toList();
+
+      update();
+    } catch (e) {
+      print('Error filter oem number: $e');
+    }
+  }
+
+  Future<void> filterByProductTypeDesign(String? productTypeDesign) async {
+    try {
+      var query = supabase
+          .from('products')
+          .select()
+          .eq('category_products', selectedCategory ?? '');
+
+      if (selectedMakes != null && selectedMakes!.isNotEmpty) {
+        query = query.eq('makes', selectedMakes!);
+      }
+
+      if (selectedModels != null &&
+          selectedModels!.isNotEmpty &&
+          selectedCategory == AppString().radiatorAndCoolers) {
+        query = query.eq('models', selectedModels!);
+      }
+
+      if (productTypeDesign != null && productTypeDesign.isNotEmpty) {
+        query = query.eq('product_type_design', productTypeDesign);
       }
 
       final response = await query;
