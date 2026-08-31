@@ -220,7 +220,7 @@ class Radiatorandcoolerswidget extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  '${AppString().radiatorAndCoolers} SEARCH PART',
+                  '${AppString().radiatorAndCoolers} Catalogue',
                   style: whiteTextStyle.copyWith(fontSize: 48),
                 ),
                 SizedBox(height: 30),

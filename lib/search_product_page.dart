@@ -154,24 +154,37 @@ class _SearchProductPageState extends State<SearchProductPage> {
     }
 
     Widget tableTitle() {
-      return Container(
-        width: 500,
-        height: 50,
-        padding: EdgeInsets.all(10),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: Colors.black,
-          border: Border.all(color: const Color(0xFFFF7800), width: 1),
-          borderRadius: BorderRadius.circular(5),
-        ),
-        child: Text(
-          '${argument.flow} CATALOG LIST',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            width: 319,
+            height: 31,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: Colors.black,
+              border: Border.all(color: const Color(0xFFFF7800), width: 1),
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: Text(
+              '${argument.flow} CATALOGUE LIST',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
-        ),
+          const Text(
+            '*the data that is shown in the column below is clickable*',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 12,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+        ],
       );
     }
 
