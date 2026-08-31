@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:project/controller/globalController.dart';
 import 'package:project/global%20widget/customButton.dart';
 import 'package:project/global%20widget/globalAppBar.dart';
 import 'package:project/theme/app_images.dart';
 import 'package:project/theme/theme.dart';
 
 class Contact extends StatelessWidget {
-  const Contact({super.key});
+  Contact({super.key});
+  var globalController = Get.find<GlobalController>();
 
   Widget locationTitle(String title) {
     return Padding(
@@ -49,16 +52,29 @@ class Contact extends StatelessWidget {
 
           const SizedBox(height: 8),
 
-          Text(
-            phone,
-            style: const TextStyle(color: Colors.black, fontSize: 10),
+          GestureDetector(
+            onTap: () {
+              globalController.openWhatsApp(
+                phone.replaceAll('+', '').replaceAll('-', ''),
+                'I opened the Indocool website, I want to communicate with your sales!',
+              );
+            },
+            child: Text(
+              phone,
+              style: const TextStyle(color: Colors.black, fontSize: 10),
+            ),
           ),
 
           const SizedBox(height: 5),
 
-          Text(
-            email,
-            style: const TextStyle(color: Colors.black, fontSize: 10),
+          GestureDetector(
+            onTap: () {
+              globalController.sendEmail(email: email);
+            },
+            child: Text(
+              email,
+              style: const TextStyle(color: Colors.black, fontSize: 10),
+            ),
           ),
         ],
       ),

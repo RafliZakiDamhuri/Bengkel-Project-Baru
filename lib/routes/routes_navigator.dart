@@ -12,7 +12,8 @@ import 'package:project/galery/presentation/gallery.dart';
 import 'package:project/home.dart';
 import 'package:project/Auth/presentation/login_page.dart';
 import 'package:project/ProductDetail/presentation/product_detail_page.dart';
-import 'package:project/inquary_page.dart';
+
+import 'package:project/Inquiry/presentation/inquiry.dart';
 import 'package:project/product_page.dart';
 import 'package:project/Auth/presentation/register_page.dart';
 import 'package:project/radiator_core.dart';
@@ -34,8 +35,8 @@ class AppPages {
     GetPage(name: AppRouteName.services, page: () => const ServicesPage()),
     GetPage(name: AppRouteName.login, page: () => const LoginPage()),
     GetPage(name: AppRouteName.radiator, page: () => const RadiatorCore()),
-    GetPage(name: AppRouteName.inquaryPage, page: () => const InquaryPage()),
-    GetPage(name: AppRouteName.contactPage, page: () => const Contact()),
+    GetPage(name: AppRouteName.inquiryPage, page: () => InquiryPage()),
+    GetPage(name: AppRouteName.contactPage, page: () => Contact()),
 
     GetPage(name: AppRouteName.blogDetail, page: () => const BlogDetail()),
     GetPage(

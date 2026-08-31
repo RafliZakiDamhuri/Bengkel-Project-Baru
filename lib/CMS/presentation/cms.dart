@@ -7,6 +7,7 @@ import 'package:project/CMS/presentation/add_data.dart';
 import 'package:project/CMS/presentation/add_gallery.dart';
 import 'package:project/CMS/presentation/add_resources.dart';
 import 'package:project/CMS/presentation/edit_data.dart';
+import 'package:project/CMS/presentation/inquiry_users_data.dart';
 import 'package:project/CMS/presentation/pre_edit.dart';
 import 'package:project/global%20widget/globalAppBar.dart';
 import 'package:project/theme/string.dart';
@@ -54,6 +55,7 @@ class CmsPage extends StatelessWidget {
                       AddBlog(),
                       AddGallery(),
                       AddResources(),
+                      InquiryUsersData(),
                     ],
                   );
                 },

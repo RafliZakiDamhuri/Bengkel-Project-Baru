@@ -7,6 +7,7 @@ import 'package:project/CMS/controller/blog_controller.dart';
 import 'package:project/CMS/controller/cms_controller.dart';
 import 'package:project/CMS/controller/gallery_controller.dart';
 import 'package:project/CMS/controller/resources_controller.dart';
+import 'package:project/Inquiry/controller/inquiry_controller.dart';
 import 'package:project/ProductDetail/controller/product_detail_controller.dart';
 import 'package:project/controller/aboutUsController.dart';
 import 'package:project/controller/contactUsController.dart';
@@ -43,6 +44,7 @@ void main() async {
   Get.put(CMSGalleryController());
   Get.put(GalleryController());
   Get.put(ResoucesController());
+  Get.put(InquiryController());
 
   runApp(const MyApp());
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project/blog/model/blog_model.dart';
 import 'package:project/model/allDataModel.dart';
 import 'package:project/model/productModel.dart';
 import 'package:project/model/serviceModel.dart';
@@ -14,7 +15,7 @@ class Homecontroller extends GetxController {
   bool isViewListHome6 = false;
   List<String> categoryType = [];
   final supabase = Supabase.instance.client;
-
+  List<BlogModel> top3Blogs = [];
   List<ProductModel> productModel = [];
 
   Future<void> getDataByHeader(String? keyword) async {
@@ -28,6 +29,27 @@ class Homecontroller extends GetxController {
         .toList();
 
     update();
+  }
+
+  Future<void> getTopBlogs({String? excludeId}) async {
+    try {
+      var query = supabase.from('blogs').select();
+
+      if (excludeId != null) {
+        query = query.neq('id', excludeId);
+      }
+
+      final response = await query
+          .order('created_at', ascending: false)
+          .limit(3);
+
+      top3Blogs = List<BlogModel>.from(
+        response.map((json) => BlogModel.fromJson(json)),
+      );
+      update();
+    } catch (e) {
+      throw Exception('Failed to get top blogs: $e');
+    }
   }
 
   List<ServiceModel>? serviceModel;
@@ -71,6 +93,7 @@ class Homecontroller extends GetxController {
     super.onInit();
     getService();
     getCategoryType();
+    getTopBlogs();
     print("App sudah load!");
   }
 }

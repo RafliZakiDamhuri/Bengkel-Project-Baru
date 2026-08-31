@@ -138,6 +138,7 @@ class CmsSidebar extends StatelessWidget {
           icon: Icons.file_download_outlined,
           label: "Add Resources",
         ),
+        SidebarXItem(icon: Icons.person, label: "See Inquiry Users Data"),
       ],
     );
   }

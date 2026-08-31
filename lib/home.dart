@@ -1,13 +1,17 @@
 // ... imports Anda yang sudah ada ...
 import 'dart:ui_web';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:project/Utility/date_time_helper.dart';
 import 'package:project/appbar/appbar_element.dart';
 import 'package:project/appbar/list_home.dart';
+import 'package:project/blog/model/blog_model.dart';
 import 'package:project/controller/globalController.dart';
 import 'package:project/controller/homeController.dart';
 import 'package:project/controller/mainProductController.dart';
@@ -1706,6 +1710,179 @@ class _HomeState extends State<Home> {
       );
     }
 
+    Widget insightNewsCard({required BlogModel blog}) {
+      return GestureDetector(
+        onTap: () {
+          Get.toNamed(AppRouteName.blogDetail, parameters: {'id': blog.id});
+        },
+        child: Container(
+          margin: const EdgeInsets.only(right: 35),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // IMAGE
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: CachedNetworkImage(
+                  imageUrl: blog.imageUrl,
+                  fit: BoxFit.cover,
+                  height: 250,
+                  width: double.infinity,
+
+                  placeholder: (_, __) =>
+                      const Center(child: CircularProgressIndicator()),
+                  errorWidget: (_, __, ___) => const Icon(
+                    Icons.broken_image,
+                    size: 55,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 15),
+
+              // CATEGORY + DATE
+              Container(
+                width: double.infinity,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFC8E9FF),
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 18),
+                      height: 40,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF0864C5),
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: Text(
+                        blog.type,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+
+                    const Spacer(),
+
+                    Padding(
+                      padding: const EdgeInsets.only(right: 18),
+                      child: Text(
+                        blog.createdAt != null
+                            ? DateHelper.formatDate(blog.createdAt!)
+                            : '',
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 18),
+
+              // TITLE
+              Text(
+                blog.title,
+                style: GoogleFonts.inter(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  height: 1.2,
+                  color: Colors.black,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    Widget insightNewsSection() {
+      return Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 40),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // Garis atas
+            Container(width: double.infinity, height: 1, color: Colors.black),
+
+            const SizedBox(height: 35),
+
+            Text(
+              'Indocool Insight and News',
+              style: GoogleFonts.inter(
+                fontSize: 28,
+                fontWeight: FontWeight.w500,
+                color: Colors.black,
+              ),
+            ),
+
+            const SizedBox(height: 40),
+
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: List.generate(
+                homecontroller.top3Blogs.length,
+                (index) => Expanded(
+                  child: insightNewsCard(blog: homecontroller.top3Blogs[index]),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 50),
+
+            // See More Content
+            Center(
+              child: GestureDetector(
+                onTap: () {
+                  Get.toNamed(AppRouteName.blogList);
+                },
+                child: Container(
+                  width: 210,
+                  height: 55,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFD6EEFF),
+                    border: Border.all(color: Colors.black, width: 1),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'See More Content',
+                        style: GoogleFonts.inter(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                        ),
+                      ),
+
+                      const SizedBox(width: 30),
+
+                      const Icon(
+                        Icons.arrow_forward,
+                        size: 24,
+                        color: Colors.black,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     Widget desktopWidget() {
       return Column(
         children: [
@@ -1798,6 +1975,7 @@ class _HomeState extends State<Home> {
           Divider(color: Colors.black, thickness: 5, height: 1),
           location(),
 
+          insightNewsSection(),
           // Row(
           //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           //   children: [

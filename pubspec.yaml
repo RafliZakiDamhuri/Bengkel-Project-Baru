@@ -55,6 +55,7 @@ dependencies:
   outlined_text: ^1.0.1
   flutter_quill: ^11.5.0
   dio: ^5.11.0
+  model_viewer_plus: ^1.10.0
 
 
 dev_dependencies:

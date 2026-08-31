@@ -9,6 +9,7 @@ import 'package:project/controller/mainProductController.dart';
 import 'package:project/controller/searchProductController.dart';
 import 'package:project/global%20widget/footer.dart';
 import 'package:project/global%20widget/personalData.dart';
+import 'package:project/Inquiry/presentation/inquiry.dart';
 import 'package:project/model/productModel.dart';
 import 'package:project/product_page.dart';
 import 'package:project/routes/routes_name.dart';
@@ -29,7 +30,7 @@ class Globalappbar extends StatefulWidget {
     super.key,
     required this.pageWidget,
     this.isNeedInquiryPage = true,
-    this.isNeedScrollButton = false,
+    this.isNeedScrollButton = true,
     this.backgroundColor = Colors.white,
   });
 
@@ -226,18 +227,45 @@ class _GlobalappbarState extends State<Globalappbar> {
         children: [
           Visibility(
             visible: widget.isNeedScrollButton,
-            child: Container(
-              margin: const EdgeInsets.only(bottom: 400, top: 400),
-              child: GestureDetector(
-                onTap: () {
-                  scrollController.animateTo(
-                    scrollController.offset + 500,
-                    duration: const Duration(milliseconds: 500),
-                    curve: Curves.easeInOut,
-                  );
-                },
-                child: Image.asset(AppImages().scroll, width: 5.w, height: 5.h),
-              ),
+            child: Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(bottom: 300, top: 400),
+                  child: Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          scrollController.animateTo(
+                            scrollController.offset - 500,
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.easeInOut,
+                          );
+                        },
+                        child: Image.asset(
+                          AppImages().buttonUp,
+                          width: 5.w,
+                          height: 5.h,
+                        ),
+                      ),
+                      SizedBox(height: 70),
+                      GestureDetector(
+                        onTap: () {
+                          scrollController.animateTo(
+                            scrollController.offset + 500,
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.easeInOut,
+                          );
+                        },
+                        child: Image.asset(
+                          AppImages().buttonDown,
+                          width: 5.w,
+                          height: 5.h,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
 
@@ -345,7 +373,9 @@ class _GlobalappbarState extends State<Globalappbar> {
                         // INSIGHT
                         // =================================================
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Get.toNamed(AppRouteName.blogList);
+                          },
                           child: activeAppbarElement(
                             title: 'INSIGHT',
                             isActive: false,
@@ -356,7 +386,9 @@ class _GlobalappbarState extends State<Globalappbar> {
                         // GALLERY
                         // =================================================
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Get.toNamed(AppRouteName.gallery);
+                          },
                           child: activeAppbarElement(
                             title: 'GALLERY',
                             isActive: false,
@@ -367,7 +399,9 @@ class _GlobalappbarState extends State<Globalappbar> {
                         // RESOURCES
                         // =================================================
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Get.toNamed(AppRouteName.resources);
+                          },
                           child: activeAppbarElement(
                             title: 'RESOURCES',
                             isActive: false,
@@ -378,7 +412,9 @@ class _GlobalappbarState extends State<Globalappbar> {
                         // CAREERS
                         // =================================================
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Get.toNamed(AppRouteName.careers);
+                          },
                           child: activeAppbarElement(
                             title: 'CAREERS',
                             isActive: false,
@@ -535,7 +571,13 @@ class _GlobalappbarState extends State<Globalappbar> {
                         // INQUIRY
                         // =================================================
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            try {
+                              Get.toNamed(AppRouteName.inquiryPage);
+                            } catch (e) {
+                              print('Ini adalah error : $e');
+                            }
+                          },
                           child: activeAppbarElement(
                             title: 'INQUIRY',
                             isActive: false,
@@ -547,7 +589,7 @@ class _GlobalappbarState extends State<Globalappbar> {
                         // =================================================
                         GestureDetector(
                           onTap: () {
-                            Get.toNamed(AppRouteName.contactUs);
+                            Get.toNamed(AppRouteName.contactPage);
                           },
                           child: activeAppbarElement(
                             title: AppString().appBar6,

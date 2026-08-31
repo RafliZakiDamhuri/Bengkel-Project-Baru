@@ -1,10 +1,16 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:model_viewer_plus/model_viewer_plus.dart';
 import 'package:project/CMS/controller/cms_controller.dart';
 import 'package:project/CMS/global_widget/textfield_widget.dart';
+import 'package:project/CMS/presentation/test.dart';
 import 'package:project/global%20widget/customButton.dart';
 import 'package:project/theme/string.dart';
 import 'package:project/theme/theme.dart';
+import 'package:universal_html/html.dart' as html;
 
 class AddData extends StatelessWidget {
   final String titleCategory;
@@ -92,24 +98,61 @@ class AddData extends StatelessWidget {
                       controller: controller.descriptionController,
                     ),
                     SizedBox(height: 20),
-                    customBlueAppBarButton(
-                      onTap: () async {
-                        await controller.pickAndUploadImage();
-                      },
-                      title: 'Pilih Gambar 2D',
+                    Row(
+                      children: [
+                        customBlueAppBarButton(
+                          onTap: () async {
+                            await controller.pickAndUploadImage();
+                          },
+                          title: 'Pilih Gambar 2D',
+                        ),
+                        SizedBox(width: 30),
+                        customBlueAppBarButton(
+                          onTap: () async {
+                            await controller.pickGlb();
+                          },
+                          title: 'Pilih Gambar 3D',
+                        ),
+                      ],
                     ),
                     SizedBox(height: 20),
-                    controller.bytes != null
-                        ? ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.memory(
-                              controller.bytes!,
-                              width: 300,
-                              height: 200,
-                              fit: BoxFit.contain,
-                            ),
-                          )
-                        : Container(),
+                    Row(
+                      children: [
+                        controller.bytes != null
+                            ? ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: Image.memory(
+                                  controller.bytes!,
+                                  width: 300,
+                                  height: 200,
+                                  fit: BoxFit.contain,
+                                ),
+                              )
+                            : Container(),
+                        SizedBox(width: 20),
+
+                        controller.glbBytes != null
+                            ? SizedBox(
+                                width: 300,
+                                height: 300,
+                                child: ModelViewer(
+                                  backgroundColor: Color.fromARGB(
+                                    0xFF,
+                                    0xEE,
+                                    0xEE,
+                                    0xEE,
+                                  ),
+
+                                  src:
+                                      'data:model/gltf-binary;base64,${base64Encode(controller.glbBytes!)}',
+                                  alt: 'Model 3D Astronaut',
+                                  cameraControls: true,
+                                ),
+                              )
+                            : Container(),
+                      ],
+                    ),
+
                     SizedBox(height: 20),
                     customBlueAppBarButton(
                       onTap: () async {

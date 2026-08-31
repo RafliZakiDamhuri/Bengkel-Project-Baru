@@ -1,14 +1,15 @@
 import 'dart:typed_data';
 
+import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide FormData, MultipartFile;
 import 'package:image_picker/image_picker.dart';
 import 'package:project/global%20widget/globalLoadingWidget.dart';
 import 'package:project/model/productModel.dart';
 import 'package:project/theme/string.dart';
 import 'package:sidebarx/sidebarx.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:supabase_flutter/supabase_flutter.dart' hide MultipartFile;
 
 class CmsController extends GetxController {
   late SidebarXController sidebarController;
@@ -42,6 +43,8 @@ class CmsController extends GetxController {
   List<ProductModel> productModel = [];
   ProductModel? productModelSingle;
   bool isLoading = false;
+  final Dio dio = Dio();
+
   @override
   void onInit() async {
     super.onInit();
@@ -53,6 +56,8 @@ class CmsController extends GetxController {
       cleanTextEditingController();
       productModel = [];
       productModel.clear();
+      imageUrl = null;
+      bytes = null;
       if (index == 7) {
         categoryTypeData = AppString().radiatorAndCoolers;
         await getAllData(categoryTypeData: categoryTypeData);
@@ -73,6 +78,67 @@ class CmsController extends GetxController {
   void onClose() {
     sidebarController.dispose();
     super.onClose();
+  }
+
+  Uint8List? glbBytes;
+  String? glbName;
+  String? glbUrl;
+
+  Future<void> pickGlb() async {
+    try {
+      final result = await FilePicker.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['glb'],
+        withData: true,
+      );
+
+      if (result == null || result.files.isEmpty) return;
+
+      final file = result.files.first;
+
+      if (file.bytes == null) return;
+
+      glbBytes = file.bytes;
+      glbName = file.name;
+
+      update();
+    } catch (e) {
+      print('Pick GLB error: $e');
+    }
+  }
+
+  Future<String?> uploadGlb() async {
+    if (glbBytes == null || glbName == null) {
+      return null;
+    }
+
+    try {
+      final formData = FormData.fromMap({
+        'file': MultipartFile.fromBytes(glbBytes!, filename: glbName!),
+      });
+
+      final response = await dio.post(
+        'https://api.indocool.co.id/api/upload',
+        data: formData,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final path = response.data['path'];
+
+        print('Upload GLB success: $path');
+
+        glbUrl = 'https://api.indocool.co.id/storage/$path';
+
+        update();
+
+        return glbUrl;
+      }
+
+      return null;
+    } catch (e) {
+      print('Upload GLB error: $e');
+      return null;
+    }
   }
 
   Future<void> pickAndUploadImage() async {
@@ -180,6 +246,12 @@ class CmsController extends GetxController {
   Future<void> updateProductRadiatorAndCoolers({required int id}) async {
     try {
       showLoadingDialog();
+      if (bytes != null) {
+        imageUrl = await uploadImage();
+      } else {
+        imageUrl = productModelSingle?.drawing2d;
+      }
+
       await supabase
           .from('products')
           .update({
@@ -201,6 +273,7 @@ class CmsController extends GetxController {
             'seal_type': sealTypeController.text.trim(),
             'over_tank_dimension': overTankController.text.trim(),
             'updated_at': DateTime.now().toIso8601String(),
+            'drawing_2d': imageUrl,
           })
           .eq('id', id);
       Get.snackbar('Success', 'Product updated successfully');
@@ -261,6 +334,7 @@ class CmsController extends GetxController {
   }) async {
     showLoadingDialog();
     await insertDrawing();
+    await uploadGlb();
     await saveProduct(
       data: {
         'catalogue_number': catalogueNumberController.text.trim(),
@@ -275,6 +349,7 @@ class CmsController extends GetxController {
         'description_application': descriptionController.text.trim(),
         'category_products': categoryProducts?.trim(),
         'drawing_2d': imageUrl,
+        'drawing_3d': glbUrl,
         'product_header': [
           catalogueNumberController.text.trim(),
           makesController.text.trim(),
@@ -408,6 +483,39 @@ class CmsController extends GetxController {
       update();
     } catch (e) {
       Get.snackbar('Error', 'Failed to delete product: $e');
+    }
+  }
+
+  Future<String?> uploadImage() async {
+    if (bytes == null || imageName == null) {
+      return null;
+    }
+
+    try {
+      final formData = FormData.fromMap({
+        'file': MultipartFile.fromBytes(bytes!, filename: imageName!),
+      });
+
+      final response = await dio.post(
+        'https://api.indocool.co.id/api/upload',
+        data: formData,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final path = response.data['path'];
+
+        print('Upload image success: $path');
+        imageUrl = 'https://api.indocool.co.id/storage/$path';
+
+        update();
+
+        return imageUrl;
+      }
+
+      return null;
+    } catch (e) {
+      print('Upload image error: $e');
+      return null;
     }
   }
 }

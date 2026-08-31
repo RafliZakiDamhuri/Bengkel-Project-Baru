@@ -1,21 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_instance/get_instance.dart';
+import 'package:get/state_manager.dart';
+import 'package:project/Inquiry/controller/inquiry_controller.dart';
+import 'package:project/controller/globalController.dart';
 import 'package:project/global%20widget/baseLayoutWrapper.dart';
 import 'package:project/global%20widget/globalAppBar.dart';
+import 'package:project/model/productModel.dart';
+import 'package:project/theme/string.dart';
 import 'package:project/theme/theme.dart';
 
-class InquaryPage extends StatelessWidget {
-  const InquaryPage({super.key});
+class InquiryPage extends StatelessWidget {
+  final InquiryController _controller = Get.find<InquiryController>();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController companyNameController = TextEditingController();
+  TextEditingController positionController = TextEditingController();
+  TextEditingController locationController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  var globalController = Get.find<GlobalController>();
+
+  InquiryPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Globalappbar(
-      pageWidget: SingleChildScrollView(
-        child: Column(
-          children: [
-            ResponsiveLayout(mobile: mobileWidget(), desktop: desktopWidget()),
-          ],
-        ),
-      ),
+    return GetBuilder<InquiryController>(
+      initState: (state) {
+        _controller.getAllInquiryType();
+      },
+      builder: (controller) {
+        return Globalappbar(
+          isNeedInquiryPage: false,
+          pageWidget: SingleChildScrollView(
+            child: Column(
+              children: [
+                ResponsiveLayout(
+                  mobile: mobileWidget(),
+                  desktop: desktopWidget(),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -42,18 +69,31 @@ class InquaryPage extends StatelessWidget {
 
           const SizedBox(height: 28),
 
-          consultationItem(
-            icon: Icons.phone,
-            title: 'WhatsApp Message or Call',
-            subtitle: '+62812-1000-256',
+          GestureDetector(
+            onTap: () {
+              globalController.openWhatsApp(
+                AppString().indocoolWhatsappNumber,
+                'I opened the Indocool website, I want to communicate with your sales!',
+              );
+            },
+            child: consultationItem(
+              icon: Icons.phone,
+              title: 'WhatsApp Message or Call',
+              subtitle: '+62812-1000-256',
+            ),
           ),
 
           const SizedBox(height: 10),
 
-          consultationItem(
-            icon: Icons.email_outlined,
-            title: 'Email Address',
-            subtitle: 'customersupport@indocool.co.id',
+          GestureDetector(
+            onTap: () async {
+              await globalController.sendEmail();
+            },
+            child: consultationItem(
+              icon: Icons.email_outlined,
+              title: 'Email Address',
+              subtitle: 'customersupport@indocool.co.id',
+            ),
           ),
 
           const SizedBox(height: 10),
@@ -117,10 +157,14 @@ class InquaryPage extends StatelessWidget {
     );
   }
 
-  Widget inquiryTextField({required String hint}) {
+  Widget inquiryTextField({
+    required String hint,
+    required TextEditingController controller,
+  }) {
     return SizedBox(
       height: 40,
       child: TextField(
+        controller: controller,
         decoration: InputDecoration(
           hintText: hint,
           hintStyle: const TextStyle(fontSize: 10, color: Colors.grey),
@@ -159,11 +203,21 @@ class InquaryPage extends StatelessWidget {
 
           Row(
             children: [
-              Expanded(child: inquiryTextField(hint: 'Enter your name')),
+              Expanded(
+                child: inquiryTextField(
+                  hint: 'Enter your name',
+                  controller: nameController,
+                ),
+              ),
 
               const SizedBox(width: 15),
 
-              Expanded(child: inquiryTextField(hint: 'Company name')),
+              Expanded(
+                child: inquiryTextField(
+                  hint: 'Company name',
+                  controller: companyNameController,
+                ),
+              ),
             ],
           ),
 
@@ -171,11 +225,21 @@ class InquaryPage extends StatelessWidget {
 
           Row(
             children: [
-              Expanded(child: inquiryTextField(hint: 'Position')),
+              Expanded(
+                child: inquiryTextField(
+                  hint: 'Position',
+                  controller: positionController,
+                ),
+              ),
 
               const SizedBox(width: 15),
 
-              Expanded(child: inquiryTextField(hint: 'Location')),
+              Expanded(
+                child: inquiryTextField(
+                  hint: 'Location',
+                  controller: locationController,
+                ),
+              ),
             ],
           ),
 
@@ -183,11 +247,21 @@ class InquaryPage extends StatelessWidget {
 
           Row(
             children: [
-              Expanded(child: inquiryTextField(hint: 'Enter your email')),
+              Expanded(
+                child: inquiryTextField(
+                  hint: 'Enter your email',
+                  controller: emailController,
+                ),
+              ),
 
               const SizedBox(width: 15),
 
-              Expanded(child: inquiryTextField(hint: 'Phone number')),
+              Expanded(
+                child: inquiryTextField(
+                  hint: 'Phone number',
+                  controller: phoneNumberController,
+                ),
+              ),
             ],
           ),
 
@@ -198,7 +272,14 @@ class InquaryPage extends StatelessWidget {
             children: [
               Expanded(child: inquiryTypeField()),
               const SizedBox(width: 15),
-              Expanded(child: attachFileField()),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () async {
+                    await _controller.pickAndUploadFile();
+                  },
+                  child: attachFileField(),
+                ),
+              ),
             ],
           ),
 
@@ -210,6 +291,7 @@ class InquaryPage extends StatelessWidget {
             child: inquiryTextField(
               hint:
                   'Describe your equipment, application, cooling challenge, requirements, or quantity of products.',
+              controller: descriptionController,
             ),
           ),
 
@@ -221,7 +303,17 @@ class InquaryPage extends StatelessWidget {
               width: 180,
               height: 35,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await _controller.uploadResourcesToSupabase(
+                    name: nameController.text,
+                    companyName: companyNameController.text,
+                    position: positionController.text,
+                    location: locationController.text,
+                    email: emailController.text,
+                    phoneNumber: phoneNumberController.text,
+                    description: descriptionController.text,
+                  );
+                },
                 child: const Text('SUBMIT'),
               ),
             ),
@@ -234,19 +326,22 @@ class InquaryPage extends StatelessWidget {
   Widget inquiryTypeField() {
     return SizedBox(
       height: 40,
-      child: TextField(
-        readOnly: true,
+      child: DropdownButtonFormField<String>(
+        value: null,
+        isExpanded: true,
+        icon: const Icon(
+          Icons.keyboard_arrow_down,
+          size: 20,
+          color: Colors.black,
+        ),
+        hint: const Text(
+          'Inquiry type (product, service, ...)',
+          style: TextStyle(fontSize: 10, color: Colors.grey),
+        ),
         decoration: InputDecoration(
-          hintText: 'Inquiry type (product, service, ...)',
-          hintStyle: const TextStyle(fontSize: 10, color: Colors.grey),
           filled: true,
           fillColor: const Color(0xFFE3F2FD),
           contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-          suffixIcon: const Icon(
-            Icons.keyboard_arrow_down,
-            size: 20,
-            color: Colors.black,
-          ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(6),
             borderSide: const BorderSide(color: Colors.grey),
@@ -256,6 +351,19 @@ class InquaryPage extends StatelessWidget {
             borderSide: const BorderSide(color: Colors.grey),
           ),
         ),
+        items: List.generate(_controller.inquiryTypeModel.length, (index) {
+          var data = _controller.inquiryTypeModel[index];
+          return DropdownMenuItem<String>(
+            value: data.inquiryType,
+            child: Text(data.inquiryType, style: const TextStyle(fontSize: 10)),
+          );
+        }),
+
+        onChanged: (value) {
+          if (value == null) return;
+
+          _controller.setSelectedInquiryType(value);
+        },
       ),
     );
   }
@@ -266,12 +374,17 @@ class InquaryPage extends StatelessWidget {
       child: TextField(
         readOnly: true,
         decoration: InputDecoration(
-          hintText: 'Attach supporting file',
+          hintText: _controller.fileName ?? 'Attach supporting file',
           hintStyle: const TextStyle(fontSize: 10, color: Colors.grey),
           filled: true,
           fillColor: const Color(0xFFE3F2FD),
           contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-          suffixIcon: const Icon(Icons.upload, size: 18, color: Colors.black),
+          suffixIcon: GestureDetector(
+            onTap: () async {
+              await _controller.pickAndUploadFile();
+            },
+            child: const Icon(Icons.upload, size: 18, color: Colors.black),
+          ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(6),
             borderSide: const BorderSide(color: Colors.grey),

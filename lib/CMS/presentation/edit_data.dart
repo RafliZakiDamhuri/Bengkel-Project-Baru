@@ -37,6 +37,7 @@ class _EditDataState extends State<EditData> {
   Widget build(BuildContext context) {
     Widget radiatorsAndCoolers(CmsController controller) {
       return buildAddDataLayout(
+        controller: controller,
         title: titleCategory,
 
         leftFields: [
@@ -123,6 +124,8 @@ class _EditDataState extends State<EditData> {
 
     Widget radiatorsCapAndAdapter(CmsController controller) {
       return buildAddDataLayout(
+        controller: controller,
+
         title: titleCategory,
 
         leftFields: [
@@ -188,6 +191,8 @@ class _EditDataState extends State<EditData> {
 
     Widget caterpillarTube(CmsController controller) {
       return buildAddDataLayout(
+        controller: controller,
+
         title: titleCategory,
 
         leftFields: [
@@ -274,6 +279,8 @@ class _EditDataState extends State<EditData> {
 
     Widget caterPillarRadiatorCore(CmsController controller) {
       return buildAddDataLayout(
+        controller: controller,
+
         title: titleCategory,
 
         leftFields: [

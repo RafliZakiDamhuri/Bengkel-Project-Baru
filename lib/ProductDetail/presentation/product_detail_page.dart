@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/state_manager.dart';
+import 'package:model_viewer_plus/model_viewer_plus.dart';
 import 'package:project/CMS/controller/cms_controller.dart';
 import 'package:project/CMS/global_widget/custom_table.dart';
 import 'package:project/ProductDetail/controller/product_detail_controller.dart';
@@ -1515,8 +1516,60 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     const SizedBox(width: 120),
 
                     /// KANAN
-                    Column(
+                    Row(
                       children: [
+                        Column(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Get.dialog(
+                                  Dialog(
+                                    backgroundColor: Colors.transparent,
+                                    insetPadding: const EdgeInsets.all(20),
+                                    child: InteractiveViewer(
+                                      child: CachedNetworkImage(
+                                        imageUrl:
+                                            controller
+                                                .productModelSingle
+                                                ?.drawing2d ??
+                                            '',
+                                        fit: BoxFit.contain,
+                                        placeholder: (_, __) => const Center(
+                                          child: CircularProgressIndicator(),
+                                        ),
+                                        errorWidget: (_, __, ___) => const Icon(
+                                          Icons.broken_image,
+                                          size: 55,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: CachedNetworkImage(
+                                imageUrl:
+                                    controller.productModelSingle?.drawing2d ??
+                                    '',
+                                width: 280,
+                                height: 280,
+                                fit: BoxFit.cover,
+                                placeholder: (_, __) => const SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                  ),
+                                ),
+                                errorWidget: (_, __, ___) =>
+                                    const Icon(Icons.person, size: 55),
+                              ),
+                            ),
+
+                            const SizedBox(height: 10),
+                          ],
+                        ),
+                        SizedBox(width: 40),
                         GestureDetector(
                           onTap: () {
                             Get.dialog(
@@ -1524,70 +1577,31 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 backgroundColor: Colors.transparent,
                                 insetPadding: const EdgeInsets.all(20),
                                 child: InteractiveViewer(
-                                  child: CachedNetworkImage(
-                                    imageUrl:
+                                  child: ModelViewer(
+                                    src:
                                         controller
                                             .productModelSingle
-                                            ?.drawing2d ??
+                                            ?.drawing3d ??
                                         '',
-                                    fit: BoxFit.contain,
-                                    placeholder: (_, __) => const Center(
-                                      child: CircularProgressIndicator(),
-                                    ),
-                                    errorWidget: (_, __, ___) => const Icon(
-                                      Icons.broken_image,
-                                      size: 55,
-                                      color: Colors.white,
-                                    ),
+                                    alt: 'Model 3D Astronaut',
+                                    cameraControls: true,
                                   ),
                                 ),
                               ),
                             );
                           },
-                          child: CachedNetworkImage(
-                            imageUrl:
-                                controller.productModelSingle?.drawing2d ?? '',
+                          child: SizedBox(
                             width: 280,
                             height: 280,
-                            fit: BoxFit.cover,
-                            placeholder: (_, __) => const SizedBox(
-                              width: 20,
-                              height: 20,
-                              child: CircularProgressIndicator(strokeWidth: 2),
+                            child: ModelViewer(
+                              src:
+                                  controller.productModelSingle?.drawing3d ??
+                                  '',
+                              alt: 'Model 3D Astronaut',
+                              cameraControls: true,
                             ),
-                            errorWidget: (_, __, ___) =>
-                                const Icon(Icons.person, size: 55),
                           ),
                         ),
-
-                        const SizedBox(height: 10),
-
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: [
-                        //     GestureDetector(
-                        //       onTap: () {},
-                        //       child: const Text(
-                        //         '2D Drawing Front and Side View',
-                        //         style: TextStyle(
-                        //           color: Colors.blue,
-                        //           fontWeight: FontWeight.bold,
-                        //           decoration: TextDecoration.underline,
-                        //         ),
-                        //       ),
-                        //     ),
-
-                        //     const SizedBox(width: 25),
-
-                        //     GestureDetector(
-                        //       onTap: () {},
-                        //       child: const Text(
-                        //         '3D Drawing',
-                        //         style: TextStyle(color: Colors.grey),
-                        //       ),
-                        //     ),
-                        //   ],
-                        // ),
                       ],
                     ),
                   ],
