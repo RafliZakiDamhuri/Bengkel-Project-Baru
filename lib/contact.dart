@@ -45,7 +45,7 @@ class Contact extends StatelessWidget {
             title,
             style: const TextStyle(
               color: Colors.black,
-              fontSize: 11,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -61,7 +61,7 @@ class Contact extends StatelessWidget {
             },
             child: Text(
               phone,
-              style: const TextStyle(color: Colors.black, fontSize: 10),
+              style: const TextStyle(color: Colors.black, fontSize: 20),
             ),
           ),
 
@@ -73,7 +73,7 @@ class Contact extends StatelessWidget {
             },
             child: Text(
               email,
-              style: const TextStyle(color: Colors.black, fontSize: 10),
+              style: const TextStyle(color: Colors.black, fontSize: 20),
             ),
           ),
         ],

@@ -98,10 +98,15 @@ class InquiryPage extends StatelessWidget {
 
           const SizedBox(height: 10),
 
-          consultationItem(
-            icon: Icons.location_on_outlined,
-            title: 'Head Office Location',
-            subtitle: 'Jakarta, Indonesia',
+          GestureDetector(
+            onTap: () async {
+              await globalController.openLocation();
+            },
+            child: consultationItem(
+              icon: Icons.location_on_outlined,
+              title: 'Head Office Location',
+              subtitle: 'Jakarta, Indonesia',
+            ),
           ),
 
           const SizedBox(height: 8),
@@ -194,13 +199,6 @@ class InquiryPage extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Text(
-            'Place Your Inquiry Here',
-            style: blackTextStyle.copyWith(fontSize: 22, fontWeight: bold),
-          ),
-
-          const SizedBox(height: 25),
-
           Row(
             children: [
               Expanded(
@@ -403,15 +401,24 @@ class InquiryPage extends StatelessWidget {
   }
 
   Widget desktopWidget() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Column(
       children: [
-        SizedBox(width: 320, child: directConsultation()),
+        Text(
+          'INQUIRY',
+          style: blackTextStyle.copyWith(fontSize: 50, fontWeight: bold),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(width: 320, child: directConsultation()),
 
-        const SizedBox(width: 40),
+            const SizedBox(width: 40),
 
-        SizedBox(width: 1000, child: inquiryForm()),
+            SizedBox(width: 1000, child: inquiryForm()),
+          ],
+        ),
+        SizedBox(height: 100),
       ],
     );
   }

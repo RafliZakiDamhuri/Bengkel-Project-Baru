@@ -19,8 +19,7 @@ class AppImages {
       'assets/images/introductionProductImage_result.webp';
   String aboutUsImage = 'assets/images/contactUs-image_result.webp';
   String aboutUsHistory = 'assets/images/AboutUsHistory_result.webp';
-  String companySertification =
-      'assets/images/company-certification_result.webp';
+  String companySertification = 'assets/images/Frame 7.png';
   String indoCoolCarrer = 'assets/images/Indocool-Career_result.webp';
   String contactUs = 'assets/images/contact-us_result.webp';
   String scroll = 'assets/images/scroll_result.webp';
