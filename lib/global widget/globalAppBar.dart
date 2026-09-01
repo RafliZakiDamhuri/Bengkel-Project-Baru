@@ -439,7 +439,7 @@ class _GlobalappbarState extends State<Globalappbar> {
                         // LANGUAGE
                         // =================================================
                         const Text(
-                          'LANGUAGE: ID',
+                          'LANGUAGE: EN',
                           style: TextStyle(
                             fontSize: 11,
                             fontWeight: FontWeight.bold,
