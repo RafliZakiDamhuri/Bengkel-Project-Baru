@@ -233,7 +233,7 @@ class ProductPage extends StatelessWidget {
                               const SizedBox(height: 26),
                               Text(
                                 data?.description.replaceAll(r'\n', '\n') ?? '',
-                                style: blackTextStyle.copyWith(fontSize: 12),
+                                style: blackTextStyle.copyWith(fontSize: 16),
                               ),
                               const SizedBox(height: 26),
                               learnMoreButton(

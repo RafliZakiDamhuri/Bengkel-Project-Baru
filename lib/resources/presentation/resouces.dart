@@ -418,7 +418,7 @@ class _DownloadableResourcesPageState extends State<DownloadableResourcesPage> {
               'File Name',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 9,
+                fontSize: 12,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -429,7 +429,7 @@ class _DownloadableResourcesPageState extends State<DownloadableResourcesPage> {
               'Resource Type',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 9,
+                fontSize: 12,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -440,7 +440,7 @@ class _DownloadableResourcesPageState extends State<DownloadableResourcesPage> {
               'File Type',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 9,
+                fontSize: 12,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -451,7 +451,7 @@ class _DownloadableResourcesPageState extends State<DownloadableResourcesPage> {
               'Date Published',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 9,
+                fontSize: 12,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -504,7 +504,7 @@ class _DownloadableResourcesPageState extends State<DownloadableResourcesPage> {
       overflow: TextOverflow.ellipsis,
       style: const TextStyle(
         color: Color(0xFF444444),
-        fontSize: 8.5,
+        fontSize: 12,
         fontWeight: FontWeight.w400,
       ),
     );

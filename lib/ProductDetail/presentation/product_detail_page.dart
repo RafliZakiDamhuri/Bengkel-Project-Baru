@@ -119,7 +119,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               textAlign: TextAlign.center,
               style: const TextStyle(
                 color: Colors.black,
-                fontSize: 8,
+                fontSize: 12,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -196,7 +196,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 '*the data that is shown in the column below is clickable*',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 8,
+                  fontSize: 12,
                   fontStyle: FontStyle.italic,
                 ),
               ),
@@ -392,11 +392,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
               headingTextStyle: const TextStyle(
                 color: Colors.white,
-                fontSize: 10,
+                fontSize: 12,
                 fontWeight: FontWeight.bold,
               ),
 
-              dataTextStyle: const TextStyle(color: Colors.black, fontSize: 9),
+              dataTextStyle: const TextStyle(color: Colors.black, fontSize: 12),
 
               columns: [
                 _tableColumn('Catalogue Number', catalogueWidth),
@@ -472,7 +472,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 '*the data that is shown in the column below is clickable*',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 8,
+                  fontSize: 12,
                   fontStyle: FontStyle.italic,
                 ),
               ),
@@ -985,7 +985,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 '*the data that is shown in the column below is clickable*',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 8,
+                  fontSize: 12,
                   fontStyle: FontStyle.italic,
                 ),
               ),
@@ -1268,6 +1268,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 title2:
                     controller.productModelSingle?.descriptionApplication ?? '',
               ),
+              ProductDetailTitle(
+                title1: 'Product Type Design Options',
+                title2: '-',
+              ),
+              ProductDetailTitle(title1: 'Material Type Options', title2: '-'),
 
               const SizedBox(height: 80),
 
