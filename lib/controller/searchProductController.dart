@@ -37,6 +37,8 @@ class SearchProductController extends GetxController {
   List<ProductModel> productModelForListFilterCatalogProductTypeDesign = [];
   List<ProductModel> productModelForListFilterCatalogDescription = [];
 
+  List<ProductModel> productModelForListFilterCatalogApplication = [];
+
   List<ProductModel> productModelForListFilterPartNumber = [];
   List<ProductModel> productModelForListFilterMakes = [];
   List<ProductModel> productModelForListFilterSize = [];

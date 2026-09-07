@@ -20,7 +20,7 @@ class Listofbuttonradiatorandcatapillar extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          flex: 9,
+          flex: 2,
           child: PopupMenuButton<String>(
             offset: const Offset(0, 25),
             padding: EdgeInsets.zero,
@@ -63,7 +63,7 @@ class Listofbuttonradiatorandcatapillar extends StatelessWidget {
         const SizedBox(width: 15),
 
         Expanded(
-          flex: 9,
+          flex: 2,
           child: PopupMenuButton<String>(
             offset: const Offset(0, 25),
             padding: EdgeInsets.zero,
@@ -106,7 +106,7 @@ class Listofbuttonradiatorandcatapillar extends StatelessWidget {
         const SizedBox(width: 15),
 
         Expanded(
-          flex: 9,
+          flex: 2,
           child: PopupMenuButton<String>(
             offset: const Offset(0, 25),
             padding: EdgeInsets.zero,
@@ -151,7 +151,7 @@ class Listofbuttonradiatorandcatapillar extends StatelessWidget {
         const SizedBox(width: 15),
 
         Expanded(
-          flex: 9,
+          flex: 2,
           child: PopupMenuButton<String>(
             offset: const Offset(0, 25),
             padding: EdgeInsets.zero,
@@ -193,7 +193,7 @@ class Listofbuttonradiatorandcatapillar extends StatelessWidget {
 
         const SizedBox(width: 15),
         Expanded(
-          flex: 9,
+          flex: 2,
           child: PopupMenuButton<String>(
             offset: const Offset(0, 25),
             padding: EdgeInsets.zero,
@@ -236,7 +236,7 @@ class Listofbuttonradiatorandcatapillar extends StatelessWidget {
         ),
         const SizedBox(width: 15),
         Expanded(
-          flex: 9,
+          flex: 2,
           child: PopupMenuButton<String>(
             offset: const Offset(0, 25),
             padding: EdgeInsets.zero,
@@ -281,7 +281,7 @@ class Listofbuttonradiatorandcatapillar extends StatelessWidget {
         const SizedBox(width: 15),
 
         Expanded(
-          flex: 9,
+          flex: 2,
           child: PopupMenuButton<String>(
             offset: const Offset(0, 25),
             padding: EdgeInsets.zero,
@@ -324,7 +324,7 @@ class Listofbuttonradiatorandcatapillar extends StatelessWidget {
         ),
         const SizedBox(width: 15),
         Expanded(
-          flex: 9,
+          flex: 2,
           child: PopupMenuButton<String>(
             offset: const Offset(0, 25),
             padding: EdgeInsets.zero,
@@ -362,6 +362,50 @@ class Listofbuttonradiatorandcatapillar extends StatelessWidget {
                 borderRadius: BorderRadius.circular(2),
               ),
               child: Text('Product Type Design', style: blackTextStyle),
+            ),
+          ),
+        ),
+        const SizedBox(width: 15),
+
+        Expanded(
+          flex: 2,
+          child: PopupMenuButton<String>(
+            offset: const Offset(0, 25),
+            padding: EdgeInsets.zero,
+
+            onSelected: (value) {
+              searchController.getDataByFilter(
+                value,
+                'Application',
+                categoryProducts: categoryProducts,
+              );
+            },
+
+            itemBuilder: (context) {
+              return List.generate(
+                searchController
+                    .productModelForListFilterCatalogApplication
+                    .length,
+                (index) {
+                  final data = searchController
+                      .productModelForListFilterCatalogApplication[index];
+
+                  return PopupMenuItem<String>(
+                    value: data.application,
+                    child: Text(data.application ?? '-'),
+                  );
+                },
+              );
+            },
+
+            child: Container(
+              height: 22,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(2),
+              ),
+              child: Text('Application', style: blackTextStyle),
             ),
           ),
         ),
