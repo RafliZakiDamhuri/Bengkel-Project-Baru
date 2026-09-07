@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project/controller/globalController.dart';
-import 'package:project/global%20widget/baseLayoutWrapper.dart';
-import 'package:project/global%20widget/customButton.dart';
-import 'package:project/global%20widget/globalAppBar.dart';
+import 'package:project/global_widget/baseLayoutWrapper.dart';
+import 'package:project/global_widget/customButton.dart';
+import 'package:project/global_widget/globalAppBar.dart';
 import 'package:project/theme/app_images.dart';
 import 'package:project/theme/string.dart';
 import 'package:project/theme/theme.dart';

@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
-import 'package:project/global%20widget/globalScaffold.dart';
-import 'package:project/model/inquiryType.dart';
+import 'package:project/global_widget/globalScaffold.dart';
 import 'package:project/model/productModel.dart';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -18,7 +17,6 @@ class GlobalController extends GetxController {
     String? phoneNumber,
     String? inquiryType,
   }) async {
-    print('Nama ::: $name');
     try {
       await supabase.from('UserData').insert({
         'name': name,
@@ -128,6 +126,5 @@ Best Regards
   @override
   void onInit() {
     super.onInit();
-    print("App sudah load!");
   }
 }

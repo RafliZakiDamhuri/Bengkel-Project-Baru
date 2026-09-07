@@ -2,14 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project/CMS/controller/blog_controller.dart';
 import 'package:project/Utility/date_time_helper.dart';
 import 'package:project/blog/model/blog_model.dart';
 
-import 'package:project/global%20widget/globalAppBar.dart';
+import 'package:project/global_widget/globalAppBar.dart';
 import 'package:project/routes/routes_name.dart';
 
 import 'package:project/theme/theme.dart';

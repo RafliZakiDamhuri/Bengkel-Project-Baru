@@ -8,7 +8,7 @@ import 'package:project/careers_page.dart';
 import 'package:project/blog/presentation/blog_detail.dart';
 import 'package:project/contact.dart';
 import 'package:project/contact_us_page.dart';
-import 'package:project/galery/presentation/gallery.dart';
+import 'package:project/gallery/presentation/gallery.dart';
 import 'package:project/home.dart';
 import 'package:project/Auth/presentation/login_page.dart';
 import 'package:project/ProductDetail/presentation/product_detail_page.dart';

@@ -1,11 +1,11 @@
 import 'dart:typed_data';
 
-import 'package:dio/dio.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:project/blog/model/blog_model.dart';
-import 'package:project/global%20widget/globalLoadingWidget.dart';
+import 'package:project/core/services/upload_service.dart';
+import 'package:project/global_widget/globalLoadingWidget.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' hide MultipartFile;
 
 class BlogController extends GetxController {
@@ -16,7 +16,7 @@ class BlogController extends GetxController {
   String? imageUrl;
   final SupabaseClient supabase = Supabase.instance.client;
   String type = 'Company News';
-  final Dio dio = Dio();
+  final UploadService _uploadService = UploadService();
   List<BlogModel> blogs = [];
   List<BlogModel> top3Blogs = [];
 
@@ -86,32 +86,18 @@ class BlogController extends GetxController {
       return null;
     }
 
-    try {
-      final formData = FormData.fromMap({
-        'file': MultipartFile.fromBytes(bytes!, filename: imageName!),
-      });
+    final result = await _uploadService.uploadBytes(
+      bytes: bytes!,
+      filename: imageName!,
+    );
 
-      final response = await dio.post(
-        'https://api.indocool.co.id/api/upload',
-        data: formData,
-      );
-
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        final path = response.data['path'];
-
-        print('Upload image success: $path');
-        imageUrl = 'https://api.indocool.co.id/storage/$path';
-
-        update();
-
-        return imageUrl;
-      }
-
-      return null;
-    } catch (e) {
-      print('Upload image error: $e');
-      return null;
+    if (result != null) {
+      imageUrl = result;
+      update();
+      return imageUrl;
     }
+
+    return null;
   }
 
   Future<void> getBlogById(String id) async {
@@ -129,7 +115,7 @@ class BlogController extends GetxController {
       blog = BlogModel.fromJson(response);
       update();
     } catch (e) {
-      print('Error get blog by id: $e');
+      // Error suppressed
     }
   }
 
@@ -144,7 +130,6 @@ class BlogController extends GetxController {
       imageUrl = await uploadImage();
 
       if (imageUrl == null) {
-        print('Gambar gagal diupload');
         return false;
       }
 
@@ -160,7 +145,6 @@ class BlogController extends GetxController {
       hideLoadingDialog();
       return true;
     } catch (e) {
-      print('Create blog error: $e');
       hideLoadingDialog();
       return false;
     }

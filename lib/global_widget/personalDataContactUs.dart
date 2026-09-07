@@ -4,9 +4,8 @@ import 'package:get/get.dart';
 import 'package:project/controller/contactUsController.dart';
 import 'package:project/controller/globalController.dart';
 import 'package:project/custom_text_field.dart';
-import 'package:project/global%20widget/baseLayoutWrapper.dart';
-import 'package:project/global%20widget/customDropDown.dart';
-import 'package:project/global%20widget/globalLoadingWidget.dart';
+import 'package:project/global_widget/baseLayoutWrapper.dart';
+import 'package:project/global_widget/customDropDown.dart';
 import 'package:project/theme/theme.dart';
 import 'package:sizer/sizer.dart';
 
@@ -157,7 +156,7 @@ Widget personaldataContactUs() {
     );
   }
 
-  Widget personalDataDesktop(Contactuscontroller controller) {
+  Widget personalDataDesktop(ContactUsController controller) {
     return Container(
       width: double.infinity,
       color: kBlueColor,
@@ -193,7 +192,6 @@ Widget personaldataContactUs() {
                         width: 20.w,
                         onChangedFunction: (value) {
                           name = value;
-                          print('name textfield : $name');
                         },
                       ),
                       CustoumTextField(
@@ -204,7 +202,6 @@ Widget personaldataContactUs() {
                         width: 20.w,
                         onChangedFunction: (value) {
                           companyName = value;
-                          print('companyName textfield : $companyName');
                         },
                       ),
                       CustoumTextField(
@@ -240,7 +237,6 @@ Widget personaldataContactUs() {
                         width: 20.w,
                         onChangedFunction: (value) {
                           phoneNumber = value;
-                          print('phoneNumber textfield : $phoneNumber');
                         },
                       ),
 
@@ -277,12 +273,6 @@ Widget personaldataContactUs() {
                         child: ElevatedButton(
                           onPressed: () async {
                             // showLoadingDialog();
-                            print('email : ${controller.emailController.text}');
-                            print('name : ${controller.nameController.text}');
-                            print('position : $position');
-                            print('message : $message');
-                            print('phoneNumber : $phoneNumber');
-                            print('companyName: $companyName');
 
                             await Get.find<GlobalController>().insertUser(
                               name: controller.nameController.text,
@@ -355,7 +345,7 @@ Widget personaldataContactUs() {
     );
   }
 
-  Widget personalDataMobile(Contactuscontroller controller) {
+  Widget personalDataMobile(ContactUsController controller) {
     return Container(
       width: double.infinity,
       color: kBlueColor,
@@ -512,7 +502,7 @@ Widget personaldataContactUs() {
     );
   }
 
-  return GetBuilder<Contactuscontroller>(
+  return GetBuilder<ContactUsController>(
     builder: (controller) {
       return ResponsiveLayout(
         mobile: personalDataMobile(controller),

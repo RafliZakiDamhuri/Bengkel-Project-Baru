@@ -3,14 +3,14 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:project/controller/globalController.dart';
-import 'package:project/global%20widget/customButton.dart';
-import 'package:project/global%20widget/globalAppBar.dart';
+import 'package:project/global_widget/customButton.dart';
+import 'package:project/global_widget/globalAppBar.dart';
 import 'package:project/theme/app_images.dart';
 import 'package:project/theme/theme.dart';
 
 class Contact extends StatelessWidget {
   Contact({super.key});
-  var globalController = Get.find<GlobalController>();
+  final GlobalController globalController = Get.find<GlobalController>();
 
   Widget locationTitle(String title) {
     return Padding(

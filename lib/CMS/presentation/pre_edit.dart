@@ -3,10 +3,7 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:project/CMS/controller/cms_controller.dart';
 import 'package:project/CMS/global_widget/custom_table.dart';
-import 'package:project/CMS/global_widget/textfield_widget.dart';
-import 'package:project/CMS/presentation/edit_data.dart';
 import 'package:project/controller/searchProductController.dart';
-import 'package:project/global%20widget/customButton.dart';
 import 'package:project/model/productModel.dart';
 import 'package:project/routes/routes_name.dart';
 import 'package:project/theme/string.dart';
@@ -32,7 +29,7 @@ class _PreEditState extends State<PreEdit> {
 
   @override
   Widget build(BuildContext context) {
-    var searchController = Get.find<Searchproductcontroller>();
+    var searchController = Get.find<SearchProductController>();
     DataCell tableCell(String? value) {
       return DataCell(
         Center(
@@ -510,7 +507,6 @@ class _PreEditState extends State<PreEdit> {
 
               actionCell(
                 onEdit: () {
-                  print('Ini adalah item partnumber : ${item.partNumber}');
                   Get.toNamed(
                     AppRouteName.editData,
                     parameters: {

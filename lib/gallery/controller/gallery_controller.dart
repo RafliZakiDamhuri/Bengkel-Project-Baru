@@ -45,10 +45,8 @@ class GalleryController extends GetxController {
       }
 
       groupedGallery = grouped;
-
-      print('Grouped Gallery: $groupedGallery');
     } catch (e) {
-      print('Error fetch gallery: $e');
+      // Error fetching gallery, keep existing data
     } finally {
       isLoading = false;
       update();

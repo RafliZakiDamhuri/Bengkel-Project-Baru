@@ -3,11 +3,7 @@ import 'package:get/get.dart';
 import 'package:project/CMS/controller/cms_controller.dart';
 import 'package:project/CMS/global_widget/build_add_data_layout.dart';
 import 'package:project/CMS/global_widget/textfield_widget.dart';
-import 'package:project/controller/searchProductController.dart';
-import 'package:project/global%20widget/customButton.dart';
-import 'package:project/model/productModel.dart';
 import 'package:project/theme/string.dart';
-import 'package:project/theme/theme.dart';
 
 class EditData extends StatefulWidget {
   const EditData({super.key});

@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project/controller/globalController.dart';
 import 'package:project/custom_text_field.dart';
-import 'package:project/global%20widget/baseLayoutWrapper.dart';
-import 'package:project/global%20widget/globalLoadingWidget.dart';
+import 'package:project/global_widget/baseLayoutWrapper.dart';
 import 'package:project/theme/theme.dart';
 import 'package:sizer/sizer.dart';
 

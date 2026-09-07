@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project/Auth/controller/auth_controller.dart';
-import 'package:project/global%20widget/customButton.dart';
+import 'package:project/global_widget/customButton.dart';
 
-import 'package:project/global%20widget/text_field_login.dart';
+import 'package:project/global_widget/text_field_login.dart';
 import 'package:project/theme/theme.dart';
 
 class LoginPage extends StatefulWidget {

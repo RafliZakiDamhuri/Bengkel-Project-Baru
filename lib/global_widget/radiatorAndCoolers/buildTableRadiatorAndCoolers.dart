@@ -3,7 +3,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:project/controller/searchProductController.dart';
-import 'package:project/global%20widget/radiatorAndCoolers/listOfButtonRadiatorAndCoolers.dart';
+import 'package:project/global_widget/radiatorAndCoolers/listOfButtonRadiatorAndCoolers.dart';
 import 'package:project/model/productModel.dart';
 import 'package:project/routes/routes_name.dart';
 import 'package:project/theme/string.dart';
@@ -16,7 +16,7 @@ class BuildTableRadiatorAndCoolers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var searchController = Get.find<Searchproductcontroller>();
+    var searchController = Get.find<SearchProductController>();
 
     Widget tableTitle() {
       return Row(
@@ -219,6 +219,5 @@ class BuildTableRadiatorAndCoolers extends StatelessWidget {
         ],
       ),
     );
-    ;
   }
 }

@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:project/CMS/controller/blog_controller.dart';
-import 'package:project/CMS/controller/cms_controller.dart';
-import 'package:project/CMS/controller/gallery_controller.dart';
 import 'package:project/CMS/controller/resources_controller.dart';
 import 'package:project/CMS/global_widget/dropdown_global_widget.dart';
-import 'package:project/CMS/global_widget/quill_field_data.dart';
-import 'package:project/CMS/global_widget/textfield_widget.dart';
-import 'package:project/global%20widget/customButton.dart';
+import 'package:project/global_widget/customButton.dart';
 import 'package:project/routes/routes_name.dart';
 
 class AddResources extends StatefulWidget {
@@ -19,7 +14,7 @@ class AddResources extends StatefulWidget {
 }
 
 class _AddResourcesState extends State<AddResources> {
-  final ResoucesController _controller = Get.find<ResoucesController>();
+  final ResourcesController _controller = Get.find<ResourcesController>();
   @override
   void initState() {
     super.initState();
@@ -36,7 +31,7 @@ class _AddResourcesState extends State<AddResources> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ResoucesController>(
+    return GetBuilder<ResourcesController>(
       builder: (controller) {
         return SingleChildScrollView(
           child: Container(

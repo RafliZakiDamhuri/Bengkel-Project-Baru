@@ -4,7 +4,7 @@ import 'package:project/model/contactModel.dart';
 import 'package:project/model/inquiryType.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class Contactuscontroller extends GetxController {
+class ContactUsController extends GetxController {
   List<ContactModel> contactModel = [];
   final supabase = Supabase.instance.client;
   List<InquiryTypeModel> inquiryTypeModel = [];
@@ -22,15 +22,12 @@ class Contactuscontroller extends GetxController {
         .from('Contact')
         .select()
         .order('id', ascending: true);
-    ;
     contactModel = response.map((e) => ContactModel.fromJson(e)).toList();
-    print('Ini adalah response ::::: $response');
     update();
   }
 
   Future getAllInquiryType() async {
     final response = await supabase.from('InquiryType').select();
-    print('Ini adalah response get inquiryType ::: $response');
     inquiryTypeModel = response
         .map((e) => InquiryTypeModel.fromJson(e))
         .toList();

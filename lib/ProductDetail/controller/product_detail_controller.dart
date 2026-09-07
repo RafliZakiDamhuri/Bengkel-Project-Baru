@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+﻿import 'package:get/get.dart';
 import 'package:project/model/productModel.dart';
 import 'package:project/theme/string.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -125,7 +125,7 @@ Best Regards
 
       update();
     } catch (e) {
-      print('Error getSimilarData: $e');
+      // Similar data fetch error suppressed;
     }
   }
 
@@ -158,7 +158,7 @@ Best Regards
 
       update();
     } catch (e) {
-      print('Error filter catalogue number: $e');
+      // Filter error suppressed;
     }
   }
 
@@ -191,7 +191,7 @@ Best Regards
 
       update();
     } catch (e) {
-      print('Error filter catalogue number: $e');
+      // Filter error suppressed;
     }
   }
 
@@ -224,7 +224,7 @@ Best Regards
 
       update();
     } catch (e) {
-      print('Error filter oem number: $e');
+      // Filter error suppressed;
     }
   }
 
@@ -257,7 +257,7 @@ Best Regards
 
       update();
     } catch (e) {
-      print('Error filter oem number: $e');
+      // Filter error suppressed;
     }
   }
 
@@ -290,7 +290,7 @@ Best Regards
 
       update();
     } catch (e) {
-      print('Error filter oem number: $e');
+      // Filter error suppressed;
     }
   }
 
@@ -323,7 +323,7 @@ Best Regards
 
       update();
     } catch (e) {
-      print('Error filter oem number: $e');
+      // Filter error suppressed;
     }
   }
 
@@ -356,7 +356,7 @@ Best Regards
 
       update();
     } catch (e) {
-      print('Error filter oem number: $e');
+      // Filter error suppressed;
     }
   }
 
@@ -389,7 +389,7 @@ Best Regards
 
       update();
     } catch (e) {
-      print('Error filter oem number: $e');
+      // Filter error suppressed;
     }
   }
 
@@ -422,7 +422,7 @@ Best Regards
 
       update();
     } catch (e) {
-      print('Error filter oem number: $e');
+      // Filter error suppressed;
     }
   }
 
@@ -455,7 +455,7 @@ Best Regards
 
       update();
     } catch (e) {
-      print('Error filter oem number: $e');
+      // Filter error suppressed;
     }
   }
 }

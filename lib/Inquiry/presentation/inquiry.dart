@@ -3,22 +3,21 @@ import 'package:get/get_instance/get_instance.dart';
 import 'package:get/state_manager.dart';
 import 'package:project/Inquiry/controller/inquiry_controller.dart';
 import 'package:project/controller/globalController.dart';
-import 'package:project/global%20widget/baseLayoutWrapper.dart';
-import 'package:project/global%20widget/globalAppBar.dart';
-import 'package:project/model/productModel.dart';
+import 'package:project/global_widget/baseLayoutWrapper.dart';
+import 'package:project/global_widget/globalAppBar.dart';
 import 'package:project/theme/string.dart';
 import 'package:project/theme/theme.dart';
 
 class InquiryPage extends StatelessWidget {
   final InquiryController _controller = Get.find<InquiryController>();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController companyNameController = TextEditingController();
-  TextEditingController positionController = TextEditingController();
-  TextEditingController locationController = TextEditingController();
-  TextEditingController phoneNumberController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  var globalController = Get.find<GlobalController>();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController companyNameController = TextEditingController();
+  final TextEditingController positionController = TextEditingController();
+  final TextEditingController locationController = TextEditingController();
+  final TextEditingController phoneNumberController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final GlobalController globalController = Get.find<GlobalController>();
 
   InquiryPage({super.key});
 

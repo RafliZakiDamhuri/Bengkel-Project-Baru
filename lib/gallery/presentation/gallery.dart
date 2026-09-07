@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/state_manager.dart';
-import 'package:project/galery/controller/galerry_controller.dart';
-import 'package:project/global%20widget/globalAppBar.dart';
-import 'package:project/theme/theme.dart';
+import 'package:project/gallery/controller/gallery_controller.dart';
+import 'package:project/global_widget/globalAppBar.dart';
 
 class IndocoolGalleryScreen extends StatelessWidget {
   IndocoolGalleryScreen({super.key});

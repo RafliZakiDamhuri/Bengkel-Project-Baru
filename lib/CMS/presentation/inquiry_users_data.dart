@@ -1,15 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:project/CMS/controller/blog_controller.dart';
-import 'package:project/CMS/controller/gallery_controller.dart';
-import 'package:project/CMS/global_widget/dropdown_global_widget.dart';
-import 'package:project/CMS/global_widget/quill_field_data.dart';
-import 'package:project/CMS/global_widget/textfield_widget.dart';
 import 'package:project/Inquiry/controller/inquiry_controller.dart';
 import 'package:project/Inquiry/model/inquiry_model.dart';
-import 'package:project/global%20widget/customButton.dart';
-import 'package:project/routes/routes_name.dart';
 import 'package:sizer/sizer.dart';
 
 class InquiryUsersData extends StatefulWidget {

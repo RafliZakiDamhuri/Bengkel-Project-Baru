@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project/codeExperiment/widgetForUse.dart';
 import 'package:project/controller/globalController.dart';
 
 import 'package:project/controller/searchProductController.dart';
-import 'package:project/global%20widget/footer.dart';
-import 'package:project/global%20widget/globalAppBar.dart';
-import 'package:project/global%20widget/personalData.dart';
-import 'package:project/global%20widget/radiatorAndCapAdapter/listOfButtonRadiatorAndCap.dart';
-import 'package:project/global%20widget/radiatorAndCoolers/buildTableRadiatorAndCoolers.dart';
-import 'package:project/global%20widget/radiatorAndCoolers/radiatorAndCoolersWidget.dart';
-import 'package:project/global%20widget/radiatotAndCatapillar/listOfButtonRadiatorAndCatapillar.dart';
-import 'package:project/model/allDataModel.dart';
-import 'package:project/model/dropDownModel.dart';
+import 'package:project/global_widget/globalAppBar.dart';
+import 'package:project/global_widget/radiatorAndCapAdapter/listOfButtonRadiatorAndCap.dart';
+import 'package:project/global_widget/radiatorAndCoolers/radiatorAndCoolersWidget.dart';
+import 'package:project/global_widget/radiatorAndCatapillar/listOfButtonRadiatorAndCatapillar.dart';
 import 'package:project/model/productModel.dart';
 import 'package:project/product_radiator_core.dart';
 import 'package:project/radiator_core_element.dart';
@@ -45,14 +39,12 @@ class _SearchProductPageState extends State<SearchProductPage> {
     if (flow != null) {
       argument = SearchProductArgument(flow: flow);
     }
-
-    print('Ini adalah argument ;;; ${argument.flow}');
   }
 
   @override
   Widget build(BuildContext context) {
     var globalController = Get.find<GlobalController>();
-    var searchController = Get.find<Searchproductcontroller>();
+    var searchController = Get.find<SearchProductController>();
 
     DataCell tableCell(ProductModel item, String? text) {
       return DataCell(
@@ -103,7 +95,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
       );
     }
 
-    Widget buttonSort(Searchproductcontroller controller) {
+    Widget buttonSort(SearchProductController controller) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -142,7 +134,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
       );
     }
 
-    Widget buttonShowAll(Searchproductcontroller controller) {
+    Widget buttonShowAll(SearchProductController controller) {
       return ElevatedButton.icon(
         onPressed: () async {
           searchController.getProductsByCategory(category: argument.flow ?? '');
@@ -307,108 +299,221 @@ class _SearchProductPageState extends State<SearchProductPage> {
       );
     }
 
+    DataColumn _tableColumn(
+      String title,
+      double width, {
+      required VoidCallback onTap,
+    }) {
+      return DataColumn(
+        label: GestureDetector(
+          onTap: onTap,
+          child: SizedBox(
+            width: width,
+            child: Text(
+              title,
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ),
+      );
+    }
+
+    DataCell _tableDataCell(String? value, double width) {
+      return DataCell(
+        SizedBox(
+          width: width,
+          child: Text(value ?? '-', textAlign: TextAlign.start),
+        ),
+      );
+    }
+
+    Widget _customHeaderCell(
+      String title, {
+      required int flex,
+      required VoidCallback onTap,
+    }) {
+      return Expanded(
+        flex: flex,
+        child: GestureDetector(
+          onTap: onTap,
+          child: Center(
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.black, // Sesuaikan warna teks header kamu
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.start,
+            ),
+          ),
+        ),
+      );
+    }
+
+    Widget _customDataCell(String? value, {required int flex}) {
+      return Expanded(
+        flex: flex,
+        child: Center(
+          child: Text(
+            value ?? '-',
+            style: const TextStyle(color: Colors.black), // Sesuaikan warna font
+            textAlign: TextAlign.start,
+          ),
+        ),
+      );
+    }
+
     Widget buildTableRadiatorAndCap(List<ProductModel> data) {
       return Container(
-        width: 60.w,
+        margin: const EdgeInsets.only(left: 60, right: 60),
         color: Colors.black,
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         child: Column(
           children: [
             tableTitle(),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
-            ListOfButtonRadiatorAndCap(
-              searchController: searchController,
-              categoryProducts: AppString().radiatorCapAndAdapters,
+            // 1. BARIS TOMBOL FILTER
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: ListOfButtonRadiatorAndCap(
+                searchController: searchController,
+                categoryProducts: argument.flow ?? '',
+              ),
             ),
-            SizedBox(height: 16),
-            Center(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: DataTable(
-                    headingRowColor: WidgetStateProperty.all(
-                      const Color(0xFFFF5A00),
-                    ),
-                    dataRowColor: WidgetStateProperty.all(Colors.white),
-                    dividerThickness: 1,
-                    columnSpacing: 30,
+            const SizedBox(height: 16),
 
-                    columns: [
-                      tableHeader(
-                        title: 'Part Number',
-                        onTap: () {
-                          searchController.getAllProductsV2PartNumberSort(
-                            categoryProducts: argument.flow ?? '',
-                          );
-                        },
-                      ),
-                      tableHeader(
-                        title: 'Makes',
-                        onTap: () {
-                          searchController.getAllProductsMakesSort(
-                            categoryProducts: argument.flow ?? '',
-                          );
-                        },
-                      ),
-                      tableHeader(
-                        title: 'Application',
-                        onTap: () {
-                          searchController.getAllProductsV2EquipmentTypeSort(
-                            categoryProducts: argument.flow ?? '',
-                          );
-                        },
-                      ),
-                      tableHeader(
-                        title: 'Size',
-                        onTap: () {
-                          searchController.getAllProductsSizeSort(
-                            categoryProducts: argument.flow ?? '',
-                          );
-                        },
-                      ),
-                      tableHeader(
-                        title: 'Pressure Rating',
-                        onTap: () {
-                          searchController.getAllProductsPersureRatingSort(
-                            categoryProducts: argument.flow ?? '',
-                          );
-                        },
-                      ),
-                      tableHeader(
-                        title: 'Material',
-                        onTap: () {
-                          searchController.getAllProductsMaterialTypeSort(
-                            categoryProducts: argument.flow ?? '',
-                          );
-                        },
-                      ),
-                      tableHeader(
-                        title: 'Description Application',
-                        onTap: () {
-                          searchController
-                              .getAllProductsDescriptionApplicationSort(
-                                categoryProducts: argument.flow ?? '',
-                              );
-                        },
-                      ),
-                    ],
-                    rows: data.map((item) {
-                      return DataRow(
-                        cells: [
-                          tableCell(item, item.partNumber),
-                          tableCell(item, item.makes),
-                          tableCell(item, item.application),
-                          tableCell(item, item.size),
-                          tableCell(item, item.pressureRating),
-                          tableCell(item, item.materialType),
-                          tableCell(item, item.descriptionApplication),
-                        ],
-                      );
-                    }).toList(),
+            // 2. CUSTOM TABLE MENGGUNAKAN ROW & EXPANDED
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Column(
+                children: [
+                  // --- HEADER TABEL (Warna Oranye) ---
+                  Container(
+                    color: const Color(0xFFFF5A00),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 14,
+                      horizontal: 16,
+                    ),
+
+                    child: Row(
+                      children: [
+                        _customHeaderCell(
+                          'Part Number',
+                          flex: 2,
+                          onTap: () {
+                            searchController.getAllProductsV2PartNumberSort(
+                              categoryProducts: argument.flow ?? '',
+                            );
+                          },
+                        ),
+                        const SizedBox(width: 15),
+                        _customHeaderCell(
+                          'Makes',
+                          flex: 2,
+                          onTap: () {
+                            searchController.getAllProductsMakesSort(
+                              categoryProducts: argument.flow ?? '',
+                            );
+                          },
+                        ),
+                        const SizedBox(width: 15),
+                        _customHeaderCell(
+                          'Application',
+                          flex: 2,
+                          onTap: () {
+                            searchController.getAllProductsV2EquipmentTypeSort(
+                              categoryProducts: argument.flow ?? '',
+                            );
+                          },
+                        ),
+                        const SizedBox(width: 15),
+                        _customHeaderCell(
+                          'Size',
+                          flex: 2,
+                          onTap: () {
+                            searchController.getAllProductsSizeSort(
+                              categoryProducts: argument.flow ?? '',
+                            );
+                          },
+                        ),
+                        const SizedBox(width: 15),
+                        _customHeaderCell(
+                          'Pressure Rating',
+                          flex: 2,
+                          onTap: () {
+                            searchController.getAllProductsPersureRatingSort(
+                              categoryProducts: argument.flow ?? '',
+                            );
+                          },
+                        ),
+                        const SizedBox(width: 15),
+                        _customHeaderCell(
+                          'Material',
+                          flex: 2,
+                          onTap: () {
+                            searchController.getAllProductsMaterialTypeSort(
+                              categoryProducts: argument.flow ?? '',
+                            );
+                          },
+                        ),
+                        const SizedBox(width: 15),
+                        // Deskripsi menggunakan Flex: 5 agar sama panjang dengan tombolnya
+                        _customHeaderCell(
+                          'Description Application',
+                          flex: 5,
+                          onTap: () {
+                            searchController
+                                .getAllProductsDescriptionApplicationSort(
+                                  categoryProducts: argument.flow ?? '',
+                                );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
-                ),
+
+                  // --- DATA TABEL (Warna Putih) ---
+                  ...data.map((item) {
+                    return Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 14,
+                        horizontal: 16,
+                      ),
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+
+                        // Garis bawah sebagai pengganti dividerThickness di DataTable
+                        border: Border(
+                          bottom: BorderSide(
+                            color: Color(0xFFE0E0E0),
+                            width: 1,
+                          ),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          _customDataCell(item.partNumber, flex: 2),
+                          const SizedBox(width: 15),
+                          _customDataCell(item.makes, flex: 2),
+                          const SizedBox(width: 15),
+                          _customDataCell(item.application, flex: 2),
+                          const SizedBox(width: 15),
+                          _customDataCell(item.size, flex: 2),
+                          const SizedBox(width: 15),
+                          _customDataCell(item.pressureRating, flex: 2),
+                          const SizedBox(width: 15),
+                          _customDataCell(item.materialType, flex: 2),
+                          const SizedBox(width: 15),
+                          // Deskripsi menggunakan Flex: 5
+                          _customDataCell(item.descriptionApplication, flex: 5),
+                        ],
+                      ),
+                    );
+                  }).toList(), // Hapus toList() jika ada error linting (opsional)
+                ],
               ),
             ),
           ],
@@ -662,7 +767,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
       );
     }
 
-    Widget caterpillarTube(Searchproductcontroller controller) {
+    Widget caterpillarTube(SearchProductController controller) {
       return Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -692,7 +797,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
                               padding: EdgeInsets.all(10),
                               child: TextFormField(
                                 onChanged: (value) {
-                                  Get.find<Searchproductcontroller>()
+                                  Get.find<SearchProductController>()
                                       .setTypedPlatNumber(value);
                                 },
                                 decoration: InputDecoration(
@@ -845,7 +950,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
       );
     }
 
-    Widget radiatorsCapAndAdapter(Searchproductcontroller controller) {
+    Widget radiatorsCapAndAdapter(SearchProductController controller) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -1039,7 +1144,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
       );
     }
 
-    Widget caterPillarCoreReplacement(Searchproductcontroller controller) {
+    Widget caterPillarCoreReplacement(SearchProductController controller) {
       return Container(
         width: double.infinity,
         color: Colors.grey.shade200, // background halaman
@@ -1199,7 +1304,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
       );
     }
 
-    return GetBuilder<Searchproductcontroller>(
+    return GetBuilder<SearchProductController>(
       initState: (state) async {
         await searchController.getProductsByCategoryForListFilterCatalog(
           category: argument.flow ?? '',
@@ -1260,24 +1365,24 @@ class _SearchProductPageState extends State<SearchProductPage> {
               category: argument.flow ?? '',
             );
 
-        await Get.find<Searchproductcontroller>().getAllMake(
+        await Get.find<SearchProductController>().getAllMake(
           category: argument.flow,
         );
-        await Get.find<Searchproductcontroller>().getAllProducts(
+        await Get.find<SearchProductController>().getAllProducts(
           category: argument.flow,
         );
-        await Get.find<Searchproductcontroller>().getAllModel(
+        await Get.find<SearchProductController>().getAllModel(
           category: argument.flow,
         );
-        await Get.find<Searchproductcontroller>().getAllIndustry(
+        await Get.find<SearchProductController>().getAllIndustry(
           category: argument.flow,
         );
-        await Get.find<Searchproductcontroller>().getAllEquipmentType(
+        await Get.find<SearchProductController>().getAllEquipmentType(
           category: argument.flow,
         );
-        await Get.find<Searchproductcontroller>().getAllSize();
-        await Get.find<Searchproductcontroller>().getAllPressureRating();
-        await Get.find<Searchproductcontroller>().getAllProductTypeDesign(
+        await Get.find<SearchProductController>().getAllSize();
+        await Get.find<SearchProductController>().getAllPressureRating();
+        await Get.find<SearchProductController>().getAllProductTypeDesign(
           category: argument.flow,
         );
       },

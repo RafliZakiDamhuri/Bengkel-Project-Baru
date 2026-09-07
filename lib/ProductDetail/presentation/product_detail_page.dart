@@ -1,16 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/state_manager.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
-import 'package:project/CMS/controller/cms_controller.dart';
-import 'package:project/CMS/global_widget/custom_table.dart';
 import 'package:project/ProductDetail/controller/product_detail_controller.dart';
 import 'package:project/controller/searchProductController.dart';
-import 'package:project/global%20widget/globalAppBar.dart';
+import 'package:project/global_widget/globalAppBar.dart';
 import 'package:project/ProductDetail/widget/product_detail_title.dart';
 import 'package:project/model/productModel.dart';
 import 'package:project/routes/routes_name.dart';
@@ -27,7 +23,7 @@ class ProductDetailPage extends StatefulWidget {
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
   var productDetailController = Get.find<ProductDetailController>();
-  var searchController = Get.find<Searchproductcontroller>();
+  var searchController = Get.find<SearchProductController>();
 
   String titleCategory = '';
   String headerTitle = '';
@@ -158,7 +154,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   }
 
   Widget buildTableRadiatorAndCoolers(List<ProductModel> data) {
-    print('Ini adalah data :${data[0].catalogueNumber} ');
     final tableWidth = 80.w - 48; // 24 kiri + 24 kanan
 
     // Total flex kolom
@@ -434,7 +429,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   }
 
   Widget buildTableRadiatorAndCap(List<ProductModel> data) {
-    print('Ini adalah data :${data[0].catalogueNumber} ');
     final tableWidth = 80.w - 48; // 24 kiri + 24 kanan
 
     // Total flex kolom
@@ -947,7 +941,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   //   );
   // }
   Widget buildTableCaterpillarTube(List<ProductModel> data) {
-    print('Ini adalah data :${data[0].catalogueNumber} ');
     final tableWidth = 80.w - 48; // 24 kiri + 24 kanan
 
     // Total flex kolom

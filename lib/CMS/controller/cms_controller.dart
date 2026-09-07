@@ -1,11 +1,11 @@
 import 'dart:typed_data';
 
-import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart' hide FormData, MultipartFile;
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:project/global%20widget/globalLoadingWidget.dart';
+import 'package:project/core/services/upload_service.dart';
+import 'package:project/global_widget/globalLoadingWidget.dart';
 import 'package:project/model/productModel.dart';
 import 'package:project/theme/string.dart';
 import 'package:sidebarx/sidebarx.dart';
@@ -43,7 +43,7 @@ class CmsController extends GetxController {
   List<ProductModel> productModel = [];
   ProductModel? productModelSingle;
   bool isLoading = false;
-  final Dio dio = Dio();
+  final UploadService _uploadService = UploadService();
 
   @override
   void onInit() async {
@@ -103,7 +103,7 @@ class CmsController extends GetxController {
 
       update();
     } catch (e) {
-      print('Pick GLB error: $e');
+      // GLB pick error suppressed
     }
   }
 
@@ -112,33 +112,18 @@ class CmsController extends GetxController {
       return null;
     }
 
-    try {
-      final formData = FormData.fromMap({
-        'file': MultipartFile.fromBytes(glbBytes!, filename: glbName!),
-      });
+    final result = await _uploadService.uploadBytes(
+      bytes: glbBytes!,
+      filename: glbName!,
+    );
 
-      final response = await dio.post(
-        'https://api.indocool.co.id/api/upload',
-        data: formData,
-      );
-
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        final path = response.data['path'];
-
-        print('Upload GLB success: $path');
-
-        glbUrl = 'https://api.indocool.co.id/storage/$path';
-
-        update();
-
-        return glbUrl;
-      }
-
-      return null;
-    } catch (e) {
-      print('Upload GLB error: $e');
-      return null;
+    if (result != null) {
+      glbUrl = result;
+      update();
+      return glbUrl;
     }
+
+    return null;
   }
 
   Future<void> pickAndUploadImage() async {
@@ -157,7 +142,6 @@ class CmsController extends GetxController {
     try {
       final fileName = '${DateTime.now().millisecondsSinceEpoch}_$imageName';
       final path = 'products/$fileName';
-      print('Ini adalah : ${imageName?.split('.').last}');
       await Supabase.instance.client.storage
           .from('2d-product-images')
           .uploadBinary(
@@ -173,7 +157,7 @@ class CmsController extends GetxController {
           .getPublicUrl(path);
       hideLoadingDialog();
     } on Exception catch (e) {
-      print('Ini adalah error : $e');
+      // image upload error suppressed
       hideLoadingDialog();
     }
   }
@@ -419,16 +403,12 @@ class CmsController extends GetxController {
       isLoading = true;
       update();
 
-      var response;
-      print('Ini adalah categoryTypeData 222 : $categoryTypeData');
-
-      response = await supabase
+      final response = await supabase
           .from('products')
           .select('*')
           .eq('category_products', categoryTypeData ?? '')
           .order('makes', ascending: true);
 
-      print('Ini adalah response ::: $response');
       productModel = (response as List)
           .map((e) => ProductModel.fromJson(e))
           .toList();
@@ -473,7 +453,6 @@ class CmsController extends GetxController {
 
   Future<void> deleteProduct(int id) async {
     try {
-      print('id ; $id');
       await supabase.from('products').delete().eq('id', id);
 
       Get.snackbar('Success', 'Product deleted successfully');
@@ -491,31 +470,17 @@ class CmsController extends GetxController {
       return null;
     }
 
-    try {
-      final formData = FormData.fromMap({
-        'file': MultipartFile.fromBytes(bytes!, filename: imageName!),
-      });
+    final result = await _uploadService.uploadBytes(
+      bytes: bytes!,
+      filename: imageName!,
+    );
 
-      final response = await dio.post(
-        'https://api.indocool.co.id/api/upload',
-        data: formData,
-      );
-
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        final path = response.data['path'];
-
-        print('Upload image success: $path');
-        imageUrl = 'https://api.indocool.co.id/storage/$path';
-
-        update();
-
-        return imageUrl;
-      }
-
-      return null;
-    } catch (e) {
-      print('Upload image error: $e');
-      return null;
+    if (result != null) {
+      imageUrl = result;
+      update();
+      return imageUrl;
     }
+
+    return null;
   }
 }

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project/controller/searchProductController.dart';
@@ -15,7 +14,7 @@ class RadiatorCoreElement extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var searchPageController = Get.find<Searchproductcontroller>();
+    var searchPageController = Get.find<SearchProductController>();
     return Column(
       children: [
         Center(

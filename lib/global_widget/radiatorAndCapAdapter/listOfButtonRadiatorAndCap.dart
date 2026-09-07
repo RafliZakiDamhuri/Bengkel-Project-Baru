@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart' show Get;
-import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:project/controller/searchProductController.dart';
 import 'package:project/theme/theme.dart';
 
-class Listofbuttonradiatorandcatapillar extends StatelessWidget {
-  final Searchproductcontroller searchController;
+class ListOfButtonRadiatorAndCap extends StatelessWidget {
+  final SearchProductController searchController;
   final String categoryProducts;
-  const Listofbuttonradiatorandcatapillar({
+
+  const ListOfButtonRadiatorAndCap({
     super.key,
     required this.searchController,
     required this.categoryProducts,
@@ -15,12 +14,13 @@ class Listofbuttonradiatorandcatapillar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var searchController = Get.find<Searchproductcontroller>();
-
     return Row(
       children: [
+        // =========================
+        // PART NUMBER
+        // =========================
         Expanded(
-          flex: 9,
+          flex: 2,
           child: PopupMenuButton<String>(
             offset: const Offset(0, 25),
             padding: EdgeInsets.zero,
@@ -28,21 +28,21 @@ class Listofbuttonradiatorandcatapillar extends StatelessWidget {
             onSelected: (value) {
               searchController.getDataByFilter(
                 value,
-                'Catalogue Number',
+                'Part Number',
                 categoryProducts: categoryProducts,
               );
             },
 
             itemBuilder: (context) {
               return List.generate(
-                searchController.productModelForListFilterCatalogNumber.length,
+                searchController.productModelForListFilterPartNumber.length,
                 (index) {
                   final data = searchController
-                      .productModelForListFilterCatalogNumber[index];
+                      .productModelForListFilterPartNumber[index];
 
                   return PopupMenuItem<String>(
-                    value: data.catalogueNumber,
-                    child: Text(data.catalogueNumber ?? '-'),
+                    value: data.partNumber,
+                    child: Text(data.partNumber ?? '-'),
                   );
                 },
               );
@@ -55,15 +55,18 @@ class Listofbuttonradiatorandcatapillar extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(2),
               ),
-              child: Text('Catalogue Number', style: blackTextStyle),
+              child: Text('Part Number', style: blackTextStyle),
             ),
           ),
         ),
 
         const SizedBox(width: 15),
 
+        // =========================
+        // MAKES
+        // =========================
         Expanded(
-          flex: 9,
+          flex: 2,
           child: PopupMenuButton<String>(
             offset: const Offset(0, 25),
             padding: EdgeInsets.zero,
@@ -102,11 +105,13 @@ class Listofbuttonradiatorandcatapillar extends StatelessWidget {
             ),
           ),
         ),
-
         const SizedBox(width: 15),
 
+        // =========================
+        // APPLICATION
+        // =========================
         Expanded(
-          flex: 9,
+          flex: 2,
           child: PopupMenuButton<String>(
             offset: const Offset(0, 25),
             padding: EdgeInsets.zero,
@@ -114,7 +119,189 @@ class Listofbuttonradiatorandcatapillar extends StatelessWidget {
             onSelected: (value) {
               searchController.getDataByFilter(
                 value,
-                'Equipment Type',
+                'Application',
+                categoryProducts: categoryProducts,
+              );
+            },
+
+            itemBuilder: (context) {
+              return List.generate(
+                searchController.productModelForListFilterApplication.length,
+                (index) {
+                  final data = searchController
+                      .productModelForListFilterApplication[index];
+
+                  return PopupMenuItem<String>(
+                    value: data.application,
+                    child: Text(data.application ?? '-'),
+                  );
+                },
+              );
+            },
+
+            child: Container(
+              height: 22,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(2),
+              ),
+              child: Text('Application', style: blackTextStyle),
+            ),
+          ),
+        ),
+        const SizedBox(width: 15),
+
+        // =========================
+        // SIZE
+        // =========================
+        Expanded(
+          flex: 2,
+          child: PopupMenuButton<String>(
+            offset: const Offset(0, 25),
+            padding: EdgeInsets.zero,
+
+            onSelected: (value) {
+              searchController.getDataByFilter(
+                value,
+                'Size',
+                categoryProducts: categoryProducts,
+              );
+            },
+
+            itemBuilder: (context) {
+              return List.generate(
+                searchController.productModelForListFilterSize.length,
+                (index) {
+                  final data =
+                      searchController.productModelForListFilterSize[index];
+
+                  return PopupMenuItem<String>(
+                    value: data.size,
+                    child: Text(data.size ?? '-'),
+                  );
+                },
+              );
+            },
+
+            child: Container(
+              height: 22,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(2),
+              ),
+              child: Text('Size', style: blackTextStyle),
+            ),
+          ),
+        ),
+
+        const SizedBox(width: 15),
+
+        // =========================
+        // PRESSURE
+        // =========================
+        Expanded(
+          flex: 2,
+          child: PopupMenuButton<String>(
+            offset: const Offset(0, 25),
+            padding: EdgeInsets.zero,
+
+            onSelected: (value) {
+              searchController.getDataByFilter(
+                value,
+                'Presure Ratting',
+                categoryProducts: categoryProducts,
+              );
+            },
+
+            itemBuilder: (context) {
+              return List.generate(
+                searchController.productModelForListFilterPartPressure.length,
+                (index) {
+                  final data = searchController
+                      .productModelForListFilterPartPressure[index];
+
+                  return PopupMenuItem<String>(
+                    value: data.pressureRating,
+                    child: Text(data.pressureRating ?? '-'),
+                  );
+                },
+              );
+            },
+
+            child: Container(
+              height: 22,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(2),
+              ),
+              child: Text('Presure Ratting', style: blackTextStyle),
+            ),
+          ),
+        ),
+        const SizedBox(width: 15),
+
+        // =========================
+        // MATERIAL
+        // =========================
+        Expanded(
+          flex: 2,
+          child: PopupMenuButton<String>(
+            offset: const Offset(0, 25),
+            padding: EdgeInsets.zero,
+
+            onSelected: (value) {
+              searchController.getDataByFilter(
+                value,
+                'Material',
+                categoryProducts: categoryProducts,
+              );
+            },
+
+            itemBuilder: (context) {
+              return List.generate(
+                searchController.productModelForListFilterPartMaterial.length,
+                (index) {
+                  final data = searchController
+                      .productModelForListFilterPartMaterial[index];
+
+                  return PopupMenuItem<String>(
+                    value: data.materialType,
+                    child: Text(data.materialType ?? '-'),
+                  );
+                },
+              );
+            },
+
+            child: Container(
+              height: 22,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(2),
+              ),
+              child: Text('Material', style: blackTextStyle),
+            ),
+          ),
+        ),
+
+        const SizedBox(width: 15),
+
+        // =========================
+        // DESCRIPTION
+        // =========================
+        Expanded(
+          flex: 5,
+          child: PopupMenuButton<String>(
+            offset: const Offset(0, 25),
+            padding: EdgeInsets.zero,
+
+            onSelected: (value) {
+              searchController.getDataByFilter(
+                value,
+                'Description',
                 categoryProducts: categoryProducts,
               );
             },
@@ -122,15 +309,15 @@ class Listofbuttonradiatorandcatapillar extends StatelessWidget {
             itemBuilder: (context) {
               return List.generate(
                 searchController
-                    .productModelForListFilterCatalogEquipmenType
+                    .productModelForListFilterPartDescriptionApplication
                     .length,
                 (index) {
                   final data = searchController
-                      .productModelForListFilterCatalogEquipmenType[index];
+                      .productModelForListFilterPartDescriptionApplication[index];
 
                   return PopupMenuItem<String>(
-                    value: data.equipmentType,
-                    child: Text(data.equipmentType ?? '-'),
+                    value: data.descriptionApplication,
+                    child: Text(data.descriptionApplication ?? '-'),
                   );
                 },
               );
@@ -143,225 +330,7 @@ class Listofbuttonradiatorandcatapillar extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(2),
               ),
-              child: Text('Equipment Type', style: blackTextStyle),
-            ),
-          ),
-        ),
-
-        const SizedBox(width: 15),
-
-        Expanded(
-          flex: 9,
-          child: PopupMenuButton<String>(
-            offset: const Offset(0, 25),
-            padding: EdgeInsets.zero,
-
-            onSelected: (value) {
-              searchController.getDataByFilter(
-                value,
-                'Models',
-                categoryProducts: categoryProducts,
-              );
-            },
-
-            itemBuilder: (context) {
-              return List.generate(
-                searchController.productModelForListFilterCatalogModels.length,
-                (index) {
-                  final data = searchController
-                      .productModelForListFilterCatalogModels[index];
-
-                  return PopupMenuItem<String>(
-                    value: data.models,
-                    child: Text(data.models ?? '-'),
-                  );
-                },
-              );
-            },
-
-            child: Container(
-              height: 22,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(2),
-              ),
-              child: Text('Models', style: blackTextStyle),
-            ),
-          ),
-        ),
-
-        const SizedBox(width: 15),
-        Expanded(
-          flex: 9,
-          child: PopupMenuButton<String>(
-            offset: const Offset(0, 25),
-            padding: EdgeInsets.zero,
-
-            onSelected: (value) {
-              searchController.getDataByFilter(
-                value,
-                'OEM Part Number',
-                categoryProducts: categoryProducts,
-              );
-            },
-
-            itemBuilder: (context) {
-              return List.generate(
-                searchController
-                    .productModelForListFilterCatalogOemPartNumber
-                    .length,
-                (index) {
-                  final data = searchController
-                      .productModelForListFilterCatalogOemPartNumber[index];
-
-                  return PopupMenuItem<String>(
-                    value: data.oemPartNumber,
-                    child: Text(data.oemPartNumber ?? '-'),
-                  );
-                },
-              );
-            },
-
-            child: Container(
-              height: 22,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(2),
-              ),
-              child: Text('OEM Part Number', style: blackTextStyle),
-            ),
-          ),
-        ),
-        const SizedBox(width: 15),
-        Expanded(
-          flex: 9,
-          child: PopupMenuButton<String>(
-            offset: const Offset(0, 25),
-            padding: EdgeInsets.zero,
-
-            onSelected: (value) {
-              searchController.getDataByFilter(
-                value,
-                'Industry',
-                categoryProducts: categoryProducts,
-              );
-            },
-
-            itemBuilder: (context) {
-              return List.generate(
-                searchController
-                    .productModelForListFilterCatalogIndystry
-                    .length,
-                (index) {
-                  final data = searchController
-                      .productModelForListFilterCatalogIndystry[index];
-
-                  return PopupMenuItem<String>(
-                    value: data.industry,
-                    child: Text(data.industry ?? '-'),
-                  );
-                },
-              );
-            },
-
-            child: Container(
-              height: 22,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(2),
-              ),
-              child: Text('Industry', style: blackTextStyle),
-            ),
-          ),
-        ),
-
-        const SizedBox(width: 15),
-
-        Expanded(
-          flex: 9,
-          child: PopupMenuButton<String>(
-            offset: const Offset(0, 25),
-            padding: EdgeInsets.zero,
-
-            onSelected: (value) {
-              searchController.getDataByFilter(
-                value,
-                'Product Type',
-                categoryProducts: categoryProducts,
-              );
-            },
-
-            itemBuilder: (context) {
-              return List.generate(
-                searchController
-                    .productModelForListFilterCatalogProductType
-                    .length,
-                (index) {
-                  final data = searchController
-                      .productModelForListFilterCatalogProductType[index];
-
-                  return PopupMenuItem<String>(
-                    value: data.productType,
-                    child: Text(data.productType ?? '-'),
-                  );
-                },
-              );
-            },
-
-            child: Container(
-              height: 22,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(2),
-              ),
-              child: Text('Product Type', style: blackTextStyle),
-            ),
-          ),
-        ),
-        const SizedBox(width: 15),
-        Expanded(
-          flex: 9,
-          child: PopupMenuButton<String>(
-            offset: const Offset(0, 25),
-            padding: EdgeInsets.zero,
-
-            onSelected: (value) {
-              searchController.getDataByFilter(
-                value,
-                'Product Type Design',
-                categoryProducts: categoryProducts,
-              );
-            },
-
-            itemBuilder: (context) {
-              return List.generate(
-                searchController
-                    .productModelForListFilterCatalogProductTypeDesign
-                    .length,
-                (index) {
-                  final data = searchController
-                      .productModelForListFilterCatalogProductTypeDesign[index];
-
-                  return PopupMenuItem<String>(
-                    value: data.productTypeDesign,
-                    child: Text(data.productTypeDesign ?? '-'),
-                  );
-                },
-              );
-            },
-
-            child: Container(
-              height: 22,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(2),
-              ),
-              child: Text('Product Type Design', style: blackTextStyle),
+              child: Text('Description', style: blackTextStyle),
             ),
           ),
         ),

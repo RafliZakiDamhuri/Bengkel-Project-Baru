@@ -1,28 +1,27 @@
 import 'dart:typed_data';
 
-import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart' hide FormData, MultipartFile;
+import 'package:get/get.dart';
 import 'package:project/Inquiry/model/inquiry_model.dart';
-import 'package:project/global%20widget/globalLoadingWidget.dart';
+import 'package:project/core/services/upload_service.dart';
+import 'package:project/global_widget/globalLoadingWidget.dart';
 import 'package:project/model/inquiryType.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' hide MultipartFile;
 import 'package:universal_html/universal_html.dart' as html;
 
 class InquiryController extends GetxController {
   final supabase = Supabase.instance.client;
+  final UploadService _uploadService = UploadService();
   List<InquiryTypeModel> inquiryTypeModel = [];
   String? selectedInquiryType;
   Uint8List? bytes;
   String? fileName;
   String? fileUrl;
   String? fileExtention;
-  final Dio dio = Dio();
   List<UserDataModel> userDataModel = [];
   Future getAllInquiryType() async {
     final response = await supabase.from('InquiryType').select();
-    print('Ini adalah response get inquiryType ::: $response');
     inquiryTypeModel = response
         .map((e) => InquiryTypeModel.fromJson(e))
         .toList();
@@ -73,31 +72,18 @@ class InquiryController extends GetxController {
       return null;
     }
 
-    try {
-      final formData = FormData.fromMap({
-        'file': MultipartFile.fromBytes(bytes!, filename: fileName!),
-      });
+    final result = await _uploadService.uploadBytes(
+      bytes: bytes!,
+      filename: fileName!,
+    );
 
-      final response = await dio.post(
-        'https://api.indocool.co.id/api/upload',
-        data: formData,
-      );
-
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        final path = response.data['path'];
-
-        fileUrl = 'https://api.indocool.co.id/storage/$path';
-
-        update();
-
-        return fileUrl;
-      }
-
-      return null;
-    } catch (e) {
-      print('Upload file error: $e');
-      return null;
+    if (result != null) {
+      fileUrl = result;
+      update();
+      return fileUrl;
     }
+
+    return null;
   }
 
   Future<void> uploadResourcesToSupabase({
@@ -144,10 +130,9 @@ class InquiryController extends GetxController {
       );
     } catch (e) {
       hideLoadingDialog();
-      print(e);
       Get.snackbar(
         "Submit gagal",
-        'Terjadi Kesalahan, Mohon Ulangi Proses Submit  : ${e}',
+        'Terjadi Kesalahan, Mohon Ulangi Proses Submit  : $e',
         backgroundColor: Colors.red,
       );
     }
@@ -181,7 +166,6 @@ class InquiryController extends GetxController {
       update();
       hideLoadingDialog();
     } catch (e) {
-      print('Ini adalah error : $e');
       hideLoadingDialog();
     }
   }

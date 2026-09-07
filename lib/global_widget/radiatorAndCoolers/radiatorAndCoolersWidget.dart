@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:project/controller/searchProductController.dart';
-import 'package:project/global%20widget/radiatorAndCoolers/buildTableRadiatorAndCoolers.dart';
+import 'package:project/global_widget/radiatorAndCoolers/buildTableRadiatorAndCoolers.dart';
 import 'package:project/model/dropDownModel.dart';
 import 'package:project/theme/string.dart';
 import 'package:project/theme/theme.dart';
 import 'package:sizer/sizer.dart';
 
 class Radiatorandcoolerswidget extends StatelessWidget {
-  final Searchproductcontroller controller;
+  final SearchProductController controller;
   const Radiatorandcoolerswidget({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
-    Widget buttonShowAll(Searchproductcontroller controller) {
+    Widget buttonShowAll(SearchProductController controller) {
       return ElevatedButton.icon(
         onPressed: () async {
           controller.getProductsByCategory(
@@ -123,7 +123,7 @@ class Radiatorandcoolerswidget extends StatelessWidget {
       );
     }
 
-    Widget buttonSort(Searchproductcontroller controller) {
+    Widget buttonSort(SearchProductController controller) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -235,7 +235,7 @@ class Radiatorandcoolerswidget extends StatelessWidget {
                             padding: EdgeInsets.all(10),
                             child: TextFormField(
                               onChanged: (value) {
-                                Get.find<Searchproductcontroller>()
+                                Get.find<SearchProductController>()
                                     .setTypedPlatNumber(value);
                               },
                               decoration: InputDecoration(

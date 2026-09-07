@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:get/utils.dart';
-import 'package:project/global%20widget/baseLayoutWrapper.dart';
-import 'package:project/global%20widget/customButton.dart';
-import 'package:project/global%20widget/globalAppBar.dart';
+import 'package:project/global_widget/baseLayoutWrapper.dart';
+import 'package:project/global_widget/customButton.dart';
+import 'package:project/global_widget/globalAppBar.dart';
 import 'package:project/theme/services_images.dart';
 import 'package:project/theme/string.dart';
 import 'package:project/theme/theme.dart';
-import 'package:sizer/sizer.dart';
 
 class ServicesPage extends StatelessWidget {
   const ServicesPage({super.key});

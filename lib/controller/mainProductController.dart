@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
-import 'package:project/global%20widget/globalScaffold.dart';
 import 'package:project/model/mainProductModel.dart';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -35,8 +34,6 @@ class MainProductController extends GetxController {
       final file = File('${dir.path}/file.pdf');
 
       await file.writeAsBytes(response.bodyBytes);
-
-      print('File saved at: ${file.path}');
     } else {
       throw Exception('Failed to download PDF');
     }

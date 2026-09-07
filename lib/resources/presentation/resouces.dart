@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project/CMS/controller/resources_controller.dart';
 import 'package:project/Utility/date_time_helper.dart';
-import 'package:project/global%20widget/globalAppBar.dart';
+import 'package:project/global_widget/globalAppBar.dart';
 import 'package:project/resources/model/resource_model.dart';
 
 class ResourceItem {
@@ -27,7 +27,7 @@ class DownloadableResourcesPage extends StatefulWidget {
       _DownloadableResourcesPageState();
 }
 
-final ResoucesController _controller = Get.find<ResoucesController>();
+final ResourcesController _controller = Get.find<ResourcesController>();
 
 class _DownloadableResourcesPageState extends State<DownloadableResourcesPage> {
   String selectedCategory = 'All';
@@ -118,7 +118,7 @@ class _DownloadableResourcesPageState extends State<DownloadableResourcesPage> {
   // backgroundColor: const Color(0xFF000000),
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ResoucesController>(
+    return GetBuilder<ResourcesController>(
       builder: (controller) {
         return Globalappbar(
           isNeedInquiryPage: false,
@@ -254,7 +254,6 @@ class _DownloadableResourcesPageState extends State<DownloadableResourcesPage> {
 
     return InkWell(
       onTap: () {
-        print('Ini adalah : $category');
         selectedCategory = category;
         _controller.getResourcesByType(type: category);
         _controller.update();
@@ -329,8 +328,6 @@ class _DownloadableResourcesPageState extends State<DownloadableResourcesPage> {
   }
 
   Widget _buildColumnLabels(BoxConstraints constraints) {
-    final bool isSmall = constraints.maxWidth < 700;
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25),
       child: Row(
@@ -513,9 +510,7 @@ class _DownloadableResourcesPageState extends State<DownloadableResourcesPage> {
   Widget _buildMobileList() {
     return Container(
       clipBehavior: Clip.antiAlias,
-      decoration: BorderRadius.circular(3) != null
-          ? BoxDecoration(borderRadius: BorderRadius.circular(3))
-          : null,
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(3)),
       child: Column(
         children: [
           _buildTableHeader(),

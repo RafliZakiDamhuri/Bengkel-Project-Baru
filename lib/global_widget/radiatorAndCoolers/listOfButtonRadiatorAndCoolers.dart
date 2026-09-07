@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart' show Get;
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:project/controller/searchProductController.dart';
 import 'package:project/theme/theme.dart';
 
-class ListOfButtonRadiatorAndCap extends StatelessWidget {
-  final Searchproductcontroller searchController;
+class ListOfButtonRadiatorAndCoolers extends StatelessWidget {
+  final SearchProductController searchController;
   final String categoryProducts;
-
-  const ListOfButtonRadiatorAndCap({
+  const ListOfButtonRadiatorAndCoolers({
     super.key,
     required this.searchController,
     required this.categoryProducts,
@@ -14,11 +15,10 @@ class ListOfButtonRadiatorAndCap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var searchController = Get.find<SearchProductController>();
+
     return Row(
       children: [
-        // =========================
-        // PART NUMBER
-        // =========================
         Expanded(
           flex: 9,
           child: PopupMenuButton<String>(
@@ -28,21 +28,21 @@ class ListOfButtonRadiatorAndCap extends StatelessWidget {
             onSelected: (value) {
               searchController.getDataByFilter(
                 value,
-                'Part Number',
+                'Catalogue Number',
                 categoryProducts: categoryProducts,
               );
             },
 
             itemBuilder: (context) {
               return List.generate(
-                searchController.productModelForListFilterPartNumber.length,
+                searchController.productModelForListFilterCatalogNumber.length,
                 (index) {
                   final data = searchController
-                      .productModelForListFilterPartNumber[index];
+                      .productModelForListFilterCatalogNumber[index];
 
                   return PopupMenuItem<String>(
-                    value: data.partNumber,
-                    child: Text(data.partNumber ?? '-'),
+                    value: data.catalogueNumber,
+                    child: Text(data.catalogueNumber ?? '-'),
                   );
                 },
               );
@@ -55,16 +55,13 @@ class ListOfButtonRadiatorAndCap extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(2),
               ),
-              child: Text('Part Number', style: blackTextStyle),
+              child: Text('Catalogue Number', style: blackTextStyle),
             ),
           ),
         ),
 
         const SizedBox(width: 15),
 
-        // =========================
-        // MAKES
-        // =========================
         Expanded(
           flex: 9,
           child: PopupMenuButton<String>(
@@ -105,11 +102,9 @@ class ListOfButtonRadiatorAndCap extends StatelessWidget {
             ),
           ),
         ),
+
         const SizedBox(width: 15),
 
-        // =========================
-        // APPLICATION
-        // =========================
         Expanded(
           flex: 9,
           child: PopupMenuButton<String>(
@@ -119,21 +114,23 @@ class ListOfButtonRadiatorAndCap extends StatelessWidget {
             onSelected: (value) {
               searchController.getDataByFilter(
                 value,
-                'Application',
+                'Equipment Type',
                 categoryProducts: categoryProducts,
               );
             },
 
             itemBuilder: (context) {
               return List.generate(
-                searchController.productModelForListFilterApplication.length,
+                searchController
+                    .productModelForListFilterCatalogEquipmenType
+                    .length,
                 (index) {
                   final data = searchController
-                      .productModelForListFilterApplication[index];
+                      .productModelForListFilterCatalogEquipmenType[index];
 
                   return PopupMenuItem<String>(
-                    value: data.application,
-                    child: Text(data.application ?? '-'),
+                    value: data.equipmentType,
+                    child: Text(data.equipmentType ?? '-'),
                   );
                 },
               );
@@ -146,15 +143,13 @@ class ListOfButtonRadiatorAndCap extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(2),
               ),
-              child: Text('Application', style: blackTextStyle),
+              child: Text('Equipment Type', style: blackTextStyle),
             ),
           ),
         ),
+
         const SizedBox(width: 15),
 
-        // =========================
-        // SIZE
-        // =========================
         Expanded(
           flex: 9,
           child: PopupMenuButton<String>(
@@ -164,67 +159,21 @@ class ListOfButtonRadiatorAndCap extends StatelessWidget {
             onSelected: (value) {
               searchController.getDataByFilter(
                 value,
-                'Size',
+                'Models',
                 categoryProducts: categoryProducts,
               );
             },
 
             itemBuilder: (context) {
               return List.generate(
-                searchController.productModelForListFilterSize.length,
-                (index) {
-                  final data =
-                      searchController.productModelForListFilterSize[index];
-
-                  return PopupMenuItem<String>(
-                    value: data.size,
-                    child: Text(data.size ?? '-'),
-                  );
-                },
-              );
-            },
-
-            child: Container(
-              height: 22,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(2),
-              ),
-              child: Text('Size', style: blackTextStyle),
-            ),
-          ),
-        ),
-
-        const SizedBox(width: 15),
-
-        // =========================
-        // PRESSURE
-        // =========================
-        Expanded(
-          flex: 9,
-          child: PopupMenuButton<String>(
-            offset: const Offset(0, 25),
-            padding: EdgeInsets.zero,
-
-            onSelected: (value) {
-              searchController.getDataByFilter(
-                value,
-                'Presure Ratting',
-                categoryProducts: categoryProducts,
-              );
-            },
-
-            itemBuilder: (context) {
-              return List.generate(
-                searchController.productModelForListFilterPartPressure.length,
+                searchController.productModelForListFilterCatalogModels.length,
                 (index) {
                   final data = searchController
-                      .productModelForListFilterPartPressure[index];
+                      .productModelForListFilterCatalogModels[index];
 
                   return PopupMenuItem<String>(
-                    value: data.pressureRating,
-                    child: Text(data.pressureRating ?? '-'),
+                    value: data.models,
+                    child: Text(data.models ?? '-'),
                   );
                 },
               );
@@ -237,15 +186,12 @@ class ListOfButtonRadiatorAndCap extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(2),
               ),
-              child: Text('Presure Ratting', style: blackTextStyle),
+              child: Text('Models', style: blackTextStyle),
             ),
           ),
         ),
-        const SizedBox(width: 15),
 
-        // =========================
-        // MATERIAL
-        // =========================
+        const SizedBox(width: 15),
         Expanded(
           flex: 9,
           child: PopupMenuButton<String>(
@@ -255,21 +201,23 @@ class ListOfButtonRadiatorAndCap extends StatelessWidget {
             onSelected: (value) {
               searchController.getDataByFilter(
                 value,
-                'Material',
+                'OEM Part Number',
                 categoryProducts: categoryProducts,
               );
             },
 
             itemBuilder: (context) {
               return List.generate(
-                searchController.productModelForListFilterPartMaterial.length,
+                searchController
+                    .productModelForListFilterCatalogOemPartNumber
+                    .length,
                 (index) {
                   final data = searchController
-                      .productModelForListFilterPartMaterial[index];
+                      .productModelForListFilterCatalogOemPartNumber[index];
 
                   return PopupMenuItem<String>(
-                    value: data.materialType,
-                    child: Text(data.materialType ?? '-'),
+                    value: data.oemPartNumber,
+                    child: Text(data.oemPartNumber ?? '-'),
                   );
                 },
               );
@@ -282,16 +230,99 @@ class ListOfButtonRadiatorAndCap extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(2),
               ),
-              child: Text('Material', style: blackTextStyle),
+              child: Text('OEM Part Number', style: blackTextStyle),
+            ),
+          ),
+        ),
+        const SizedBox(width: 15),
+        Expanded(
+          flex: 9,
+          child: PopupMenuButton<String>(
+            offset: const Offset(0, 25),
+            padding: EdgeInsets.zero,
+
+            onSelected: (value) {
+              searchController.getDataByFilter(
+                value,
+                'Industry',
+                categoryProducts: categoryProducts,
+              );
+            },
+
+            itemBuilder: (context) {
+              return List.generate(
+                searchController
+                    .productModelForListFilterCatalogIndystry
+                    .length,
+                (index) {
+                  final data = searchController
+                      .productModelForListFilterCatalogIndystry[index];
+
+                  return PopupMenuItem<String>(
+                    value: data.industry,
+                    child: Text(data.industry ?? '-'),
+                  );
+                },
+              );
+            },
+
+            child: Container(
+              height: 22,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(2),
+              ),
+              child: Text('Industry', style: blackTextStyle),
             ),
           ),
         ),
 
         const SizedBox(width: 15),
 
-        // =========================
-        // DESCRIPTION
-        // =========================
+        Expanded(
+          flex: 9,
+          child: PopupMenuButton<String>(
+            offset: const Offset(0, 25),
+            padding: EdgeInsets.zero,
+
+            onSelected: (value) {
+              searchController.getDataByFilter(
+                value,
+                'Product Type',
+                categoryProducts: categoryProducts,
+              );
+            },
+
+            itemBuilder: (context) {
+              return List.generate(
+                searchController
+                    .productModelForListFilterCatalogProductType
+                    .length,
+                (index) {
+                  final data = searchController
+                      .productModelForListFilterCatalogProductType[index];
+
+                  return PopupMenuItem<String>(
+                    value: data.productType,
+                    child: Text(data.productType ?? '-'),
+                  );
+                },
+              );
+            },
+
+            child: Container(
+              height: 22,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(2),
+              ),
+              child: Text('Product Type', style: blackTextStyle),
+            ),
+          ),
+        ),
+        const SizedBox(width: 15),
         Expanded(
           flex: 9,
           child: PopupMenuButton<String>(
@@ -309,11 +340,11 @@ class ListOfButtonRadiatorAndCap extends StatelessWidget {
             itemBuilder: (context) {
               return List.generate(
                 searchController
-                    .productModelForListFilterPartDescriptionApplication
+                    .productModelForListFilterCatalogDescription
                     .length,
                 (index) {
                   final data = searchController
-                      .productModelForListFilterPartDescriptionApplication[index];
+                      .productModelForListFilterCatalogDescription[index];
 
                   return PopupMenuItem<String>(
                     value: data.descriptionApplication,

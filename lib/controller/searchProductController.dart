@@ -1,16 +1,13 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:project/model/allDataModel.dart';
-import 'package:project/model/applicationModel.dart';
-import 'package:project/model/coreTypeModel.dart';
 import 'package:project/model/dropDownModel.dart';
 import 'package:project/model/materialModel.dart';
-import 'package:project/model/modelModel.dart';
 import 'package:project/model/productModel.dart';
 import 'package:project/theme/string.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class Searchproductcontroller extends GetxController {
+class SearchProductController extends GetxController {
   final supabase = Supabase.instance.client;
   List<DropdownModel?> sizeList = [];
 
@@ -76,6 +73,100 @@ class Searchproductcontroller extends GetxController {
     final response = await Supabase.instance.client.rpc(functionName);
 
     return (response as List).map((e) => DropdownModel.fromJson(e)).toList();
+  }
+
+  /// Mengambil produk sesuai [category], lalu melakukan de-duplikasi
+  /// berdasarkan nilai [field] (hanya menyimpan satu produk per nilai unik).
+  ///
+  /// Menggantikan banyak method `getProductsByCategoryForListFilter*` yang
+  /// sebelumnya berisi logika identik yang di-copy-paste.
+  Future<void> _fetchUniqueProductsByField({
+    required String category,
+    required String Function(ProductModel) field,
+    required void Function(List<ProductModel>) setter,
+  }) async {
+    final response = await supabase
+        .from('products')
+        .select()
+        .eq('category_products', category);
+
+    final products = (response as List)
+        .map((e) => ProductModel.fromJson(e))
+        .toList();
+
+    final unique = <String, ProductModel>{};
+
+    for (final product in products) {
+      final key = field(product);
+
+      if (key.isNotEmpty) {
+        unique[key] = product;
+      }
+    }
+
+    setter(unique.values.toList());
+    update();
+  }
+
+  /// Mengambil seluruh produk sesuai [categoryProducts] yang diurutkan
+  /// berdasarkan [column] ascending. Jika [special], hasil disimpan ke
+  /// [productModelSealSpecial], selain itu ke [productModel].
+  ///
+  /// Menggantikan banyak method `getAllProducts*` yang identik.
+  Future<void> _fetchProductsOrderedByColumn({
+    required String categoryProducts,
+    required String column,
+    bool special = false,
+  }) async {
+    try {
+      final response = await Supabase.instance.client
+          .from('products')
+          .select('*')
+          .eq('category_products', categoryProducts)
+          .order(column, ascending: true);
+
+      final list = (response as List)
+          .map((e) => ProductModel.fromJson(e))
+          .toList();
+
+      if (special) {
+        productModelSealSpecial = list;
+      } else {
+        productModel = list;
+      }
+
+      update();
+    } catch (e) {
+      // Sorted/filter error suppressed to avoid crashing the UI
+    }
+  }
+
+  /// Mengurutkan [productModel] berdasarkan [field], bolak-balik ascending /
+  /// descending setiap dipanggil. Menggunakan [isSort] atau [isSortSpecial]
+  /// tergantung [useSpecial].
+  void _sortProductModel({
+    required String Function(ProductModel) field,
+    bool useSpecial = false,
+  }) {
+    try {
+      productModel.sort((a, b) {
+        if (useSpecial ? isSortSpecial : isSort) {
+          return field(a).compareTo(field(b));
+        } else {
+          return field(b).compareTo(field(a));
+        }
+      });
+
+      if (useSpecial) {
+        isSortSpecial = !isSortSpecial;
+      } else {
+        isSort = !isSort;
+      }
+
+      update();
+    } catch (e) {
+      // Sorted/filter error suppressed to avoid crashing the UI
+    }
   }
 
   void clearText() {
@@ -198,7 +289,7 @@ class Searchproductcontroller extends GetxController {
           .toList();
       update();
     } catch (e) {
-      print('Ini adalah : $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -212,7 +303,7 @@ class Searchproductcontroller extends GetxController {
           .toList();
       update();
     } catch (e) {
-      print('Ini adalah : $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
     update();
   }
@@ -283,14 +374,14 @@ class Searchproductcontroller extends GetxController {
       }
 
       final response = await query.order('makes', ascending: true);
-      print('response :: $response');
+
       productModel = (response as List)
           .map((e) => ProductModel.fromJson(e))
           .toList();
 
       update();
-    } catch (e) {
-      print(e);
+    } catch (_) {
+      // error handled
     }
   }
 
@@ -496,31 +587,12 @@ class Searchproductcontroller extends GetxController {
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
-  Future<void> getAllProductsMakesSort({
-    required String categoryProducts,
-  }) async {
-    try {
-      productModel.sort((a, b) {
-        if (isSort) {
-          // Ascending (A-Z)
-          return (a.makes ?? '').compareTo(b.makes ?? '');
-        } else {
-          // Descending (Z-A)
-          return (b.makes ?? '').compareTo(a.makes ?? '');
-        }
-      });
-
-      // Ubah mode sort untuk klik berikutnya
-      isSort = !isSort;
-
-      update();
-    } catch (e) {
-      print('Error getAllProducts: $e');
-    }
+  void getAllProductsMakesSort({required String categoryProducts}) {
+    _sortProductModel(field: (p) => p.makes ?? '');
   }
 
   Future<void> getProductsByCategory({required String category}) async {
@@ -538,431 +610,158 @@ class Searchproductcontroller extends GetxController {
 
   Future<void> getProductsByCategoryForListFilterCatalog({
     required String category,
-  }) async {
-    final response = await supabase
-        .from('products')
-        .select()
-        .eq('category_products', category);
-
-    final products = (response as List)
-        .map((e) => ProductModel.fromJson(e))
-        .toList();
-
-    final unique = <String, ProductModel>{};
-
-    for (final product in products) {
-      final key = product.catalogueNumber ?? '';
-
-      if (key.isNotEmpty) {
-        unique[key] = product;
-      }
-    }
-
-    productModelForListFilterCatalogNumber = unique.values.toList();
-
-    update();
+  }) {
+    return _fetchUniqueProductsByField(
+      category: category,
+      field: (p) => p.catalogueNumber ?? '',
+      setter: (list) => productModelForListFilterCatalogNumber = list,
+    );
   }
 
   Future<void> getProductsByCategoryForListFilterEquipmentType({
     required String category,
-  }) async {
-    final response = await supabase
-        .from('products')
-        .select()
-        .eq('category_products', category);
-
-    final products = (response as List)
-        .map((e) => ProductModel.fromJson(e))
-        .toList();
-
-    final unique = <String, ProductModel>{};
-
-    for (final product in products) {
-      final key = product.equipmentType ?? '';
-
-      if (key.isNotEmpty) {
-        unique[key] = product;
-      }
-    }
-
-    productModelForListFilterCatalogEquipmenType = unique.values.toList();
-
-    update();
+  }) {
+    return _fetchUniqueProductsByField(
+      category: category,
+      field: (p) => p.equipmentType ?? '',
+      setter: (list) => productModelForListFilterCatalogEquipmenType = list,
+    );
   }
 
   Future<void> getProductsByCategoryForListFilterModels({
     required String category,
-  }) async {
-    final response = await supabase
-        .from('products')
-        .select()
-        .eq('category_products', category);
-
-    final products = (response as List)
-        .map((e) => ProductModel.fromJson(e))
-        .toList();
-
-    final unique = <String, ProductModel>{};
-
-    for (final product in products) {
-      final key = product.models ?? '';
-
-      if (key.isNotEmpty) {
-        unique[key] = product;
-      }
-    }
-
-    productModelForListFilterCatalogModels = unique.values.toList();
-
-    update();
+  }) {
+    return _fetchUniqueProductsByField(
+      category: category,
+      field: (p) => p.models ?? '',
+      setter: (list) => productModelForListFilterCatalogModels = list,
+    );
   }
 
   Future<void> getProductsByCategoryForListFilterAeomPartNumber({
     required String category,
-  }) async {
-    final response = await supabase
-        .from('products')
-        .select()
-        .eq('category_products', category);
-
-    final products = (response as List)
-        .map((e) => ProductModel.fromJson(e))
-        .toList();
-
-    final unique = <String, ProductModel>{};
-
-    for (final product in products) {
-      final key = product.oemPartNumber ?? '';
-
-      if (key.isNotEmpty) {
-        unique[key] = product;
-      }
-    }
-
-    productModelForListFilterCatalogOemPartNumber = unique.values.toList();
-
-    update();
+  }) {
+    return _fetchUniqueProductsByField(
+      category: category,
+      field: (p) => p.oemPartNumber ?? '',
+      setter: (list) => productModelForListFilterCatalogOemPartNumber = list,
+    );
   }
 
   Future<void> getProductsByCategoryForListFilterIndustry({
     required String category,
-  }) async {
-    final response = await supabase
-        .from('products')
-        .select()
-        .eq('category_products', category);
-
-    final products = (response as List)
-        .map((e) => ProductModel.fromJson(e))
-        .toList();
-
-    final unique = <String, ProductModel>{};
-
-    for (final product in products) {
-      final key = product.industry ?? '';
-
-      if (key.isNotEmpty) {
-        unique[key] = product;
-      }
-    }
-
-    productModelForListFilterCatalogIndystry = unique.values.toList();
-
-    update();
+  }) {
+    return _fetchUniqueProductsByField(
+      category: category,
+      field: (p) => p.industry ?? '',
+      setter: (list) => productModelForListFilterCatalogIndystry = list,
+    );
   }
 
   Future<void> getProductsByCategoryForListFilterProductType({
     required String category,
-  }) async {
-    final response = await supabase
-        .from('products')
-        .select()
-        .eq('category_products', category);
-
-    final products = (response as List)
-        .map((e) => ProductModel.fromJson(e))
-        .toList();
-
-    final unique = <String, ProductModel>{};
-
-    for (final product in products) {
-      final key = product.productType ?? '';
-
-      if (key.isNotEmpty) {
-        unique[key] = product;
-      }
-    }
-
-    productModelForListFilterCatalogProductType = unique.values.toList();
-
-    update();
+  }) {
+    return _fetchUniqueProductsByField(
+      category: category,
+      field: (p) => p.productType ?? '',
+      setter: (list) => productModelForListFilterCatalogProductType = list,
+    );
   }
 
   Future<void> getProductsByCategoryForListFilterProductTypeDesign({
     required String category,
-  }) async {
-    final response = await supabase
-        .from('products')
-        .select()
-        .eq('category_products', category);
-
-    final products = (response as List)
-        .map((e) => ProductModel.fromJson(e))
-        .toList();
-
-    final unique = <String, ProductModel>{};
-
-    for (final product in products) {
-      final key = product.productTypeDesign ?? '';
-
-      if (key.isNotEmpty) {
-        unique[key] = product;
-      }
-    }
-
-    productModelForListFilterCatalogProductTypeDesign = unique.values.toList();
-
-    update();
+  }) {
+    return _fetchUniqueProductsByField(
+      category: category,
+      field: (p) => p.productTypeDesign ?? '',
+      setter: (list) =>
+          productModelForListFilterCatalogProductTypeDesign = list,
+    );
   }
 
   Future<void> getProductsByCategoryForListFilterProductTypeDescription({
     required String category,
-  }) async {
-    final response = await supabase
-        .from('products')
-        .select()
-        .eq('category_products', category);
-
-    final products = (response as List)
-        .map((e) => ProductModel.fromJson(e))
-        .toList();
-
-    final unique = <String, ProductModel>{};
-
-    for (final product in products) {
-      final key = product.descriptionApplication ?? '';
-
-      if (key.isNotEmpty) {
-        unique[key] = product;
-      }
-    }
-
-    productModelForListFilterCatalogDescription = unique.values.toList();
-
-    update();
+  }) {
+    return _fetchUniqueProductsByField(
+      category: category,
+      field: (p) => p.descriptionApplication ?? '',
+      setter: (list) => productModelForListFilterCatalogDescription = list,
+    );
   }
 
   Future<void> getProductsByCategoryForListFilterPartNumber({
     required String category,
-  }) async {
-    final response = await supabase
-        .from('products')
-        .select()
-        .eq('category_products', category);
-
-    final products = (response as List)
-        .map((e) => ProductModel.fromJson(e))
-        .toList();
-
-    final unique = <String, ProductModel>{};
-
-    for (final product in products) {
-      final key = product.partNumber ?? '';
-
-      if (key.isNotEmpty) {
-        unique[key] = product;
-      }
-    }
-
-    productModelForListFilterPartNumber = unique.values.toList();
-
-    update();
+  }) {
+    return _fetchUniqueProductsByField(
+      category: category,
+      field: (p) => p.partNumber ?? '',
+      setter: (list) => productModelForListFilterPartNumber = list,
+    );
   }
 
   Future<void> getProductsByCategoryForListFilterMakes({
     required String category,
-  }) async {
-    final response = await supabase
-        .from('products')
-        .select()
-        .eq('category_products', category);
-
-    final products = (response as List)
-        .map((e) => ProductModel.fromJson(e))
-        .toList();
-
-    final unique = <String, ProductModel>{};
-
-    for (final product in products) {
-      final key = product.makes ?? '';
-
-      if (key.isNotEmpty) {
-        unique[key] = product;
-      }
-    }
-
-    productModelForListFilterMakes = unique.values.toList();
-
-    update();
+  }) {
+    return _fetchUniqueProductsByField(
+      category: category,
+      field: (p) => p.makes ?? '',
+      setter: (list) => productModelForListFilterMakes = list,
+    );
   }
 
   Future<void> getProductsByCategoryForListFilterApplication({
     required String category,
-  }) async {
-    final response = await supabase
-        .from('products')
-        .select()
-        .eq('category_products', category);
-
-    final products = (response as List)
-        .map((e) => ProductModel.fromJson(e))
-        .toList();
-
-    final unique = <String, ProductModel>{};
-
-    for (final product in products) {
-      final key = product.application ?? '';
-
-      if (key.isNotEmpty) {
-        unique[key] = product;
-      }
-    }
-
-    productModelForListFilterApplication = unique.values.toList();
-
-    update();
+  }) {
+    return _fetchUniqueProductsByField(
+      category: category,
+      field: (p) => p.application ?? '',
+      setter: (list) => productModelForListFilterApplication = list,
+    );
   }
 
   Future<void> getProductsByCategoryForListFilterSize({
     required String category,
-  }) async {
-    final response = await supabase
-        .from('products')
-        .select()
-        .eq('category_products', category);
-
-    final products = (response as List)
-        .map((e) => ProductModel.fromJson(e))
-        .toList();
-
-    final unique = <String, ProductModel>{};
-
-    for (final product in products) {
-      final key = product.size ?? '';
-
-      if (key.isNotEmpty) {
-        unique[key] = product;
-      }
-    }
-
-    productModelForListFilterSize = unique.values.toList();
-
-    update();
+  }) {
+    return _fetchUniqueProductsByField(
+      category: category,
+      field: (p) => p.size ?? '',
+      setter: (list) => productModelForListFilterSize = list,
+    );
   }
 
   Future<void> getProductsByCategoryForListFilterPressureRating({
     required String category,
-  }) async {
-    final response = await supabase
-        .from('products')
-        .select()
-        .eq('category_products', category);
-
-    final products = (response as List)
-        .map((e) => ProductModel.fromJson(e))
-        .toList();
-
-    final unique = <String, ProductModel>{};
-
-    for (final product in products) {
-      final key = product.pressureRating ?? '';
-
-      if (key.isNotEmpty) {
-        unique[key] = product;
-      }
-    }
-
-    productModelForListFilterPartPressure = unique.values.toList();
-
-    update();
+  }) {
+    return _fetchUniqueProductsByField(
+      category: category,
+      field: (p) => p.pressureRating ?? '',
+      setter: (list) => productModelForListFilterPartPressure = list,
+    );
   }
 
   Future<void> getProductsByCategoryForListFilterMaterial({
     required String category,
-  }) async {
-    final response = await supabase
-        .from('products')
-        .select()
-        .eq('category_products', category);
-
-    final products = (response as List)
-        .map((e) => ProductModel.fromJson(e))
-        .toList();
-
-    final unique = <String, ProductModel>{};
-
-    for (final product in products) {
-      final key = product.materialType ?? '';
-
-      if (key.isNotEmpty) {
-        unique[key] = product;
-      }
-    }
-
-    productModelForListFilterPartMaterial = unique.values.toList();
-
-    update();
+  }) {
+    return _fetchUniqueProductsByField(
+      category: category,
+      field: (p) => p.materialType ?? '',
+      setter: (list) => productModelForListFilterPartMaterial = list,
+    );
   }
 
   Future<void> getProductsByCategoryForListFilterDescriptionApplication({
     required String category,
-  }) async {
-    final response = await supabase
-        .from('products')
-        .select()
-        .eq('category_products', category);
-
-    final products = (response as List)
-        .map((e) => ProductModel.fromJson(e))
-        .toList();
-
-    final unique = <String, ProductModel>{};
-
-    for (final product in products) {
-      final key = product.descriptionApplication ?? '';
-
-      if (key.isNotEmpty) {
-        unique[key] = product;
-      }
-    }
-
-    productModelForListFilterPartDescriptionApplication = unique.values
-        .toList();
-
-    update();
+  }) {
+    return _fetchUniqueProductsByField(
+      category: category,
+      field: (p) => p.descriptionApplication ?? '',
+      setter: (list) =>
+          productModelForListFilterPartDescriptionApplication = list,
+    );
   }
 
-  Future<void> getAllProductsMakesSortSpecial({
-    required String categoryProducts,
-  }) async {
-    try {
-      productModel.sort((a, b) {
-        if (isSortSpesial) {
-          // Ascending (A-Z)
-          return (a.makes ?? '').compareTo(b.makes ?? '');
-        } else {
-          // Descending (Z-A)
-          return (b.makes ?? '').compareTo(a.makes ?? '');
-        }
-      });
-
-      // Ubah mode sort untuk klik berikutnya
-      isSortSpesial = !isSortSpesial;
-
-      update();
-    } catch (e) {
-      print('Error getAllProducts: $e');
-    }
+  void getAllProductsMakesSortSpecial({required String categoryProducts}) {
+    _sortProductModel(field: (p) => p.makes ?? '', useSpecial: true);
   }
 
   Future<void> getAllProductsMakesSpecial({
@@ -981,7 +780,7 @@ class Searchproductcontroller extends GetxController {
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -999,96 +798,34 @@ class Searchproductcontroller extends GetxController {
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
-  Future<void> getAllProductsPersureRatingSort({
-    required String categoryProducts,
-  }) async {
-    try {
-      productModel.sort((a, b) {
-        if (isSort) {
-          // Ascending (A-Z)
-          return (a.pressureRating ?? '').compareTo(b.pressureRating ?? '');
-        } else {
-          // Descending (Z-A)
-          return (b.pressureRating ?? '').compareTo(a.pressureRating ?? '');
-        }
-      });
-
-      // Ubah mode sort untuk klik berikutnya
-      isSort = !isSort;
-
-      update();
-    } catch (e) {
-      print('Error getAllProducts: $e');
-    }
+  void getAllProductsPersureRatingSort({required String categoryProducts}) {
+    _sortProductModel(field: (p) => p.pressureRating ?? '');
   }
 
-  Future<void> getAllProductsPersureRating({
-    required String categoryProducts,
-  }) async {
-    try {
-      final response = await Supabase.instance.client
-          .from('products')
-          .select('*')
-          .eq('category_products', categoryProducts)
-          .order('pressure_rating', ascending: true);
-
-      productModel = (response as List)
-          .map((e) => ProductModel.fromJson(e))
-          .toList();
-
-      update();
-    } catch (e) {
-      print('Error getAllProducts: $e');
-    }
+  Future<void> getAllProductsPersureRating({required String categoryProducts}) {
+    return _fetchProductsOrderedByColumn(
+      categoryProducts: categoryProducts,
+      column: 'pressure_rating',
+    );
   }
 
   Future<void> getAllProductsV2CatalogueNumber({
     required String categoryProducts,
-  }) async {
-    try {
-      final response = await Supabase.instance.client
-          .from('products')
-          .select('*')
-          .eq('category_products', categoryProducts)
-          .order('catalogue_number', ascending: true);
-
-      productModel = (response as List)
-          .map((e) => ProductModel.fromJson(e))
-          .toList();
-
-      update();
-    } catch (e) {
-      print('Error getAllProducts: $e');
-    }
+  }) {
+    return _fetchProductsOrderedByColumn(
+      categoryProducts: categoryProducts,
+      column: 'catalogue_number',
+    );
   }
 
   bool isSort = true;
-  bool isSortSpesial = true;
-  Future<void> getAllProductsV2CatalogueNumberSort({
-    required String categoryProducts,
-  }) async {
-    try {
-      productModel.sort((a, b) {
-        if (isSort) {
-          // Ascending (A-Z)
-          return (a.catalogueNumber ?? '').compareTo(b.catalogueNumber ?? '');
-        } else {
-          // Descending (Z-A)
-          return (b.catalogueNumber ?? '').compareTo(a.catalogueNumber ?? '');
-        }
-      });
-
-      // Ubah mode sort untuk klik berikutnya
-      isSort = !isSort;
-
-      update();
-    } catch (e) {
-      print('Error getAllProducts: $e');
-    }
+  bool isSortSpecial = true;
+  void getAllProductsV2CatalogueNumberSort({required String categoryProducts}) {
+    _sortProductModel(field: (p) => p.catalogueNumber ?? '');
   }
 
   Future<void> getAllProductsV2PartNumberSort({
@@ -1110,77 +847,22 @@ class Searchproductcontroller extends GetxController {
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
-  Future<void> getAllProductsV2CatalogueNumberSortSpecialSeal({
+  void getAllProductsV2CatalogueNumberSortSpecialSeal({
     required String categoryProducts,
-  }) async {
-    try {
-      productModel.sort((a, b) {
-        if (isSortSpesial) {
-          // Ascending (A-Z)
-          return (a.catalogueNumber ?? '').compareTo(b.catalogueNumber ?? '');
-        } else {
-          // Descending (Z-A)
-          return (b.catalogueNumber ?? '').compareTo(a.catalogueNumber ?? '');
-        }
-      });
-
-      // Ubah mode sort untuk klik berikutnya
-      isSortSpesial = !isSortSpesial;
-
-      update();
-    } catch (e) {
-      print('Error getAllProducts: $e');
-    }
+  }) {
+    _sortProductModel(field: (p) => p.catalogueNumber ?? '', useSpecial: true);
   }
 
-  Future<void> getAllProductsSizeSort({
-    required String categoryProducts,
-  }) async {
-    try {
-      productModel.sort((a, b) {
-        if (isSort) {
-          // Ascending (A-Z)
-          return (a.size ?? '').compareTo(b.size ?? '');
-        } else {
-          // Descending (Z-A)
-          return (b.size ?? '').compareTo(a.size ?? '');
-        }
-      });
-
-      // Ubah mode sort untuk klik berikutnya
-      isSort = !isSort;
-
-      update();
-    } catch (e) {
-      print('Error getAllProducts: $e');
-    }
+  void getAllProductsSizeSort({required String categoryProducts}) {
+    _sortProductModel(field: (p) => p.size ?? '');
   }
 
-  Future<void> getAllProductsSizeSortSpecialSeal({
-    required String categoryProducts,
-  }) async {
-    try {
-      productModel.sort((a, b) {
-        if (isSortSpesial) {
-          // Ascending (A-Z)
-          return (a.size ?? '').compareTo(b.size ?? '');
-        } else {
-          // Descending (Z-A)
-          return (b.size ?? '').compareTo(a.size ?? '');
-        }
-      });
-
-      // Ubah mode sort untuk klik berikutnya
-      isSortSpesial = !isSortSpesial;
-
-      update();
-    } catch (e) {
-      print('Error getAllProducts: $e');
-    }
+  void getAllProductsSizeSortSpecialSeal({required String categoryProducts}) {
+    _sortProductModel(field: (p) => p.size ?? '', useSpecial: true);
   }
 
   Future<void> getAllProductsV2EquipmentTypeSort({
@@ -1202,7 +884,7 @@ class Searchproductcontroller extends GetxController {
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -1225,7 +907,7 @@ class Searchproductcontroller extends GetxController {
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -1248,7 +930,7 @@ class Searchproductcontroller extends GetxController {
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -1257,7 +939,7 @@ class Searchproductcontroller extends GetxController {
   }) async {
     try {
       productModel.sort((a, b) {
-        if (isSortSpesial) {
+        if (isSortSpecial) {
           // Ascending (A-Z)
           return (a.oemPartNumber ?? '').compareTo(b.oemPartNumber ?? '');
         } else {
@@ -1267,11 +949,11 @@ class Searchproductcontroller extends GetxController {
       });
 
       // Ubah mode sort untuk klik berikutnya
-      isSortSpesial = !isSortSpesial;
+      isSortSpecial = !isSortSpecial;
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -1294,7 +976,7 @@ class Searchproductcontroller extends GetxController {
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -1303,7 +985,7 @@ class Searchproductcontroller extends GetxController {
   }) async {
     try {
       productModel.sort((a, b) {
-        if (isSortSpesial) {
+        if (isSortSpecial) {
           // Ascending (A-Z)
           return (a.industry ?? '').compareTo(b.industry ?? '');
         } else {
@@ -1313,11 +995,11 @@ class Searchproductcontroller extends GetxController {
       });
 
       // Ubah mode sort untuk klik berikutnya
-      isSortSpesial = !isSortSpesial;
+      isSortSpecial = !isSortSpecial;
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -1340,7 +1022,7 @@ class Searchproductcontroller extends GetxController {
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -1349,7 +1031,7 @@ class Searchproductcontroller extends GetxController {
   }) async {
     try {
       productModel.sort((a, b) {
-        if (isSortSpesial) {
+        if (isSortSpecial) {
           // Ascending (A-Z)
           return (a.productType ?? '').compareTo(b.productType ?? '');
         } else {
@@ -1359,11 +1041,11 @@ class Searchproductcontroller extends GetxController {
       });
 
       // Ubah mode sort untuk klik berikutnya
-      isSortSpesial = !isSortSpesial;
+      isSortSpecial = !isSortSpecial;
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -1390,7 +1072,7 @@ class Searchproductcontroller extends GetxController {
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -1399,7 +1081,7 @@ class Searchproductcontroller extends GetxController {
   }) async {
     try {
       productModel.sort((a, b) {
-        if (isSortSpesial) {
+        if (isSortSpecial) {
           // Ascending (A-Z)
           return (a.productType ?? '').compareTo(b.productType ?? '');
         } else {
@@ -1409,11 +1091,11 @@ class Searchproductcontroller extends GetxController {
       });
 
       // Ubah mode sort untuk klik berikutnya
-      isSortSpesial = !isSortSpesial;
+      isSortSpecial = !isSortSpecial;
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -1440,7 +1122,7 @@ class Searchproductcontroller extends GetxController {
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -1449,7 +1131,7 @@ class Searchproductcontroller extends GetxController {
   }) async {
     try {
       productModel.sort((a, b) {
-        if (isSortSpesial) {
+        if (isSortSpecial) {
           // Ascending (A-Z)
           return (a.descriptionApplication ?? '').compareTo(
             b.descriptionApplication ?? '',
@@ -1463,11 +1145,11 @@ class Searchproductcontroller extends GetxController {
       });
 
       // Ubah mode sort untuk klik berikutnya
-      isSortSpesial = !isSortSpesial;
+      isSortSpecial = !isSortSpecial;
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -1476,7 +1158,7 @@ class Searchproductcontroller extends GetxController {
   }) async {
     try {
       productModel.sort((a, b) {
-        if (isSortSpesial) {
+        if (isSortSpecial) {
           // Ascending (A-Z)
           return (a.equipmentType ?? '').compareTo(b.equipmentType ?? '');
         } else {
@@ -1490,7 +1172,7 @@ class Searchproductcontroller extends GetxController {
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -1499,7 +1181,7 @@ class Searchproductcontroller extends GetxController {
   }) async {
     try {
       productModel.sort((a, b) {
-        if (isSortSpesial) {
+        if (isSortSpecial) {
           // Ascending (A-Z)
           return (a.models ?? '').compareTo(b.models ?? '');
         } else {
@@ -1509,11 +1191,11 @@ class Searchproductcontroller extends GetxController {
       });
 
       // Ubah mode sort untuk klik berikutnya
-      isSortSpesial = !isSortSpesial;
+      isSortSpecial = !isSortSpecial;
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -1522,7 +1204,7 @@ class Searchproductcontroller extends GetxController {
   }) async {
     try {
       productModel.sort((a, b) {
-        if (isSortSpesial) {
+        if (isSortSpecial) {
           // Ascending (A-Z)
           return (a.catalogueNumber ?? '').compareTo(b.catalogueNumber ?? '');
         } else {
@@ -1532,11 +1214,11 @@ class Searchproductcontroller extends GetxController {
       });
 
       // Ubah mode sort untuk klik berikutnya
-      isSortSpesial = !isSortSpesial;
+      isSortSpecial = !isSortSpecial;
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -1556,7 +1238,7 @@ class Searchproductcontroller extends GetxController {
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -1565,7 +1247,7 @@ class Searchproductcontroller extends GetxController {
   }) async {
     try {
       productModel.sort((a, b) {
-        if (isSortSpesial) {
+        if (isSortSpecial) {
           // Ascending (A-Z)
           return (a.equipmentType ?? '').compareTo(b.equipmentType ?? '');
         } else {
@@ -1575,11 +1257,11 @@ class Searchproductcontroller extends GetxController {
       });
 
       // Ubah mode sort untuk klik berikutnya
-      isSortSpesial = !isSortSpesial;
+      isSortSpecial = !isSortSpecial;
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -1599,7 +1281,7 @@ class Searchproductcontroller extends GetxController {
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -1619,7 +1301,7 @@ class Searchproductcontroller extends GetxController {
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -1639,7 +1321,7 @@ class Searchproductcontroller extends GetxController {
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -1659,7 +1341,7 @@ class Searchproductcontroller extends GetxController {
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -1679,7 +1361,7 @@ class Searchproductcontroller extends GetxController {
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -1696,10 +1378,10 @@ class Searchproductcontroller extends GetxController {
       productModel = (response as List)
           .map((e) => ProductModel.fromJson(e))
           .toList();
-      print('Ini adalah response :: $response');
+
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -1713,7 +1395,7 @@ class Searchproductcontroller extends GetxController {
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -1722,7 +1404,7 @@ class Searchproductcontroller extends GetxController {
   }) async {
     try {
       productModel.sort((a, b) {
-        if (isSortSpesial) {
+        if (isSortSpecial) {
           // Ascending (A-Z)
           return (a.materialType ?? '').compareTo(b.materialType ?? '');
         } else {
@@ -1732,11 +1414,11 @@ class Searchproductcontroller extends GetxController {
       });
 
       // Ubah mode sort untuk klik berikutnya
-      isSortSpesial = !isSortSpesial;
+      isSortSpecial = !isSortSpecial;
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -1753,10 +1435,10 @@ class Searchproductcontroller extends GetxController {
       productModelSealSpecial = (response as List)
           .map((e) => ProductModel.fromJson(e))
           .toList();
-      print('Ini adalah response :: $response');
+
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -1776,7 +1458,7 @@ class Searchproductcontroller extends GetxController {
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -1796,7 +1478,7 @@ class Searchproductcontroller extends GetxController {
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -1816,7 +1498,7 @@ class Searchproductcontroller extends GetxController {
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -1836,7 +1518,7 @@ class Searchproductcontroller extends GetxController {
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -1856,7 +1538,7 @@ class Searchproductcontroller extends GetxController {
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 
@@ -1868,7 +1550,7 @@ class Searchproductcontroller extends GetxController {
           .from('products')
           .select('*')
           .eq('category_products', categoryProducts)
-          .order('  description_application', ascending: true);
+          .order('description_application', ascending: true);
 
       productModel = (response as List)
           .map((e) => ProductModel.fromJson(e))
@@ -1876,7 +1558,7 @@ class Searchproductcontroller extends GetxController {
 
       update();
     } catch (e) {
-      print('Error getAllProducts: $e');
+      // Sorted/filter error suppressed to avoid crashing the UI
     }
   }
 

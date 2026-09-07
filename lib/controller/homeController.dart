@@ -1,12 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project/blog/model/blog_model.dart';
-import 'package:project/model/allDataModel.dart';
 import 'package:project/model/productModel.dart';
 import 'package:project/model/serviceModel.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class Homecontroller extends GetxController {
+class HomeController extends GetxController {
   bool isViewListHome1 = true;
   bool isViewListHome2 = false;
   bool isViewListHome3 = false;
@@ -69,7 +67,7 @@ class Homecontroller extends GetxController {
 
   Future<void> getCategoryType() async {
     final response = await supabase.rpc('get_distinct_category_products');
-    print('Ini adalah response ;;; $response');
+
     const categoryOrder = [
       'Radiators and Coolers',
       'CATERPILLAR RADIATOR CORE',
@@ -94,6 +92,5 @@ class Homecontroller extends GetxController {
     getService();
     getCategoryType();
     getTopBlogs();
-    print("App sudah load!");
   }
 }

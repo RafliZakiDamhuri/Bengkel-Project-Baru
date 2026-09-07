@@ -7,9 +7,8 @@ import 'package:project/contact_us_page.dart';
 import 'package:project/controller/homeController.dart';
 import 'package:project/controller/mainProductController.dart';
 import 'package:project/controller/searchProductController.dart';
-import 'package:project/global%20widget/footer.dart';
-import 'package:project/global%20widget/personalData.dart';
-import 'package:project/Inquiry/presentation/inquiry.dart';
+import 'package:project/global_widget/footer.dart';
+import 'package:project/global_widget/personalData.dart';
 import 'package:project/model/productModel.dart';
 import 'package:project/product_page.dart';
 import 'package:project/routes/routes_name.dart';
@@ -21,10 +20,10 @@ import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Globalappbar extends StatefulWidget {
-  Widget pageWidget;
-  bool isNeedInquiryPage;
-  bool isNeedScrollButton;
-  Color backgroundColor;
+  final Widget pageWidget;
+  final bool isNeedInquiryPage;
+  final bool isNeedScrollButton;
+  final Color backgroundColor;
 
   Globalappbar({
     super.key,
@@ -47,7 +46,7 @@ class _GlobalappbarState extends State<Globalappbar> {
 
   bool isMobile(double width) => width < 600;
 
-  final Homecontroller homecontroller = Get.find<Homecontroller>();
+  final HomeController homecontroller = Get.find<HomeController>();
 
   final MainProductController mainProductController =
       Get.find<MainProductController>();
@@ -128,7 +127,7 @@ class _GlobalappbarState extends State<Globalappbar> {
   // =========================================================
 
   Widget search() {
-    return GetBuilder<Homecontroller>(
+    return GetBuilder<HomeController>(
       builder: (controller) {
         return TypeAheadField<ProductModel>(
           builder: (context, textController, focusNode) {
@@ -550,7 +549,7 @@ class _GlobalappbarState extends State<Globalappbar> {
                                 ),
                                 onTap: () {
                                   final searchController =
-                                      Get.find<Searchproductcontroller>();
+                                      Get.find<SearchProductController>();
 
                                   searchController.productModel.clear();
 
@@ -575,7 +574,7 @@ class _GlobalappbarState extends State<Globalappbar> {
                             try {
                               Get.toNamed(AppRouteName.inquiryPage);
                             } catch (e) {
-                              print('Ini adalah error : $e');
+                              // Navigation error suppressed
                             }
                           },
                           child: activeAppbarElement(

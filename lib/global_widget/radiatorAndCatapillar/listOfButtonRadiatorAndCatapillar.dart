@@ -4,10 +4,10 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:project/controller/searchProductController.dart';
 import 'package:project/theme/theme.dart';
 
-class ListOfButtonRadiatorAndCoolers extends StatelessWidget {
-  final Searchproductcontroller searchController;
+class Listofbuttonradiatorandcatapillar extends StatelessWidget {
+  final SearchProductController searchController;
   final String categoryProducts;
-  const ListOfButtonRadiatorAndCoolers({
+  const Listofbuttonradiatorandcatapillar({
     super.key,
     required this.searchController,
     required this.categoryProducts,
@@ -15,7 +15,7 @@ class ListOfButtonRadiatorAndCoolers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var searchController = Get.find<Searchproductcontroller>();
+    var searchController = Get.find<SearchProductController>();
 
     return Row(
       children: [
@@ -332,7 +332,7 @@ class ListOfButtonRadiatorAndCoolers extends StatelessWidget {
             onSelected: (value) {
               searchController.getDataByFilter(
                 value,
-                'Description',
+                'Product Type Design',
                 categoryProducts: categoryProducts,
               );
             },
@@ -340,15 +340,15 @@ class ListOfButtonRadiatorAndCoolers extends StatelessWidget {
             itemBuilder: (context) {
               return List.generate(
                 searchController
-                    .productModelForListFilterCatalogDescription
+                    .productModelForListFilterCatalogProductTypeDesign
                     .length,
                 (index) {
                   final data = searchController
-                      .productModelForListFilterCatalogDescription[index];
+                      .productModelForListFilterCatalogProductTypeDesign[index];
 
                   return PopupMenuItem<String>(
-                    value: data.descriptionApplication,
-                    child: Text(data.descriptionApplication ?? '-'),
+                    value: data.productTypeDesign,
+                    child: Text(data.productTypeDesign ?? '-'),
                   );
                 },
               );
@@ -361,7 +361,7 @@ class ListOfButtonRadiatorAndCoolers extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(2),
               ),
-              child: Text('Description', style: blackTextStyle),
+              child: Text('Product Type Design', style: blackTextStyle),
             ),
           ),
         ),

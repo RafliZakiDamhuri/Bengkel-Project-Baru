@@ -1,15 +1,9 @@
-// ... imports Anda yang sudah ada ...
-import 'dart:ui_web';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project/Utility/date_time_helper.dart';
-import 'package:project/appbar/appbar_element.dart';
 import 'package:project/appbar/list_home.dart';
 import 'package:project/blog/model/blog_model.dart';
 import 'package:project/controller/globalController.dart';
@@ -17,25 +11,18 @@ import 'package:project/controller/homeController.dart';
 import 'package:project/controller/mainProductController.dart';
 import 'package:project/custom_text_field.dart';
 import 'package:project/detail_location.dart';
-import 'package:project/detail_product.dart';
-import 'package:project/global%20widget/appPreCache.dart';
-import 'package:project/global%20widget/featureCard.dart';
-import 'package:project/global%20widget/footer.dart';
-import 'package:project/global%20widget/globalAppBar.dart';
-import 'package:project/global%20widget/globalLoadingWidget.dart';
-import 'package:project/global%20widget/personalData.dart';
+import 'package:project/global_widget/appPreCache.dart';
+import 'package:project/global_widget/featureCard.dart';
+import 'package:project/global_widget/globalAppBar.dart';
+import 'package:project/global_widget/globalLoadingWidget.dart';
 import 'package:project/logoChooseUS.dart';
-import 'package:project/model/allDataModel.dart';
 import 'package:project/model/featureCardModel.dart';
-import 'package:project/model/productModel.dart';
 import 'package:project/model/serviceModel.dart';
 import 'package:project/routes/routes_name.dart';
-import 'package:project/search_product_page.dart';
 import 'package:project/theme/app_images.dart';
 import 'package:project/theme/string.dart';
 import 'package:project/theme/theme.dart';
 import 'package:outlined_text/outlined_text.dart';
-// import-import lain
 import 'package:sizer/sizer.dart';
 
 class Home extends StatefulWidget {
@@ -54,7 +41,7 @@ class _HomeState extends State<Home> {
   ExpandableCarouselController carouselController =
       ExpandableCarouselController();
   bool isMobile(double width) => width < 600;
-  var homecontroller = Get.find<Homecontroller>();
+  var homecontroller = Get.find<HomeController>();
   var mainProductController = Get.find<MainProductController>();
   var globalController = Get.find<GlobalController>();
 
@@ -1988,7 +1975,7 @@ class _HomeState extends State<Home> {
       );
     }
 
-    return GetBuilder<Homecontroller>(
+    return GetBuilder<HomeController>(
       builder: (controller) {
         return AnimatedOpacity(
           opacity: _visible ? 1 : 0,

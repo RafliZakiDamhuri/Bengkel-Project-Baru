@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
-import 'package:get/state_manager.dart';
 import 'package:project/controller/aboutUsController.dart';
 import 'package:project/controller/mainProductController.dart';
-import 'package:project/global%20widget/baseLayoutWrapper.dart';
-import 'package:project/global%20widget/customButton.dart';
-import 'package:project/global%20widget/globalAppBar.dart';
+import 'package:project/global_widget/baseLayoutWrapper.dart';
+import 'package:project/global_widget/customButton.dart';
+import 'package:project/global_widget/globalAppBar.dart';
 import 'package:project/theme/app_images.dart';
 import 'package:project/theme/string.dart';
-import 'package:project/theme/theme.dart';
 import 'package:project/routes/routes_name.dart';
-import 'package:sizer/sizer.dart';
 
 class AboutUsPage extends StatelessWidget {
   const AboutUsPage({super.key});

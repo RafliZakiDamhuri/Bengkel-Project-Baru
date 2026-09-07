@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project/global%20widget/footer.dart';
-import 'package:project/global%20widget/personalData.dart';
 
 class ResponsiveLayout extends StatelessWidget {
   final Widget mobile;

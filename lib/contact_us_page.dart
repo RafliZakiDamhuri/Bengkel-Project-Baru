@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:project/controller/contactUsController.dart';
 import 'package:project/controller/globalController.dart';
-import 'package:project/global%20widget/baseLayoutWrapper.dart';
-import 'package:project/global%20widget/customButton.dart';
-import 'package:project/global%20widget/globalAppBar.dart';
-import 'package:project/global%20widget/personalDataContactUs.dart';
+import 'package:project/global_widget/baseLayoutWrapper.dart';
+import 'package:project/global_widget/customButton.dart';
+import 'package:project/global_widget/globalAppBar.dart';
+import 'package:project/global_widget/personalDataContactUs.dart';
 import 'package:project/theme/app_images.dart';
 import 'package:project/theme/string.dart';
 
@@ -38,7 +35,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
 
   @override
   Widget build(BuildContext context) {
-    var controller = Get.put(Contactuscontroller());
+    var controller = Get.put(ContactUsController());
     var globalController = Get.find<GlobalController>();
 
     Widget mobileHeroSection() {
@@ -182,10 +179,10 @@ class _ContactUsPageState extends State<ContactUsPage> {
       return Column(children: [mobileHeroSection(), personaldataContactUs()]);
     }
 
-    return GetBuilder<Contactuscontroller>(
+    return GetBuilder<ContactUsController>(
       initState: (state) async {
-        await Get.find<Contactuscontroller>().getAllInquiryType();
-        await Get.find<Contactuscontroller>().getContact();
+        await Get.find<ContactUsController>().getAllInquiryType();
+        await Get.find<ContactUsController>().getContact();
       },
       builder: (controller) {
         if (!_ready) {

@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:project/CMS/controller/cms_controller.dart';
-import 'package:project/global%20widget/customButton.dart';
+import 'package:project/global_widget/customButton.dart';
 import 'package:project/theme/theme.dart';
 
 Widget buildAddDataLayout({

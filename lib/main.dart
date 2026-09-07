@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:project/Auth/controller/auth_controller.dart';
 import 'package:project/CMS/controller/blog_controller.dart';
 import 'package:project/CMS/controller/cms_controller.dart';
@@ -15,35 +15,35 @@ import 'package:project/controller/globalController.dart';
 import 'package:project/controller/homeController.dart';
 import 'package:project/controller/mainProductController.dart';
 import 'package:project/controller/searchProductController.dart';
-import 'package:project/galery/controller/galerry_controller.dart';
-import 'package:project/routes/routes_name.dart';
+import 'package:project/core/config/app_config.dart';
+import 'package:project/gallery/controller/gallery_controller.dart';
 import 'package:project/routes/routes_navigator.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-
 import 'package:sizer/sizer.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
+
+import 'package:project/routes/routes_name.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   usePathUrlStrategy();
   await Supabase.initialize(
-    url: 'https://hkuubnsamodgtlsgyhrv.supabase.co',
-    anonKey: 'sb_publishable_ucLnPqx9eVJ3RILC2HwE1w_CjsGgvvF',
+    url: AppConfig.supabaseUrl,
+    anonKey: AppConfig.supabaseAnonKey,
   );
-  Get.put(Homecontroller());
-  Get.put(GlobalController()); // hanya sekali, global
+  Get.put(HomeController());
+  Get.put(GlobalController());
   Get.put(MainProductController());
   Get.put(AboutUsController());
-  Get.put(Contactuscontroller());
+  Get.put(ContactUsController());
   Get.put(AuthController());
-  Get.put(Searchproductcontroller());
+  Get.put(SearchProductController());
   Get.put(CmsController());
   Get.put(ProductDetailController());
   Get.put(BlogController());
   Get.put(CMSGalleryController());
   Get.put(GalleryController());
-  Get.put(ResoucesController());
+  Get.put(ResourcesController());
   Get.put(InquiryController());
 
   runApp(const MyApp());
