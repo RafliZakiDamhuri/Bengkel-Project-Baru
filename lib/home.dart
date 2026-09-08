@@ -33,6 +33,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  int currentProductIndex = 0;
   List<bool> expandedIcons = [false, false, false, false, false];
   bool _visible = false;
   bool isDesktop(double width) => width >= 900;
@@ -90,6 +91,55 @@ class _HomeState extends State<Home> {
         "Aluminum Plate & Bar\nCooler & Heat Exchanger",
       ),
     ];
+    Widget nextProduct({
+      required VoidCallback onTap,
+      required int index,
+      required int totalPage,
+    }) {
+      final bool isLastPage = index >= totalPage - 1;
+
+      return GestureDetector(
+        onTap: isLastPage ? null : onTap,
+        child: Container(
+          width: 150,
+          height: 150,
+
+          child: Center(
+            child: Image.asset(
+              isLastPage
+                  ? 'assets/images/Button-Next 3.png'
+                  : 'assets/images/Button-Next 1.png',
+              width: 50,
+              height: 50,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+      );
+    }
+
+    Widget BackProduct({required VoidCallback onTap, required int index}) {
+      final bool isFirstPage = index == 0;
+
+      return GestureDetector(
+        onTap: isFirstPage ? null : onTap,
+        child: Container(
+          width: 150,
+          height: 150,
+          child: Center(
+            child: Image.asset(
+              isFirstPage
+                  ? 'assets/images/Button-Back 1.png'
+                  : 'assets/images/Button-Back 2.png',
+              width: 50,
+              height: 50,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+      );
+    }
+
     Widget nextButton({required VoidCallback onTap, isServices = false}) {
       return GestureDetector(
         onTap: onTap,
@@ -175,9 +225,9 @@ class _HomeState extends State<Home> {
                   child: Text(
                     AppString().pluspointSubTitle,
                     textAlign: TextAlign.center,
-                    style: greyTextStyle.copyWith(
+                    style: blackTextStyle.copyWith(
                       fontSize: 12.sp,
-                      fontWeight: light,
+                      fontWeight: semiBold,
                     ),
                   ),
                 ),
@@ -205,6 +255,11 @@ class _HomeState extends State<Home> {
                           autoPlayAnimationDuration: Duration(seconds: 1),
                           viewportFraction: 1,
                           enableInfiniteScroll: false,
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              currentProductIndex = index;
+                            });
+                          },
                         ),
                       )
                     : Column(
@@ -237,6 +292,11 @@ class _HomeState extends State<Home> {
                               viewportFraction: 1,
                               enableInfiniteScroll: false,
                               autoPlay: false,
+                              onPageChanged: (index, reason) {
+                                setState(() {
+                                  currentProductIndex = index;
+                                });
+                              },
                             ),
                           ),
 
@@ -248,7 +308,8 @@ class _HomeState extends State<Home> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              prevButton(
+                              BackProduct(
+                                index: currentProductIndex,
                                 onTap: () {
                                   carouselController.previousPage(
                                     duration: const Duration(milliseconds: 300),
@@ -257,9 +318,11 @@ class _HomeState extends State<Home> {
                                 },
                               ),
 
-                              const SizedBox(width: 112),
+                              const SizedBox(width: 20),
 
-                              nextButton(
+                              nextProduct(
+                                index: currentProductIndex,
+                                totalPage: grouped.length,
                                 onTap: () {
                                   carouselController.nextPage(
                                     duration: const Duration(milliseconds: 300),
@@ -282,20 +345,26 @@ class _HomeState extends State<Home> {
     Widget servicesContentWidget(ServiceModel? serviceModel) {
       return Expanded(
         child: Container(
-          margin: EdgeInsets.only(left: 10, right: 10),
+          margin: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Image.network(serviceModel?.imageUrl ?? ''),
+
               Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    serviceModel?.serviceName ?? '',
-                    style: blackTextStyle.copyWith(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.bold,
+                  Expanded(
+                    child: Text(
+                      serviceModel?.serviceName ?? '',
+                      style: blackTextStyle.copyWith(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
+
                   nextButton(
                     onTap: () {
                       Get.toNamed(AppRouteName.services);
@@ -304,9 +373,12 @@ class _HomeState extends State<Home> {
                   ),
                 ],
               ),
-              SizedBox(height: 8),
+
+              const SizedBox(height: 8),
+
               Text(
                 serviceModel?.description ?? '',
+                textAlign: TextAlign.left,
                 style: blackTextStyle.copyWith(fontSize: 14),
               ),
             ],
@@ -347,7 +419,7 @@ class _HomeState extends State<Home> {
             SizedBox(height: 20.sp),
             Row(
               children: [
-                SizedBox(width: 12.w),
+                SizedBox(width: 10.w),
                 ...List.generate(homecontroller.serviceModel?.length ?? 0, (
                   index,
                 ) {
@@ -355,7 +427,7 @@ class _HomeState extends State<Home> {
                     homecontroller.serviceModel?[index],
                   );
                 }),
-                SizedBox(width: 12.w),
+                SizedBox(width: 10.w),
               ],
             ),
             SizedBox(height: 100),
@@ -754,7 +826,7 @@ class _HomeState extends State<Home> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: isDesktop(screenWidth) ? 20.h : 5.h),
+          SizedBox(height: isDesktop(screenWidth) ? 55.h : 5.h),
           Container(
             // Hapus margin tetap, ganti dengan Padding atau alignment
             padding: EdgeInsets.symmetric(
@@ -765,7 +837,7 @@ class _HomeState extends State<Home> {
                 AppString().titleLandingPage1,
                 style: blackTextStyle.copyWith(
                   fontSize: isDesktop(screenWidth)
-                      ? 64
+                      ? 50
                       : 24.sp, // Ukuran font responsif
                   fontWeight: bold,
                   height: 1.0,
@@ -1026,7 +1098,7 @@ class _HomeState extends State<Home> {
                     child: Text(
                       AppString().listHomeSubtitle1,
                       style: whiteTextStyle.copyWith(
-                        fontSize: (isMobile(screenWidth)) ? 14.sp : 10.sp,
+                        fontSize: (isMobile(screenWidth)) ? 14.sp : 12.sp,
                         fontWeight: regular,
                       ),
                     ),
@@ -1055,7 +1127,7 @@ class _HomeState extends State<Home> {
                           child: Text(
                             AppString().listHomeSubtitle2,
                             style: whiteTextStyle.copyWith(
-                              fontSize: (isMobile(screenWidth)) ? 14.sp : 10.sp,
+                              fontSize: (isMobile(screenWidth)) ? 14.sp : 12.sp,
                               fontWeight: regular,
                             ),
                           ),
@@ -1087,7 +1159,7 @@ class _HomeState extends State<Home> {
                           child: Text(
                             AppString().listHomeSubtitle3,
                             style: whiteTextStyle.copyWith(
-                              fontSize: (isMobile(screenWidth)) ? 14.sp : 10.sp,
+                              fontSize: (isMobile(screenWidth)) ? 14.sp : 12.sp,
                               fontWeight: regular,
                             ),
                           ),
@@ -1119,7 +1191,7 @@ class _HomeState extends State<Home> {
                           child: Text(
                             AppString().listHomeSubtitle4,
                             style: whiteTextStyle.copyWith(
-                              fontSize: (isMobile(screenWidth)) ? 14.sp : 10.sp,
+                              fontSize: (isMobile(screenWidth)) ? 14.sp : 12.sp,
                               fontWeight: regular,
                             ),
                           ),
@@ -1165,14 +1237,14 @@ class _HomeState extends State<Home> {
                 children: [
                   Container(
                     margin: EdgeInsets.only(),
-                    width: 574,
+                    width: 950,
                     height: 390,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage(
                           'assets/images/MAP-Indocool-1 1_result.webp',
                         ),
-                        fit: BoxFit.contain,
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
@@ -1197,7 +1269,10 @@ class _HomeState extends State<Home> {
                         margin: EdgeInsets.only(right: 120),
                         child: Text(
                           'We are a company with more than 47 years of experience in maintenance,\nrepair, service, manufacturing, and fabrication of radiators & heat exchangers\nin Indonesia. We have 5 facilities in Java, Kalimantan, and Batam, and we\nhave a mission to be the best company in Southeast Asia in the Radiator &\nHeat Exchanger industry.',
-                          style: blackTextStyle.copyWith(fontWeight: regular),
+                          style: blackTextStyle.copyWith(
+                            fontWeight: regular,
+                            fontSize: 18,
+                          ),
                         ),
                       ),
                     ],
@@ -1834,7 +1909,7 @@ class _HomeState extends State<Home> {
                   Get.toNamed(AppRouteName.blogList);
                 },
                 child: Container(
-                  width: 210,
+                  width: 300,
                   height: 55,
                   decoration: BoxDecoration(
                     color: const Color(0xFFD6EEFF),
@@ -1847,7 +1922,7 @@ class _HomeState extends State<Home> {
                       Text(
                         'See More Content',
                         style: GoogleFonts.inter(
-                          fontSize: 12,
+                          fontSize: 20,
                           fontWeight: FontWeight.w500,
                           color: Colors.black,
                         ),

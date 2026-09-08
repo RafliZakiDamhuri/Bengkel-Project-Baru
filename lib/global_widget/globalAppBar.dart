@@ -329,12 +329,12 @@ class _GlobalappbarState extends State<Globalappbar> {
                     Get.toNamed(AppRouteName.home);
                   },
                   child: Container(
-                    width: 180,
-                    height: 55,
+                    width: 300,
+                    height: 70,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage(AppImages().imageHomePage2),
-                        fit: BoxFit.contain,
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),

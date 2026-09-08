@@ -39,7 +39,7 @@ class CmsSidebar extends StatelessWidget {
         iconTheme: const IconThemeData(color: Colors.grey),
       ),
 
-      extendedTheme: const SidebarXTheme(width: 240),
+      extendedTheme: const SidebarXTheme(width: 320),
       headerBuilder: (_, extended) {
         return Padding(
           padding: const EdgeInsets.all(20),
