@@ -10,6 +10,7 @@ import 'package:project/theme/theme.dart';
 
 class InquiryPage extends StatelessWidget {
   final InquiryController _controller = Get.find<InquiryController>();
+
   final TextEditingController nameController = TextEditingController();
   final TextEditingController companyNameController = TextEditingController();
   final TextEditingController positionController = TextEditingController();
@@ -17,6 +18,7 @@ class InquiryPage extends StatelessWidget {
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
+
   final GlobalController globalController = Get.find<GlobalController>();
 
   InquiryPage({super.key});
@@ -45,6 +47,10 @@ class InquiryPage extends StatelessWidget {
     );
   }
 
+  // ============================================================
+  // DIRECT CONSULTATION
+  // ============================================================
+
   Widget directConsultation() {
     return Container(
       width: 380,
@@ -57,17 +63,19 @@ class InquiryPage extends StatelessWidget {
         children: [
           const SizedBox(height: 12),
 
+          // TITLE
           Text(
             'Direct Consultation',
             style: const TextStyle(
               color: Colors.white,
-              fontSize: 20,
+              fontSize: 24,
               fontWeight: FontWeight.bold,
             ),
           ),
 
           const SizedBox(height: 28),
 
+          // WHATSAPP
           GestureDetector(
             onTap: () {
               globalController.openWhatsApp(
@@ -84,6 +92,7 @@ class InquiryPage extends StatelessWidget {
 
           const SizedBox(height: 10),
 
+          // EMAIL
           GestureDetector(
             onTap: () async {
               await globalController.sendEmail();
@@ -97,6 +106,7 @@ class InquiryPage extends StatelessWidget {
 
           const SizedBox(height: 10),
 
+          // LOCATION
           GestureDetector(
             onTap: () async {
               await globalController.openLocation();
@@ -114,6 +124,10 @@ class InquiryPage extends StatelessWidget {
     );
   }
 
+  // ============================================================
+  // CONSULTATION ITEM
+  // ============================================================
+
   Widget consultationItem({
     required IconData icon,
     required String title,
@@ -129,10 +143,12 @@ class InquiryPage extends StatelessWidget {
       ),
       child: Row(
         children: [
+          // ICON
           SizedBox(width: 60, child: Icon(icon, color: Colors.white, size: 48)),
 
           const SizedBox(width: 14),
 
+          // TEXT
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -142,7 +158,7 @@ class InquiryPage extends StatelessWidget {
                   title,
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 13,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -151,7 +167,7 @@ class InquiryPage extends StatelessWidget {
 
                 Text(
                   subtitle,
-                  style: const TextStyle(color: Colors.white, fontSize: 11),
+                  style: const TextStyle(color: Colors.white, fontSize: 14),
                 ),
               ],
             ),
@@ -161,6 +177,10 @@ class InquiryPage extends StatelessWidget {
     );
   }
 
+  // ============================================================
+  // TEXT FIELD
+  // ============================================================
+
   Widget inquiryTextField({
     required String hint,
     required TextEditingController controller,
@@ -169,16 +189,25 @@ class InquiryPage extends StatelessWidget {
       height: 40,
       child: TextField(
         controller: controller,
+
+        // Text yang diketik
+        style: const TextStyle(fontSize: 13, color: Colors.black),
+
         decoration: InputDecoration(
+          // Placeholder
           hintText: hint,
-          hintStyle: const TextStyle(fontSize: 10, color: Colors.grey),
+          hintStyle: const TextStyle(fontSize: 13, color: Colors.black),
+
           filled: true,
           fillColor: const Color(0xFFE3F2FD),
+
           contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(6),
             borderSide: const BorderSide(color: Colors.grey),
           ),
+
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(6),
             borderSide: const BorderSide(color: Colors.grey),
@@ -187,6 +216,10 @@ class InquiryPage extends StatelessWidget {
       ),
     );
   }
+
+  // ============================================================
+  // INQUIRY FORM
+  // ============================================================
 
   Widget inquiryForm() {
     return Container(
@@ -198,6 +231,9 @@ class InquiryPage extends StatelessWidget {
       ),
       child: Column(
         children: [
+          // ======================================================
+          // NAME + COMPANY
+          // ======================================================
           Row(
             children: [
               Expanded(
@@ -220,6 +256,9 @@ class InquiryPage extends StatelessWidget {
 
           const SizedBox(height: 15),
 
+          // ======================================================
+          // POSITION + LOCATION
+          // ======================================================
           Row(
             children: [
               Expanded(
@@ -242,6 +281,9 @@ class InquiryPage extends StatelessWidget {
 
           const SizedBox(height: 15),
 
+          // ======================================================
+          // EMAIL + PHONE
+          // ======================================================
           Row(
             children: [
               Expanded(
@@ -264,11 +306,15 @@ class InquiryPage extends StatelessWidget {
 
           const SizedBox(height: 15),
 
-          // Inquiry + Attach
+          // ======================================================
+          // INQUIRY TYPE + ATTACH FILE
+          // ======================================================
           Row(
             children: [
               Expanded(child: inquiryTypeField()),
+
               const SizedBox(width: 15),
+
               Expanded(
                 child: GestureDetector(
                   onTap: () async {
@@ -282,7 +328,9 @@ class InquiryPage extends StatelessWidget {
 
           const SizedBox(height: 15),
 
-          // Description
+          // ======================================================
+          // DESCRIPTION
+          // ======================================================
           SizedBox(
             height: 75,
             child: inquiryTextField(
@@ -294,6 +342,9 @@ class InquiryPage extends StatelessWidget {
 
           const SizedBox(height: 15),
 
+          // ======================================================
+          // SUBMIT BUTTON
+          // ======================================================
           Align(
             alignment: Alignment.centerLeft,
             child: SizedBox(
@@ -320,39 +371,56 @@ class InquiryPage extends StatelessWidget {
     );
   }
 
+  // ============================================================
+  // INQUIRY TYPE DROPDOWN
+  // ============================================================
+
   Widget inquiryTypeField() {
     return SizedBox(
       height: 40,
       child: DropdownButtonFormField<String>(
         value: null,
         isExpanded: true,
+
         icon: const Icon(
           Icons.keyboard_arrow_down,
           size: 20,
           color: Colors.black,
         ),
+
+        // Dropdown hint
         hint: const Text(
           'Inquiry type (product, service, ...)',
-          style: TextStyle(fontSize: 10, color: Colors.grey),
+          style: TextStyle(fontSize: 13, color: Colors.black),
         ),
+
         decoration: InputDecoration(
           filled: true,
           fillColor: const Color(0xFFE3F2FD),
+
           contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(6),
             borderSide: const BorderSide(color: Colors.grey),
           ),
+
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(6),
             borderSide: const BorderSide(color: Colors.grey),
           ),
         ),
+
+        // Dropdown items
         items: List.generate(_controller.inquiryTypeModel.length, (index) {
           var data = _controller.inquiryTypeModel[index];
+
           return DropdownMenuItem<String>(
             value: data.inquiryType,
-            child: Text(data.inquiryType, style: const TextStyle(fontSize: 10)),
+            child: Text(
+              data.inquiryType,
+              style: const TextStyle(fontSize: 13, color: Colors.black),
+            ),
           );
         }),
 
@@ -365,27 +433,40 @@ class InquiryPage extends StatelessWidget {
     );
   }
 
+  // ============================================================
+  // ATTACH FILE
+  // ============================================================
+
   Widget attachFileField() {
     return SizedBox(
       height: 40,
       child: TextField(
         readOnly: true,
+
+        style: const TextStyle(fontSize: 13, color: Colors.black),
+
         decoration: InputDecoration(
           hintText: _controller.fileName ?? 'Attach supporting file',
-          hintStyle: const TextStyle(fontSize: 10, color: Colors.grey),
+
+          hintStyle: const TextStyle(fontSize: 13, color: Colors.black),
+
           filled: true,
           fillColor: const Color(0xFFE3F2FD),
+
           contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+
           suffixIcon: GestureDetector(
             onTap: () async {
               await _controller.pickAndUploadFile();
             },
             child: const Icon(Icons.upload, size: 18, color: Colors.black),
           ),
+
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(6),
             borderSide: const BorderSide(color: Colors.grey),
           ),
+
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(6),
             borderSide: const BorderSide(color: Colors.grey),
@@ -395,29 +476,47 @@ class InquiryPage extends StatelessWidget {
     );
   }
 
+  // ============================================================
+  // MOBILE
+  // ============================================================
+
   Widget mobileWidget() {
     return Container();
   }
 
+  // ============================================================
+  // DESKTOP
+  // ============================================================
+
   Widget desktopWidget() {
     return Column(
       children: [
+        const SizedBox(height: 20),
+
+        // PAGE TITLE
         Text(
           'INQUIRY',
           style: blackTextStyle.copyWith(fontSize: 50, fontWeight: bold),
         ),
+
+        const SizedBox(height: 20),
+
+        // CONTENT
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // DIRECT CONSULTATION
             SizedBox(width: 320, child: directConsultation()),
 
             const SizedBox(width: 40),
 
+            // INQUIRY FORM
             SizedBox(width: 1000, child: inquiryForm()),
           ],
         ),
-        SizedBox(height: 100),
+
+        const SizedBox(height: 100),
       ],
     );
   }
