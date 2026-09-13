@@ -5,9 +5,7 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:project/controller/searchProductController.dart';
 import 'package:project/global_widget/radiatorAndCoolers/listOfButtonRadiatorAndCoolers.dart';
 import 'package:project/model/productModel.dart';
-import 'package:project/routes/routes_name.dart';
 import 'package:project/theme/string.dart';
-import 'package:project/theme/theme.dart';
 import 'package:sizer/sizer.dart';
 
 class BuildTableRadiatorAndCoolers extends StatelessWidget {
@@ -53,167 +51,199 @@ class BuildTableRadiatorAndCoolers extends StatelessWidget {
       );
     }
 
-    DataCell tableCell(ProductModel item, String? text) {
-      return DataCell(
-        InkWell(
-          onTap: () {
-            Get.toNamed(
-              AppRouteName.productDetailPage,
-              parameters: {
-                'id': item.id.toString(),
-                'category': AppString().radiatorAndCoolers,
-              },
-            );
-          },
+    Widget _customHeaderCell(
+      String title, {
+      required int flex,
+      required VoidCallback onTap,
+    }) {
+      return Expanded(
+        flex: flex,
+        child: GestureDetector(
+          onTap: onTap,
           child: Center(
             child: Text(
-              text ?? '',
+              title,
+              style: const TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 14),
             ),
           ),
         ),
       );
     }
 
-    DataColumn tableHeader({
-      required String title,
-      required VoidCallback onTap,
-    }) {
-      return DataColumn(
-        label: GestureDetector(
-          onTap: onTap,
-          child: Center(
-            child: Row(
-              children: [
-                Text(
-                  title,
-                  textAlign: TextAlign.center,
-                  style: whiteTextStyle.copyWith(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 12,
-                  ),
-                ),
-                Icon(Icons.swap_vert, color: Colors.white),
-              ],
-            ),
+    Widget _customDataCell(String? value, {required int flex}) {
+      return Expanded(
+        flex: flex,
+        child: Container(
+          constraints: const BoxConstraints(minHeight: 45),
+          alignment: Alignment.center,
+          child: Text(
+            value ?? '-',
+            style: const TextStyle(color: Colors.black),
+            textAlign: TextAlign.center,
           ),
         ),
       );
     }
 
     return Container(
-      width: 80.w,
+      width: 80.w, // Bisa diganti margin left right seperti contohmu jika perlu
       color: Colors.black,
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           tableTitle(),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
 
-          ListOfButtonRadiatorAndCoolers(
-            searchController: searchController,
-            categoryProducts: AppString().radiatorAndCoolers,
+          // 1. BARIS TOMBOL FILTER (Dibungkus padding agar sejajar dengan isi tabel)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: ListOfButtonRadiatorAndCoolers(
+              searchController: searchController,
+              categoryProducts: AppString().radiatorAndCoolers,
+            ),
           ),
-          SizedBox(height: 16),
-          Center(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: DataTable(
-                  headingRowColor: WidgetStateProperty.all(
-                    const Color(0xFFFF5A00),
+          const SizedBox(height: 16),
+
+          // 2. TABEL TANPA SCROLL HORIZONTAL
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Column(
+              children: [
+                // --- HEADER TABEL (Warna Oranye) ---
+                Container(
+                  color: const Color(0xFFFF5A00),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 14,
+                    horizontal: 16,
                   ),
-                  dataRowColor: WidgetStateProperty.all(Colors.white),
-                  dividerThickness: 1,
-                  columnSpacing: 30,
-
-                  columns: [
-                    tableHeader(
-                      title: 'Catalogue Number',
-                      onTap: () {
-                        searchController.getAllProductsV2CatalogueNumberSort(
-                          categoryProducts: AppString().radiatorAndCoolers,
-                        );
-                      },
-                    ),
-                    tableHeader(
-                      title: 'Makes',
-                      onTap: () {
-                        searchController.getAllProductsMakesSort(
-                          categoryProducts: AppString().radiatorAndCoolers,
-                        );
-                      },
-                    ),
-                    tableHeader(
-                      title: 'Equipment Type',
-                      onTap: () {
-                        searchController.getAllProductsV2EquipmentTypeSort(
-                          categoryProducts: AppString().radiatorAndCoolers,
-                        );
-                      },
-                    ),
-                    tableHeader(
-                      title: 'Models',
-                      onTap: () {
-                        searchController.getAllProductsV2ModelsSort(
-                          categoryProducts: AppString().radiatorAndCoolers,
-                        );
-                      },
-                    ),
-                    tableHeader(
-                      title: 'OEM Part Number',
-                      onTap: () {
-                        searchController.getAllProductsOEMPartNumberSort(
-                          categoryProducts: AppString().radiatorAndCoolers,
-                        );
-                      },
-                    ),
-                    tableHeader(
-                      title: 'Industry',
-                      onTap: () {
-                        searchController.getAllProductsIndustrySort(
-                          categoryProducts: AppString().radiatorAndCoolers,
-                        );
-                      },
-                    ),
-                    tableHeader(
-                      title: 'Product Type',
-                      onTap: () {
-                        searchController.getAllProductsProductTypeSort(
-                          categoryProducts: AppString().radiatorAndCoolers,
-                        );
-                      },
-                    ),
-                    tableHeader(
-                      title: 'Description / Application',
-                      onTap: () {
-                        searchController
-                            .getAllProductsDescriptionApplicationSort(
-                              categoryProducts: AppString().radiatorAndCoolers,
-                            );
-                      },
-                    ),
-                  ],
-
-                  rows: data.map((item) {
-                    return DataRow(
-                      cells: [
-                        tableCell(item, item.catalogueNumber),
-                        tableCell(item, item.makes),
-                        tableCell(item, item.equipmentType),
-                        tableCell(item, item.models),
-                        tableCell(item, item.oemPartNumber),
-                        tableCell(item, item.industry),
-                        tableCell(item, item.productType),
-                        tableCell(item, item.descriptionApplication),
-                      ],
-                    );
-                  }).toList(),
+                  child: Row(
+                    children: [
+                      // Flex disamakan: 2, 2, 2, 2, 2, 2, 5, 5
+                      _customHeaderCell(
+                        'Catalogue Number',
+                        flex: 2,
+                        onTap: () {
+                          searchController.getAllProductsV2CatalogueNumberSort(
+                            categoryProducts: AppString().radiatorAndCoolers,
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 15),
+                      _customHeaderCell(
+                        'Makes',
+                        flex: 2,
+                        onTap: () {
+                          searchController.getAllProductsMakesSort(
+                            categoryProducts: AppString().radiatorAndCoolers,
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 15),
+                      _customHeaderCell(
+                        'Equipment Type',
+                        flex: 2,
+                        onTap: () {
+                          searchController.getAllProductsV2EquipmentTypeSort(
+                            categoryProducts: AppString().radiatorAndCoolers,
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 15),
+                      _customHeaderCell(
+                        'Models',
+                        flex: 2,
+                        onTap: () {
+                          searchController.getAllProductsV2ModelsSort(
+                            categoryProducts: AppString().radiatorAndCoolers,
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 15),
+                      _customHeaderCell(
+                        'OEM Part Number',
+                        flex: 2,
+                        onTap: () {
+                          searchController.getAllProductsOEMPartNumberSort(
+                            categoryProducts: AppString().radiatorAndCoolers,
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 15),
+                      _customHeaderCell(
+                        'Industry',
+                        flex: 2,
+                        onTap: () {
+                          searchController.getAllProductsIndustrySort(
+                            categoryProducts: AppString().radiatorAndCoolers,
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 15),
+                      _customHeaderCell(
+                        'Product Type',
+                        flex: 5,
+                        onTap: () {
+                          searchController.getAllProductsProductTypeSort(
+                            categoryProducts: AppString().radiatorAndCoolers,
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 15),
+                      _customHeaderCell(
+                        'Description / Application',
+                        flex: 5,
+                        onTap: () {
+                          searchController
+                              .getAllProductsDescriptionApplicationSort(
+                                categoryProducts:
+                                    AppString().radiatorAndCoolers,
+                              );
+                        },
+                      ),
+                    ],
+                  ),
                 ),
-              ),
+
+                // --- DATA TABEL (Warna Putih) ---
+                ...data.map((item) {
+                  return Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 14,
+                      horizontal: 16,
+                    ),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      border: Border(
+                        bottom: BorderSide(color: Color(0xFFE0E0E0), width: 1),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        _customDataCell(item.catalogueNumber, flex: 2),
+                        const SizedBox(width: 15),
+                        _customDataCell(item.makes, flex: 2),
+                        const SizedBox(width: 15),
+                        _customDataCell(item.equipmentType, flex: 2),
+                        const SizedBox(width: 15),
+                        _customDataCell(item.models, flex: 2),
+                        const SizedBox(width: 15),
+                        _customDataCell(item.oemPartNumber, flex: 2),
+                        const SizedBox(width: 15),
+                        _customDataCell(item.industry, flex: 2),
+                        const SizedBox(width: 15),
+                        _customDataCell(item.productType, flex: 5),
+                        const SizedBox(width: 15),
+                        _customDataCell(item.descriptionApplication, flex: 5),
+                      ],
+                    ),
+                  );
+                }),
+              ],
             ),
           ),
         ],
