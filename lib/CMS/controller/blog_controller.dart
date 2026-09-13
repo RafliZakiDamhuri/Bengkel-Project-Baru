@@ -1,10 +1,12 @@
 import 'dart:typed_data';
 
+import 'package:flutter/services.dart' show TextSelection;
 import 'package:flutter_quill/flutter_quill.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:project/blog/model/blog_model.dart';
 import 'package:project/core/services/upload_service.dart';
+import 'package:project/global_widget/globalErrorBottomSheet.dart';
 import 'package:project/global_widget/globalLoadingWidget.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' hide MultipartFile;
 
@@ -19,6 +21,20 @@ class BlogController extends GetxController {
   final UploadService _uploadService = UploadService();
   List<BlogModel> blogs = [];
   List<BlogModel> top3Blogs = [];
+
+  void resetForm() {
+    bytes = null;
+    imageName = null;
+    imageUrl = null;
+    type = 'Company News';
+    blog = null;
+    quillController.document = Document();
+    quillController.updateSelection(
+      const TextSelection.collapsed(offset: 0),
+      ChangeSource.local,
+    );
+    update();
+  }
 
   BlogModel? blog;
   int? selectedMonth;
@@ -147,6 +163,77 @@ class BlogController extends GetxController {
     } catch (e) {
       hideLoadingDialog();
       return false;
+    }
+  }
+
+  Future<bool> updateBlog(
+    String id, {
+    required String title,
+    required String writer,
+    required List<dynamic> content,
+  }) async {
+    showLoadingDialog();
+
+    try {
+      if (bytes != null && imageName != null) {
+        final newUrl = await uploadImage();
+
+        await supabase.from('blogs').update({
+          'title': title,
+          'writer': writer,
+          'type': type,
+          'content': content,
+          'image_url': newUrl,
+        }).eq('id', id);
+      } else {
+        await supabase.from('blogs').update({
+          'title': title,
+          'writer': writer,
+          'type': type,
+          'content': content,
+        }).eq('id', id);
+      }
+
+      hideLoadingDialog();
+      await getBlogsbyFilter();
+      return true;
+    } catch (e) {
+      hideLoadingDialog();
+      showErrorBottomSheet(e);
+      return false;
+    } finally {
+      hideLoadingDialog();
+    }
+  }
+
+  Future<bool> deleteBlogById(String id) async {
+    try {
+      showLoadingDialog();
+
+      final deleted = await supabase
+          .from('blogs')
+          .delete()
+          .eq('id', id)
+          .select();
+
+      hideLoadingDialog();
+
+      if (deleted.isEmpty) {
+        showErrorBottomSheet(
+          Exception('Data gagal dihapus, periksa policy DELETE di Supabase'),
+        );
+        return false;
+      }
+
+      blogs.removeWhere((b) => b.id == id);
+      update();
+      return true;
+    } catch (e) {
+      hideLoadingDialog();
+      showErrorBottomSheet(e);
+      return false;
+    } finally {
+      hideLoadingDialog();
     }
   }
 

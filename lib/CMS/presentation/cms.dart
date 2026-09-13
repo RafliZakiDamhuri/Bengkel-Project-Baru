@@ -50,9 +50,17 @@ class CmsPage extends StatelessWidget {
                       PreEdit(
                         titleCategory: AppString().caterpillarRadiatorCore,
                       ),
-                      AddBlog(),
+                      AddBlog(
+                        key: ValueKey(
+                          'addBlog-${controller.sidebarController.selectedIndex == 11}',
+                        ),
+                      ),
                       AddGallery(),
-                      AddResources(),
+                      AddResources(
+                        key: ValueKey(
+                          'addResources-${controller.sidebarController.selectedIndex == 13}',
+                        ),
+                      ),
                       InquiryUsersData(),
                     ],
                   );

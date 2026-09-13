@@ -1,8 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 import 'package:get/get.dart';
+import 'package:project/Auth/controller/auth_controller.dart';
 import 'package:project/CMS/controller/blog_controller.dart';
 import 'package:project/Utility/date_time_helper.dart';
+import 'package:project/blog/model/blog_model.dart';
 import 'package:project/global_widget/globalAppBar.dart';
 import 'package:project/routes/routes_name.dart';
 
@@ -15,6 +18,19 @@ class BlogListPage extends StatefulWidget {
 
 class _BlogListPageState extends State<BlogListPage> {
   final BlogController _controller = Get.find<BlogController>();
+
+  Document _justifiedDocument(List<dynamic> content) {
+    final justifiedContent = content.map((op) {
+      if (op is Map<String, dynamic>) {
+        final attrs = Map<String, dynamic>.from(op['attributes'] ?? {});
+        attrs['align'] = 'justify';
+        return {'insert': op['insert'], 'attributes': attrs};
+      }
+      return op;
+    }).toList();
+
+    return Document.fromJson(justifiedContent);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -324,8 +340,9 @@ class _BlogListPageState extends State<BlogListPage> {
     // + SizedBox 8
     // + Category 36
     // + SizedBox 7
-    // + Title 42
-    final cardHeight = imageHeight + 8 + 36 + 7 + 42;
+    // + Title 3 baris (18 * 1.25 * 3 = 67.5 ~ 70)
+    // + Quill excerpt 3 baris (24 * 3 = 72)
+    final cardHeight = imageHeight + 8 + 36 + 7 + 70 + 72;
 
     return GridView.builder(
       shrinkWrap: true,
@@ -348,12 +365,7 @@ class _BlogListPageState extends State<BlogListPage> {
       itemBuilder: (context, index) {
         final blog = _controller.blogs[index];
 
-        return _buildBlogCard(
-          category: blog.type,
-          date: DateHelper.formatDate(blog.createdAt!),
-          title: blog.title,
-          index: index,
-        );
+        return _buildBlogCard(blog: blog);
       },
     );
   }
@@ -362,20 +374,12 @@ class _BlogListPageState extends State<BlogListPage> {
   // BLOG CARD
   // ============================================================
 
-  Widget _buildBlogCard({
-    required String category,
-    required String date,
-    required String title,
-    required int index,
-  }) {
+  Widget _buildBlogCard({required BlogModel blog}) {
     return InkWell(
       borderRadius: BorderRadius.circular(4),
 
       onTap: () {
-        Get.toNamed(
-          AppRouteName.blogDetail,
-          parameters: {'id': _controller.blogs[index].id},
-        );
+        Get.toNamed(AppRouteName.blogDetail, parameters: {'id': blog.id});
       },
 
       child: Column(
@@ -390,25 +394,7 @@ class _BlogListPageState extends State<BlogListPage> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
 
-              child: CachedNetworkImage(
-                imageUrl: _controller.blogs[index].imageUrl,
-
-                fit: BoxFit.cover,
-
-                placeholder: (_, __) {
-                  return const Center(child: CircularProgressIndicator());
-                },
-
-                errorWidget: (_, __, ___) {
-                  return const Center(
-                    child: Icon(
-                      Icons.broken_image,
-                      size: 55,
-                      color: Colors.grey,
-                    ),
-                  );
-                },
-              ),
+              child: _BlogImageOverlay(blog: blog),
             ),
           ),
 
@@ -429,6 +415,7 @@ class _BlogListPageState extends State<BlogListPage> {
               ),
 
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   // ==================================================
                   // CATEGORY
@@ -446,7 +433,7 @@ class _BlogListPageState extends State<BlogListPage> {
                       ),
 
                       child: Text(
-                        category,
+                        blog.type,
 
                         maxLines: 1,
 
@@ -471,7 +458,7 @@ class _BlogListPageState extends State<BlogListPage> {
                       padding: const EdgeInsets.only(right: 10),
 
                       child: Text(
-                        date,
+                        DateHelper.formatDate(blog.createdAt!),
 
                         maxLines: 1,
 
@@ -492,26 +479,48 @@ class _BlogListPageState extends State<BlogListPage> {
             ),
           ),
 
-          const SizedBox(height: 7),
-
           // ======================================================
-          // TITLE
+          // TITLE + CONTENT
           // ======================================================
-          SizedBox(
-            height: 42,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 7),
+                Text(
+                  blog.title,
 
-            child: Text(
-              title,
+                  maxLines: 3,
 
-              maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
 
-              overflow: TextOverflow.ellipsis,
-
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                height: 1.25,
-              ),
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    height: 1.25,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                ClipRect(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      minHeight: 24,
+                      maxHeight: 72,
+                    ),
+                    child: QuillEditor.basic(
+                      controller: QuillController(
+                        document: _justifiedDocument(blog.content),
+                        selection: const TextSelection.collapsed(offset: 0),
+                        readOnly: true,
+                      ),
+                      config: const QuillEditorConfig(
+                        expands: false,
+                        padding: EdgeInsets.zero,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -582,6 +591,127 @@ class _BlogListPageState extends State<BlogListPage> {
                   color: selected ? Colors.white : Colors.black,
                 ),
               ),
+      ),
+    );
+  }
+}
+
+class _BlogImageOverlay extends StatefulWidget {
+  final BlogModel blog;
+
+  const _BlogImageOverlay({required this.blog});
+
+  @override
+  State<_BlogImageOverlay> createState() => _BlogImageOverlayState();
+}
+
+class _BlogImageOverlayState extends State<_BlogImageOverlay> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final isLoggedIn = Get.find<AuthController>().isLoggedIn();
+
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          CachedNetworkImage(
+            imageUrl: widget.blog.imageUrl,
+
+            fit: BoxFit.cover,
+
+            placeholder: (_, __) {
+              return const Center(child: CircularProgressIndicator());
+            },
+
+            errorWidget: (_, __, ___) {
+              return const Center(
+                child: Icon(Icons.broken_image, size: 55, color: Colors.grey),
+              );
+            },
+          ),
+
+          if (isLoggedIn && _isHovered)
+            Container(
+              color: Colors.black.withValues(alpha: 0.45),
+
+              child: Center(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _overlayActionButton(
+                      icon: Icons.edit,
+                      color: Colors.blue,
+                      onTap: () {
+                        Get.toNamed(
+                          AppRouteName.editBlog,
+                          parameters: {'id': widget.blog.id},
+                        );
+                      },
+                    ),
+                    const SizedBox(width: 20),
+                    _overlayActionButton(
+                      icon: Icons.delete,
+                      color: Colors.redAccent,
+                      onTap: () => _confirmDelete(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _overlayActionButton({
+    required IconData icon,
+    required Color color,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+
+      child: Container(
+        width: 42,
+        height: 42,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.3),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Icon(icon, color: color, size: 22),
+      ),
+    );
+  }
+
+  void _confirmDelete() {
+    Get.dialog(
+      AlertDialog(
+        title: const Text('Delete Blog'),
+        content: Text(
+          'Apakah Anda yakin ingin menghapus "${widget.blog.title}"?',
+        ),
+        actions: [
+          TextButton(onPressed: () => Get.back(), child: const Text('Batal')),
+          TextButton(
+            onPressed: () async {
+              Get.back();
+              await Get.find<BlogController>().deleteBlogById(widget.blog.id);
+            },
+            child: const Text('Hapus', style: TextStyle(color: Colors.red)),
+          ),
+        ],
       ),
     );
   }

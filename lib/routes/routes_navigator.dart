@@ -2,6 +2,8 @@ import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:project/Auth/controller/auth_controller.dart';
 import 'package:project/CMS/presentation/cms.dart';
 import 'package:project/CMS/presentation/edit_data.dart';
+import 'package:project/CMS/presentation/edit_resources.dart';
+import 'package:project/CMS/presentation/edit_blog.dart';
 import 'package:project/about_us_page.dart';
 import 'package:project/blog/presentation/blog_list.dart';
 import 'package:project/careers_page.dart';
@@ -57,10 +59,18 @@ class AppPages {
     GetPage(name: AppRouteName.careers, page: () => const CareersPage()),
 
     GetPage(name: AppRouteName.blogList, page: () => const BlogListPage()),
+    GetPage(
+      name: AppRouteName.editBlog,
+      page: () => EditBlog(),
+    ),
     GetPage(name: AppRouteName.gallery, page: () => IndocoolGalleryScreen()),
     GetPage(
       name: AppRouteName.resources,
       page: () => DownloadableResourcesPage(),
+    ),
+    GetPage(
+      name: AppRouteName.editResources,
+      page: () => EditResources(),
     ),
   ];
 }

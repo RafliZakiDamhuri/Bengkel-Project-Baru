@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project/Auth/controller/auth_controller.dart';
 import 'package:project/CMS/controller/resources_controller.dart';
 import 'package:project/Utility/date_time_helper.dart';
 import 'package:project/global_widget/globalAppBar.dart';
 import 'package:project/resources/model/resource_model.dart';
+import 'package:project/routes/routes_name.dart';
+import 'package:project/theme/theme.dart';
 
 class ResourceItem {
   final String fileName;
@@ -327,18 +330,27 @@ class _DownloadableResourcesPageState extends State<DownloadableResourcesPage> {
     );
   }
 
+  static const int _columnFlex = 2;
+  static const double _columnGap = 15;
+
   Widget _buildColumnLabels(BoxConstraints constraints) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
         children: [
-          Expanded(flex: 5, child: _topLabel('File Name')),
-          const SizedBox(width: 13),
-          Expanded(flex: 2, child: _topLabel('Resource Type')),
+          Expanded(flex: _columnFlex, child: _topLabel('File Name')),
+          const SizedBox(width: _columnGap),
+          Expanded(flex: _columnFlex, child: _topLabel('Resource Type')),
+          const SizedBox(width: _columnGap),
+          Expanded(flex: _columnFlex, child: _topLabel('File Type')),
+          const SizedBox(width: _columnGap),
+          Expanded(flex: _columnFlex, child: _topLabel('Date Published')),
         ],
       ),
     );
   }
+
+  bool get isLoggedIn => Get.find<AuthController>().isLoggedIn();
 
   Widget _topLabel(String text) {
     return PopupMenuButton<String>(
@@ -363,20 +375,13 @@ class _DownloadableResourcesPageState extends State<DownloadableResourcesPage> {
         });
       },
       child: Container(
-        height: 18,
+        height: 22,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(2),
         ),
-        child: Text(
-          text,
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: 8,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+        child: Text(text, style: blackTextStyle),
       ),
     );
   }
@@ -404,55 +409,86 @@ class _DownloadableResourcesPageState extends State<DownloadableResourcesPage> {
 
   Widget _buildTableHeader() {
     return Container(
-      height: 34,
       color: const Color(0xFFFF6500),
-      padding: const EdgeInsets.symmetric(horizontal: 23),
-      child: const Row(
+      padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+      child: Row(
         children: [
-          Expanded(
-            flex: 5,
-            child: Text(
-              'File Name',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-          Expanded(
+          const Expanded(
             flex: 2,
-            child: Text(
-              'Resource Type',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
+            child: Center(
+              child: Text(
+                'File Name',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ),
-          Expanded(
-            flex: 1,
-            child: Text(
-              'File Type',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
+          const SizedBox(width: _columnGap),
+          const Expanded(
+            flex: 2,
+            child: Center(
+              child: Text(
+                'Resource Type',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ),
-          Expanded(
-            flex: 1,
-            child: Text(
-              'Date Published',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
+          const SizedBox(width: _columnGap),
+          const Expanded(
+            flex: 2,
+            child: Center(
+              child: Text(
+                'File Type',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ),
+          const SizedBox(width: _columnGap),
+          const Expanded(
+            flex: 2,
+            child: Center(
+              child: Text(
+                'Date Published',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ),
+          if (isLoggedIn) ...[
+            const SizedBox(width: _columnGap),
+            const Expanded(
+              flex: 2,
+              child: Center(
+                child: Text(
+                  'Edit',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ],
       ),
     );
@@ -463,30 +499,38 @@ class _DownloadableResourcesPageState extends State<DownloadableResourcesPage> {
       color: index.isEven ? const Color(0xFFF1F1F1) : Colors.white,
       child: InkWell(
         onTap: () {
-          // TODO:
-          // Open/download file
           debugPrint('Download: ${item.fileName}');
           _controller.downloadFile(url: item.fileUrl!, fileName: item.fileName);
         },
         child: Container(
-          constraints: const BoxConstraints(minHeight: 30),
-          padding: const EdgeInsets.symmetric(horizontal: 23, vertical: 8),
+          constraints: const BoxConstraints(minHeight: 45),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           decoration: const BoxDecoration(
             border: Border(
-              bottom: BorderSide(color: Color(0xFF999999), width: 0.6),
+              bottom: BorderSide(color: Color(0xFFE0E0E0), width: 1),
             ),
           ),
           child: Row(
             children: [
-              Expanded(flex: 5, child: _rowText(item.fileName)),
-              Expanded(flex: 2, child: _rowText(item.type ?? '-')),
-              Expanded(flex: 1, child: _rowText(item.fileExtention ?? '-')),
+              Expanded(flex: _columnFlex, child: _rowText(item.fileName)),
+              const SizedBox(width: _columnGap),
+              Expanded(flex: _columnFlex, child: _rowText(item.type ?? '-')),
+              const SizedBox(width: _columnGap),
               Expanded(
-                flex: 1,
+                flex: _columnFlex,
+                child: _rowText(item.fileExtention ?? '-'),
+              ),
+              const SizedBox(width: _columnGap),
+              Expanded(
+                flex: _columnFlex,
                 child: _rowText(
                   DateHelper.formatDate(item.createdAt ?? DateTime.now()),
                 ),
               ),
+              if (isLoggedIn) ...[
+                const SizedBox(width: _columnGap),
+                Expanded(flex: _columnFlex, child: _buildEditActions(item)),
+              ],
             ],
           ),
         ),
@@ -495,15 +539,45 @@ class _DownloadableResourcesPageState extends State<DownloadableResourcesPage> {
   }
 
   Widget _rowText(String text) {
-    return Text(
-      text,
-      maxLines: 2,
-      overflow: TextOverflow.ellipsis,
-      style: const TextStyle(
-        color: Color(0xFF444444),
-        fontSize: 12,
-        fontWeight: FontWeight.w400,
+    return Center(
+      child: Text(
+        text,
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
+        style: const TextStyle(
+          color: Color(0xFF444444),
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+        ),
       ),
+    );
+  }
+
+  Widget _buildEditActions(ResourceModel item) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        IconButton(
+          onPressed: () {
+            Get.toNamed(
+              AppRouteName.editResources,
+              parameters: {'id': item.id},
+            );
+          },
+          icon: const Icon(Icons.edit, size: 18, color: Color(0xFFFF6A00)),
+          tooltip: 'Edit',
+          padding: EdgeInsets.zero,
+          constraints: const BoxConstraints(),
+        ),
+        const SizedBox(width: 10),
+        IconButton(
+          onPressed: () => _controller.deleteResourceById(item.id),
+          icon: const Icon(Icons.delete, size: 18, color: Colors.red),
+          tooltip: 'Delete',
+          padding: EdgeInsets.zero,
+          constraints: const BoxConstraints(),
+        ),
+      ],
     );
   }
 

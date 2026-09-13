@@ -16,6 +16,8 @@ class AppRouteName {
   static const contactPage = '/contact';
   static const careers = '/careers';
   static const blogList = '/blog-list';
+  static const editBlog = '/edit-blog';
   static const gallery = '/gallery';
   static const resources = '/resources';
+  static const editResources = '/edit-resources';
 }

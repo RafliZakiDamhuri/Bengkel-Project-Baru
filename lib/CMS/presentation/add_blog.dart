@@ -20,11 +20,13 @@ class _AddBlogState extends State<AddBlog> {
   @override
   void initState() {
     super.initState();
+    _controller.resetForm();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    blogTitleController.dispose();
+    blogWriterController.dispose();
     super.dispose();
   }
 
@@ -88,7 +90,12 @@ class _AddBlogState extends State<AddBlog> {
                 SizedBox(height: 20),
 
                 customBlueAppBarButton(
-                  onTap: () async {},
+                  onTap: () async {
+                    await controller.createBlog(
+                      title: blogTitleController.text,
+                      writer: blogWriterController.text,
+                    );
+                  },
                   title: 'Submit Blog',
                 ),
                 SizedBox(height: 20),
@@ -97,7 +104,7 @@ class _AddBlogState extends State<AddBlog> {
                   onTap: () async {
                     Get.toNamed(AppRouteName.blogList);
                   },
-                  title: 'Preview',
+                  title: 'Edit Data',
                 ),
               ],
             ),

@@ -1,8 +1,9 @@
 import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:get/get.dart';
 import 'package:project/core/services/upload_service.dart';
+import 'package:project/global_widget/globalErrorBottomSheet.dart';
 import 'package:project/global_widget/globalLoadingWidget.dart';
 import 'package:project/resources/model/resource_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' hide MultipartFile;
@@ -14,6 +15,17 @@ class ResourcesController extends GetxController {
   String? fileName;
   String? fileUrl;
   String? fileExtention;
+  String? currentId;
+
+  void resetForm() {
+    type = null;
+    bytes = null;
+    fileName = null;
+    fileUrl = null;
+    fileExtention = null;
+    currentId = null;
+    update();
+  }
 
   List<ResourceModel> resources = [];
   List<ResourceModel> filteredResources = [];
@@ -95,6 +107,7 @@ class ResourcesController extends GetxController {
       hideLoadingDialog();
     } catch (e) {
       hideLoadingDialog();
+      showErrorBottomSheet(e);
     }
   }
 
@@ -116,6 +129,7 @@ class ResourcesController extends GetxController {
       update();
     } catch (e) {
       hideLoadingDialog();
+      showErrorBottomSheet(e);
     } finally {
       hideLoadingDialog();
     }
@@ -154,11 +168,69 @@ class ResourcesController extends GetxController {
       anchor.click();
 
       anchor.remove();
-    } catch (e) {}
+    } catch (e) {
+      showErrorBottomSheet(e);
+    }
   }
 
   List<String> fileNames = [];
   List<String> types = [];
+
+  Future<void> getResourceById(String id) async {
+    try {
+      showLoadingDialog();
+
+      final response = await supabase
+          .from('resources')
+          .select()
+          .eq('id', id)
+          .single();
+
+      final resource = ResourceModel.fromJson(response);
+      currentId = resource.id;
+      type = resource.type;
+      fileName = resource.fileName;
+      fileUrl = resource.fileUrl;
+      fileExtention = resource.fileExtention;
+      update();
+      hideLoadingDialog();
+    } catch (e) {
+      hideLoadingDialog();
+      showErrorBottomSheet(e);
+    } finally {
+      hideLoadingDialog();
+    }
+  }
+
+  Future<void> updateResource(String id) async {
+    try {
+      showLoadingDialog();
+
+      if (bytes != null && fileName != null) {
+        final newUrl = await uploadFile();
+
+        await supabase.from('resources').update({
+          'file_name': fileName,
+          'file_url': newUrl,
+          'file_extention': fileExtention,
+          'type': type,
+        }).eq('id', id);
+      } else {
+        await supabase.from('resources').update({
+          'type': type,
+        }).eq('id', id);
+      }
+
+      hideLoadingDialog();
+      await getResources();
+    } catch (e) {
+      hideLoadingDialog();
+      showErrorBottomSheet(e);
+    } finally {
+      hideLoadingDialog();
+    }
+  }
+
   Future<void> getResources() async {
     try {
       showLoadingDialog();
@@ -187,6 +259,38 @@ class ResourcesController extends GetxController {
       update();
       hideLoadingDialog();
     } catch (e) {
+      hideLoadingDialog();
+      showErrorBottomSheet(e);
+    } finally {
+      hideLoadingDialog();
+    }
+  }
+
+  Future<bool> deleteResourceById(String id) async {
+    try {
+      showLoadingDialog();
+      final deleted = await supabase
+          .from('resources')
+          .delete()
+          .eq('id', id)
+          .select();
+
+      hideLoadingDialog();
+
+      if (deleted.isEmpty) {
+        showErrorBottomSheet(
+          Exception('Data gagal dihapus, periksa policy DELETE di Supabase'),
+        );
+        return false;
+      }
+
+      resources.removeWhere((r) => r.id == id);
+      update();
+      return true;
+    } catch (e) {
+      hideLoadingDialog();
+      showErrorBottomSheet(e);
+      return false;
     } finally {
       hideLoadingDialog();
     }

@@ -63,6 +63,11 @@ class AuthController extends GetxController {
       Get.snackbar("Error", e.toString());
     }
   }
+
+  bool isLoggedIn() {
+    final user = Supabase.instance.client.auth.currentUser;
+    return user != null;
+  }
 }
 
 class AuthMiddleware extends GetMiddleware {

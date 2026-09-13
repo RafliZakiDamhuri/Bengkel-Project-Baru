@@ -18,11 +18,13 @@ class _AddResourcesState extends State<AddResources> {
   @override
   void initState() {
     super.initState();
+    _controller.resetForm();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    blogTitleController.dispose();
+    blogWriterController.dispose();
     super.dispose();
   }
 
@@ -86,7 +88,7 @@ class _AddResourcesState extends State<AddResources> {
                   onTap: () async {
                     Get.toNamed(AppRouteName.resources);
                   },
-                  title: 'Preview',
+                  title: 'Edit Data',
                 ),
               ],
             ),
