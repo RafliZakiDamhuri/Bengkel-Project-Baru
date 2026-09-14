@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project/controller/globalController.dart';
+
 import 'package:project/global_widget/baseLayoutWrapper.dart';
 import 'package:project/routes/routes_name.dart';
 import 'package:project/theme/app_images.dart';
@@ -142,18 +143,78 @@ Widget footer() {
           ),
           const SizedBox(height: 16),
 
-          menuText('Removable Tube Radiator'),
-          menuText('Alumunium Tube & Fin Core'),
-          menuText('Alumunium Plate & Bar Core'),
-          menuText('Copper Brass Core'),
-          menuText('CAT® Core Replacement'),
-          menuText('Tube & Shell Oil Cooler'),
-          menuText('Radiator Coolant'),
-          menuText('Air Cooled Heat Exchanger'),
-          menuText('Plate Heat Exchanger'),
-          menuText('Industrial Oil Cooler'),
-          menuText('Safety Radiator Cap'),
-          menuText('Replacement Fan'),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(AppRouteName.product);
+            },
+            child: menuText('Removable Tube Radiator'),
+          ),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(AppRouteName.product);
+            },
+            child: menuText('Alumunium Tube & Fin Core'),
+          ),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(AppRouteName.product);
+            },
+            child: menuText('Alumunium Plate & Bar Core'),
+          ),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(AppRouteName.product);
+            },
+            child: menuText('Copper Brass Core'),
+          ),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(AppRouteName.product);
+            },
+            child: menuText('CAT® Core Replacement'),
+          ),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(AppRouteName.product);
+            },
+            child: menuText('Tube & Shell Oil Cooler'),
+          ),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(AppRouteName.product);
+            },
+            child: menuText('Radiator Coolant'),
+          ),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(AppRouteName.product);
+            },
+            child: menuText('Air Cooled Heat Exchanger'),
+          ),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(AppRouteName.product);
+            },
+            child: menuText('Plate Heat Exchanger'),
+          ),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(AppRouteName.product);
+            },
+            child: menuText('Industrial Oil Cooler'),
+          ),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(AppRouteName.product);
+            },
+            child: menuText('Safety Radiator Cap'),
+          ),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(AppRouteName.product);
+            },
+            child: menuText('Replacement Fan'),
+          ),
         ],
       ),
     );
@@ -176,9 +237,24 @@ Widget footer() {
           ),
           const SizedBox(height: 16),
 
-          menuText('Minor Repair'),
-          menuText('Major Repair'),
-          menuText('General Overhaul'),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(AppRouteName.services);
+            },
+            child: menuText('Minor Repair'),
+          ),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(AppRouteName.services);
+            },
+            child: menuText('Major Repair'),
+          ),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(AppRouteName.services);
+            },
+            child: menuText('General Overhaul'),
+          ),
 
           const SizedBox(height: 14),
 
@@ -186,10 +262,38 @@ Widget footer() {
 
           const SizedBox(height: 16),
 
-          menuText('Radiators and Coolers'),
-          menuText('CAT® Radiator Core'),
-          menuText('CAT® Tube and Shell'),
-          menuText('Radiator Cap and Adapter'),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(
+                '${AppRouteName.searchProduct}?flow=${AppString().radiatorAndCoolers}',
+              );
+            },
+            child: menuText('Radiators and Coolers'),
+          ),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(
+                '${AppRouteName.searchProduct}?flow=${AppString().caterpillarRadiatorCore}',
+              );
+            },
+            child: menuText('CAT® Radiator Core'),
+          ),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(
+                '${AppRouteName.searchProduct}?flow=${AppString().caterpilarTube}',
+              );
+            },
+            child: menuText('CAT® Tube and Shell'),
+          ),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(
+                '${AppRouteName.searchProduct}?flow=${AppString().radiatorCapAndAdapters}',
+              );
+            },
+            child: menuText('Radiator Cap and Adapter'),
+          ),
         ],
       ),
     );
@@ -208,21 +312,51 @@ Widget footer() {
             onTap: () {
               Get.toNamed(AppRouteName.aboutUs);
             },
-            child: menuTitle('Inquiry'),
+            child: GestureDetector(
+              onTap: () {
+                Get.toNamed(AppRouteName.aboutUs);
+              },
+              child: menuTitle('Inquiry'),
+            ),
           ),
           const SizedBox(height: 16),
 
-          menuText('Contact Us'),
-          menuText('About Us'),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(AppRouteName.contactPage);
+            },
+            child: menuText('Contact Us'),
+          ),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(AppRouteName.aboutUs);
+            },
+            child: menuText('About Us'),
+          ),
 
           const SizedBox(height: 14),
 
-          menuTitle('Insight'),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(AppRouteName.blogList);
+            },
+            child: menuTitle('Insight'),
+          ),
 
           const SizedBox(height: 16),
 
-          menuText('Product Insight'),
-          menuText('Company News'),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(AppRouteName.blogList);
+            },
+            child: menuText('Product Insight'),
+          ),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(AppRouteName.blogList);
+            },
+            child: menuText('Company News'),
+          ),
         ],
       ),
     );
@@ -245,15 +379,30 @@ Widget footer() {
           ),
           const SizedBox(height: 16),
 
-          menuText('Gallery'),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(AppRouteName.gallery);
+            },
+            child: menuText('Gallery'),
+          ),
 
           const SizedBox(height: 14),
 
-          menuTitle('Resources'),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(AppRouteName.resources);
+            },
+            child: menuTitle('Resources'),
+          ),
 
           const SizedBox(height: 16),
 
-          menuText('Careers'),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(AppRouteName.careers);
+            },
+            child: menuText('Careers'),
+          ),
         ],
       ),
     );
@@ -263,40 +412,35 @@ Widget footer() {
   // PART NUMBER SEARCH
   // ============================================================
   Widget partNumberSearch() {
-    return GestureDetector(
-      onTap: () {
-        Get.toNamed(AppRouteName.searchProduct);
-      },
-      child: Container(
-        width: 220,
-        height: 48,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/Rectangle 48_result.webp'),
-            fit: BoxFit.fill,
-          ),
+    return Container(
+      width: 220,
+      height: 48,
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/images/Rectangle 48_result.webp'),
+          fit: BoxFit.fill,
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'PART NUMBER SEARCH',
-              style: whiteTextStyle.copyWith(fontSize: 11, fontWeight: bold),
-            ),
-            const SizedBox(width: 8),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'PART NUMBER SEARCH',
+            style: whiteTextStyle.copyWith(fontSize: 11, fontWeight: bold),
+          ),
+          const SizedBox(width: 8),
 
-            Container(
-              width: 18,
-              height: 18,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/Logo-SHop 1_result.webp'),
-                  fit: BoxFit.contain,
-                ),
+          Container(
+            width: 18,
+            height: 18,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/Logo-SHop 1_result.webp'),
+                fit: BoxFit.contain,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

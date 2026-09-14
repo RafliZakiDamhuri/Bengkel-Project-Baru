@@ -185,7 +185,7 @@ class Contact extends StatelessWidget {
                     'MAIN COMMERCIAL CONTACT LIST',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 11,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -286,7 +286,7 @@ class Contact extends StatelessWidget {
                     'TECHNICAL / OPERATIONAL CONTACT LIST',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 11,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

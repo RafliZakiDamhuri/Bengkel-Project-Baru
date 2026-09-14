@@ -3,6 +3,7 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/state_manager.dart';
 import 'package:project/gallery/controller/gallery_controller.dart';
 import 'package:project/global_widget/globalAppBar.dart';
+import 'package:project/theme/theme.dart';
 
 class IndocoolGalleryScreen extends StatelessWidget {
   IndocoolGalleryScreen({super.key});
@@ -246,10 +247,9 @@ class _GallerySectionWidget extends StatelessWidget {
               Expanded(
                 child: Text(
                   '$title - $subTitle',
-                  style: const TextStyle(
-                    color: Colors.red,
-                    fontWeight: FontWeight.bold,
+                  style: blackTextStyle.copyWith(
                     fontSize: 14,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),

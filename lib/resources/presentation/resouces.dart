@@ -415,7 +415,7 @@ class _DownloadableResourcesPageState extends State<DownloadableResourcesPage> {
             style: TextStyle(
               color: Colors.white,
 
-              fontSize: 8,
+              fontSize: 11,
 
               fontStyle: FontStyle.italic,
 
@@ -449,24 +449,17 @@ class _DownloadableResourcesPageState extends State<DownloadableResourcesPage> {
   static const double _columnGap = 15;
 
   Widget _buildColumnLabels(BoxConstraints constraints) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 23),
-
-      child: Row(
-        children: [
-          Expanded(flex: 6, child: _topLabel('File Name')),
-
-          Expanded(flex: 2, child: _topLabel('Resource Type')),
-
-          Expanded(flex: 1, child: const SizedBox()),
-
-          Expanded(flex: 1, child: const SizedBox()),
-
-          Expanded(flex: 1, child: const SizedBox()),
-
-          Expanded(flex: 1, child: const SizedBox()),
-        ],
-      ),
+    return Row(
+      children: [
+        Expanded(flex: 4, child: _topLabel('File Name')),
+        const SizedBox(width: 15), // Jarak antar kolom
+        Expanded(flex: 3, child: _topLabel('Resource Type')),
+        const SizedBox(width: 15),
+        Expanded(flex: 2, child: const SizedBox()), // Tempat File Type (Kosong)
+        const SizedBox(width: 15),
+        Expanded(flex: 2, child: const SizedBox()), // Tempat Date (Kosong)
+        // Jika admin login, siapkan ruang kosong agar label tidak tergeser
+      ],
     );
   }
 
@@ -565,76 +558,82 @@ class _DownloadableResourcesPageState extends State<DownloadableResourcesPage> {
   Widget _buildTableHeader() {
     return Container(
       height: 34,
-
       color: const Color(0xFFFF6500),
 
-      padding: const EdgeInsets.symmetric(horizontal: 23),
-
-      child: const Row(
+      child: Row(
         children: [
-          Expanded(
-            flex: 5,
-
-            child: Text(
-              'File Name',
-
-              style: TextStyle(
-                color: Colors.white,
-
-                fontSize: 12,
-
-                fontWeight: FontWeight.w600,
+          const Expanded(
+            flex: 4, // Samakan flex
+            child: Center(
+              child: Text(
+                'File Name',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ),
-
-          Expanded(
-            flex: 2,
-
-            child: Text(
-              'Resource Type',
-
-              style: TextStyle(
-                color: Colors.white,
-
-                fontSize: 12,
-
-                fontWeight: FontWeight.w600,
+          const SizedBox(width: 15),
+          const Expanded(
+            flex: 3, // Samakan flex
+            child: Center(
+              child: Text(
+                'Resource Type',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ),
-
-          Expanded(
-            flex: 1,
-
-            child: Text(
-              'File Type',
-
-              style: TextStyle(
-                color: Colors.white,
-
-                fontSize: 12,
-
-                fontWeight: FontWeight.w600,
+          const SizedBox(width: 15),
+          const Expanded(
+            flex: 2, // Samakan flex
+            child: Center(
+              child: Text(
+                'File Type',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ),
-
-          Expanded(
-            flex: 1,
-
-            child: Text(
-              'Date Published',
-
-              style: TextStyle(
-                color: Colors.white,
-
-                fontSize: 12,
-
-                fontWeight: FontWeight.w600,
+          const SizedBox(width: 15),
+          const Expanded(
+            flex: 2, // Samakan flex
+            child: Center(
+              child: Text(
+                'Date Published',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ),
+          // Jika login, siapkan ruang untuk header 'Actions' agar sejajar
+          if (isLoggedIn) ...[
+            const SizedBox(width: 15),
+            const Expanded(
+              flex: 2,
+              child: Center(
+                child: Text(
+                  'Actions',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ],
       ),
     );
@@ -643,53 +642,40 @@ class _DownloadableResourcesPageState extends State<DownloadableResourcesPage> {
   Widget _buildTableRow(ResourceModel item, int index) {
     return Material(
       color: index.isEven ? const Color(0xFFF1F1F1) : Colors.white,
-
       child: InkWell(
         onTap: () {
-          // TODO:
-
-          // Open/download file
-
           debugPrint('Download: ${item.fileName}');
-
           _controller.downloadFile(url: item.fileUrl!, fileName: item.fileName);
         },
-
         child: Container(
           constraints: const BoxConstraints(minHeight: 30),
-
           padding: const EdgeInsets.symmetric(horizontal: 23, vertical: 8),
-
           decoration: const BoxDecoration(
             border: Border(
               bottom: BorderSide(color: Color(0xFFE0E0E0), width: 1),
             ),
           ),
-
           child: Row(
             children: [
-              Expanded(flex: _columnFlex, child: _rowText(item.fileName)),
-              const SizedBox(width: _columnGap),
+              Expanded(flex: 4, child: _rowText(item.fileName)),
+              const SizedBox(width: 15),
 
-              Expanded(flex: _columnFlex, child: _rowText(item.type ?? '-')),
-              const SizedBox(width: _columnGap),
+              Expanded(flex: 3, child: _rowText(item.type ?? '-')),
+              const SizedBox(width: 15),
 
-              Expanded(
-                flex: _columnFlex,
-                child: _rowText(item.fileExtention ?? '-'),
-              ),
-              const SizedBox(width: _columnGap),
+              Expanded(flex: 2, child: _rowText(item.fileExtention ?? '-')),
+              const SizedBox(width: 15),
 
               Expanded(
-                flex: 1,
-
+                flex: 2,
                 child: _rowText(
                   DateHelper.formatDate(item.createdAt ?? DateTime.now()),
                 ),
               ),
+
               if (isLoggedIn) ...[
-                const SizedBox(width: _columnGap),
-                Expanded(flex: _columnFlex, child: _buildEditActions(item)),
+                const SizedBox(width: 15),
+                Expanded(flex: 2, child: _buildEditActions(item)),
               ],
             ],
           ),
