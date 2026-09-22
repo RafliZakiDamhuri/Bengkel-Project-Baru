@@ -413,58 +413,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
           const SizedBox(height: 8),
 
-          // ============================================================
-          // TABLE
-          // ============================================================
-          // ClipRRect(
-          //   borderRadius: BorderRadius.circular(3),
-          //   child: DataTable(
-          //     headingRowColor: WidgetStateProperty.all(const Color(0xFFFF5A00)),
-          //     dataRowColor: WidgetStateProperty.all(Colors.white),
-          //     dividerThickness: 1,
-
-          //     // Hilangkan spacing bawaan DataTable
-          //     horizontalMargin: 0,
-          //     columnSpacing: 0,
-
-          //     headingTextStyle: const TextStyle(
-          //       color: Colors.white,
-          //       fontSize: 12,
-          //       fontWeight: FontWeight.bold,
-          //     ),
-
-          //     dataTextStyle: const TextStyle(color: Colors.black, fontSize: 12),
-
-          //     columns: [
-          //       _tableColumn('Catalogue Number', catalogueWidth),
-          //       _tableColumn('Makes', makesWidth),
-          //       _tableColumn('Equipment Type', equipmentWidth),
-          //       _tableColumn('Models', modelsWidth),
-          //       _tableColumn('OEM Part Number', oemWidth),
-          //       _tableColumn('Industry', industryWidth),
-          //       _tableColumn('Product Type', productTypeWidth),
-          //       _tableColumn('Description / Application', catalogueWidth),
-          //     ],
-
-          //     rows: data.map((item) {
-          //       return DataRow(
-          //         cells: [
-          //           _tableDataCell(item.catalogueNumber, catalogueWidth),
-          //           _tableDataCell(item.makes, makesWidth),
-          //           _tableDataCell(item.equipmentType, equipmentWidth),
-          //           _tableDataCell(item.models, modelsWidth),
-          //           _tableDataCell(item.oemPartNumber, oemWidth),
-          //           _tableDataCell(item.industry, industryWidth),
-          //           _tableDataCell(item.productType, productTypeWidth),
-          //           _tableDataCell(
-          //             item.descriptionApplication,
-          //             productTypeWidth,
-          //           ),
-          //         ],
-          //       );
-          //     }).toList(),
-          //   ),
-          // ),
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Column(
@@ -491,7 +439,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       const SizedBox(width: 15),
                       _customHeaderCell(
                         'Makes',
-                        flex: 2,
+                        flex: 3,
                         onTap: () {
                           searchController.getAllProductsMakesSort(
                             categoryProducts: AppString().radiatorAndCoolers,
@@ -501,7 +449,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       const SizedBox(width: 15),
                       _customHeaderCell(
                         'Equipment Type',
-                        flex: 2,
+                        flex: 3,
                         onTap: () {
                           searchController.getAllProductsV2EquipmentTypeSort(
                             categoryProducts: AppString().radiatorAndCoolers,
@@ -541,7 +489,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       const SizedBox(width: 15),
                       _customHeaderCell(
                         'Product Type',
-                        flex: 5,
+                        flex: 3,
                         onTap: () {
                           searchController.getAllProductsProductTypeSort(
                             categoryProducts: AppString().radiatorAndCoolers,
@@ -591,9 +539,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         children: [
                           _customDataCell(item.catalogueNumber, flex: 2),
                           const SizedBox(width: 15),
-                          _customDataCell(item.makes, flex: 2),
+                          _customDataCell(item.makes, flex: 3),
                           const SizedBox(width: 15),
-                          _customDataCell(item.equipmentType, flex: 2),
+                          _customDataCell(item.equipmentType, flex: 3),
                           const SizedBox(width: 15),
                           _customDataCell(item.models, flex: 2),
                           const SizedBox(width: 15),
@@ -601,7 +549,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           const SizedBox(width: 15),
                           _customDataCell(item.industry, flex: 2),
                           const SizedBox(width: 15),
-                          _customDataCell(item.productType, flex: 5),
+                          _customDataCell(item.productType, flex: 3),
                           const SizedBox(width: 15),
                           _customDataCell(item.descriptionApplication, flex: 5),
                         ],
