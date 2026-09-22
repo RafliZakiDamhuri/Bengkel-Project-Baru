@@ -46,4 +46,5 @@ class AppImages {
   String blogHeader = 'assets/images/blog-header.webp';
   String buttonUp = 'assets/images/button_up.webp';
   String buttonDown = 'assets/images/button_down.webp';
+  String logoNull = 'assets/images/logo_null.webp';
 }

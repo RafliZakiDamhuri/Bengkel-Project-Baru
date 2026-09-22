@@ -31,7 +31,7 @@ class ListOfButtonRadiatorAndCoolers extends StatelessWidget {
         const SizedBox(width: 15),
 
         _buildFilterButton(
-          flex: 2,
+          flex: 3,
           title: 'Makes',
           items: searchController.productModelForListFilterMakes
               .map((e) => e.makes ?? '-')
@@ -45,7 +45,7 @@ class ListOfButtonRadiatorAndCoolers extends StatelessWidget {
         const SizedBox(width: 15),
 
         _buildFilterButton(
-          flex: 2,
+          flex: 3,
           title: 'Equipment Type',
           items: searchController.productModelForListFilterCatalogEquipmenType
               .map((e) => e.equipmentType ?? '-')
@@ -101,7 +101,7 @@ class ListOfButtonRadiatorAndCoolers extends StatelessWidget {
         const SizedBox(width: 15),
 
         _buildFilterButton(
-          flex: 5,
+          flex: 3,
           title: 'Product Type',
           items: searchController.productModelForListFilterCatalogProductType
               .map((e) => e.productType ?? '-')

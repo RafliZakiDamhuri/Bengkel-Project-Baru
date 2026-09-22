@@ -138,7 +138,7 @@ class BuildTableRadiatorAndCoolers extends StatelessWidget {
                       const SizedBox(width: 15),
                       _customHeaderCell(
                         'Makes',
-                        flex: 2,
+                        flex: 3,
                         onTap: () {
                           searchController.getAllProductsMakesSort(
                             categoryProducts: AppString().radiatorAndCoolers,
@@ -148,7 +148,7 @@ class BuildTableRadiatorAndCoolers extends StatelessWidget {
                       const SizedBox(width: 15),
                       _customHeaderCell(
                         'Equipment Type',
-                        flex: 2,
+                        flex: 3,
                         onTap: () {
                           searchController.getAllProductsV2EquipmentTypeSort(
                             categoryProducts: AppString().radiatorAndCoolers,
@@ -188,7 +188,7 @@ class BuildTableRadiatorAndCoolers extends StatelessWidget {
                       const SizedBox(width: 15),
                       _customHeaderCell(
                         'Product Type',
-                        flex: 5,
+                        flex: 3,
                         onTap: () {
                           searchController.getAllProductsProductTypeSort(
                             categoryProducts: AppString().radiatorAndCoolers,
@@ -238,9 +238,9 @@ class BuildTableRadiatorAndCoolers extends StatelessWidget {
                         children: [
                           _customDataCell(item.catalogueNumber, flex: 2),
                           const SizedBox(width: 15),
-                          _customDataCell(item.makes, flex: 2),
+                          _customDataCell(item.makes, flex: 3),
                           const SizedBox(width: 15),
-                          _customDataCell(item.equipmentType, flex: 2),
+                          _customDataCell(item.equipmentType, flex: 3),
                           const SizedBox(width: 15),
                           _customDataCell(item.models, flex: 2),
                           const SizedBox(width: 15),
@@ -248,7 +248,7 @@ class BuildTableRadiatorAndCoolers extends StatelessWidget {
                           const SizedBox(width: 15),
                           _customDataCell(item.industry, flex: 2),
                           const SizedBox(width: 15),
-                          _customDataCell(item.productType, flex: 5),
+                          _customDataCell(item.productType, flex: 3),
                           const SizedBox(width: 15),
                           _customDataCell(item.descriptionApplication, flex: 5),
                         ],

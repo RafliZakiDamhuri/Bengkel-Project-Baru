@@ -10,6 +10,7 @@ import 'package:project/global_widget/globalAppBar.dart';
 import 'package:project/ProductDetail/widget/product_detail_title.dart';
 import 'package:project/model/productModel.dart';
 import 'package:project/routes/routes_name.dart';
+import 'package:project/theme/app_images.dart';
 import 'package:project/theme/string.dart';
 import 'package:project/theme/theme.dart';
 import 'package:sizer/sizer.dart';
@@ -1927,11 +1928,12 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                         placeholder: (_, __) => const Center(
                                           child: CircularProgressIndicator(),
                                         ),
-                                        errorWidget: (_, __, ___) => const Icon(
-                                          Icons.broken_image,
-                                          size: 55,
-                                          color: Colors.white,
-                                        ),
+                                        errorWidget: (_, __, ___) =>
+                                            Image.asset(
+                                              AppImages().logoNull,
+                                              width: 55,
+                                              height: 55,
+                                            ),
                                       ),
                                     ),
                                   ),
@@ -1951,8 +1953,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                     strokeWidth: 2,
                                   ),
                                 ),
-                                errorWidget: (_, __, ___) =>
-                                    const Icon(Icons.person, size: 55),
+                                errorWidget: (_, __, ___) => Image.asset(
+                                  AppImages().logoNull,
+                                  width: 30,
+                                  height: 30,
+                                ),
                               ),
                             ),
 
