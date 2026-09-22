@@ -78,19 +78,20 @@ class BuildTableRadiatorAndCoolers extends StatelessWidget {
       return Expanded(
         flex: flex,
         child: Container(
+          margin: const EdgeInsets.only(left: 10),
           constraints: const BoxConstraints(minHeight: 45),
           alignment: Alignment.center,
           child: Text(
             value ?? '-',
             style: const TextStyle(color: Colors.black),
-            textAlign: TextAlign.center,
+            textAlign: TextAlign.left,
           ),
         ),
       );
     }
 
     return Container(
-      width: 80.w, // Bisa diganti margin left right seperti contohmu jika perlu
+      width: 92.w, // Bisa diganti margin left right seperti contohmu jika perlu
       color: Colors.black,
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       child: Column(
