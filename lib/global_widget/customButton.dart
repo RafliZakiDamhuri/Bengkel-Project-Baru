@@ -16,7 +16,7 @@ Widget bookServiceSchedule() {
     }
   }
 
-  return GestureDetector(
+  return InkWell(
     onTap: () {
       openWhatsApp(
         AppString().indocoolWhatsappNumber,
@@ -53,7 +53,7 @@ Widget customBlueAppBarButton({
   double width = 250,
   Color? backGroundColor,
 }) {
-  return GestureDetector(
+  return InkWell(
     onTap: onTap,
     child: Container(
       // padding: EdgeInsets.symmetric(vertical: 10),

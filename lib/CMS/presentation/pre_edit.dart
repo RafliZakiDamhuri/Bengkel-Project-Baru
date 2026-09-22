@@ -50,7 +50,7 @@ class _PreEditState extends State<PreEdit> {
       required VoidCallback onTap,
     }) {
       return DataColumn(
-        label: GestureDetector(
+        label: InkWell(
           onTap: onTap,
           child: Center(
             child: Container(
@@ -78,14 +78,14 @@ class _PreEditState extends State<PreEdit> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              GestureDetector(
+              InkWell(
                 onTap: onEdit,
                 child: Icon(Icons.edit_calendar, color: kBlueColor),
               ),
 
               const SizedBox(width: 10),
 
-              GestureDetector(
+              InkWell(
                 onTap: onDelete,
                 child: const Icon(Icons.delete, color: Colors.red),
               ),

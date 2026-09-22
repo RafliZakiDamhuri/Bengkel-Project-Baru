@@ -673,7 +673,7 @@ class _BlogImageOverlayState extends State<_BlogImageOverlay> {
     required Color color,
     required VoidCallback onTap,
   }) {
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
 
       child: Container(

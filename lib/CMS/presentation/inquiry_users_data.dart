@@ -56,7 +56,7 @@ class _InquiryUsersDataState extends State<InquiryUsersData> {
 
     DataCell _tableDataCell(String? value, double width) {
       return DataCell(
-        GestureDetector(
+        InkWell(
           onTap: () {
             _controller.downloadFile(url: value ?? '-');
           },

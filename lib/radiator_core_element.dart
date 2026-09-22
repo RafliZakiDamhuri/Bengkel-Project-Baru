@@ -27,7 +27,7 @@ class RadiatorCoreElement extends StatelessWidget {
                   border: Border.all(color: Colors.grey),
                   color: kWhiteColor,
                 ),
-                child: GestureDetector(
+                child: InkWell(
                   onTap: () {
                     searchPageController.getDataByCore(coreType: title);
                   },

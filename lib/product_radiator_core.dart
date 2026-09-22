@@ -17,7 +17,7 @@ class ProductRadiatorCore extends StatelessWidget {
   Widget build(BuildContext context) {
     var searchPageController = Get.find<SearchProductController>();
 
-    return GestureDetector(
+    return InkWell(
       onTap: () async {
         await searchPageController.getDataBySeal(sealType: title);
       },

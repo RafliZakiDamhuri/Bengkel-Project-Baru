@@ -5,6 +5,7 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:project/controller/searchProductController.dart';
 import 'package:project/global_widget/radiatorAndCoolers/listOfButtonRadiatorAndCoolers.dart';
 import 'package:project/model/productModel.dart';
+import 'package:project/routes/routes_name.dart';
 import 'package:project/theme/string.dart';
 import 'package:sizer/sizer.dart';
 
@@ -58,7 +59,7 @@ class BuildTableRadiatorAndCoolers extends StatelessWidget {
     }) {
       return Expanded(
         flex: flex,
-        child: GestureDetector(
+        child: InkWell(
           onTap: onTap,
           child: Center(
             child: Text(
@@ -222,24 +223,35 @@ class BuildTableRadiatorAndCoolers extends StatelessWidget {
                         bottom: BorderSide(color: Color(0xFFE0E0E0), width: 1),
                       ),
                     ),
-                    child: Row(
-                      children: [
-                        _customDataCell(item.catalogueNumber, flex: 2),
-                        const SizedBox(width: 15),
-                        _customDataCell(item.makes, flex: 2),
-                        const SizedBox(width: 15),
-                        _customDataCell(item.equipmentType, flex: 2),
-                        const SizedBox(width: 15),
-                        _customDataCell(item.models, flex: 2),
-                        const SizedBox(width: 15),
-                        _customDataCell(item.oemPartNumber, flex: 2),
-                        const SizedBox(width: 15),
-                        _customDataCell(item.industry, flex: 2),
-                        const SizedBox(width: 15),
-                        _customDataCell(item.productType, flex: 5),
-                        const SizedBox(width: 15),
-                        _customDataCell(item.descriptionApplication, flex: 5),
-                      ],
+                    child: InkWell(
+                      onTap: () {
+                        Get.toNamed(
+                          AppRouteName.productDetailPage,
+                          parameters: {
+                            'id': item.id.toString(),
+                            'category': AppString().radiatorAndCoolers,
+                          },
+                        );
+                      },
+                      child: Row(
+                        children: [
+                          _customDataCell(item.catalogueNumber, flex: 2),
+                          const SizedBox(width: 15),
+                          _customDataCell(item.makes, flex: 2),
+                          const SizedBox(width: 15),
+                          _customDataCell(item.equipmentType, flex: 2),
+                          const SizedBox(width: 15),
+                          _customDataCell(item.models, flex: 2),
+                          const SizedBox(width: 15),
+                          _customDataCell(item.oemPartNumber, flex: 2),
+                          const SizedBox(width: 15),
+                          _customDataCell(item.industry, flex: 2),
+                          const SizedBox(width: 15),
+                          _customDataCell(item.productType, flex: 5),
+                          const SizedBox(width: 15),
+                          _customDataCell(item.descriptionApplication, flex: 5),
+                        ],
+                      ),
                     ),
                   );
                 }),

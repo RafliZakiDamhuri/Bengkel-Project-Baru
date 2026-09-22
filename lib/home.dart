@@ -98,7 +98,7 @@ class _HomeState extends State<Home> {
     }) {
       final bool isLastPage = index >= totalPage - 1;
 
-      return GestureDetector(
+      return InkWell(
         onTap: isLastPage ? null : onTap,
         child: Container(
           width: 150,
@@ -121,7 +121,7 @@ class _HomeState extends State<Home> {
     Widget BackProduct({required VoidCallback onTap, required int index}) {
       final bool isFirstPage = index == 0;
 
-      return GestureDetector(
+      return InkWell(
         onTap: isFirstPage ? null : onTap,
         child: Container(
           width: 150,
@@ -141,7 +141,7 @@ class _HomeState extends State<Home> {
     }
 
     Widget nextButton({required VoidCallback onTap, isServices = false}) {
-      return GestureDetector(
+      return InkWell(
         onTap: onTap,
         child: Container(
           width: (isServices) ? 80 : 45,
@@ -162,7 +162,7 @@ class _HomeState extends State<Home> {
     }
 
     Widget prevButton({required VoidCallback onTap}) {
-      return GestureDetector(
+      return InkWell(
         onTap: onTap,
         child: Container(
           width: 45,
@@ -910,7 +910,7 @@ class _HomeState extends State<Home> {
 
             children: [
               SizedBox(height: 6.h),
-              GestureDetector(
+              InkWell(
                 onTap: () {
                   setState(() {
                     expandedIcons[0] = !expandedIcons[0];
@@ -951,7 +951,7 @@ class _HomeState extends State<Home> {
               ),
 
               // Item 02 s/d 05
-              GestureDetector(
+              InkWell(
                 onTap: () {
                   setState(() {
                     expandedIcons[1] = !expandedIcons[1];
@@ -980,7 +980,7 @@ class _HomeState extends State<Home> {
                 margin: EdgeInsets.symmetric(vertical: 2.h),
               ),
 
-              GestureDetector(
+              InkWell(
                 onTap: () {
                   setState(() {
                     expandedIcons[2] = !expandedIcons[2];
@@ -1009,7 +1009,7 @@ class _HomeState extends State<Home> {
                 margin: EdgeInsets.symmetric(vertical: 2.h),
               ),
 
-              GestureDetector(
+              InkWell(
                 onTap: () {
                   setState(() {
                     expandedIcons[3] = !expandedIcons[3];
@@ -1038,7 +1038,7 @@ class _HomeState extends State<Home> {
                 margin: EdgeInsets.symmetric(vertical: 2.h),
               ),
 
-              GestureDetector(
+              InkWell(
                 onTap: () {
                   setState(() {
                     expandedIcons[4] = !expandedIcons[4];
@@ -1773,7 +1773,7 @@ class _HomeState extends State<Home> {
     }
 
     Widget insightNewsCard({required BlogModel blog}) {
-      return GestureDetector(
+      return InkWell(
         onTap: () {
           Get.toNamed(AppRouteName.blogDetail, parameters: {'id': blog.id});
         },
@@ -1904,7 +1904,7 @@ class _HomeState extends State<Home> {
 
             // See More Content
             Center(
-              child: GestureDetector(
+              child: InkWell(
                 onTap: () {
                   Get.toNamed(AppRouteName.blogList);
                 },

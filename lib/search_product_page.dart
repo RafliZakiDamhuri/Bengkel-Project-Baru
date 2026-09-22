@@ -74,7 +74,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
       required VoidCallback onTap,
     }) {
       return DataColumn(
-        label: GestureDetector(
+        label: InkWell(
           onTap: onTap,
           child: Center(
             child: Row(
@@ -188,7 +188,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
       required VoidCallback onTap,
     }) {
       return DataColumn(
-        label: GestureDetector(
+        label: InkWell(
           onTap: onTap,
           child: SizedBox(
             width: width,
@@ -219,7 +219,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
     }) {
       return Expanded(
         flex: flex,
-        child: GestureDetector(
+        child: InkWell(
           onTap: onTap,
           child: Center(
             child: Text(
@@ -406,27 +406,38 @@ class _SearchProductPageState extends State<SearchProductPage> {
                           ),
                         ),
                       ),
-                      child: Row(
-                        children: [
-                          _customDataCell(item.catalogueNumber, flex: 2),
-                          const SizedBox(width: 15),
-                          _customDataCell(item.makes, flex: 2),
-                          const SizedBox(width: 15),
-                          _customDataCell(item.equipmentType, flex: 2),
-                          const SizedBox(width: 15),
-                          _customDataCell(item.models, flex: 2),
-                          const SizedBox(width: 15),
-                          _customDataCell(item.oemPartNumber, flex: 2),
-                          const SizedBox(width: 15),
-                          _customDataCell(item.industry, flex: 2),
-                          const SizedBox(width: 15),
-                          // Deskripsi menggunakan Flex: 5
-                          _customDataCell(item.productType, flex: 2),
-                          const SizedBox(width: 15),
-                          _customDataCell(item.productTypeDesign, flex: 2),
-                          const SizedBox(width: 15),
-                          _customDataCell(item.application, flex: 2),
-                        ],
+                      child: InkWell(
+                        onTap: () {
+                          Get.toNamed(
+                            AppRouteName.productDetailPage,
+                            parameters: {
+                              'id': item.id.toString(),
+                              'category': argument.flow ?? '',
+                            },
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            _customDataCell(item.catalogueNumber, flex: 2),
+                            const SizedBox(width: 15),
+                            _customDataCell(item.makes, flex: 2),
+                            const SizedBox(width: 15),
+                            _customDataCell(item.equipmentType, flex: 2),
+                            const SizedBox(width: 15),
+                            _customDataCell(item.models, flex: 2),
+                            const SizedBox(width: 15),
+                            _customDataCell(item.oemPartNumber, flex: 2),
+                            const SizedBox(width: 15),
+                            _customDataCell(item.industry, flex: 2),
+                            const SizedBox(width: 15),
+                            // Deskripsi menggunakan Flex: 5
+                            _customDataCell(item.productType, flex: 2),
+                            const SizedBox(width: 15),
+                            _customDataCell(item.productTypeDesign, flex: 2),
+                            const SizedBox(width: 15),
+                            _customDataCell(item.application, flex: 2),
+                          ],
+                        ),
                       ),
                     );
                   }).toList(), // Hapus toList() jika ada error linting (opsional)
@@ -566,23 +577,37 @@ class _SearchProductPageState extends State<SearchProductPage> {
                           ),
                         ),
                       ),
-                      child: Row(
-                        children: [
-                          _customDataCell(item.partNumber, flex: 2),
-                          const SizedBox(width: 15),
-                          _customDataCell(item.makes, flex: 2),
-                          const SizedBox(width: 15),
-                          _customDataCell(item.application, flex: 2),
-                          const SizedBox(width: 15),
-                          _customDataCell(item.size, flex: 2),
-                          const SizedBox(width: 15),
-                          _customDataCell(item.pressureRating, flex: 2),
-                          const SizedBox(width: 15),
-                          _customDataCell(item.materialType, flex: 2),
-                          const SizedBox(width: 15),
-                          // Deskripsi menggunakan Flex: 5
-                          _customDataCell(item.descriptionApplication, flex: 5),
-                        ],
+                      child: InkWell(
+                        onTap: () {
+                          Get.toNamed(
+                            AppRouteName.productDetailPage,
+                            parameters: {
+                              'id': item.id.toString(),
+                              'category': argument.flow ?? '',
+                            },
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            _customDataCell(item.partNumber, flex: 2),
+                            const SizedBox(width: 15),
+                            _customDataCell(item.makes, flex: 2),
+                            const SizedBox(width: 15),
+                            _customDataCell(item.application, flex: 2),
+                            const SizedBox(width: 15),
+                            _customDataCell(item.size, flex: 2),
+                            const SizedBox(width: 15),
+                            _customDataCell(item.pressureRating, flex: 2),
+                            const SizedBox(width: 15),
+                            _customDataCell(item.materialType, flex: 2),
+                            const SizedBox(width: 15),
+                            // Deskripsi menggunakan Flex: 5
+                            _customDataCell(
+                              item.descriptionApplication,
+                              flex: 5,
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   }).toList(), // Hapus toList() jika ada error linting (opsional)

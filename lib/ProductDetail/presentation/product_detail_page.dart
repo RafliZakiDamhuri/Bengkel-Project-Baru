@@ -44,13 +44,16 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       } else if (titleCategory == AppString().radiatorCapAndAdapters) {
         headerTitle =
             '${productDetailController.productModelSingle?.partNumber}${productDetailController.productModelSingle?.descriptionApplication}';
+      } else if (titleCategory == AppString().caterpilarTube) {
+        headerTitle =
+            '${productDetailController.productModelSingle?.makes}${productDetailController.productModelSingle?.models}${productDetailController.productModelSingle?.productType}${productDetailController.productModelSingle?.productTypeDesign}';
       }
     });
   }
 
   DataCell tableCell(ProductModel item, String? value) {
     return DataCell(
-      GestureDetector(
+      InkWell(
         onTap: () {
           Get.toNamed(
             AppRouteName.productDetailPage,
@@ -70,7 +73,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
   DataColumn tableHeader({required String title, required VoidCallback onTap}) {
     return DataColumn(
-      label: GestureDetector(
+      label: InkWell(
         onTap: onTap,
         child: Center(
           child: Container(
@@ -84,6 +87,44 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _customHeaderCell(
+    String title, {
+    required int flex,
+    required VoidCallback onTap,
+  }) {
+    return Expanded(
+      flex: flex,
+      child: InkWell(
+        onTap: onTap,
+        child: Center(
+          child: Text(
+            title,
+            style: const TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _customDataCell(String? value, {required int flex}) {
+    return Expanded(
+      flex: flex,
+      child: Container(
+        constraints: const BoxConstraints(minHeight: 45),
+        alignment: Alignment.center,
+        child: Text(
+          value ?? '-',
+          style: const TextStyle(color: Colors.black),
+          textAlign: TextAlign.center,
         ),
       ),
     );
@@ -374,53 +415,200 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           // ============================================================
           // TABLE
           // ============================================================
+          // ClipRRect(
+          //   borderRadius: BorderRadius.circular(3),
+          //   child: DataTable(
+          //     headingRowColor: WidgetStateProperty.all(const Color(0xFFFF5A00)),
+          //     dataRowColor: WidgetStateProperty.all(Colors.white),
+          //     dividerThickness: 1,
+
+          //     // Hilangkan spacing bawaan DataTable
+          //     horizontalMargin: 0,
+          //     columnSpacing: 0,
+
+          //     headingTextStyle: const TextStyle(
+          //       color: Colors.white,
+          //       fontSize: 12,
+          //       fontWeight: FontWeight.bold,
+          //     ),
+
+          //     dataTextStyle: const TextStyle(color: Colors.black, fontSize: 12),
+
+          //     columns: [
+          //       _tableColumn('Catalogue Number', catalogueWidth),
+          //       _tableColumn('Makes', makesWidth),
+          //       _tableColumn('Equipment Type', equipmentWidth),
+          //       _tableColumn('Models', modelsWidth),
+          //       _tableColumn('OEM Part Number', oemWidth),
+          //       _tableColumn('Industry', industryWidth),
+          //       _tableColumn('Product Type', productTypeWidth),
+          //       _tableColumn('Description / Application', catalogueWidth),
+          //     ],
+
+          //     rows: data.map((item) {
+          //       return DataRow(
+          //         cells: [
+          //           _tableDataCell(item.catalogueNumber, catalogueWidth),
+          //           _tableDataCell(item.makes, makesWidth),
+          //           _tableDataCell(item.equipmentType, equipmentWidth),
+          //           _tableDataCell(item.models, modelsWidth),
+          //           _tableDataCell(item.oemPartNumber, oemWidth),
+          //           _tableDataCell(item.industry, industryWidth),
+          //           _tableDataCell(item.productType, productTypeWidth),
+          //           _tableDataCell(
+          //             item.descriptionApplication,
+          //             productTypeWidth,
+          //           ),
+          //         ],
+          //       );
+          //     }).toList(),
+          //   ),
+          // ),
           ClipRRect(
-            borderRadius: BorderRadius.circular(3),
-            child: DataTable(
-              headingRowColor: WidgetStateProperty.all(const Color(0xFFFF5A00)),
-              dataRowColor: WidgetStateProperty.all(Colors.white),
-              dividerThickness: 1,
+            borderRadius: BorderRadius.circular(10),
+            child: Column(
+              children: [
+                // --- HEADER TABEL (Warna Oranye) ---
+                Container(
+                  color: const Color(0xFFFF5A00),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 14,
+                    horizontal: 16,
+                  ),
+                  child: Row(
+                    children: [
+                      // Flex disamakan: 2, 2, 2, 2, 2, 2, 5, 5
+                      _customHeaderCell(
+                        'Catalogue Number',
+                        flex: 2,
+                        onTap: () {
+                          searchController.getAllProductsV2CatalogueNumberSort(
+                            categoryProducts: AppString().radiatorAndCoolers,
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 15),
+                      _customHeaderCell(
+                        'Makes',
+                        flex: 2,
+                        onTap: () {
+                          searchController.getAllProductsMakesSort(
+                            categoryProducts: AppString().radiatorAndCoolers,
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 15),
+                      _customHeaderCell(
+                        'Equipment Type',
+                        flex: 2,
+                        onTap: () {
+                          searchController.getAllProductsV2EquipmentTypeSort(
+                            categoryProducts: AppString().radiatorAndCoolers,
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 15),
+                      _customHeaderCell(
+                        'Models',
+                        flex: 2,
+                        onTap: () {
+                          searchController.getAllProductsV2ModelsSort(
+                            categoryProducts: AppString().radiatorAndCoolers,
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 15),
+                      _customHeaderCell(
+                        'OEM Part Number',
+                        flex: 2,
+                        onTap: () {
+                          searchController.getAllProductsOEMPartNumberSort(
+                            categoryProducts: AppString().radiatorAndCoolers,
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 15),
+                      _customHeaderCell(
+                        'Industry',
+                        flex: 2,
+                        onTap: () {
+                          searchController.getAllProductsIndustrySort(
+                            categoryProducts: AppString().radiatorAndCoolers,
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 15),
+                      _customHeaderCell(
+                        'Product Type',
+                        flex: 5,
+                        onTap: () {
+                          searchController.getAllProductsProductTypeSort(
+                            categoryProducts: AppString().radiatorAndCoolers,
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 15),
+                      _customHeaderCell(
+                        'Description / Application',
+                        flex: 5,
+                        onTap: () {
+                          searchController
+                              .getAllProductsDescriptionApplicationSort(
+                                categoryProducts:
+                                    AppString().radiatorAndCoolers,
+                              );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
 
-              // Hilangkan spacing bawaan DataTable
-              horizontalMargin: 0,
-              columnSpacing: 0,
-
-              headingTextStyle: const TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-
-              dataTextStyle: const TextStyle(color: Colors.black, fontSize: 12),
-
-              columns: [
-                _tableColumn('Catalogue Number', catalogueWidth),
-                _tableColumn('Makes', makesWidth),
-                _tableColumn('Equipment Type', equipmentWidth),
-                _tableColumn('Models', modelsWidth),
-                _tableColumn('OEM Part Number', oemWidth),
-                _tableColumn('Industry', industryWidth),
-                _tableColumn('Product Type', productTypeWidth),
-                _tableColumn('Description / Application', catalogueWidth),
-              ],
-
-              rows: data.map((item) {
-                return DataRow(
-                  cells: [
-                    _tableDataCell(item.catalogueNumber, catalogueWidth),
-                    _tableDataCell(item.makes, makesWidth),
-                    _tableDataCell(item.equipmentType, equipmentWidth),
-                    _tableDataCell(item.models, modelsWidth),
-                    _tableDataCell(item.oemPartNumber, oemWidth),
-                    _tableDataCell(item.industry, industryWidth),
-                    _tableDataCell(item.productType, productTypeWidth),
-                    _tableDataCell(
-                      item.descriptionApplication,
-                      productTypeWidth,
+                // --- DATA TABEL (Warna Putih) ---
+                ...data.map((item) {
+                  return Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 14,
+                      horizontal: 16,
                     ),
-                  ],
-                );
-              }).toList(),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      border: Border(
+                        bottom: BorderSide(color: Color(0xFFE0E0E0), width: 1),
+                      ),
+                    ),
+                    child: InkWell(
+                      onTap: () {
+                        Get.toNamed(
+                          AppRouteName.productDetailPage,
+                          parameters: {
+                            'id': item.id.toString(),
+                            'category': AppString().radiatorAndCoolers,
+                          },
+                        );
+                      },
+                      child: Row(
+                        children: [
+                          _customDataCell(item.catalogueNumber, flex: 2),
+                          const SizedBox(width: 15),
+                          _customDataCell(item.makes, flex: 2),
+                          const SizedBox(width: 15),
+                          _customDataCell(item.equipmentType, flex: 2),
+                          const SizedBox(width: 15),
+                          _customDataCell(item.models, flex: 2),
+                          const SizedBox(width: 15),
+                          _customDataCell(item.oemPartNumber, flex: 2),
+                          const SizedBox(width: 15),
+                          _customDataCell(item.industry, flex: 2),
+                          const SizedBox(width: 15),
+                          _customDataCell(item.productType, flex: 5),
+                          const SizedBox(width: 15),
+                          _customDataCell(item.descriptionApplication, flex: 5),
+                        ],
+                      ),
+                    ),
+                  );
+                }),
+              ],
             ),
           ),
         ],
@@ -689,52 +877,141 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           // TABLE
           // ============================================================
           ClipRRect(
-            borderRadius: BorderRadius.circular(3),
-            child: DataTable(
-              headingRowColor: WidgetStateProperty.all(const Color(0xFFFF5A00)),
-              dataRowColor: WidgetStateProperty.all(Colors.white),
-              dividerThickness: 1,
+            borderRadius: BorderRadius.circular(10),
+            child: Column(
+              children: [
+                // --- HEADER TABEL (Warna Oranye) ---
+                Container(
+                  color: const Color(0xFFFF5A00),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 14,
+                    horizontal: 16,
+                  ),
 
-              // Hilangkan spacing bawaan DataTable
-              horizontalMargin: 0,
-              columnSpacing: 0,
+                  child: Row(
+                    children: [
+                      _customHeaderCell(
+                        'Part Number',
+                        flex: 2,
+                        onTap: () {
+                          searchController.getAllProductsV2PartNumberSort(
+                            categoryProducts: titleCategory,
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 15),
+                      _customHeaderCell(
+                        'Makes',
+                        flex: 2,
+                        onTap: () {
+                          searchController.getAllProductsMakesSort(
+                            categoryProducts: titleCategory,
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 15),
+                      _customHeaderCell(
+                        'Application',
+                        flex: 2,
+                        onTap: () {
+                          searchController.getAllProductsV2EquipmentTypeSort(
+                            categoryProducts: titleCategory,
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 15),
+                      _customHeaderCell(
+                        'Size',
+                        flex: 2,
+                        onTap: () {
+                          searchController.getAllProductsSizeSort(
+                            categoryProducts: titleCategory,
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 15),
+                      _customHeaderCell(
+                        'Pressure Rating',
+                        flex: 2,
+                        onTap: () {
+                          searchController.getAllProductsPersureRatingSort(
+                            categoryProducts: titleCategory,
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 15),
+                      _customHeaderCell(
+                        'Material',
+                        flex: 2,
+                        onTap: () {
+                          searchController.getAllProductsMaterialTypeSort(
+                            categoryProducts: titleCategory,
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 15),
+                      // Deskripsi menggunakan Flex: 5 agar sama panjang dengan tombolnya
+                      _customHeaderCell(
+                        'Description Application',
+                        flex: 5,
+                        onTap: () {
+                          searchController
+                              .getAllProductsDescriptionApplicationSort(
+                                categoryProducts: titleCategory,
+                              );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
 
-              headingTextStyle: const TextStyle(
-                color: Colors.white,
-                fontSize: 10,
-                fontWeight: FontWeight.bold,
-              ),
-
-              dataTextStyle: const TextStyle(color: Colors.black, fontSize: 9),
-
-              columns: [
-                _tableColumn('Part Number', catalogueWidth),
-                _tableColumn('Makes', makesWidth),
-                _tableColumn('Application', equipmentWidth),
-                _tableColumn('Size', modelsWidth),
-                _tableColumn('Pressure Rating', oemWidth),
-                _tableColumn('Material', industryWidth),
-
-                _tableColumn('Description / Application', catalogueWidth),
-              ],
-
-              rows: data.map((item) {
-                return DataRow(
-                  cells: [
-                    _tableDataCell(item.partNumber, catalogueWidth),
-                    _tableDataCell(item.makes, makesWidth),
-                    _tableDataCell(item.application, equipmentWidth),
-                    _tableDataCell(item.size, modelsWidth),
-                    _tableDataCell(item.pressureRating, oemWidth),
-                    _tableDataCell(item.materialType, industryWidth),
-
-                    _tableDataCell(
-                      item.descriptionApplication,
-                      productTypeWidth,
+                // --- DATA TABEL (Warna Putih) ---
+                ...data.map((item) {
+                  return Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 14,
+                      horizontal: 16,
                     ),
-                  ],
-                );
-              }).toList(),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+
+                      // Garis bawah sebagai pengganti dividerThickness di DataTable
+                      border: Border(
+                        bottom: BorderSide(color: Color(0xFFE0E0E0), width: 1),
+                      ),
+                    ),
+                    child: InkWell(
+                      onTap: () {
+                        Get.toNamed(
+                          AppRouteName.productDetailPage,
+                          parameters: {
+                            'id': item.id.toString(),
+                            'category': titleCategory,
+                          },
+                        );
+                      },
+                      child: Row(
+                        children: [
+                          _customDataCell(item.partNumber, flex: 2),
+                          const SizedBox(width: 15),
+                          _customDataCell(item.makes, flex: 2),
+                          const SizedBox(width: 15),
+                          _customDataCell(item.application, flex: 2),
+                          const SizedBox(width: 15),
+                          _customDataCell(item.size, flex: 2),
+                          const SizedBox(width: 15),
+                          _customDataCell(item.pressureRating, flex: 2),
+                          const SizedBox(width: 15),
+                          _customDataCell(item.materialType, flex: 2),
+                          const SizedBox(width: 15),
+                          // Deskripsi menggunakan Flex: 5
+                          _customDataCell(item.descriptionApplication, flex: 5),
+                        ],
+                      ),
+                    ),
+                  );
+                }).toList(), // Hapus toList() jika ada error linting (opsional)
+              ],
             ),
           ),
         ],
@@ -1162,52 +1439,167 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           // TABLE
           // ============================================================
           ClipRRect(
-            borderRadius: BorderRadius.circular(3),
-            child: DataTable(
-              headingRowColor: WidgetStateProperty.all(const Color(0xFFFF5A00)),
-              dataRowColor: WidgetStateProperty.all(Colors.white),
-              dividerThickness: 1,
+            borderRadius: BorderRadius.circular(10),
+            child: Column(
+              children: [
+                // --- HEADER TABEL (Warna Oranye) ---
+                Container(
+                  color: const Color(0xFFFF5A00),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 14,
+                    horizontal: 16,
+                  ),
 
-              // Hilangkan spacing bawaan DataTable
-              horizontalMargin: 0,
-              columnSpacing: 0,
+                  child: Row(
+                    children: [
+                      _customHeaderCell(
+                        'Catalog Number',
+                        flex: 2,
+                        onTap: () {
+                          searchController.getAllProductsV2CatalogueNumberSort(
+                            categoryProducts: titleCategory,
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 15),
+                      _customHeaderCell(
+                        'Makes',
+                        flex: 2,
+                        onTap: () {
+                          searchController.getAllProductsMakesSort(
+                            categoryProducts: titleCategory,
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 15),
+                      _customHeaderCell(
+                        'Equipment Type ',
+                        flex: 2,
+                        onTap: () {
+                          searchController.getAllProductsV2EquipmentTypeSort(
+                            categoryProducts: titleCategory,
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 15),
+                      _customHeaderCell(
+                        'Models',
+                        flex: 2,
+                        onTap: () {
+                          searchController.getAllProductsV2ModelsSort(
+                            categoryProducts: titleCategory,
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 15),
+                      _customHeaderCell(
+                        'OEM Part Number',
+                        flex: 2,
+                        onTap: () {
+                          searchController.getAllProductsOEMPartNumberSort(
+                            categoryProducts: titleCategory,
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 15),
+                      _customHeaderCell(
+                        'Industry',
+                        flex: 2,
+                        onTap: () {
+                          searchController.getAllProductsIndustrySort(
+                            categoryProducts: titleCategory,
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 15),
+                      // Deskripsi menggunakan Flex: 5 agar sama panjang dengan tombolnya
+                      _customHeaderCell(
+                        'Product Type',
+                        flex: 2,
+                        onTap: () {
+                          searchController.getAllProductsProductTypeSort(
+                            categoryProducts: titleCategory,
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 15),
 
-              headingTextStyle: const TextStyle(
-                color: Colors.white,
-                fontSize: 10,
-                fontWeight: FontWeight.bold,
-              ),
+                      _customHeaderCell(
+                        'Product Type Design',
+                        flex: 2,
+                        onTap: () {
+                          searchController.getAllProductsProductTypeDesignSort(
+                            categoryProducts: titleCategory,
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 15),
 
-              dataTextStyle: const TextStyle(color: Colors.black, fontSize: 9),
+                      _customHeaderCell(
+                        'Application',
+                        flex: 2,
+                        onTap: () {
+                          searchController
+                              .getAllProductsDescriptionApplicationSort(
+                                categoryProducts: titleCategory,
+                              );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
 
-              columns: [
-                _tableColumn('Catalogue Number', makesWidth),
-                _tableColumn('Makes', makesWidth),
-                _tableColumn('Equipment Type', makesWidth),
-                _tableColumn('Models', makesWidth),
-                _tableColumn('OEM Part Number', makesWidth),
-                _tableColumn('Industry', makesWidth),
-                _tableColumn('Product Type', makesWidth),
-                _tableColumn('Product Type Design', makesWidth),
-                _tableColumn('Application', makesWidth),
+                // --- DATA TABEL (Warna Putih) ---
+                ...data.map((item) {
+                  return Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 14,
+                      horizontal: 16,
+                    ),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+
+                      // Garis bawah sebagai pengganti dividerThickness di DataTable
+                      border: Border(
+                        bottom: BorderSide(color: Color(0xFFE0E0E0), width: 1),
+                      ),
+                    ),
+                    child: InkWell(
+                      onTap: () {
+                        Get.toNamed(
+                          AppRouteName.productDetailPage,
+                          parameters: {
+                            'id': item.id.toString(),
+                            'category': titleCategory,
+                          },
+                        );
+                      },
+                      child: Row(
+                        children: [
+                          _customDataCell(item.catalogueNumber, flex: 2),
+                          const SizedBox(width: 15),
+                          _customDataCell(item.makes, flex: 2),
+                          const SizedBox(width: 15),
+                          _customDataCell(item.equipmentType, flex: 2),
+                          const SizedBox(width: 15),
+                          _customDataCell(item.models, flex: 2),
+                          const SizedBox(width: 15),
+                          _customDataCell(item.oemPartNumber, flex: 2),
+                          const SizedBox(width: 15),
+                          _customDataCell(item.industry, flex: 2),
+                          const SizedBox(width: 15),
+                          // Deskripsi menggunakan Flex: 5
+                          _customDataCell(item.productType, flex: 2),
+                          const SizedBox(width: 15),
+                          _customDataCell(item.productTypeDesign, flex: 2),
+                          const SizedBox(width: 15),
+                          _customDataCell(item.application, flex: 2),
+                        ],
+                      ),
+                    ),
+                  );
+                }).toList(), // Hapus toList() jika ada error linting (opsional)
               ],
-
-              rows: data.map((item) {
-                return DataRow(
-                  cells: [
-                    _tableDataCell(item.catalogueNumber, makesWidth),
-                    _tableDataCell(item.makes, makesWidth),
-                    _tableDataCell(item.equipmentType, makesWidth),
-                    _tableDataCell(item.models, makesWidth),
-                    _tableDataCell(item.oemPartNumber, makesWidth),
-                    _tableDataCell(item.industry, makesWidth),
-                    _tableDataCell(item.productType, makesWidth),
-
-                    _tableDataCell(item.productTypeDesign, makesWidth),
-                    _tableDataCell(item.application, makesWidth),
-                  ],
-                );
-              }).toList(),
             ),
           ),
         ],
@@ -1269,7 +1661,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
               const SizedBox(height: 80),
 
-              GestureDetector(
+              InkWell(
                 onTap: () async {
                   await controller.sendEmail(controller.productModelSingle);
                 },
@@ -1349,7 +1741,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
               const SizedBox(height: 80),
 
-              GestureDetector(
+              InkWell(
                 onTap: () async {
                   await controller.sendEmail(controller.productModelSingle);
                 },
@@ -1439,7 +1831,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
               const SizedBox(height: 80),
 
-              GestureDetector(
+              InkWell(
                 onTap: () async {
                   await controller.sendEmail(controller.productModelSingle);
                 },
@@ -1518,7 +1910,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       children: [
                         Column(
                           children: [
-                            GestureDetector(
+                            InkWell(
                               onTap: () {
                                 Get.dialog(
                                   Dialog(
@@ -1568,7 +1960,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           ],
                         ),
                         SizedBox(width: 40),
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             Get.dialog(
                               Dialog(
@@ -1606,12 +1998,29 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 ),
                 SizedBox(height: 40),
 
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     Container(),
+                //     Expanded(
+                //       child: Text(
+                //         'VARIATION RELATED TO $headerTitle',
+                //         style: blackTextStyle.copyWith(
+                //           fontSize: 24,
+                //           fontWeight: FontWeight.bold,
+                //         ),
+                //       ),
+                //     ),
+                //     Container(),
+                //   ],
+                // ),
                 Text(
                   'VARIATION RELATED TO $headerTitle',
                   style: blackTextStyle.copyWith(
-                    fontSize: 30,
+                    fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
+                  textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 10),
 

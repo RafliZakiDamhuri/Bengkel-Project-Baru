@@ -321,7 +321,7 @@ Widget personaldataContactUs() {
                 ),
                 itemBuilder: (_, index) {
                   var data = controller.contactModel[index];
-                  return GestureDetector(
+                  return InkWell(
                     onTap: () {
                       globalController.openWhatsApp(
                         data.phoneNumber ?? '',

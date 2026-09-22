@@ -11,7 +11,7 @@ Widget featureCard({
   required String image,
   required bool isMobile,
 }) {
-  return GestureDetector(
+  return InkWell(
     onTap: () {
       Get.toNamed(AppRouteName.product);
     },

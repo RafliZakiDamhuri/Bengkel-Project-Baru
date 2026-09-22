@@ -19,7 +19,7 @@ Widget footer() {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        GestureDetector(
+        InkWell(
           onTap: () {
             globalController.openUrl(AppString().facebook);
           },
@@ -36,7 +36,7 @@ Widget footer() {
         ),
         const SizedBox(width: 10),
 
-        GestureDetector(
+        InkWell(
           onTap: () {
             globalController.openUrl(AppString().instagram);
           },
@@ -53,7 +53,7 @@ Widget footer() {
         ),
         const SizedBox(width: 10),
 
-        GestureDetector(
+        InkWell(
           onTap: () {
             globalController.openUrl(AppString().linkedInUrl);
           },
@@ -70,7 +70,7 @@ Widget footer() {
         ),
         const SizedBox(width: 10),
 
-        GestureDetector(
+        InkWell(
           onTap: () {
             globalController.openUrl(AppString().tiktok);
           },
@@ -87,7 +87,7 @@ Widget footer() {
         ),
         const SizedBox(width: 10),
 
-        GestureDetector(
+        InkWell(
           onTap: () {
             globalController.openUrl(AppString().youtube);
           },
@@ -135,7 +135,7 @@ Widget footer() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          GestureDetector(
+          InkWell(
             onTap: () {
               Get.toNamed(AppRouteName.product);
             },
@@ -143,73 +143,73 @@ Widget footer() {
           ),
           const SizedBox(height: 16),
 
-          GestureDetector(
+          InkWell(
             onTap: () {
               Get.toNamed(AppRouteName.product);
             },
             child: menuText('Removable Tube Radiator'),
           ),
-          GestureDetector(
+          InkWell(
             onTap: () {
               Get.toNamed(AppRouteName.product);
             },
             child: menuText('Alumunium Tube & Fin Core'),
           ),
-          GestureDetector(
+          InkWell(
             onTap: () {
               Get.toNamed(AppRouteName.product);
             },
             child: menuText('Alumunium Plate & Bar Core'),
           ),
-          GestureDetector(
+          InkWell(
             onTap: () {
               Get.toNamed(AppRouteName.product);
             },
             child: menuText('Copper Brass Core'),
           ),
-          GestureDetector(
+          InkWell(
             onTap: () {
               Get.toNamed(AppRouteName.product);
             },
             child: menuText('CAT® Core Replacement'),
           ),
-          GestureDetector(
+          InkWell(
             onTap: () {
               Get.toNamed(AppRouteName.product);
             },
             child: menuText('Tube & Shell Oil Cooler'),
           ),
-          GestureDetector(
+          InkWell(
             onTap: () {
               Get.toNamed(AppRouteName.product);
             },
             child: menuText('Radiator Coolant'),
           ),
-          GestureDetector(
+          InkWell(
             onTap: () {
               Get.toNamed(AppRouteName.product);
             },
             child: menuText('Air Cooled Heat Exchanger'),
           ),
-          GestureDetector(
+          InkWell(
             onTap: () {
               Get.toNamed(AppRouteName.product);
             },
             child: menuText('Plate Heat Exchanger'),
           ),
-          GestureDetector(
+          InkWell(
             onTap: () {
               Get.toNamed(AppRouteName.product);
             },
             child: menuText('Industrial Oil Cooler'),
           ),
-          GestureDetector(
+          InkWell(
             onTap: () {
               Get.toNamed(AppRouteName.product);
             },
             child: menuText('Safety Radiator Cap'),
           ),
-          GestureDetector(
+          InkWell(
             onTap: () {
               Get.toNamed(AppRouteName.product);
             },
@@ -229,7 +229,7 @@ Widget footer() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          GestureDetector(
+          InkWell(
             onTap: () {
               Get.toNamed(AppRouteName.services);
             },
@@ -237,19 +237,19 @@ Widget footer() {
           ),
           const SizedBox(height: 16),
 
-          GestureDetector(
+          InkWell(
             onTap: () {
               Get.toNamed(AppRouteName.services);
             },
             child: menuText('Minor Repair'),
           ),
-          GestureDetector(
+          InkWell(
             onTap: () {
               Get.toNamed(AppRouteName.services);
             },
             child: menuText('Major Repair'),
           ),
-          GestureDetector(
+          InkWell(
             onTap: () {
               Get.toNamed(AppRouteName.services);
             },
@@ -262,7 +262,7 @@ Widget footer() {
 
           const SizedBox(height: 16),
 
-          GestureDetector(
+          InkWell(
             onTap: () {
               Get.toNamed(
                 '${AppRouteName.searchProduct}?flow=${AppString().radiatorAndCoolers}',
@@ -270,7 +270,7 @@ Widget footer() {
             },
             child: menuText('Radiators and Coolers'),
           ),
-          GestureDetector(
+          InkWell(
             onTap: () {
               Get.toNamed(
                 '${AppRouteName.searchProduct}?flow=${AppString().caterpillarRadiatorCore}',
@@ -278,7 +278,7 @@ Widget footer() {
             },
             child: menuText('CAT® Radiator Core'),
           ),
-          GestureDetector(
+          InkWell(
             onTap: () {
               Get.toNamed(
                 '${AppRouteName.searchProduct}?flow=${AppString().caterpilarTube}',
@@ -286,7 +286,7 @@ Widget footer() {
             },
             child: menuText('CAT® Tube and Shell'),
           ),
-          GestureDetector(
+          InkWell(
             onTap: () {
               Get.toNamed(
                 '${AppRouteName.searchProduct}?flow=${AppString().radiatorCapAndAdapters}',
@@ -308,11 +308,11 @@ Widget footer() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          GestureDetector(
+          InkWell(
             onTap: () {
               Get.toNamed(AppRouteName.aboutUs);
             },
-            child: GestureDetector(
+            child: InkWell(
               onTap: () {
                 Get.toNamed(AppRouteName.aboutUs);
               },
@@ -321,13 +321,13 @@ Widget footer() {
           ),
           const SizedBox(height: 16),
 
-          GestureDetector(
+          InkWell(
             onTap: () {
               Get.toNamed(AppRouteName.contactPage);
             },
             child: menuText('Contact Us'),
           ),
-          GestureDetector(
+          InkWell(
             onTap: () {
               Get.toNamed(AppRouteName.aboutUs);
             },
@@ -336,7 +336,7 @@ Widget footer() {
 
           const SizedBox(height: 14),
 
-          GestureDetector(
+          InkWell(
             onTap: () {
               Get.toNamed(AppRouteName.blogList);
             },
@@ -345,13 +345,13 @@ Widget footer() {
 
           const SizedBox(height: 16),
 
-          GestureDetector(
+          InkWell(
             onTap: () {
               Get.toNamed(AppRouteName.blogList);
             },
             child: menuText('Product Insight'),
           ),
-          GestureDetector(
+          InkWell(
             onTap: () {
               Get.toNamed(AppRouteName.blogList);
             },
@@ -371,7 +371,7 @@ Widget footer() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          GestureDetector(
+          InkWell(
             onTap: () {
               Get.toNamed(AppRouteName.contactUs);
             },
@@ -379,7 +379,7 @@ Widget footer() {
           ),
           const SizedBox(height: 16),
 
-          GestureDetector(
+          InkWell(
             onTap: () {
               Get.toNamed(AppRouteName.gallery);
             },
@@ -388,7 +388,7 @@ Widget footer() {
 
           const SizedBox(height: 14),
 
-          GestureDetector(
+          InkWell(
             onTap: () {
               Get.toNamed(AppRouteName.resources);
             },
@@ -397,7 +397,7 @@ Widget footer() {
 
           const SizedBox(height: 16),
 
-          GestureDetector(
+          InkWell(
             onTap: () {
               Get.toNamed(AppRouteName.careers);
             },

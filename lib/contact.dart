@@ -52,7 +52,7 @@ class Contact extends StatelessWidget {
 
           const SizedBox(height: 8),
 
-          GestureDetector(
+          InkWell(
             onTap: () {
               globalController.openWhatsApp(
                 phone.replaceAll('+', '').replaceAll('-', ''),
@@ -67,7 +67,7 @@ class Contact extends StatelessWidget {
 
           const SizedBox(height: 5),
 
-          GestureDetector(
+          InkWell(
             onTap: () {
               globalController.sendEmail(email: email);
             },

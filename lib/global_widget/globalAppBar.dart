@@ -298,7 +298,7 @@ class _GlobalappbarState extends State<Globalappbar> {
 
                   child: Column(
                     children: [
-                      GestureDetector(
+                      InkWell(
                         onTap: () {
                           scrollController.animateTo(
                             scrollController.offset - 500,
@@ -320,7 +320,7 @@ class _GlobalappbarState extends State<Globalappbar> {
 
                       SizedBox(height: 70),
 
-                      GestureDetector(
+                      InkWell(
                         onTap: () {
                           scrollController.animateTo(
                             scrollController.offset + 500,
@@ -346,7 +346,7 @@ class _GlobalappbarState extends State<Globalappbar> {
             ),
           ),
 
-          GestureDetector(
+          InkWell(
             onTap: () {
               openWhatsApp(
                 AppString().indocoolWhatsappNumber,
@@ -419,7 +419,7 @@ class _GlobalappbarState extends State<Globalappbar> {
                 // LOGO
 
                 // =================================================
-                GestureDetector(
+                InkWell(
                   onTap: () {
                     Get.toNamed(AppRouteName.home);
                   },
@@ -466,7 +466,7 @@ class _GlobalappbarState extends State<Globalappbar> {
                         // ABOUT US
 
                         // =================================================
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             Get.toNamed(AppRouteName.aboutUs);
                           },
@@ -483,7 +483,7 @@ class _GlobalappbarState extends State<Globalappbar> {
                         // INSIGHT
 
                         // =================================================
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             Get.toNamed(AppRouteName.blogList);
                           },
@@ -500,7 +500,7 @@ class _GlobalappbarState extends State<Globalappbar> {
                         // GALLERY
 
                         // =================================================
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             Get.toNamed(AppRouteName.gallery);
                           },
@@ -517,7 +517,7 @@ class _GlobalappbarState extends State<Globalappbar> {
                         // RESOURCES
 
                         // =================================================
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             Get.toNamed(AppRouteName.resources);
                           },
@@ -534,7 +534,7 @@ class _GlobalappbarState extends State<Globalappbar> {
                         // CAREERS
 
                         // =================================================
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             Get.toNamed(AppRouteName.careers);
                           },
@@ -598,7 +598,7 @@ class _GlobalappbarState extends State<Globalappbar> {
                         // HOME
 
                         // =================================================
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             Get.toNamed(AppRouteName.home);
                           },
@@ -615,7 +615,7 @@ class _GlobalappbarState extends State<Globalappbar> {
                         // PRODUCTS
 
                         // =================================================
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             Get.toNamed(AppRouteName.product);
                           },
@@ -654,7 +654,7 @@ class _GlobalappbarState extends State<Globalappbar> {
                         // SERVICES
 
                         // =================================================
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             Get.toNamed(AppRouteName.services);
                           },
@@ -727,7 +727,7 @@ class _GlobalappbarState extends State<Globalappbar> {
                         // INQUIRY
 
                         // =================================================
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             try {
                               Get.toNamed(AppRouteName.inquiryPage);
@@ -748,7 +748,7 @@ class _GlobalappbarState extends State<Globalappbar> {
                         // CONTACTS
 
                         // =================================================
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             Get.toNamed(AppRouteName.contactPage);
                           },

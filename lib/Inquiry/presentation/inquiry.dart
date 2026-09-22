@@ -76,7 +76,7 @@ class InquiryPage extends StatelessWidget {
           const SizedBox(height: 28),
 
           // WHATSAPP
-          GestureDetector(
+          InkWell(
             onTap: () {
               globalController.openWhatsApp(
                 AppString().indocoolWhatsappNumber,
@@ -93,7 +93,7 @@ class InquiryPage extends StatelessWidget {
           const SizedBox(height: 10),
 
           // EMAIL
-          GestureDetector(
+          InkWell(
             onTap: () async {
               await globalController.sendEmail();
             },
@@ -107,7 +107,7 @@ class InquiryPage extends StatelessWidget {
           const SizedBox(height: 10),
 
           // LOCATION
-          GestureDetector(
+          InkWell(
             onTap: () async {
               await globalController.openLocation();
             },
@@ -316,7 +316,7 @@ class InquiryPage extends StatelessWidget {
               const SizedBox(width: 15),
 
               Expanded(
-                child: GestureDetector(
+                child: InkWell(
                   onTap: () async {
                     await _controller.pickAndUploadFile();
                   },
@@ -455,7 +455,7 @@ class InquiryPage extends StatelessWidget {
 
           contentPadding: const EdgeInsets.symmetric(horizontal: 12),
 
-          suffixIcon: GestureDetector(
+          suffixIcon: InkWell(
             onTap: () async {
               await _controller.pickAndUploadFile();
             },

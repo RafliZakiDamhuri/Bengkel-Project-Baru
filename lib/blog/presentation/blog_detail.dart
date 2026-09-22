@@ -120,7 +120,7 @@ class _BlogDetailState extends State<BlogDetail> {
 
           // See More Content
           Center(
-            child: GestureDetector(
+            child: InkWell(
               onTap: () {
                 Get.toNamed(AppRouteName.blogList);
               },
@@ -162,7 +162,7 @@ class _BlogDetailState extends State<BlogDetail> {
   }
 
   Widget insightNewsCard({required BlogModel blog}) {
-    return GestureDetector(
+    return InkWell(
       onTap: () {
         Get.toNamed(AppRouteName.blogDetail, parameters: {'id': blog.id});
       },

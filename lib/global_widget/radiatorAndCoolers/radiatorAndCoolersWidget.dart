@@ -79,7 +79,7 @@ class Radiatorandcoolerswidget extends StatelessWidget {
                     spacing: 20,
                     children: data
                         .map(
-                          (e) => GestureDetector(
+                          (e) => InkWell(
                             onTap: () async {
                               await controller.getDatabyType(
                                 e?.name,
@@ -94,7 +94,7 @@ class Radiatorandcoolerswidget extends StatelessWidget {
                   ),
                   SizedBox(height: 20),
 
-                  GestureDetector(
+                  InkWell(
                     onTap: () {
                       controller.getAllProductsMakes(
                         categoryProducts: AppString().radiatorAndCoolers,
