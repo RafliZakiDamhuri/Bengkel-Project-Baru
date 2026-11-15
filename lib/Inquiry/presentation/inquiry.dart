@@ -95,7 +95,9 @@ class InquiryPage extends StatelessWidget {
           // EMAIL
           InkWell(
             onTap: () async {
-              await globalController.sendEmail();
+              await globalController.sendEmail(
+                email: 'customersupport@indocool.co.id',
+              );
             },
             child: consultationItem(
               icon: Icons.email_outlined,
@@ -507,7 +509,7 @@ class InquiryPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // DIRECT CONSULTATION
-            SizedBox(width: 320, child: directConsultation()),
+            SizedBox(width: 360, child: directConsultation()),
 
             const SizedBox(width: 40),
 

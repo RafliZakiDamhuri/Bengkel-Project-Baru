@@ -10,11 +10,37 @@ Widget featureCard({
 
   required String image,
   required bool isMobile,
+  required int index,
 }) {
   return InkWell(
     onTap: () {
-      Get.toNamed(AppRouteName.product);
+      if (index == 0) {
+        Get.toNamed(AppRouteName.radmaxRemovableTubeRadiator);
+      } else if (index == 1) {
+        Get.toNamed(AppRouteName.lightDutyRadiator);
+      } else if (index == 2) {
+        Get.toNamed(AppRouteName.heavyDutyCooler);
+      } else if (index == 3) {
+        Get.toNamed(AppRouteName.heavyDutyCooper);
+      } else if (index == 4) {
+        Get.toNamed(AppRouteName.catterpillarReplacement);
+      } else if (index == 5) {
+        Get.toNamed(AppRouteName.catterpillarTubeAndShell);
+      } else if (index == 6) {
+        Get.toNamed(AppRouteName.radiatorEngine);
+      } else if (index == 7) {
+        Get.toNamed(AppRouteName.airCooled);
+      } else if (index == 8) {
+        Get.toNamed(AppRouteName.platedHeat);
+      } else if (index == 9) {
+        Get.toNamed(AppRouteName.industrialShell);
+      } else if (index == 10) {
+        Get.toNamed(AppRouteName.radmaxLevelRelease);
+      } else if (index == 11) {
+        Get.toNamed(AppRouteName.replacementFan);
+      }
     },
+
     child: Container(
       width: 20.h,
       height: 60.h,

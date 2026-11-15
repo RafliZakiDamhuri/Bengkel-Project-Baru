@@ -39,15 +39,15 @@ class _AddGalleryState extends State<AddGallery> {
             child: Column(
               children: [
                 TextFieldData(
-                  hintName: 'Title',
+                  hintName: 'Topic',
                   obsecureText: false,
-                  textName: 'Title',
+                  textName: 'Topic',
                   controller: titleController,
                 ),
                 TextFieldData(
-                  hintName: 'Subtitle',
+                  hintName: 'Products',
                   obsecureText: false,
-                  textName: 'Subtitle',
+                  textName: 'Products',
                   controller: subTitleController,
                 ),
                 customBlueAppBarButton(

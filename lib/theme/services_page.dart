@@ -146,7 +146,7 @@ class ServicesPage extends StatelessWidget {
 
         ServicesImages(
           title: 'Minor Service Repair',
-          imag: 'assets/images/04-Minor-Repair 1_result.webp',
+          imag: 'assets/images/services-1.webp',
           htmlData: AppString().minorRepair,
         ),
         SizedBox(height: 60),
@@ -157,7 +157,7 @@ class ServicesPage extends StatelessWidget {
         ),
         SizedBox(height: 60),
         ServicesImages(
-          title: 'Complete Overhaul Radiator Radiators and Coolers',
+          title: 'Complete Overhaul',
           imag: 'assets/images/06-Overhaul-Repair 1_result.webp',
           htmlData: AppString().completeOverhaul,
         ),

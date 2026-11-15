@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_quill/flutter_quill.dart';
 import 'package:get/get.dart';
 import 'package:project/Auth/controller/auth_controller.dart';
 import 'package:project/CMS/controller/blog_controller.dart';
@@ -19,17 +18,16 @@ class BlogListPage extends StatefulWidget {
 class _BlogListPageState extends State<BlogListPage> {
   final BlogController _controller = Get.find<BlogController>();
 
-  Document _justifiedDocument(List<dynamic> content) {
-    final justifiedContent = content.map((op) {
-      if (op is Map<String, dynamic>) {
-        final attrs = Map<String, dynamic>.from(op['attributes'] ?? {});
-        attrs['align'] = 'justify';
-        return {'insert': op['insert'], 'attributes': attrs};
-      }
-      return op;
-    }).toList();
+  String _blogExcerpt(List<dynamic> content) {
+    final buffer = StringBuffer();
 
-    return Document.fromJson(justifiedContent);
+    for (final op in content) {
+      if (op is Map && op['insert'] is String) {
+        buffer.write(op['insert']);
+      }
+    }
+
+    return buffer.toString().replaceAll(RegExp(r'\s+'), ' ').trim();
   }
 
   @override
@@ -375,11 +373,13 @@ class _BlogListPageState extends State<BlogListPage> {
   // ============================================================
 
   Widget _buildBlogCard({required BlogModel blog}) {
+    final excerpt = _blogExcerpt(blog.content);
+
     return InkWell(
       borderRadius: BorderRadius.circular(4),
 
       onTap: () {
-        Get.toNamed(AppRouteName.blogDetail, parameters: {'id': blog.id});
+        Get.toNamed(AppRouteName.blogDetail, parameters: {'title': blog.title});
       },
 
       child: Column(
@@ -458,7 +458,9 @@ class _BlogListPageState extends State<BlogListPage> {
                       padding: const EdgeInsets.only(right: 10),
 
                       child: Text(
-                        DateHelper.formatDate(blog.createdAt!),
+                        blog.createdAt != null
+                            ? DateHelper.formatDate(blog.createdAt!)
+                            : '',
 
                         maxLines: 1,
 
@@ -501,25 +503,18 @@ class _BlogListPageState extends State<BlogListPage> {
                   ),
                 ),
                 const SizedBox(height: 6),
-                ClipRect(
-                  child: ConstrainedBox(
-                    constraints: const BoxConstraints(
-                      minHeight: 24,
-                      maxHeight: 72,
-                    ),
-                    child: QuillEditor.basic(
-                      controller: QuillController(
-                        document: _justifiedDocument(blog.content),
-                        selection: const TextSelection.collapsed(offset: 0),
-                        readOnly: true,
-                      ),
-                      config: const QuillEditorConfig(
-                        expands: false,
-                        padding: EdgeInsets.zero,
-                      ),
+                if (excerpt.isNotEmpty)
+                  Text(
+                    excerpt,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.justify,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      height: 1.4,
+                      color: Colors.black87,
                     ),
                   ),
-                ),
               ],
             ),
           ),

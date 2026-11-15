@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
+import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project/CMS/controller/blog_controller.dart';
@@ -22,9 +23,31 @@ class BlogDetail extends StatefulWidget {
 class _BlogDetailState extends State<BlogDetail> {
   final BlogController _controller = Get.find<BlogController>();
 
+  QuillController? _readOnlyController;
+  String? _loadedContentTitle;
+
   @override
   initState() {
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _readOnlyController?.dispose();
+    super.dispose();
+  }
+
+  QuillController _getReadOnlyController(BlogModel blog) {
+    if (_readOnlyController == null || _loadedContentTitle != blog.title) {
+      _readOnlyController?.dispose();
+      _readOnlyController = QuillController(
+        document: Document.fromJson(blog.content),
+        selection: const TextSelection.collapsed(offset: 0),
+        readOnly: true,
+      );
+      _loadedContentTitle = blog.title;
+    }
+    return _readOnlyController!;
   }
 
   @override
@@ -35,9 +58,9 @@ class _BlogDetailState extends State<BlogDetail> {
       pageWidget: SingleChildScrollView(
         child: GetBuilder<BlogController>(
           initState: (state) async {
-            final id = Get.parameters['id'];
-            await _controller.getBlogById(id ?? '');
-            await _controller.getTopBlogs(excludeId: id ?? '');
+            final title = Get.parameters['title'];
+            await _controller.getBlogByTitle(title ?? '');
+            await _controller.getTopBlogs(excludeTitle: title ?? '');
           },
           builder: (controller) {
             return _content();
@@ -164,7 +187,7 @@ class _BlogDetailState extends State<BlogDetail> {
   Widget insightNewsCard({required BlogModel blog}) {
     return InkWell(
       onTap: () {
-        Get.toNamed(AppRouteName.blogDetail, parameters: {'id': blog.id});
+        Get.toNamed(AppRouteName.blogDetail, parameters: {'title': blog.title});
       },
       child: Container(
         margin: const EdgeInsets.only(right: 35),
@@ -317,22 +340,36 @@ class _BlogDetailState extends State<BlogDetail> {
               const SizedBox(height: 38),
 
               // QUILL
-              SizedBox(
-                width: double.infinity,
-                child: QuillEditor.basic(
-                  controller: QuillController(
-                    document: Document.fromJson(
-                      _controller.blog?.content ?? [],
+              if (_controller.blog != null &&
+                  _controller.blog!.content.isNotEmpty)
+                SizedBox(
+                  width: double.infinity,
+                  child: QuillEditor.basic(
+                    controller: _getReadOnlyController(_controller.blog!),
+                    config: QuillEditorConfig(
+                      expands: false,
+                      padding: EdgeInsets.zero,
+                      embedBuilders: FlutterQuillEmbeds.defaultEditorBuilders(),
+                      customStyles: DefaultStyles.getInstance(context).merge(
+                        DefaultStyles(
+                          paragraph: DefaultTextBlockStyle(
+                            GoogleFonts.inter(
+                              fontSize: 16,
+                              color: Colors.black87,
+                              height: 1.7,
+                            ),
+                            HorizontalSpacing.zero,
+                            const VerticalSpacing(8, 0),
+                            VerticalSpacing.zero,
+                            null,
+                          ),
+                        ),
+                      ),
                     ),
-                    selection: const TextSelection.collapsed(offset: 0),
-                    readOnly: true,
                   ),
-                  config: const QuillEditorConfig(
-                    expands: false,
-                    padding: EdgeInsets.zero,
-                  ),
-                ),
-              ),
+                )
+              else if (_controller.blog != null)
+                articleParagraph('Konten blog belum tersedia.'),
 
               const SizedBox(height: 40),
 

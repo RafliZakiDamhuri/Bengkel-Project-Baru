@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:project/global_widget/app_asset_image.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/state_manager.dart';
@@ -1877,7 +1878,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                           child: CircularProgressIndicator(),
                                         ),
                                         errorWidget: (_, __, ___) =>
-                                            Image.asset(
+                                            AppAssetImage(
                                               AppImages().logoNull,
                                               width: 55,
                                               height: 55,
@@ -1901,7 +1902,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                     strokeWidth: 2,
                                   ),
                                 ),
-                                errorWidget: (_, __, ___) => Image.asset(
+                                errorWidget: (_, __, ___) => AppAssetImage(
                                   AppImages().logoNull,
                                   width: 30,
                                   height: 30,
@@ -1933,17 +1934,22 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                               ),
                             );
                           },
-                          child: SizedBox(
-                            width: 280,
-                            height: 280,
-                            child: ModelViewer(
-                              src:
-                                  controller.productModelSingle?.drawing3d ??
-                                  '',
-                              alt: 'Model 3D Astronaut',
-                              cameraControls: true,
-                            ),
-                          ),
+                          child:
+                              (controller.productModelSingle?.drawing3d != null)
+                              ? SizedBox(
+                                  width: 280,
+                                  height: 280,
+                                  child: ModelViewer(
+                                    src:
+                                        controller
+                                            .productModelSingle
+                                            ?.drawing3d ??
+                                        '',
+                                    alt: 'Model 3D Astronaut',
+                                    cameraControls: true,
+                                  ),
+                                )
+                              : SizedBox(),
                         ),
                       ],
                     ),

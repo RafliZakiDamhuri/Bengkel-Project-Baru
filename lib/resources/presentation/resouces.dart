@@ -378,7 +378,7 @@ class _DownloadableResourcesPageState extends State<DownloadableResourcesPage> {
           style: TextStyle(
             color: Colors.black,
 
-            fontSize: 11,
+            fontSize: 14,
 
             fontWeight: isSelected ? FontWeight.bold : FontWeight.w400,
           ),
@@ -484,7 +484,7 @@ class _DownloadableResourcesPageState extends State<DownloadableResourcesPage> {
               child: Text(
                 _controller.fileNames[index],
 
-                style: blackTextStyle.copyWith(fontSize: 12),
+                style: blackTextStyle.copyWith(fontSize: 14),
               ),
             );
           });
@@ -496,7 +496,7 @@ class _DownloadableResourcesPageState extends State<DownloadableResourcesPage> {
               child: Text(
                 _controller.types[index],
 
-                style: const TextStyle(fontSize: 12),
+                style: const TextStyle(fontSize: 14),
               ),
             );
           });
@@ -583,7 +583,7 @@ class _DownloadableResourcesPageState extends State<DownloadableResourcesPage> {
                 'Resource Type',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 12,
+                  fontSize: 14,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -597,7 +597,7 @@ class _DownloadableResourcesPageState extends State<DownloadableResourcesPage> {
                 'File Type',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 12,
+                  fontSize: 14,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -611,7 +611,7 @@ class _DownloadableResourcesPageState extends State<DownloadableResourcesPage> {
                 'Date Published',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 12,
+                  fontSize: 14,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -627,7 +627,7 @@ class _DownloadableResourcesPageState extends State<DownloadableResourcesPage> {
                   'Actions',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 12,
+                    fontSize: 14,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -696,7 +696,7 @@ class _DownloadableResourcesPageState extends State<DownloadableResourcesPage> {
         style: const TextStyle(
           color: Color(0xFF444444),
 
-          fontSize: 12,
+          fontSize: 14,
 
           fontWeight: FontWeight.w400,
         ),

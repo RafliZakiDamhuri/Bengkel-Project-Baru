@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/global_widget/app_asset_image.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
@@ -19,7 +20,7 @@ class Contact extends StatelessWidget {
         title,
         style: const TextStyle(
           color: Colors.black,
-          fontSize: 11,
+          fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -92,7 +93,7 @@ class Contact extends StatelessWidget {
           // ============================================================
           Stack(
             children: [
-              Image.asset(
+              AppAssetImage(
                 AppImages().contactPage,
                 width: double.infinity,
                 height: 700,
@@ -370,6 +371,97 @@ class Contact extends StatelessWidget {
                                 title: 'Branch Head Sangatta',
                                 phone: '+62811-1927-6530',
                                 email: 'servicesgt@indocool.co.id',
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 30),
+
+                // ======================================================
+                // TECHNICAL / OPERATIONAL TITLE
+                // ======================================================
+                SizedBox(
+                  width: 1650,
+                  child: const Text(
+                    'INTERNATIONAL / DISTRIBUTOR CONTACT LIST',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 14),
+
+                // ======================================================
+                // TECHNICAL / OPERATIONAL CONTACT BOX
+                // ======================================================
+                Center(
+                  child: Container(
+                    width: 1650,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 15,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(3),
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // ==================================================
+                        // JAKARTA
+                        // ==================================================
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              contactItem(
+                                title: 'International Customer Relation',
+                                phone: '+62811-1188-861',
+                                email: 'sales.manager@indocool.co.id',
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        const SizedBox(width: 20),
+
+                        // ==================================================
+                        // BALIKPAPAN
+                        // ==================================================
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              contactItem(
+                                title: 'Australia Distributor',
+                                phone: '+610472-747-804',
+                                email: 'enquiries@ewrad.com.au',
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        const SizedBox(width: 20),
+
+                        // ==================================================
+                        // SANGATTA
+                        // ==================================================
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              contactItem(
+                                title: 'Australia Customer Relation',
+                                phone: '+610472-747-804',
+                                email: 'bradleybond@ewrad.com.au',
                               ),
                             ],
                           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/global_widget/app_asset_image.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:project/controller/contactUsController.dart';
@@ -44,7 +45,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
           SizedBox(
             height: 800,
             width: double.infinity,
-            child: Image.asset(AppImages().contactUs, fit: BoxFit.cover),
+            child: AppAssetImage(AppImages().contactUs, fit: BoxFit.cover),
           ),
 
           Container(
@@ -105,7 +106,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
     Widget heroSection() {
       return Stack(
         children: [
-          Image.asset(
+          AppAssetImage(
             AppImages().contactUs,
             width: double.infinity,
             fit: BoxFit.fitWidth,

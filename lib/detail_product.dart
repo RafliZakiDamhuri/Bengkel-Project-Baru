@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/global_widget/app_asset_image.dart';
 import 'package:project/model/allDataModel.dart';
 import 'package:project/theme/string.dart';
 import 'package:project/theme/theme.dart';
@@ -61,7 +62,7 @@ class DetailProduct extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Image.asset('assets/images/D85ESS-Transp 1_result.webp'),
+            AppAssetImage('assets/images/D85ESS-Transp 1_result.webp'),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: productDetails.map((e) {

@@ -145,73 +145,73 @@ Widget footer() {
 
           InkWell(
             onTap: () {
-              Get.toNamed(AppRouteName.product);
+              Get.toNamed(AppRouteName.radmaxRemovableTubeRadiator);
             },
             child: menuText('Removable Tube Radiator'),
           ),
           InkWell(
             onTap: () {
-              Get.toNamed(AppRouteName.product);
+              Get.toNamed(AppRouteName.lightDutyRadiator);
             },
             child: menuText('Alumunium Tube & Fin Core'),
           ),
           InkWell(
             onTap: () {
-              Get.toNamed(AppRouteName.product);
+              Get.toNamed(AppRouteName.heavyDutyCooler);
             },
             child: menuText('Alumunium Plate & Bar Core'),
           ),
           InkWell(
             onTap: () {
-              Get.toNamed(AppRouteName.product);
+              Get.toNamed(AppRouteName.heavyDutyCooper);
             },
             child: menuText('Copper Brass Core'),
           ),
           InkWell(
             onTap: () {
-              Get.toNamed(AppRouteName.product);
+              Get.toNamed(AppRouteName.catterpillarReplacement);
             },
             child: menuText('CAT® Core Replacement'),
           ),
           InkWell(
             onTap: () {
-              Get.toNamed(AppRouteName.product);
+              Get.toNamed(AppRouteName.catterpillarTubeAndShell);
             },
             child: menuText('Tube & Shell Oil Cooler'),
           ),
           InkWell(
             onTap: () {
-              Get.toNamed(AppRouteName.product);
+              Get.toNamed(AppRouteName.radiatorEngine);
             },
             child: menuText('Radiator Coolant'),
           ),
           InkWell(
             onTap: () {
-              Get.toNamed(AppRouteName.product);
+              Get.toNamed(AppRouteName.airCooled);
             },
             child: menuText('Air Cooled Heat Exchanger'),
           ),
           InkWell(
             onTap: () {
-              Get.toNamed(AppRouteName.product);
+              Get.toNamed(AppRouteName.platedHeat);
             },
             child: menuText('Plate Heat Exchanger'),
           ),
           InkWell(
             onTap: () {
-              Get.toNamed(AppRouteName.product);
+              Get.toNamed(AppRouteName.industrialShell);
             },
             child: menuText('Industrial Oil Cooler'),
           ),
           InkWell(
             onTap: () {
-              Get.toNamed(AppRouteName.product);
+              Get.toNamed(AppRouteName.radmaxLevelRelease);
             },
             child: menuText('Safety Radiator Cap'),
           ),
           InkWell(
             onTap: () {
-              Get.toNamed(AppRouteName.product);
+              Get.toNamed(AppRouteName.replacementFan);
             },
             child: menuText('Replacement Fan'),
           ),

@@ -20,4 +20,16 @@ class AppRouteName {
   static const gallery = '/gallery';
   static const resources = '/resources';
   static const editResources = '/edit-resources';
+  static const radmaxRemovableTubeRadiator = '/radmax-removable-tube-radiator';
+  static const lightDutyRadiator = '/light-duty-radiator';
+  static const heavyDutyCooler = '/heavy-duty-cooler';
+  static const heavyDutyCooper = '/heavy-duty-cooper';
+  static const airCooled = '/air-cooled';
+  static const industrialShell = '/industrial-shell';
+  static const platedHeat = '/plated-heat';
+  static const radmaxLevelRelease = '/radmax-level-release';
+  static const replacementFan = '/replacement-fan';
+  static const radiatorEngine = '/radiator-engine';
+  static const catterpillarReplacement = '/catterpillar-replacement';
+  static const catterpillarTubeAndShell = '/catterpillar-tube-and-shell';
 }

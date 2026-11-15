@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/global_widget/app_asset_image.dart';
 import 'package:get/get.dart';
 import 'package:project/controller/globalController.dart';
 import 'package:project/global_widget/baseLayoutWrapper.dart';
@@ -20,7 +21,7 @@ class CareersPage extends StatelessWidget {
         children: [
           Container(
             margin: EdgeInsets.only(top: 80, bottom: 80),
-            child: Image.asset(
+            child: AppAssetImage(
               AppImages().indoCoolCarrer,
               width: 500,
               height: 500,
@@ -82,7 +83,7 @@ class CareersPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(AppImages().indoCoolCarrer, width: 260),
+            AppAssetImage(AppImages().indoCoolCarrer, width: 260),
 
             const SizedBox(height: 32),
 

@@ -75,9 +75,10 @@ Thank you.
 
 Best Regards
 ''');
-
+    final String emailCc =
+        'sales.manager@indocool.co.id,marketing2@indocool.co.id';
     final gmailUri = Uri.parse(
-      'https://mail.google.com/mail/?view=cm&fs=1&to=sales@indocool.co.id&su=$subject&body=$body',
+      'https://mail.google.com/mail/?view=cm&fs=1&to=customersupport@indocool.co.id&cc=$emailCc&su=$subject&body=$body',
     );
 
     if (await canLaunchUrl(gmailUri)) {

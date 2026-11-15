@@ -243,8 +243,7 @@ class _SearchProductPageState extends State<SearchProductPage> {
             minHeight:
                 45, // Atur tinggi minimum agar baris 1 baris tingginya sama dengan yang 2 baris
           ),
-          alignment:
-              Alignment.center, // Tetap di tengah agar selaras dengan header
+
           child: Text(
             value ?? '-',
             style: const TextStyle(color: Colors.black),

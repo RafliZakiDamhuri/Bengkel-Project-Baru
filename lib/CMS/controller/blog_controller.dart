@@ -135,6 +135,73 @@ class BlogController extends GetxController {
     }
   }
 
+  Future<void> getBlogByTitle(String title) async {
+    try {
+      final response = await supabase
+          .from('blogs')
+          .select()
+          .eq('title', title)
+          .limit(1)
+          .maybeSingle();
+
+      if (response == null) {
+        return;
+      }
+
+      blog = BlogModel.fromJson(response);
+      update();
+    } catch (e) {
+      // Error suppressed
+    }
+  }
+
+  Future<void> pickAndInsertImageToQuill() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+    if (image == null) return;
+
+    showLoadingDialog(); // Tampilkan loading saat proses upload
+
+    try {
+      final Uint8List quillImageBytes = await image.readAsBytes();
+
+      // Upload gambar menggunakan service yang sudah Anda buat
+      final String? uploadedUrl = await _uploadService.uploadBytes(
+        bytes: quillImageBytes,
+        filename:
+            'quill_${DateTime.now().millisecondsSinceEpoch}_${image.name}', // Nama unik
+      );
+
+      hideLoadingDialog();
+
+      if (uploadedUrl != null) {
+        // Dapatkan posisi kursor di editor saat ini
+        final index = quillController.selection.baseOffset;
+        final length = quillController.selection.extentOffset - index;
+
+        // Sisipkan URL gambar publik ke dalam dokumen Quill
+        quillController.replaceText(
+          index,
+          length,
+          BlockEmbed.image(uploadedUrl),
+          null,
+        );
+
+        // Geser kursor ke sebelah kanan gambar agar bisa lanjut mengetik
+        quillController.updateSelection(
+          TextSelection.collapsed(offset: index + 1),
+          ChangeSource.local,
+        );
+      } else {
+        showErrorBottomSheet(Exception('Gagal mengunggah gambar konten.'));
+      }
+    } catch (e) {
+      hideLoadingDialog();
+      showErrorBottomSheet(e);
+    }
+  }
+
   Future<bool> createBlog({
     required String title,
     required String writer,
@@ -145,24 +212,26 @@ class BlogController extends GetxController {
       final content = quillController.document.toDelta().toJson();
       imageUrl = await uploadImage();
 
-      if (imageUrl == null) {
+      if (bytes != null && imageUrl == null) {
+        showErrorBottomSheet(Exception('Gagal mengunggah gambar.'));
         return false;
       }
 
       await supabase.from('blogs').insert({
         'title': title,
-        'image_url': imageUrl,
+        if (imageUrl != null) 'image_url': imageUrl,
         'content': content,
         'author_id': supabase.auth.currentUser!.id,
         'writer': writer,
         'type': type,
       });
 
-      hideLoadingDialog();
       return true;
     } catch (e) {
-      hideLoadingDialog();
+      showErrorBottomSheet(e);
       return false;
+    } finally {
+      hideLoadingDialog();
     }
   }
 
@@ -178,20 +247,26 @@ class BlogController extends GetxController {
       if (bytes != null && imageName != null) {
         final newUrl = await uploadImage();
 
-        await supabase.from('blogs').update({
-          'title': title,
-          'writer': writer,
-          'type': type,
-          'content': content,
-          'image_url': newUrl,
-        }).eq('id', id);
+        await supabase
+            .from('blogs')
+            .update({
+              'title': title,
+              'writer': writer,
+              'type': type,
+              'content': content,
+              'image_url': newUrl,
+            })
+            .eq('id', id);
       } else {
-        await supabase.from('blogs').update({
-          'title': title,
-          'writer': writer,
-          'type': type,
-          'content': content,
-        }).eq('id', id);
+        await supabase
+            .from('blogs')
+            .update({
+              'title': title,
+              'writer': writer,
+              'type': type,
+              'content': content,
+            })
+            .eq('id', id);
       }
 
       hideLoadingDialog();
@@ -261,12 +336,12 @@ class BlogController extends GetxController {
     }
   }
 
-  Future<void> getTopBlogs({String? excludeId}) async {
+  Future<void> getTopBlogs({String? excludeTitle}) async {
     try {
       var query = supabase.from('blogs').select();
 
-      if (excludeId != null) {
-        query = query.neq('id', excludeId);
+      if (excludeTitle != null && excludeTitle.isNotEmpty) {
+        query = query.neq('title', excludeTitle);
       }
 
       final response = await query

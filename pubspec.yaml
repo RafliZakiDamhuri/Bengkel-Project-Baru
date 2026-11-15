@@ -57,6 +57,7 @@ dependencies:
   dio: ^5.11.0
   model_viewer_plus: ^1.10.0
   intl: ^0.20.2
+  flutter_quill_extensions: ^11.0.0
 
 
 dev_dependencies:
@@ -84,6 +85,26 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/images/removable_tube_radiator/
+    - assets/images/light_duty_radiator/
+    - assets/images/air_cooled/
+    - assets/images/heavy_duty_cooler/
+    - assets/images/heavy_duty_cooper/
+    - assets/images/industrial_shell_tube/
+    - assets/images/plated_heat/
+    - assets/images/radmax_level_release/
+    - assets/images/removable_tube_radiator/
+    - assets/images/replacement_fan/
+    - assets/images/radiator_engine/
+    - assets/images/catterpillar_replacement/
+    - assets/images/catterpillar_tube_and_shell/
+
+
+
+
+
+
+
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

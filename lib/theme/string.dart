@@ -135,7 +135,30 @@ We currently have job openings throughout Indonesia. If you’re interested and 
       'https://hkuubnsamodgtlsgyhrv.supabase.co/storage/v1/object/public/Company%20Profile/Company%20Profile%20-%20Indocool%20Group%20-%20Rev.9.pdf';
   String productListPdfUrl =
       'https://hkuubnsamodgtlsgyhrv.supabase.co/storage/v1/object/public/ProductPDFs/All%20Products%20Line%20Up%20Catalogue.pdf';
-
+  String removableTubeRadiatorPdfUrl =
+      'https://hkuubnsamodgtlsgyhrv.supabase.co/storage/v1/object/public/ProductPDFs/01-RADMAX%20Removable%20Tube%20Radiator.pdf';
+  String lightDutyRadiatorPdfUrl =
+      'https://hkuubnsamodgtlsgyhrv.supabase.co/storage/v1/object/public/ProductPDFs/02-Light-Duty%20Radiator%20Core%20Alumunium%20Tube%20&%20Fin.pdf';
+  String heavyDutyCoolerPdfUrl =
+      'https://hkuubnsamodgtlsgyhrv.supabase.co/storage/v1/object/public/ProductPDFs/03-Heavy-Duty%20Cooler%20Core%20Alumunium%20Plate%20&%20Bar.pdf';
+  String heavyDutyCooperPdfUrl =
+      'https://hkuubnsamodgtlsgyhrv.supabase.co/storage/v1/object/public/ProductPDFs/04-Heavy-Duty%20Copper%20Brass%20Core%20Radiator.pdf';
+  String catterpillarReplacementPdfUrl =
+      'https://hkuubnsamodgtlsgyhrv.supabase.co/storage/v1/object/public/ProductPDFs/01-RADMAX%20Removable%20Tube%20Radiator.pdf';
+  String caterpillarTubeAndShellPdfUrl =
+      'https://hkuubnsamodgtlsgyhrv.supabase.co/storage/v1/object/public/ProductPDFs/06-Caterpillar%20Tube%20&%20Shell%20Oil%20Cooler.pdf';
+  String radmaxRadiatorCoolantPdfUrl =
+      'https://hkuubnsamodgtlsgyhrv.supabase.co/storage/v1/object/public/ProductPDFs/07-RADMAX%20Radiator%20Coolant.pdf';
+  String airCooledPdfUrl =
+      'https://hkuubnsamodgtlsgyhrv.supabase.co/storage/v1/object/public/ProductPDFs/08-Air%20Cooled%20Heat%20Exchanger.pdf';
+  String platHeatPdfUrl =
+      'https://hkuubnsamodgtlsgyhrv.supabase.co/storage/v1/object/public/ProductPDFs/09-Plate%20Heat%20Exchanger.pdf';
+  String industrialShellPdfUrl =
+      'https://hkuubnsamodgtlsgyhrv.supabase.co/storage/v1/object/public/ProductPDFs/10-Industrial%20Shell%20&%20Tube%20Oil%20Cooler.pdf';
+  String radmaxLeverReleasePdfUrl =
+      'https://hkuubnsamodgtlsgyhrv.supabase.co/storage/v1/object/public/ProductPDFs/11-RADMAX%20Lever%20Release%20Safety%20Radiator%20Cap.pdf';
+  String replacementFanPdfUrl =
+      'https://hkuubnsamodgtlsgyhrv.supabase.co/storage/v1/object/public/ProductPDFs/12-Replacement%20Fan.pdf';
   String minorRepair = '''
 <p>
  We provide fast and reliable minor radiator repair services to keep your cooling system performing at its best and prevent small issues from becoming major failures.

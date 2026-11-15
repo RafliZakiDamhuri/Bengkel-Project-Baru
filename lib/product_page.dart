@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/global_widget/app_asset_image.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,6 +7,7 @@ import 'package:project/controller/mainProductController.dart';
 import 'package:project/global_widget/baseLayoutWrapper.dart';
 import 'package:project/global_widget/customButton.dart';
 import 'package:project/global_widget/globalAppBar.dart';
+import 'package:project/routes/routes_name.dart';
 import 'package:project/theme/app_images.dart';
 import 'package:project/theme/string.dart';
 import 'package:project/theme/theme.dart';
@@ -22,7 +24,7 @@ class ProductPage extends StatelessWidget {
         margin: EdgeInsets.only(right: 24),
         child: Column(
           children: [
-            Image.asset(image ?? '', width: 300, height: 300),
+            AppAssetImage(image ?? '', width: 300, height: 300),
             SizedBox(height: 19),
             Text(description ?? '', style: blackTextStyle),
           ],
@@ -33,7 +35,7 @@ class ProductPage extends StatelessWidget {
     Widget productIntroductionContent() {
       return Stack(
         children: [
-          Image.asset(
+          AppAssetImage(
             AppImages().incoCoolProductList,
             width: double.infinity,
             fit: BoxFit.fitWidth,
@@ -126,7 +128,7 @@ class ProductPage extends StatelessWidget {
             ],
           ),
           SizedBox(height: 24),
-          Image.asset(AppImages().imgIntroductionProductImage),
+          AppAssetImage(AppImages().imgIntroductionProductImage),
         ],
       );
     }
@@ -134,14 +136,37 @@ class ProductPage extends StatelessWidget {
     Widget learnMoreButton({
       String text = "Learn More",
       required url,
+      required index,
       String? pdfName,
     }) {
       return InkWell(
         onTap: () {
-          mainProductController.downloadPdfWeb(
-            url,
-            pdfName: pdfName ?? "file.pdf",
-          );
+          print('Inia adlaah index : $index');
+          if (index == 0) {
+            Get.toNamed(AppRouteName.radmaxRemovableTubeRadiator);
+          } else if (index == 1) {
+            Get.toNamed(AppRouteName.lightDutyRadiator);
+          } else if (index == 2) {
+            Get.toNamed(AppRouteName.heavyDutyCooler);
+          } else if (index == 3) {
+            Get.toNamed(AppRouteName.heavyDutyCooper);
+          } else if (index == 4) {
+            Get.toNamed(AppRouteName.catterpillarReplacement);
+          } else if (index == 5) {
+            Get.toNamed(AppRouteName.catterpillarTubeAndShell);
+          } else if (index == 6) {
+            Get.toNamed(AppRouteName.radiatorEngine);
+          } else if (index == 7) {
+            Get.toNamed(AppRouteName.airCooled);
+          } else if (index == 8) {
+            Get.toNamed(AppRouteName.platedHeat);
+          } else if (index == 9) {
+            Get.toNamed(AppRouteName.industrialShell);
+          } else if (index == 10) {
+            Get.toNamed(AppRouteName.radmaxLevelRelease);
+          } else if (index == 11) {
+            Get.toNamed(AppRouteName.replacementFan);
+          }
         },
         borderRadius: BorderRadius.circular(12),
         child: Container(
@@ -236,6 +261,7 @@ class ProductPage extends StatelessWidget {
                               learnMoreButton(
                                 url: data?.pdfData ?? '',
                                 pdfName: '${data?.productName}.pdf',
+                                index: index,
                               ),
                             ],
                           ),
@@ -290,6 +316,7 @@ class ProductPage extends StatelessWidget {
                         learnMoreButton(
                           url: data?.pdfData ?? '',
                           pdfName: data?.productName ?? '',
+                          index: index,
                         ),
                         const SizedBox(height: 24),
                       ],

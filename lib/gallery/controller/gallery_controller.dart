@@ -4,52 +4,81 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class GalleryController extends GetxController {
   final SupabaseClient supabase = Supabase.instance.client;
 
-  Map<String, List<Map<String, dynamic>>> groupedGallery = {};
+  List<Map<String, dynamic>> gallery = [];
 
   bool isLoading = false;
+
+  List<String> topics = [];
+  List<String> products = [];
+
+  String? selectedTopic;
+  String? selectedProduct;
+
+  Future<void> fetchFilterOptions() async {
+    try {
+      final response = await supabase
+          .from('gallery')
+          .select('title, sub_title');
+
+      final data = List<Map<String, dynamic>>.from(response);
+
+      final topicOptions =
+          data
+              .map((item) => item['title']?.toString() ?? '')
+              .where((value) => value.isNotEmpty)
+              .toSet()
+              .toList()
+            ..sort();
+
+      final productOptions =
+          data
+              .map((item) => item['sub_title']?.toString() ?? '')
+              .where((value) => value.isNotEmpty)
+              .toSet()
+              .toList()
+            ..sort();
+
+      topics = topicOptions;
+      products = productOptions;
+      update();
+    } catch (e) {
+      // Error fetching filter options, keep existing options
+    }
+  }
 
   Future<void> fetchFilteredGallery() async {
     try {
       isLoading = true;
       update();
 
-      final response = await supabase
-          .from('gallery')
-          .select()
-          .order('sub_title', ascending: true)
-          .order('title', ascending: true)
-          .order('created_at', ascending: true);
+      var query = supabase.from('gallery').select();
 
-      final galleries = List<Map<String, dynamic>>.from(response);
-
-      final Map<String, List<Map<String, dynamic>>> grouped = {};
-
-      for (final item in galleries) {
-        final createdAt = DateTime.parse(item['created_at'].toString());
-
-        final subTitle = item['sub_title']?.toString() ?? '';
-        final title = item['title']?.toString() ?? '';
-
-        // Group berdasarkan:
-        // subtitle + title + tanggal
-        final key =
-            '$subTitle|$title|'
-            '${createdAt.year}-'
-            '${createdAt.month.toString().padLeft(2, '0')}-'
-            '${createdAt.day.toString().padLeft(2, '0')}';
-
-        grouped.putIfAbsent(key, () => []);
-
-        // Setiap image tetap menjadi object sendiri
-        grouped[key]!.add(item);
+      if (selectedTopic != null) {
+        query = query.eq('title', selectedTopic!);
       }
 
-      groupedGallery = grouped;
+      if (selectedProduct != null) {
+        query = query.eq('sub_title', selectedProduct!);
+      }
+
+      final response = await query.order('created_at', ascending: true);
+
+      gallery = List<Map<String, dynamic>>.from(response);
     } catch (e) {
       // Error fetching gallery, keep existing data
     } finally {
       isLoading = false;
       update();
     }
+  }
+
+  Future<void> setTopic(String? value) async {
+    selectedTopic = value;
+    await fetchFilteredGallery();
+  }
+
+  Future<void> setProduct(String? value) async {
+    selectedProduct = value;
+    await fetchFilteredGallery();
   }
 }

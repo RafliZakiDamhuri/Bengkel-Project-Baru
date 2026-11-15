@@ -14,6 +14,7 @@ class IndocoolGalleryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<GalleryController>(
       initState: (state) async {
+        await _controller.fetchFilterOptions();
         await _controller.fetchFilteredGallery();
       },
       builder: (controller) {
@@ -35,17 +36,21 @@ class IndocoolGalleryScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                  vertical: 8.0,
+                ),
                 child: _GalleryFilterRow(),
               ),
+              SizedBox(height: 40),
 
               if (controller.isLoading)
                 const Padding(
                   padding: EdgeInsets.all(32),
                   child: CircularProgressIndicator(),
                 )
-              else if (controller.groupedGallery.isEmpty)
+              else if (controller.gallery.isEmpty)
                 const Padding(
                   padding: EdgeInsets.all(32),
                   child: Text(
@@ -54,27 +59,66 @@ class IndocoolGalleryScreen extends StatelessWidget {
                   ),
                 )
               else
-                ListView.builder(
+                GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 8.0,
+                  padding: const EdgeInsets.symmetric(horizontal: 150),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 20,
+                    childAspectRatio: 0.8,
                   ),
-                  itemCount: controller.groupedGallery.length,
+                  itemCount: controller.gallery.length,
                   itemBuilder: (context, index) {
-                    // Karena groupedGallery adalah Map
-                    final entry = controller.groupedGallery.entries.elementAt(
-                      index,
+                    final item = controller.gallery[index];
+                    final imageUrl = item['image_url']?.toString();
+                    final title = item['title']?.toString() ?? '';
+                    final subTitle = item['sub_title']?.toString() ?? '';
+
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Topic ($title) - Products ($subTitle)',
+
+                          overflow: TextOverflow.ellipsis,
+                          style: blackTextStyle.copyWith(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 14),
+                            child: imageUrl == null || imageUrl.isEmpty
+                                ? const _DummyImagePlaceholder()
+                                : ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Image.network(
+                                      imageUrl,
+                                      fit: BoxFit.cover,
+                                      loadingBuilder:
+                                          (context, child, loadingProgress) {
+                                            if (loadingProgress == null) {
+                                              return child;
+                                            }
+
+                                            return const Center(
+                                              child:
+                                                  CircularProgressIndicator(),
+                                            );
+                                          },
+                                      errorBuilder: (context, error, stackTrace) {
+                                        return const _DummyImagePlaceholder();
+                                      },
+                                    ),
+                                  ),
+                          ),
+                        ),
+                      ],
                     );
-
-                    final data = entry.value;
-
-                    if (data.isEmpty) {
-                      return const SizedBox.shrink();
-                    }
-
-                    return _GallerySectionWidget(data: data);
                   },
                 ),
 
@@ -95,40 +139,85 @@ class _GalleryFilterRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<GalleryController>();
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Row(
           children: [
-            _buildDropdown('Month'),
+            _buildDropdown(
+              hint: 'Topic',
+              value: controller.selectedTopic,
+              items: ['All Topics', ...controller.topics],
+              onChanged: (value) {
+                controller.setTopic(value == 'All Topics' ? null : value);
+              },
+              width: 150,
+            ),
             const SizedBox(width: 8),
-            _buildDropdown('Year'),
+            _buildDropdown(
+              hint: 'Products',
+              value: controller.selectedProduct,
+              items: ['All Products', ...controller.products],
+              onChanged: (value) {
+                controller.setProduct(value == 'All Products' ? null : value);
+              },
+              width: 170,
+            ),
           ],
         ),
-        _buildDropdown('Sort Date', width: 120),
       ],
     );
   }
 
-  Widget _buildDropdown(String hint, {double width = 90}) {
-    return Container(
+  Widget _buildDropdown({
+    required String hint,
+    required String? value,
+    required List<String> items,
+    required ValueChanged<String?> onChanged,
+    double width = 90,
+  }) {
+    return SizedBox(
       width: width,
       height: 32,
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Colors.grey.shade400),
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            hint,
-            style: TextStyle(color: Colors.grey.shade600, fontSize: 12),
+      child: DropdownButtonFormField<String>(
+        initialValue: items.contains(value) ? value : null,
+        isExpanded: true,
+        icon: Icon(
+          Icons.arrow_drop_down,
+          color: Colors.grey.shade600,
+          size: 16,
+        ),
+        style: TextStyle(color: Colors.grey.shade700, fontSize: 12),
+        decoration: InputDecoration(
+          hintText: hint,
+          hintStyle: TextStyle(color: Colors.grey.shade600, fontSize: 12),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(4),
+            borderSide: BorderSide(color: Colors.grey.shade400),
           ),
-          Icon(Icons.arrow_drop_down, color: Colors.grey.shade600, size: 16),
-        ],
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(4),
+            borderSide: BorderSide(color: Colors.grey.shade400),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(4),
+            borderSide: BorderSide(color: Colors.grey.shade600),
+          ),
+        ),
+        items: items.map((item) {
+          return DropdownMenuItem<String>(
+            value: item,
+            child: Text(
+              item,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(fontSize: 12),
+            ),
+          );
+        }).toList(),
+        onChanged: onChanged,
       ),
     );
   }
@@ -204,108 +293,6 @@ class _GalleryPaginationRow extends StatelessWidget {
                   color: Colors.black87,
                 ),
               ),
-      ),
-    );
-  }
-}
-
-class _GallerySectionWidget extends StatelessWidget {
-  final List<Map<String, dynamic>> data;
-
-  const _GallerySectionWidget({required this.data});
-
-  @override
-  Widget build(BuildContext context) {
-    if (data.isEmpty) {
-      return const SizedBox.shrink();
-    }
-
-    final first = data.first;
-
-    final createdAt = DateTime.tryParse(first['created_at']?.toString() ?? '');
-
-    final date = createdAt != null
-        ? '${createdAt.day.toString().padLeft(2, '0')}/'
-              '${createdAt.month.toString().padLeft(2, '0')}/'
-              '${createdAt.year}'
-        : '-';
-
-    final title = first['title']?.toString() ?? '';
-    final subTitle = first['sub_title']?.toString() ?? '';
-
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 24.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // ==========================
-          // TITLE + DATE
-          // ==========================
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Text(
-                  '$title - $subTitle',
-                  style: blackTextStyle.copyWith(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-
-              const SizedBox(width: 16),
-
-              Text(
-                date,
-                style: const TextStyle(
-                  color: Colors.black87,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 12,
-                ),
-              ),
-            ],
-          ),
-
-          const SizedBox(height: 6),
-
-          GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 20,
-              childAspectRatio: 1.0,
-            ),
-            itemCount: data.length,
-            itemBuilder: (context, index) {
-              final imageUrl = data[index]['image_url']?.toString();
-
-              if (imageUrl == null || imageUrl.isEmpty) {
-                return const _DummyImagePlaceholder();
-              }
-
-              return ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  imageUrl,
-                  fit: BoxFit.cover,
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) {
-                      return child;
-                    }
-
-                    return const Center(child: CircularProgressIndicator());
-                  },
-                  errorBuilder: (context, error, stackTrace) {
-                    return const _DummyImagePlaceholder();
-                  },
-                ),
-              );
-            },
-          ),
-        ],
       ),
     );
   }

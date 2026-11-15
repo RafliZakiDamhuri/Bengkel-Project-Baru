@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
@@ -139,6 +140,8 @@ class CmsController extends GetxController {
   }
 
   Future<void> insertDrawing() async {
+    if (bytes == null || imageName == null) return;
+
     try {
       final fileName = '${DateTime.now().millisecondsSinceEpoch}_$imageName';
       final path = 'products/$fileName';
@@ -155,10 +158,8 @@ class CmsController extends GetxController {
       imageUrl = Supabase.instance.client.storage
           .from('2d-product-images')
           .getPublicUrl(path);
-      hideLoadingDialog();
-    } on Exception catch (e) {
+    } catch (e) {
       // image upload error suppressed
-      hideLoadingDialog();
     }
   }
 
@@ -260,6 +261,8 @@ class CmsController extends GetxController {
             'drawing_2d': imageUrl,
           })
           .eq('id', id);
+
+      hideLoadingDialog();
       Get.snackbar('Success', 'Product updated successfully');
       await getAllData(categoryTypeData: categoryTypeData);
 
@@ -277,6 +280,7 @@ class CmsController extends GetxController {
       Get.offNamed('/cms');
       hideLoadingDialog();
     } catch (e) {
+      hideLoadingDialog();
       Get.snackbar('Error', 'Failed to update product: $e');
     }
   }
@@ -285,12 +289,14 @@ class CmsController extends GetxController {
     try {
       await supabase.from('products').insert(data);
 
+      hideLoadingDialog();
       Get.snackbar('Berhasil', 'Produk berhasil ditambahkan');
 
       cleanTextEditingController();
 
       update();
     } catch (e) {
+      hideLoadingDialog();
       Get.snackbar('Error', e.toString());
     }
   }
@@ -317,33 +323,49 @@ class CmsController extends GetxController {
     String? categoryProducts,
   }) async {
     showLoadingDialog();
-    await insertDrawing();
-    await uploadGlb();
-    await saveProduct(
-      data: {
-        'catalogue_number': catalogueNumberController.text.trim(),
-        'makes': makesController.text.trim(),
-        'equipment_type': equipmentTypeController.text.trim(),
-        'models': modelsController.text.trim(),
-        'oem_part_number': oemPartcontroller.text.trim(),
-        'industry': industryController.text.trim(),
-        'product_type': productTypeController.text.trim(),
-        'product_type_design': productTypeDesignController.text.trim(),
-        'material_type': materialTypeController.text.trim(),
-        'description_application': descriptionController.text.trim(),
-        'category_products': categoryProducts?.trim(),
-        'drawing_2d': imageUrl,
-        'drawing_3d': glbUrl,
-        'product_header': [
-          catalogueNumberController.text.trim(),
-          makesController.text.trim(),
-          modelsController.text.trim(),
-          oemPartcontroller.text.trim(),
-          productTypeController.text.trim(),
-          productTypeDesignController.text.trim(),
-        ].where((e) => e.isNotEmpty).join(' '),
-      },
-    );
+
+    try {
+      final duplicates = await _findDuplicateCatalogueNumbers([
+        catalogueNumberController.text.trim(),
+      ]);
+
+      if (duplicates.isNotEmpty) {
+        hideLoadingDialog();
+        _showDuplicateCatalogueDialog(duplicates);
+        return;
+      }
+
+      await insertDrawing();
+      await uploadGlb();
+      await saveProduct(
+        data: {
+          'catalogue_number': catalogueNumberController.text.trim(),
+          'makes': makesController.text.trim(),
+          'equipment_type': equipmentTypeController.text.trim(),
+          'models': modelsController.text.trim(),
+          'oem_part_number': oemPartcontroller.text.trim(),
+          'industry': industryController.text.trim(),
+          'product_type': productTypeController.text.trim(),
+          'product_type_design': productTypeDesignController.text.trim(),
+          'material_type': materialTypeController.text.trim(),
+          'description_application': descriptionController.text.trim(),
+          'category_products': categoryProducts?.trim(),
+          'drawing_2d': imageUrl,
+          'drawing_3d': glbUrl,
+          'product_header': [
+            catalogueNumberController.text.trim(),
+            makesController.text.trim(),
+            modelsController.text.trim(),
+            oemPartcontroller.text.trim(),
+            productTypeController.text.trim(),
+            productTypeDesignController.text.trim(),
+          ].where((e) => e.isNotEmpty).join(' '),
+        },
+      );
+    } catch (e) {
+      hideLoadingDialog();
+      Get.snackbar('Error', e.toString());
+    }
   }
 
   Future<void> saveProductRadiatorsAndCap({String? categoryProducts}) async {
@@ -366,6 +388,334 @@ class CmsController extends GetxController {
         ].where((e) => e.isNotEmpty).join(' '),
       },
     );
+  }
+
+  Future<void> importRadiatorsAndCapFromCsv({String? categoryProducts}) {
+    return _importProductsFromCsv(
+      buildRow: (row) {
+        final partNumber = row['part_number'] ?? '';
+        final description = row['description_application'] ?? '';
+
+        return {
+          'part_number': partNumber,
+          'makes': row['makes'] ?? '',
+          'application': row['application'] ?? '',
+          'size': row['size'] ?? '',
+          'pressure_rating': row['pressure_rating'] ?? '',
+          'material_type': row['material_type'] ?? '',
+          'description_application': description,
+          'drawing_2d': _csvOptionalValue(row, 'drawing_2d'),
+          'category_products': categoryProducts?.trim(),
+          'product_header': [partNumber, description]
+              .where((e) => e.isNotEmpty)
+              .join(' '),
+        };
+      },
+    );
+  }
+
+  Future<void> importRadiatorsAndCoolersFromCsv({String? categoryProducts}) {
+    return _importProductsFromCsv(
+      checkDuplicateCatalogue: true,
+      buildRow: (row) {
+        final catalogueNumber = row['catalogue_number'] ?? '';
+        final makes = row['makes'] ?? '';
+        final models = row['models'] ?? '';
+        final oemPartNumber = row['oem_part_number'] ?? '';
+        final productType = row['product_type'] ?? '';
+        final productTypeDesign = row['product_type_design'] ?? '';
+
+        return {
+          'catalogue_number': catalogueNumber,
+          'makes': makes,
+          'equipment_type': row['equipment_type'] ?? '',
+          'models': models,
+          'oem_part_number': oemPartNumber,
+          'industry': row['industry'] ?? '',
+          'product_type': productType,
+          'product_type_design': productTypeDesign,
+          'material_type': row['material_type'] ?? '',
+          'description_application': row['description_application'] ?? '',
+          'category_products': categoryProducts?.trim(),
+          'drawing_2d': _csvOptionalValue(row, 'drawing_2d'),
+          'drawing_3d': _csvOptionalValue(row, 'drawing_3d'),
+          'product_header': [
+            catalogueNumber,
+            makes,
+            models,
+            oemPartNumber,
+            productType,
+            productTypeDesign,
+          ].where((e) => e.isNotEmpty).join(' '),
+        };
+      },
+    );
+  }
+
+  Future<void> importCaterpillarTubeAndShellFromCsv({
+    String? categoryProducts,
+  }) {
+    return _importProductsFromCsv(
+      buildRow: (row) {
+        final catalogueNumber = row['catalogue_number'] ?? '';
+        final models = row['models'] ?? '';
+        final oemPartNumber = row['oem_part_number'] ?? '';
+        final productType = row['product_type'] ?? '';
+        final productTypeDesign = row['product_type_design'] ?? '';
+
+        return {
+          'catalogue_number': catalogueNumber,
+          'makes': row['makes'] ?? '',
+          'equipment_type': row['equipment_type'] ?? '',
+          'models': models,
+          'oem_part_number': oemPartNumber,
+          'industry': row['industry'] ?? '',
+          'product_type': productType,
+          'product_type_design': productTypeDesign,
+          'material_type': row['material_type'] ?? '',
+          'category_products': categoryProducts?.trim(),
+          'drawing_2d': _csvOptionalValue(row, 'drawing_2d'),
+          'application': row['application'] ?? '',
+          'product_header': [
+            catalogueNumber,
+            models,
+            oemPartNumber,
+            productType,
+            productTypeDesign,
+          ].where((e) => e.isNotEmpty).join(' '),
+        };
+      },
+    );
+  }
+
+  Future<void> importCaterpillarRadiatorCoreFromCsv({
+    String? categoryProducts,
+  }) {
+    return _importProductsFromCsv(
+      buildRow: (row) {
+        return {
+          'catalogue_number': row['catalogue_number'] ?? '',
+          'makes': row['makes'] ?? '',
+          'equipment_type': row['equipment_type'] ?? '',
+          'models': row['models'] ?? '',
+          'oem_part_number': row['oem_part_number'] ?? '',
+          'seal_type': row['seal_type'] ?? '',
+          'product_type': row['product_type'] ?? '',
+          'over_tank_dimension': row['over_tank_dimension'] ?? '',
+          'material_type': row['material_type'] ?? '',
+          'core_type': row['core_type'] ?? '',
+          'category_products': categoryProducts?.trim(),
+        };
+      },
+    );
+  }
+
+  Future<void> _importProductsFromCsv({
+    required Map<String, dynamic> Function(Map<String, String> row) buildRow,
+    bool checkDuplicateCatalogue = false,
+  }) async {
+    try {
+      final result = await FilePicker.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['csv'],
+        withData: true,
+      );
+
+      if (result == null || result.files.isEmpty) return;
+
+      final fileBytes = result.files.first.bytes;
+      if (fileBytes == null) {
+        Get.snackbar('Error', 'File CSV tidak dapat dibaca');
+        return;
+      }
+
+      final rows = _parseCsv(utf8.decode(fileBytes, allowMalformed: true));
+      if (rows.isEmpty) {
+        Get.snackbar('Error', 'CSV kosong');
+        return;
+      }
+
+      final headers = rows.first
+          .map((e) => e.replaceAll('\uFEFF', '').trim().toLowerCase())
+          .toList();
+
+      final dataRows = rows
+          .skip(1)
+          .where((row) => row.any((cell) => cell.trim().isNotEmpty))
+          .toList();
+
+      if (dataRows.isEmpty) {
+        Get.snackbar('Error', 'Tidak ada data pada CSV');
+        return;
+      }
+
+      showLoadingDialog();
+
+      final payload = dataRows.map((row) {
+        final values = <String, String>{
+          for (var i = 0; i < headers.length; i++)
+            headers[i]: i < row.length ? row[i].trim() : '',
+        };
+        return buildRow(values);
+      }).toList();
+
+      if (checkDuplicateCatalogue) {
+        final duplicates = await _findDuplicateCatalogueNumbers(
+          payload
+              .map((e) => (e['catalogue_number'] as String?) ?? '')
+              .toList(),
+        );
+
+        if (duplicates.isNotEmpty) {
+          hideLoadingDialog();
+          _showDuplicateCatalogueDialog(duplicates);
+          return;
+        }
+      }
+
+      await supabase.from('products').insert(payload);
+
+      hideLoadingDialog();
+      Get.snackbar(
+        'Berhasil',
+        '${payload.length} produk berhasil diimport dari CSV',
+      );
+
+      update();
+    } catch (e) {
+      hideLoadingDialog();
+      Get.snackbar('Error', 'Gagal import CSV: $e');
+    }
+  }
+
+  String? _csvOptionalValue(Map<String, String> row, String key) {
+    final value = row[key]?.trim() ?? '';
+    return value.isEmpty || value == '-' ? null : value;
+  }
+
+  Future<List<String>> _findDuplicateCatalogueNumbers(
+    List<String> catalogueNumbers,
+  ) async {
+    final numbers = catalogueNumbers
+        .map((e) => e.trim())
+        .where((e) => e.isNotEmpty)
+        .toList();
+
+    if (numbers.isEmpty) return [];
+
+    final duplicates = <String>{};
+    final seen = <String>{};
+
+    for (final number in numbers) {
+      if (!seen.add(number)) {
+        duplicates.add(number);
+      }
+    }
+
+    final uniqueNumbers = seen.toList();
+
+    for (var start = 0; start < uniqueNumbers.length; start += 100) {
+      final chunk = uniqueNumbers.skip(start).take(100).toList();
+      final response = await supabase
+          .from('products')
+          .select('catalogue_number')
+          .inFilter('catalogue_number', chunk);
+
+      for (final item in response as List) {
+        final value = (item['catalogue_number'] as String?)?.trim() ?? '';
+        if (value.isNotEmpty) {
+          duplicates.add(value);
+        }
+      }
+    }
+
+    return duplicates.toList()..sort();
+  }
+
+  void _showDuplicateCatalogueDialog(List<String> duplicates) {
+    Get.dialog(
+      AlertDialog(
+        title: const Text('Data Tidak Boleh Sama'),
+        content: SizedBox(
+          width: 420,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Catalogue number berikut sudah ada di database atau '
+                'duplikat di dalam data yang diinput. Data tidak disimpan.',
+              ),
+              const SizedBox(height: 12),
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxHeight: 300),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      for (final item in duplicates)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 2),
+                          child: Text('- $item'),
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  List<List<String>> _parseCsv(String input) {
+    final rows = <List<String>>[];
+    final row = <String>[];
+    final field = StringBuffer();
+    var inQuotes = false;
+
+    for (var i = 0; i < input.length; i++) {
+      final char = input[i];
+
+      if (inQuotes) {
+        if (char == '"') {
+          if (i + 1 < input.length && input[i + 1] == '"') {
+            field.write('"');
+            i++;
+          } else {
+            inQuotes = false;
+          }
+        } else {
+          field.write(char);
+        }
+      } else if (char == '"') {
+        inQuotes = true;
+      } else if (char == ',') {
+        row.add(field.toString());
+        field.clear();
+      } else if (char == '\n') {
+        row.add(field.toString());
+        field.clear();
+        rows.add(List.from(row));
+        row.clear();
+      } else if (char != '\r') {
+        field.write(char);
+      }
+    }
+
+    if (field.isNotEmpty || row.isNotEmpty) {
+      row.add(field.toString());
+      rows.add(List.from(row));
+    }
+
+    return rows;
   }
 
   Future<void> savecaterpillarTubeAndShellOil({

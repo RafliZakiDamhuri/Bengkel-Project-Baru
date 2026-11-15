@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/global_widget/app_asset_image.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:project/controller/aboutUsController.dart';
@@ -22,7 +23,7 @@ class AboutUsPage extends StatelessWidget {
           SizedBox(
             height: 800,
             width: double.infinity,
-            child: Image.asset(AppImages().aboutUsImage, fit: BoxFit.cover),
+            child: AppAssetImage(AppImages().aboutUsImage, fit: BoxFit.cover),
           ),
 
           Container(
@@ -79,7 +80,7 @@ class AboutUsPage extends StatelessWidget {
     Widget heroSection() {
       return Stack(
         children: [
-          Image.asset(
+          AppAssetImage(
             AppImages().aboutUsImage,
             width: double.infinity,
             fit: BoxFit.fitWidth,
@@ -139,12 +140,12 @@ class AboutUsPage extends StatelessWidget {
       return Column(
         children: [
           heroSection(),
-          Image.asset(
+          AppAssetImage(
             AppImages().aboutUsHistory,
             width: double.infinity,
             fit: BoxFit.fitWidth,
           ),
-          Image.asset(
+          AppAssetImage(
             AppImages().companySertification,
             width: double.infinity,
             fit: BoxFit.fitWidth,
@@ -157,12 +158,12 @@ class AboutUsPage extends StatelessWidget {
       return Column(
         children: [
           mobileHeroSection(),
-          Image.asset(
+          AppAssetImage(
             AppImages().aboutUsHistory,
             width: double.infinity,
             fit: BoxFit.fitWidth,
           ),
-          Image.asset(
+          AppAssetImage(
             AppImages().companySertification,
             width: double.infinity,
             fit: BoxFit.fitWidth,

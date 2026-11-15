@@ -81,7 +81,7 @@ class BuildTableRadiatorAndCoolers extends StatelessWidget {
         child: Container(
           margin: const EdgeInsets.only(left: 10),
           constraints: const BoxConstraints(minHeight: 45),
-          alignment: Alignment.center,
+
           child: Text(
             value ?? '-',
             style: const TextStyle(color: Colors.black),

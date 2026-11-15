@@ -153,6 +153,15 @@ class AddData extends StatelessWidget {
                     SizedBox(height: 20),
                     customBlueAppBarButton(
                       onTap: () async {
+                        await controller.importRadiatorsAndCoolersFromCsv(
+                          categoryProducts: titleCategory,
+                        );
+                      },
+                      title: 'Import CSV',
+                    ),
+                    SizedBox(height: 10),
+                    customBlueAppBarButton(
+                      onTap: () async {
                         await controller.saveProductRadiatorsAndCoolers(
                           categoryProducts: titleCategory,
                         );
@@ -248,6 +257,15 @@ class AddData extends StatelessWidget {
                           )
                         : Container(),
                     SizedBox(height: 20),
+                    customBlueAppBarButton(
+                      onTap: () async {
+                        await controller.importRadiatorsAndCapFromCsv(
+                          categoryProducts: titleCategory,
+                        );
+                      },
+                      title: 'Import CSV',
+                    ),
+                    SizedBox(height: 10),
                     customBlueAppBarButton(
                       onTap: () async {
                         await controller.saveProductRadiatorsAndCap(
@@ -365,6 +383,15 @@ class AddData extends StatelessWidget {
                     SizedBox(height: 20),
                     customBlueAppBarButton(
                       onTap: () async {
+                        await controller.importCaterpillarTubeAndShellFromCsv(
+                          categoryProducts: titleCategory,
+                        );
+                      },
+                      title: 'Import CSV',
+                    ),
+                    SizedBox(height: 10),
+                    customBlueAppBarButton(
+                      onTap: () async {
                         await controller.savecaterpillarTubeAndShellOil(
                           categoryProducts: titleCategory,
                         );
@@ -460,6 +487,15 @@ class AddData extends StatelessWidget {
                       controller: controller.overTankController,
                     ),
                     SizedBox(height: 20),
+                    customBlueAppBarButton(
+                      onTap: () async {
+                        await controller.importCaterpillarRadiatorCoreFromCsv(
+                          categoryProducts: titleCategory,
+                        );
+                      },
+                      title: 'Import CSV',
+                    ),
+                    SizedBox(height: 10),
                     customBlueAppBarButton(
                       onTap: () async {
                         await controller.savecaterpillarRadiatorCore(

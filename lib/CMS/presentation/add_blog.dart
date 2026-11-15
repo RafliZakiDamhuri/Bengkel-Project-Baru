@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quill/flutter_quill.dart';
+import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 
 import 'package:get/get.dart';
 import 'package:project/CMS/controller/blog_controller.dart';
@@ -111,6 +113,68 @@ class _AddBlogState extends State<AddBlog> {
           ),
         );
       },
+    );
+  }
+}
+
+class QuillFieldData extends StatelessWidget {
+  final String textName;
+  final QuillController controller;
+
+  // onImageInsert dihapus karena Anda sudah menggunakan Get.find di bawah
+
+  const QuillFieldData({
+    Key? key,
+    required this.textName,
+    required this.controller,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Label untuk Editor (misal: Text textName) bisa ditaruh di sini
+
+        // Toolbar
+        QuillSimpleToolbar(
+          controller: controller,
+          config: QuillSimpleToolbarConfig(
+            customButtons: [
+              QuillToolbarCustomButtonOptions(
+                icon: const Icon(Icons.image),
+                tooltip: 'Tambah Gambar',
+                onPressed: () async {
+                  // Langsung panggil fungsi dari controller
+                  final blogController = Get.find<BlogController>();
+                  await blogController.pickAndInsertImageToQuill();
+                },
+              ),
+            ],
+          ),
+        ),
+
+        // Tambahkan sedikit jarak antara toolbar dan editor jika perlu
+        const SizedBox(height: 8),
+
+        // Editor
+        Container(
+          constraints: const BoxConstraints(
+            minHeight: 200, // <-- Gunakan BoxConstraints di sini
+          ),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          padding: const EdgeInsets.all(8),
+          child: QuillEditor.basic(
+            controller: controller,
+            config: QuillEditorConfig(
+              embedBuilders: [...FlutterQuillEmbeds.editorBuilders()],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

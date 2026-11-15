@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:project/global_widget/app_asset_image.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -105,7 +106,7 @@ class _HomeState extends State<Home> {
           height: 150,
 
           child: Center(
-            child: Image.asset(
+            child: AppAssetImage(
               isLastPage
                   ? 'assets/images/Button-Next 3.png'
                   : 'assets/images/Button-Next 1.png',
@@ -127,7 +128,7 @@ class _HomeState extends State<Home> {
           width: 150,
           height: 150,
           child: Center(
-            child: Image.asset(
+            child: AppAssetImage(
               isFirstPage
                   ? 'assets/images/Button-Back 1.png'
                   : 'assets/images/Button-Back 2.png',
@@ -246,6 +247,10 @@ class _HomeState extends State<Home> {
                               title: group.productName,
                               image: group.imageUrl,
                               isMobile: isMobile(screenWidth),
+                              index:
+                                  mainProductController.mainProductModel
+                                      ?.indexOf(group) ??
+                                  0,
                             ),
                           );
                         }).toList(),
@@ -279,6 +284,11 @@ class _HomeState extends State<Home> {
                                           title: item.productName,
                                           image: item.imageUrl,
                                           isMobile: isMobile(screenWidth),
+                                          index:
+                                              mainProductController
+                                                  .mainProductModel
+                                                  ?.indexOf(item) ??
+                                              0,
                                         ),
                                       ),
                                     );
@@ -657,7 +667,7 @@ class _HomeState extends State<Home> {
     //     margin: EdgeInsets.only(right: 24, left: 24),
     //     child: Column(
     //       children: [
-    //         Image.asset(image ?? '', width: 300, height: 300),
+    //         AppAssetImage(image ?? '', width: 300, height: 300),
     //         SizedBox(height: 19),
     //         Text(description ?? '', style: blackTextStyle),
     //       ],
@@ -675,7 +685,7 @@ class _HomeState extends State<Home> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Image.asset(
+                AppAssetImage(
                   image ?? '',
                   width: size.clamp(120.0, 300),
                   height: size.clamp(120.0, 300),
@@ -1727,9 +1737,9 @@ class _HomeState extends State<Home> {
             SizedBox(height: 10),
             Row(
               children: [
-                Image.asset(AppImages().instagram, width: 32),
+                AppAssetImage(AppImages().instagram, width: 32),
                 SizedBox(width: 10),
-                Image.asset(AppImages().facebook, width: 32),
+                AppAssetImage(AppImages().facebook, width: 32),
               ],
             ),
           ],
@@ -1775,7 +1785,10 @@ class _HomeState extends State<Home> {
     Widget insightNewsCard({required BlogModel blog}) {
       return InkWell(
         onTap: () {
-          Get.toNamed(AppRouteName.blogDetail, parameters: {'id': blog.id});
+          Get.toNamed(
+            AppRouteName.blogDetail,
+            parameters: {'title': blog.title},
+          );
         },
         child: Container(
           margin: const EdgeInsets.only(right: 35),
